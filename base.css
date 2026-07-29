@@ -1,0 +1,38 @@
+/* base.css — reset + primitives */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+html:focus-within { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+img, picture, svg, video { display: block; max-width: 100%; }
+input, button, textarea, select { font: inherit; color: inherit; }
+button { background: none; border: 0; cursor: pointer; }
+ul[class], ol[class] { list-style: none; padding: 0; }
+a { color: inherit; }
+h1, h2, h3, h4 { line-height: 1.15; text-wrap: balance; font-weight: 600; }
+p { text-wrap: pretty; }
+table { border-collapse: collapse; }
+
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-focus, currentColor);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important; scroll-behavior: auto !important;
+  }
+}
