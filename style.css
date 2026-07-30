@@ -40,7 +40,7 @@
   --color-primary-hover: #14433a;
   --color-focus: #1c574a;
 
-  --color-brand-orange: #f06c24;
+  --head-pad: 11px;
   --accent-pawfolio: #464191;
   --accent-pawfolio-soft: #ebe9f8;
   --accent-medical: #22617f;
@@ -71,7 +71,6 @@
   --color-primary-hover: #9adfcc;
   --color-focus: #7fd0bb;
 
-  --color-brand-orange: #ff8748;
   --accent-pawfolio: #a9a5ee;
   --accent-pawfolio-soft: #262346;
   --accent-medical: #8dc6e2;
@@ -143,7 +142,10 @@ body {
 }
 .head-inner {
   display: flex; align-items: center; justify-content: space-between;
-  gap: var(--space-4); min-height: 56px;
+  gap: var(--space-4);
+  /* the logo file is cropped tight to the ink, so without real padding here the
+     wordmark sits almost against the top edge of the window */
+  padding-block: var(--head-pad);
 }
 .brand {
   display: inline-flex; align-items: center; gap: var(--space-2);
@@ -259,13 +261,15 @@ body {
 .promises li { display: flex; align-items: center; gap: var(--space-2); }
 .promises li::before {
   content: ''; width: 5px; height: 5px; border-radius: 50%;
-  /* the logo orange, on all four. At 5px a dark colour just reads as black, so a
-     graded run of browns and greens was invisible here - one bright colour reads. */
-  background: var(--color-brand-orange); flex: none;
+  /* a marker, not decoration: 5px is too small to carry brand colour, and four
+     bright dots compete with the orange in the logo. Kept at text-muted so the
+     words lead and the dots only do the job of separating them. */
+  background: var(--color-text-muted); flex: none;
 }
 
 /* ---------- section furniture ---------- */
-section { scroll-margin-top: 64px; }
+/* keep anchored sections clear of the sticky header: logo height + its padding */
+section { scroll-margin-top: calc(54px + var(--head-pad) * 2 + 10px); }
 .sec-title {
   font-family: var(--font-display); font-size: var(--text-xl);
   letter-spacing: -.015em; max-width: 30ch;
@@ -459,6 +463,7 @@ section { scroll-margin-top: 64px; }
 
 /* ---------- larger screens ---------- */
 @media (min-width: 40rem) {
+  :root { --head-pad: 15px; }
   .wrap { padding-inline: var(--space-8); }
   .hero { padding-block: var(--space-20) var(--space-16); }
   .hero-actions .btn { flex: 0 0 auto; }
