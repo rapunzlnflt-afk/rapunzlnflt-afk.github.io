@@ -7,22 +7,19 @@
          padding:74px 80px; display:flex; flex-direction:column; justify-content:space-between;
          background-image: radial-gradient(80% 60% at 100% 0%, #e5f0f6 0%, transparent 60%),
                            radial-gradient(70% 70% at 0% 100%, #f6eed9 0%, transparent 62%); }
-  .top { display:flex; align-items:center; gap:14px; }
-  .top svg { width:40px; height:40px; color:#1c574a; }
-  .top span { font-size:24px; font-weight:600; letter-spacing:.01em; }
-  .top em { font-style:normal; color:#6b6152; font-weight:500; }
+  .top { display:flex; align-items:center; gap:20px; }
+  .top img.logo { width:206px; height:auto; display:block; }
   h1 { font-family:'Zodiak',serif; font-size:66px; line-height:1.06; letter-spacing:-.025em; max-width:19ch; font-weight:700; }
   p.sub { margin-top:22px; font-size:26px; color:#6b6152; max-width:34ch; }
   .row { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
-  .chip { font-size:19px; font-weight:500; padding:10px 20px; border-radius:999px; border:1.5px solid #d3c6b0; color:#4b4238; background:#fffdf9; }
+  .chip { font-size:21px; font-weight:500; padding:10px 20px; border-radius:999px; border:1.5px solid #d3c6b0; color:#4b4238; background:#fffdf9; }
   .dots { display:flex; gap:10px; }
   .dot { width:14px; height:14px; border-radius:5px; }
 </style></head>
 <body>
   <div class="top">
-    <svg viewBox="0 0 32 32" fill="none"><rect x="2.5" y="2.5" width="27" height="27" rx="8.5" stroke="currentColor" stroke-width="2.2"/><path d="M10 16.6l4 4L23 11" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.6 22.6h12.8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" opacity=".45"/></svg>
-    <span>Cleartrack<em>Apps</em></span>
-    <div class="dots" style="margin-left:8px">
+    <img class="logo" src="./assets/logo.png" alt="Cleartrack Apps">
+    <div class="dots" style="margin-left:4px">
       <div class="dot" style="background:#464191"></div><div class="dot" style="background:#22617f"></div>
       <div class="dot" style="background:#7f611a"></div><div class="dot" style="background:#a63f63"></div>
       <div class="dot" style="background:#74476f"></div>
@@ -33,7 +30,7 @@
     <p class="sub">Pets, family health, money, kids, big plans &mdash; five simple planners for your phone.</p>
   </div>
   <div class="row">
-    <div class="chip">Works offline</div>
+    <div class="chip">No signal needed</div>
     <div class="chip">No app store</div>
     <div class="chip">No accounts</div>
     <div class="chip">Pay once</div>

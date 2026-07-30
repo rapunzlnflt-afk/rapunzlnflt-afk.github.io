@@ -147,7 +147,24 @@ body {
   display: inline-flex; align-items: center; gap: var(--space-2);
   text-decoration: none; font-weight: 600; letter-spacing: -.01em;
 }
-.logo-mark { width: 26px; height: 26px; color: var(--color-primary); flex: none; }
+/* Shauna's logo: two files, one shown per theme (the wordmark is dark slate,
+   which disappears on the dark background, so the dark file lightens it). */
+.logo { display: block; width: 100%; height: auto; flex: none; }
+.logo-head { width: 134px; }
+.logo-foot { width: 128px; }
+.logo-on-dark { display: none; }
+
+[data-theme='dark'] .logo-on-light { display: none; }
+[data-theme='dark'] .logo-on-dark { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .logo-on-light { display: none; }
+  :root:not([data-theme='light']) .logo-on-dark { display: block; }
+}
+
+@media (max-width: 480px) {
+  .logo-head { width: 124px; }
+}
+
 .brand-name { font-size: var(--text-sm); letter-spacing: .01em; }
 .brand-thin { color: var(--color-text-muted); font-weight: 500; }
 

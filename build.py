@@ -123,11 +123,17 @@ STEPS = [
     ("4", "Use it offline, forever", "Your data is saved on the device. No signal needed, no account, no monthly fee \u2014 it just keeps working."),
 ]
 
-LOGO = '''<svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
-  <rect x="2.5" y="2.5" width="27" height="27" rx="8.5" stroke="currentColor" stroke-width="2.2"/>
-  <path d="M10 16.6l4 4L23 11" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M9.6 22.6h12.8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" opacity=".45"/>
-</svg>'''
+# Shauna's own logo, processed by make_logo.py into a transparent PNG plus a
+# light-wordmark variant for the dark theme. Both are shipped; CSS shows one.
+def logo(cls):
+    return (f'<img class="logo logo-on-light {cls}" src="./assets/logo.png" width="720" height="289" '
+            f'alt="Cleartrack Apps" decoding="async">'
+            f'<img class="logo logo-on-dark {cls}" src="./assets/logo-dark.png" width="720" height="289" '
+            f'alt="" aria-hidden="true" decoding="async">')
+
+
+LOGO = logo('logo-head')
+LOGO_FOOT = logo('logo-foot')
 
 
 def icon(key):
@@ -214,7 +220,8 @@ HTML = f'''<!DOCTYPE html>
 <meta name="twitter:description" content="{DESC}">
 <meta name="twitter:image" content="./assets/og-image.png">
 <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="./assets/favicon.svg">
+<link rel="icon" href="./assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="./assets/favicon-180.png" sizes="180x180">
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&f[]=zodiak@600,700&display=swap">
 <link rel="stylesheet" href="./base.css">
@@ -225,9 +232,8 @@ HTML = f'''<!DOCTYPE html>
 
 <header class="site-head">
   <div class="wrap head-inner">
-    <a class="brand" href="#top" aria-label="CleartrackApps home">
+    <a class="brand" href="#top" aria-label="Cleartrack Apps home">
       {LOGO}
-      <span class="brand-name">Cleartrack<span class="brand-thin">Apps</span></span>
     </a>
     <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch colour theme">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
@@ -314,7 +320,7 @@ HTML = f'''<!DOCTYPE html>
 <footer class="site-foot">
   <div class="wrap foot-inner">
     <div class="foot-brand">
-      {LOGO}
+      {LOGO_FOOT}
       <div>
         <p class="foot-name">CleartrackApps</p>
         <p class="foot-note">Simple offline apps \u2014 no app store, no subscription. Granbury, Texas.</p>
