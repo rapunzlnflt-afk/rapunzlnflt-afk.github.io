@@ -15,3 +15,24 @@
   });
   apply();
 })();
+
+
+/* The header carries the logo at full size at the top of the page and shrinks it
+   once you scroll, so it stays out of the way while you read. The class is flipped
+   inside a requestAnimationFrame so scrolling stays smooth, and only when the state
+   actually changes. The size change itself is a CSS transition, which the
+   prefers-reduced-motion rule in style.css switches off for anyone who asks for it. */
+(function () {
+  var head = document.querySelector('.site-head');
+  if (!head) return;
+  var compact = false, queued = false;
+  function apply() {
+    queued = false;
+    var want = window.scrollY > 56;
+    if (want !== compact) { compact = want; head.classList.toggle('is-compact', want); }
+  }
+  window.addEventListener('scroll', function () {
+    if (!queued) { queued = true; requestAnimationFrame(apply); }
+  }, { passive: true });
+  apply();
+})();
