@@ -160,7 +160,7 @@ body {
   box-shadow: 0 1px 12px rgb(0 0 0 / .05);
 }
 .site-head.is-compact .head-inner { padding-block: 9px; }
-.site-head.is-compact .logo-head { --lw: 132px; }
+.site-head.is-compact .logo-head { --lw: 136px; }
 .brand {
   display: inline-flex; align-items: center; gap: var(--space-2);
   text-decoration: none; font-weight: 600; letter-spacing: -.01em;
@@ -174,7 +174,7 @@ body {
 .lockup .logo { width: var(--lw); }
 .lockup .logo-on-light { display: block; }
 .lockup .logo-on-dark { display: none; }
-.logo-head { --lw: 148px; transition: width .22s var(--ease); }
+.logo-head { --lw: 152px; transition: width .22s var(--ease); }
 .logo-foot { --lw: 128px; }
 
 [data-theme='dark'] .lockup .logo-on-light { display: none; }
@@ -185,7 +185,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  .logo-head { --lw: 134px; }
+  .logo-head { --lw: 140px; }
 }
 
 .brand-name { font-size: var(--text-sm); letter-spacing: .01em; }
@@ -284,7 +284,7 @@ body {
 /* ---------- section furniture ---------- */
 /* Anchored sections clear the *compact* bar, since that is what is on screen by
    the time a jump lands: 54px of logo + its padding + a little air. */
-section { scroll-margin-top: 82px; }
+section { scroll-margin-top: 92px; }
 .sec-title {
   font-family: var(--font-display); font-size: var(--text-xl);
   letter-spacing: -.015em; max-width: 30ch;
@@ -479,6 +479,8 @@ section { scroll-margin-top: 82px; }
 /* ---------- larger screens ---------- */
 @media (min-width: 40rem) {
   :root { --head-pad: 16px; }
+  .logo-head { --lw: 176px; }
+  .site-head.is-compact .logo-head { --lw: 152px; }
   .wrap { padding-inline: var(--space-8); }
   .hero { padding-block: var(--space-20) var(--space-16); }
   .hero-actions .btn { flex: 0 0 auto; }
