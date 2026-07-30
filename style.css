@@ -41,9 +41,6 @@
   --color-focus: #1c574a;
 
   --color-brand-orange: #f06c24;
-  --color-brand-wood: #904818;
-  --color-brand-wood-deep: #78300c;
-  --color-brand-bridge: #3b5340;
   --accent-pawfolio: #464191;
   --accent-pawfolio-soft: #ebe9f8;
   --accent-medical: #22617f;
@@ -75,9 +72,6 @@
   --color-focus: #7fd0bb;
 
   --color-brand-orange: #ff8748;
-  --color-brand-wood: #c9803c;
-  --color-brand-wood-deep: #b0602c;
-  --color-brand-bridge: #5f9d86;
   --accent-pawfolio: #a9a5ee;
   --accent-pawfolio-soft: #262346;
   --accent-medical: #8dc6e2;
@@ -265,14 +259,10 @@ body {
 .promises li { display: flex; align-items: center; gap: var(--space-2); }
 .promises li::before {
   content: ''; width: 5px; height: 5px; border-radius: 50%;
-  background: var(--color-primary); flex: none;
+  /* the logo orange, on all four. At 5px a dark colour just reads as black, so a
+     graded run of browns and greens was invisible here - one bright colour reads. */
+  background: var(--color-brand-orange); flex: none;
 }
-/* the dots walk from the logo orange, through the two brown shades sampled from
-   the wooden beams of the track, into the site green */
-.promises li:nth-child(1)::before { background: var(--color-brand-orange); }
-.promises li:nth-child(2)::before { background: var(--color-brand-wood); }
-.promises li:nth-child(3)::before { background: var(--color-brand-bridge); }
-.promises li:nth-child(4)::before { background: var(--color-primary); }
 
 /* ---------- section furniture ---------- */
 section { scroll-margin-top: 64px; }
