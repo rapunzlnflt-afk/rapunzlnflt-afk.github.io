@@ -125,18 +125,14 @@ STEPS = [
 
 # Shauna's own logo, processed by make_logo.py into a transparent PNG plus a
 # light-wordmark variant for the dark theme. Both are shipped; CSS shows one.
-# "apps" is set as live text rather than baked into the PNG, so it stays crisp at
-# any size and screen readers still hear the whole brand name. Its size and left
-# offset are fractions of the logo width (measured off the artwork: the wordmark
-# baseline is 16.39% of the image width down from the top and the final "k" ends
-# at 90.4% across), so the lockup holds together at every breakpoint.
+# Shauna's own logo, processed by make_logo.py into a transparent PNG plus a
+# light-wordmark variant for the dark theme. Both are shipped; CSS shows one.
 def logo(cls):
     return (f'<span class="lockup {cls}">'
             f'<img class="logo logo-on-light" src="./assets/logo.png" width="720" height="289" '
-            f'alt="Cleartrack" decoding="async">'
+            f'alt="Cleartrack Apps" decoding="async">'
             f'<img class="logo logo-on-dark" src="./assets/logo-dark.png" width="720" height="289" '
             f'alt="" aria-hidden="true" decoding="async">'
-            f'<span class="wm-apps">apps</span>'
             f'</span>')
 
 
@@ -330,6 +326,7 @@ HTML = f'''<!DOCTYPE html>
     <div class="foot-brand">
       {LOGO_FOOT}
       <div>
+        <p class="foot-name">CleartrackApps</p>
         <p class="foot-note">Simple offline apps \u2014 no app store, no subscription. Granbury, Texas.</p>
       </div>
     </div>

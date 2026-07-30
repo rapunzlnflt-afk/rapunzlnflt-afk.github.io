@@ -41,6 +41,9 @@
   --color-focus: #1c574a;
 
   --color-brand-orange: #f06c24;
+  --color-brand-wood: #904818;
+  --color-brand-wood-deep: #78300c;
+  --color-brand-bridge: #3b5340;
   --accent-pawfolio: #464191;
   --accent-pawfolio-soft: #ebe9f8;
   --accent-medical: #22617f;
@@ -72,6 +75,9 @@
   --color-focus: #7fd0bb;
 
   --color-brand-orange: #ff8748;
+  --color-brand-wood: #c9803c;
+  --color-brand-wood-deep: #b0602c;
+  --color-brand-bridge: #5f9d86;
   --accent-pawfolio: #a9a5ee;
   --accent-pawfolio-soft: #262346;
   --accent-medical: #8dc6e2;
@@ -154,26 +160,18 @@ body {
 .logo { display: block; width: 100%; height: auto; flex: none; }
 .lockup {
   position: relative; display: inline-block; flex: none;
-  padding-right: calc(var(--lw) * .36);
 }
 .lockup .logo { width: var(--lw); }
 .lockup .logo-on-light { display: block; }
 .lockup .logo-on-dark { display: none; }
-.wm-apps {
-  position: absolute; top: 0; left: calc(var(--lw) * .9254);
-  font-size: calc(var(--lw) * .1866); font-weight: 600; line-height: 1;
-  letter-spacing: -.005em; color: #484854;
-}
 .logo-head { --lw: 134px; }
 .logo-foot { --lw: 128px; }
 
 [data-theme='dark'] .lockup .logo-on-light { display: none; }
 [data-theme='dark'] .lockup .logo-on-dark { display: block; }
-[data-theme='dark'] .wm-apps { color: #e1e1e1; }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) .lockup .logo-on-light { display: none; }
   :root:not([data-theme='light']) .lockup .logo-on-dark { display: block; }
-  :root:not([data-theme='light']) .wm-apps { color: #e1e1e1; }
 }
 
 @media (max-width: 480px) {
@@ -269,9 +267,12 @@ body {
   content: ''; width: 5px; height: 5px; border-radius: 50%;
   background: var(--color-primary); flex: none;
 }
-/* the dots alternate the logo orange with the button green so the two colours
-   read as one family instead of two unrelated accents */
-.promises li:nth-child(odd)::before { background: var(--color-brand-orange); }
+/* the dots walk from the logo orange, through the two brown shades sampled from
+   the wooden beams of the track, into the site green */
+.promises li:nth-child(1)::before { background: var(--color-brand-orange); }
+.promises li:nth-child(2)::before { background: var(--color-brand-wood); }
+.promises li:nth-child(3)::before { background: var(--color-brand-bridge); }
+.promises li:nth-child(4)::before { background: var(--color-primary); }
 
 /* ---------- section furniture ---------- */
 section { scroll-margin-top: 64px; }
@@ -453,6 +454,7 @@ section { scroll-margin-top: 64px; }
   padding-block: var(--space-10);
 }
 .foot-brand { display: flex; align-items: flex-start; gap: var(--space-3); }
+.foot-name { font-weight: 600; }
 .foot-note { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 2px; max-width: 40ch; }
 .foot-links {
   margin-top: var(--space-6); display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5);
