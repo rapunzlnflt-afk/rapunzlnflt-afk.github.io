@@ -26,7 +26,7 @@ APPS = [
             "Unlimited pets, each with its own profile",
         ],
         price="$14.99", audience="Pet owners",
-        primary=("Buy on Gumroad \u2014 $14.99", "https://cleartrackapps.gumroad.com/l/Pawfolio"),
+        primary=("Buy on Gumroad \u2014 $14.99", "https://cleartrackapps.gumroad.com/l/Pawfolio?ref=instagram"),
         secondary=("Prefer Etsy? Buy there instead", "https://www.etsy.com/listing/4487742972"),
         demo="https://rapunzlnflt-afk.github.io/pet-care-planner-demo/",
         tag="Pet care",
@@ -42,8 +42,8 @@ APPS = [
             "Vitals history \u2014 blood pressure, weight, glucose, and more",
             "Up to 6 family members, with printable records for any visit",
         ],
-        price="$14.99", audience="Families &amp; caregivers",
-        primary=("Buy on Gumroad \u2014 $14.99", "https://cleartrackapps.gumroad.com/l/MedRecords"),
+        price="$24.99", audience="Families &amp; caregivers",
+        primary=("Buy on Gumroad \u2014 $24.99", "https://cleartrackapps.gumroad.com/l/MedRecords?ref=instagram"),
         secondary=("Prefer Etsy? Buy there instead", "https://www.etsy.com/listing/4487743018"),
         demo="https://rapunzlnflt-afk.github.io/medical-records-demo/",
         tag="Family health",
@@ -77,7 +77,7 @@ APPS = [
             "Parent and child phone sync",
         ],
         price="$14.99", audience="Parents of kids",
-        primary=("Buy on Gumroad \u2014 $14.99", "https://cleartrackapps.gumroad.com/l/puzzlepig"),
+        primary=("Buy on Gumroad \u2014 $14.99", "https://cleartrackapps.gumroad.com/l/puzzlepig?ref=instagram"),
         secondary=("Prefer Etsy? Buy there instead", "https://www.etsy.com/listing/4490566794"),
         demo="https://rapunzlnflt-afk.github.io/puzzle-pig-demo/",
         tag="Kids &amp; chores",
@@ -113,7 +113,7 @@ FAQ = [
     ("Is there a subscription?",
      "Never. You pay once and it's yours to keep. No renewals, no upgrade nags, no price creep."),
     ("Can I get help if I get stuck?",
-     'Yes. Email <a href="mailto:hello@cleartrackapps.com">hello@cleartrackapps.com</a> and Shauna will help you get set up. Every purchase also includes a short getting-started guide.'),
+     'Yes. Email <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a> and Shauna will help you get set up. Every purchase also includes a short getting-started guide.'),
 ]
 
 STEPS = [
@@ -262,7 +262,7 @@ HTML = f'''<!DOCTYPE html>
   <section class="how" id="how" aria-labelledby="how-h">
     <div class="wrap">
       <h2 id="how-h" class="sec-title">How a download becomes an app on your phone</h2>
-      <p class="sec-sub">It sounds too simple, so here it is start to finish. Four steps, about two minutes.</p>
+      <p class="sec-sub">It sounds too simple, so here it is, start to finish. Four steps, about two minutes.</p>
       <ol class="steps">
 {steps}
       </ol>
@@ -324,7 +324,7 @@ HTML = f'''<!DOCTYPE html>
       <a href="https://instagram.com/cleartrackapps" target="_blank" rel="noopener noreferrer">Instagram</a>
       <a href="https://www.pinterest.com/cleartrackapps" target="_blank" rel="noopener noreferrer">Pinterest</a>
       <a href="https://cleartrackapps.etsy.com" target="_blank" rel="noopener noreferrer">Full Etsy shop</a>
-      <a href="mailto:hello@cleartrackapps.com">hello@cleartrackapps.com</a>
+      <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a>
     </nav>
     <p class="foot-fine">&copy; 2026 CleartrackApps. Pawfolio&trade; and Puzzle Pig&trade; are trademarks of CleartrackApps.</p>
   </div>
