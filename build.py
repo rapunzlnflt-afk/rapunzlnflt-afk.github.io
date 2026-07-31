@@ -28,7 +28,7 @@ APPS = [
         price="$14.99", audience="Pet owners",
         primary=("Buy on Gumroad \u2014 $14.99", "https://cleartrackapps.gumroad.com/l/Pawfolio?ref=instagram"),
         secondary=("Prefer Etsy? Buy there instead", "https://www.etsy.com/listing/4487742972"),
-        demo="https://rapunzlnflt-afk.github.io/pet-care-planner-demo/",
+        demo="https://cleartrackapps.com/pet-care-planner-demo/",
         tag="Pet care",
     ),
     dict(
@@ -45,7 +45,7 @@ APPS = [
         price="$24.99", audience="Families &amp; caregivers",
         primary=("Buy on Gumroad \u2014 $24.99", "https://cleartrackapps.gumroad.com/l/MedRecords?ref=instagram"),
         secondary=("Prefer Etsy? Buy there instead", "https://www.etsy.com/listing/4487743018"),
-        demo="https://rapunzlnflt-afk.github.io/medical-records-demo/",
+        demo="https://cleartrackapps.com/medical-records-demo/",
         tag="Family health",
     ),
     dict(
@@ -62,7 +62,7 @@ APPS = [
         price="$29.99", audience="Anyone budgeting",
         primary=("Buy on Etsy \u2014 $29.99", "https://www.etsy.com/listing/4489254039"),
         secondary=None,
-        demo="https://rapunzlnflt-afk.github.io/budget-tracker-demo/",
+        demo="https://cleartrackapps.com/budget-tracker-demo/",
         tag="Money",
     ),
     dict(
@@ -79,7 +79,7 @@ APPS = [
         price="$14.99", audience="Parents of kids",
         primary=("Buy on Gumroad \u2014 $14.99", "https://cleartrackapps.gumroad.com/l/puzzlepig?ref=instagram"),
         secondary=("Prefer Etsy? Buy there instead", "https://www.etsy.com/listing/4490566794"),
-        demo="https://rapunzlnflt-afk.github.io/puzzle-pig-demo/",
+        demo="https://cleartrackapps.com/puzzle-pig-demo/",
         tag="Kids &amp; chores",
     ),
     dict(
@@ -96,7 +96,7 @@ APPS = [
         price="$36.99", audience="Planning a procedure",
         primary=("Buy on Etsy \u2014 $36.99", "https://www.etsy.com/listing/4487732067"),
         secondary=None,
-        demo="https://rapunzlnflt-afk.github.io/beauty-planner-demo/",
+        demo="https://cleartrackapps.com/beauty-planner-demo/",
         tag="Planning",
     ),
 ]
@@ -213,6 +213,8 @@ HTML = f'''<!DOCTYPE html>
 <meta name="theme-color" content="#181410" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CleartrackApps">
+<link rel="canonical" href="https://cleartrackapps.com/">
+<meta property="og:url" content="https://cleartrackapps.com/">
 <meta property="og:title" content="CleartrackApps \u2014 Simple offline apps for real life admin">
 <meta property="og:description" content="{DESC}">
 <meta property="og:image" content="./assets/og-image.png">
