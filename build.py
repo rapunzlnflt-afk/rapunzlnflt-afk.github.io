@@ -343,6 +343,8 @@ HTML = f'''<!DOCTYPE html>
 </footer>
 
 <script src="./app.js" defer></script>
+<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{{"token": "5673e14274004df9a11f87d759a6b624"}}'></script>
 </body>
 </html>
 '''
