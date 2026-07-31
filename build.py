@@ -1,8 +1,42 @@
 #!/usr/bin/env python3
-"""Generates index.html for the CleartrackApps storefront. Static output, no runtime deps."""
+"""Generates index.html plus the /go/ click-tracking redirect pages for the
+CleartrackApps storefront. Static output, no runtime deps."""
 import pathlib, html
 
-OUT = pathlib.Path(__file__).parent / "index.html"
+ROOT = pathlib.Path(__file__).parent
+OUT = ROOT / "index.html"
+GO_DIR = ROOT / "go"
+
+CF_BEACON = (
+    '<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->\n'
+    '<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
+    'data-cf-beacon=\'{"token": "5673e14274004df9a11f87d759a6b624"}\'></script>'
+)
+
+# --- Outbound click tracking -------------------------------------------------
+# Every store link on the site points at /go/<slug>/ instead of straight at
+# Etsy or Gumroad. Those tiny pages load the Cloudflare beacon, then forward the
+# visitor on. Cloudflare has no event tracking, so this is what turns a buy-button
+# click into something countable: each slug shows up as its own row under
+# "Top pages" in the Cloudflare Web Analytics dashboard.
+# To change where a button goes, edit the destination here and re-run build.py.
+GO_LINKS = {
+    "pawfolio":                 ("Gumroad", "https://cleartrackapps.gumroad.com/l/Pawfolio?ref=site"),
+    "pawfolio-etsy":            ("Etsy",    "https://www.etsy.com/listing/4487742972"),
+    "medical-records":          ("Gumroad", "https://cleartrackapps.gumroad.com/l/MedRecords?ref=site"),
+    "medical-records-etsy":     ("Etsy",    "https://www.etsy.com/listing/4487743018"),
+    "budget-tracker":           ("Etsy",    "https://www.etsy.com/listing/4489254039"),
+    "puzzle-pig":               ("Gumroad", "https://cleartrackapps.gumroad.com/l/puzzlepig?ref=site"),
+    "puzzle-pig-etsy":          ("Etsy",    "https://www.etsy.com/listing/4490566794"),
+    "cosmetic-surgery-planner": ("Etsy",    "https://www.etsy.com/listing/4487732067"),
+    "etsy-shop":                ("Etsy",    "https://cleartrackapps.etsy.com"),
+}
+
+
+def go(slug):
+    """Tracked link for a store destination."""
+    assert slug in GO_LINKS, f"unknown go slug: {slug}"
+    return f"https://cleartrackapps.com/go/{slug}/"
 
 ICONS = {
     # each 24x24, stroke currentColor
@@ -26,8 +60,8 @@ APPS = [
             "Unlimited pets, each with its own profile",
         ],
         price="$14.99", audience="Pet owners",
-        primary=("Buy on Gumroad \u2014 $14.99", "https://cleartrackapps.gumroad.com/l/Pawfolio?ref=instagram"),
-        secondary=("Prefer Etsy? Buy there instead", "https://www.etsy.com/listing/4487742972"),
+        primary=("Buy on Gumroad \u2014 $14.99", go("pawfolio")),
+        secondary=("Prefer Etsy? Buy there instead", go("pawfolio-etsy")),
         demo="https://cleartrackapps.com/pet-care-planner-demo/",
         tag="Pet care",
     ),
@@ -43,8 +77,8 @@ APPS = [
             "Up to 6 family members, with printable records for any visit",
         ],
         price="$24.99", audience="Families &amp; caregivers",
-        primary=("Buy on Gumroad \u2014 $24.99", "https://cleartrackapps.gumroad.com/l/MedRecords?ref=instagram"),
-        secondary=("Prefer Etsy? Buy there instead", "https://www.etsy.com/listing/4487743018"),
+        primary=("Buy on Gumroad \u2014 $24.99", go("medical-records")),
+        secondary=("Prefer Etsy? Buy there instead", go("medical-records-etsy")),
         demo="https://cleartrackapps.com/medical-records-demo/",
         tag="Family health",
     ),
@@ -60,7 +94,7 @@ APPS = [
             "Bill tracker so nothing slips past a due date",
         ],
         price="$29.99", audience="Anyone budgeting",
-        primary=("Buy on Etsy \u2014 $29.99", "https://www.etsy.com/listing/4489254039"),
+        primary=("Buy on Etsy \u2014 $29.99", go("budget-tracker")),
         secondary=None,
         demo="https://cleartrackapps.com/budget-tracker-demo/",
         tag="Money",
@@ -77,8 +111,8 @@ APPS = [
             "Parent and child phone sync",
         ],
         price="$14.99", audience="Parents of kids",
-        primary=("Buy on Gumroad \u2014 $14.99", "https://cleartrackapps.gumroad.com/l/puzzlepig?ref=instagram"),
-        secondary=("Prefer Etsy? Buy there instead", "https://www.etsy.com/listing/4490566794"),
+        primary=("Buy on Gumroad \u2014 $14.99", go("puzzle-pig")),
+        secondary=("Prefer Etsy? Buy there instead", go("puzzle-pig-etsy")),
         demo="https://cleartrackapps.com/puzzle-pig-demo/",
         tag="Kids &amp; chores",
     ),
@@ -94,7 +128,7 @@ APPS = [
             "Receipts and a private photo log across 12 sections",
         ],
         price="$36.99", audience="Planning a procedure",
-        primary=("Buy on Etsy \u2014 $36.99", "https://www.etsy.com/listing/4487732067"),
+        primary=("Buy on Etsy \u2014 $36.99", go("cosmetic-surgery-planner")),
         secondary=None,
         demo="https://cleartrackapps.com/beauty-planner-demo/",
         tag="Planning",
@@ -335,7 +369,7 @@ HTML = f'''<!DOCTYPE html>
     <nav class="foot-links" aria-label="Elsewhere">
       <a href="https://instagram.com/cleartrackapps" target="_blank" rel="noopener noreferrer">Instagram</a>
       <a href="https://www.pinterest.com/cleartrackapps" target="_blank" rel="noopener noreferrer">Pinterest</a>
-      <a href="https://cleartrackapps.etsy.com" target="_blank" rel="noopener noreferrer">Full Etsy shop</a>
+      <a href="https://cleartrackapps.com/go/etsy-shop/" target="_blank" rel="noopener noreferrer">Full Etsy shop</a>
       <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a>
     </nav>
     <p class="foot-fine">&copy; 2026 CleartrackApps. Pawfolio&trade; and Puzzle Pig&trade; are trademarks of CleartrackApps.</p>
@@ -351,3 +385,68 @@ HTML = f'''<!DOCTYPE html>
 
 OUT.write_text(HTML, encoding="utf-8")
 print(f"wrote {OUT} ({len(HTML)} bytes)")
+
+
+# --- /go/ click-tracking redirect pages --------------------------------------
+# Each page: loads the Cloudflare beacon, waits ~0.45s so the pageview is sent,
+# then replaces itself with the store URL (no back-button trap). A meta refresh
+# and a plain link cover no-JS and slow-network cases.
+GO_TEMPLATE = '''<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Opening {store}\u2026 \u2014 CleartrackApps</title>
+<link rel="canonical" href="{dest}">
+<meta http-equiv="refresh" content="2; url={dest}">
+<style>
+  :root {{ color-scheme: light dark; }}
+  body {{ margin:0; min-height:100vh; display:grid; place-items:center;
+         font:500 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+         background:#faf9f7; color:#484854; text-align:center; padding:24px; }}
+  .wrap {{ max-width:22rem; }}
+  .mark {{ font-weight:700; letter-spacing:-.01em; font-size:1.1rem; margin:0 0 1.25rem; }}
+  .mark b {{ color:#F06C24; font-weight:700; }}
+  .spin {{ width:30px; height:30px; margin:0 auto 1rem; border-radius:50%;
+          border:3px solid rgba(72,72,84,.18); border-top-color:#F06C24;
+          animation:sp .7s linear infinite; }}
+  @keyframes sp {{ to {{ transform:rotate(360deg); }} }}
+  p {{ margin:.4rem 0; }}
+  .fine {{ font-size:.85rem; opacity:.65; }}
+  a {{ color:#F06C24; }}
+  @media (prefers-color-scheme: dark) {{
+    body {{ background:#17171c; color:#e7e6ea; }}
+  }}
+  @media (prefers-reduced-motion: reduce) {{ .spin {{ animation:none; }} }}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="mark">cleartrack<b>apps</b></p>
+    <div class="spin" aria-hidden="true"></div>
+    <p role="status">Taking you to {store}\u2026</p>
+    <p class="fine">Not moving? <a href="{dest}">Continue to {store}</a></p>
+  </div>
+{beacon}
+<script>
+  setTimeout(function () {{ window.location.replace({dest_js}); }}, 450);
+</script>
+</body>
+</html>
+'''
+
+import json as _json
+
+GO_DIR.mkdir(exist_ok=True)
+for slug, (store, dest) in GO_LINKS.items():
+    page = GO_TEMPLATE.format(
+        store=html.escape(store),
+        dest=html.escape(dest, quote=True),
+        dest_js=_json.dumps(dest),
+        beacon=CF_BEACON,
+    )
+    d = GO_DIR / slug
+    d.mkdir(exist_ok=True)
+    (d / "index.html").write_text(page, encoding="utf-8")
+print(f"wrote {len(GO_LINKS)} redirect pages under {GO_DIR}")
