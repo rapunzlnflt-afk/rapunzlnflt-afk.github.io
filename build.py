@@ -141,7 +141,7 @@ FAQ = [
     ("Do I need to create an account or sign in?",
      "No account, no password, no email verification. Open it and start using it."),
     ("Does my data leave my device?",
-     "No. Everything you type stays on the device you typed it on. There is no server to send it to, no cloud sync, and no analytics collecting it. That's why these apps work on a plane or in a basement with no signal."),
+     "No. Everything you type stays on the device you typed it on. There is no server to send it to, no cloud sync, and no analytics collecting what you enter. That's why these apps work on a plane or in a basement with no signal."),
     ("Does it work on iPhone and Android?",
      "Yes \u2014 both, plus tablets and computers. Anything with a modern browser (Safari, Chrome, Edge, Firefox) works."),
     ("Is there a subscription?",
