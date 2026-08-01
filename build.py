@@ -251,14 +251,14 @@ HTML = f'''<!DOCTYPE html>
 <meta property="og:url" content="https://cleartrackapps.com/">
 <meta property="og:title" content="CleartrackApps \u2014 Simple offline apps for real life admin">
 <meta property="og:description" content="{DESC}">
-<meta property="og:image" content="./assets/og-image.png">
+<meta property="og:image" content="https://cleartrackapps.com/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="CleartrackApps \u2014 five simple offline apps for pets, health, money, kids and planning.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CleartrackApps \u2014 Simple offline apps for real life admin">
 <meta name="twitter:description" content="{DESC}">
-<meta name="twitter:image" content="./assets/og-image.png">
+<meta name="twitter:image" content="https://cleartrackapps.com/assets/og-image.png">
 <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="./assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="./assets/favicon-180.png" sizes="180x180">
