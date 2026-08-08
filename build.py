@@ -20,13 +20,27 @@ CF_BEACON = (
 # click into something countable: each slug shows up as its own row under
 # "Top pages" in the Cloudflare Web Analytics dashboard.
 # To change where a button goes, edit the destination here and re-run build.py.
+#
+# The three Gumroad links carry ?wanted=true. Without it, a buy button drops the
+# shopper on the Gumroad product page — a second listing that pitches the app all
+# over again in Gumroad's layout, after they already read the pitch here. With
+# it, Gumroad skips that page and opens the payment form directly, so the only
+# thing they see is a checkout. See https://gumroad.com/help/article/270
+#
+# Gumroad's overlay widget (gumroad.js) was tried instead and rejected: reading
+# its current bundle, an href containing wanted=true takes the plain-navigation
+# branch and the overlay never fires, and dropping wanted=true to get the
+# overlay renders the full Gumroad product page inside the modal — the same
+# duplicate listing, just in an iframe. It also injects markup into the buttons
+# and costs a third-party script on every pageview. The plain link below does
+# more with less.
 GO_LINKS = {
-    "pawfolio":                 ("Gumroad", "https://cleartrackapps.gumroad.com/l/Pawfolio?ref=site"),
+    "pawfolio":                 ("secure checkout", "https://cleartrackapps.gumroad.com/l/Pawfolio?wanted=true&ref=site"),
     "pawfolio-etsy":            ("Etsy",    "https://www.etsy.com/listing/4487742972"),
-    "medical-records":          ("Gumroad", "https://cleartrackapps.gumroad.com/l/MedRecords?ref=site"),
+    "medical-records":          ("secure checkout", "https://cleartrackapps.gumroad.com/l/MedRecords?wanted=true&ref=site"),
     "medical-records-etsy":     ("Etsy",    "https://www.etsy.com/listing/4487743018"),
     "budget-tracker":           ("Etsy",    "https://www.etsy.com/listing/4489254039"),
-    "puzzle-pig":               ("Gumroad", "https://cleartrackapps.gumroad.com/l/puzzlepig?ref=site"),
+    "puzzle-pig":               ("secure checkout", "https://cleartrackapps.gumroad.com/l/puzzlepig?wanted=true&ref=site"),
     "puzzle-pig-etsy":          ("Etsy",    "https://www.etsy.com/listing/4490566794"),
     "cosmetic-surgery-planner": ("Etsy",    "https://www.etsy.com/listing/4487732067"),
     "etsy-shop":                ("Etsy",    "https://cleartrackapps.etsy.com"),
@@ -60,7 +74,7 @@ APPS = [
             "Unlimited pets, each with its own profile",
         ],
         price="$14.99", audience="Pet owners",
-        primary=("Buy on Gumroad \u2014 $14.99", go("pawfolio")),
+        primary=("Buy now \u2014 $14.99", go("pawfolio")),
         secondary=("Prefer Etsy? Buy there instead", go("pawfolio-etsy")),
         demo="https://cleartrackapps.com/pet-care-planner-demo/",
         tag="Pet care",
@@ -77,7 +91,7 @@ APPS = [
             "Up to 6 family members, with printable records for any visit",
         ],
         price="$24.99", audience="Families &amp; caregivers",
-        primary=("Buy on Gumroad \u2014 $24.99", go("medical-records")),
+        primary=("Buy now \u2014 $24.99", go("medical-records")),
         secondary=("Prefer Etsy? Buy there instead", go("medical-records-etsy")),
         demo="https://cleartrackapps.com/medical-records-demo/",
         tag="Family health",
@@ -111,7 +125,7 @@ APPS = [
             "Parent and child phone sync",
         ],
         price="$14.99", audience="Parents of kids",
-        primary=("Buy on Gumroad \u2014 $14.99", go("puzzle-pig")),
+        primary=("Buy now \u2014 $14.99", go("puzzle-pig")),
         secondary=("Prefer Etsy? Buy there instead", go("puzzle-pig-etsy")),
         demo="https://cleartrackapps.com/puzzle-pig-demo/",
         tag="Kids &amp; chores",
@@ -151,7 +165,7 @@ FAQ = [
 ]
 
 STEPS = [
-    ("1", "Buy it", "Checkout on Gumroad or Etsy. Your download link arrives right away \u2014 no waiting on shipping."),
+    ("1", "Buy it", "Tap a buy button and you go straight to a checkout \u2014 no second product page to read. Your download link arrives right away, no waiting on shipping."),
     ("2", "Open the link on your phone", "Tap the file or link and the app opens in your phone's browser. Nothing to install, nothing to sign up for."),
     ("3", "Add to Home Screen", "Use your browser's share menu, then <strong>Add to Home Screen</strong>. Now it has its own icon and opens full screen, exactly like a normal app."),
     ("4", "Use it offline, forever", "Your data is saved on the device. No signal needed, no account, no monthly fee \u2014 it just keeps working."),
