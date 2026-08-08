@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Opening secure checkout… — CleartrackApps</title>
 <link rel="canonical" href="https://cleartrackapps.gumroad.com/l/Pawfolio?wanted=true&amp;ref=site">
-<meta http-equiv="refresh" content="2; url=https://cleartrackapps.gumroad.com/l/Pawfolio?wanted=true&amp;ref=site">
+<meta http-equiv="refresh" content="3; url=https://cleartrackapps.gumroad.com/l/Pawfolio?wanted=true&amp;ref=site">
 <style>
   :root { color-scheme: light dark; }
   body { margin:0; min-height:100vh; display:grid; place-items:center;
@@ -36,9 +36,22 @@
     <p class="fine">Not moving? <a href="https://cleartrackapps.gumroad.com/l/Pawfolio?wanted=true&amp;ref=site">Continue to secure checkout</a></p>
   </div>
 <!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5673e14274004df9a11f87d759a6b624"}'></script>
+<script defer id="cf-beacon" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5673e14274004df9a11f87d759a6b624"}'></script>
 <script>
-  setTimeout(function () { window.location.replace("https://cleartrackapps.gumroad.com/l/Pawfolio?wanted=true&ref=site"); }, 450);
+  (function () {
+    var target = "https://cleartrackapps.gumroad.com/l/Pawfolio?wanted=true&ref=site";
+    var sent = false;
+    function go() { if (sent) return; sent = true; window.location.replace(target); }
+    var beacon = document.getElementById("cf-beacon");
+    if (beacon) {
+      // Redirect once the analytics beacon has loaded and had a moment to report.
+      beacon.addEventListener("load", function () { setTimeout(go, 350); });
+      // If the beacon is blocked or fails, don't make the buyer wait.
+      beacon.addEventListener("error", go);
+    }
+    // Safety net so nobody is ever stranded on this page.
+    setTimeout(go, 2200);
+  })();
 </script>
 </body>
 </html>
