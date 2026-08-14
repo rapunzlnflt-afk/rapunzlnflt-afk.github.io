@@ -9,7 +9,7 @@ GO_DIR = ROOT / "go"
 
 CF_BEACON = (
     '<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->\n'
-    '<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
+    '<script defer id="cf-beacon" src="https://static.cloudflareinsights.com/beacon.min.js" '
     'data-cf-beacon=\'{"token": "5673e14274004df9a11f87d759a6b624"}\'></script>'
 )
 
@@ -82,7 +82,7 @@ APPS = [
     dict(
         slug="medical-records", key="medical", name="Medical Records Keeper",
         who="For families and caregivers juggling more than one person's health.",
-        blurb="Everything a doctor's office asks for, kept in one private place on your phone: medications, doses, appointment notes, vitals, and pharmacy details. Track up to six family members, so a parent, a partner, and the kids all have their own records. Print a clean summary to bring to the next appointment.",
+        blurb="Most apps that do this bill you every year, forever \u2014 and most of them show ads. This one is $24.99 once, with no ads and no renewals. It keeps what a doctor's office asks for in one private place on your phone: medications and doses, appointment notes, vitals, and pharmacy details. Track up to six family members, each with their own records, and print a clean summary for the next visit.",
         features=[
             "Doctors, pharmacies, and emergency contacts in one list",
             "Medications with doses plus phone reminders",
@@ -90,6 +90,20 @@ APPS = [
             "Vitals history \u2014 blood pressure, weight, glucose, and more",
             "Up to 6 family members, with printable records for any visit",
         ],
+        # Cost comparison. The point of this block is that a one-time price beats a
+        # renewing one, so it names no competitor: naming them teaches a shopper the
+        # name of a free-with-ads alternative, and any specific price we print goes
+        # stale the moment they change it. A dated range says the same thing and
+        # survives. Range spans the yearly plans verified 2026-08-14 across Dosecast
+        # ($27.99), Capzule PHR ($29.99), Medisafe and CareClinic ($39.99), and
+        # EveryDose ($59.99, $69.99 for Plus) \u2014 every one a subscription, most
+        # carrying ads. Re-check before editing the numbers.
+        compare=dict(
+            head="Pay once, not every year",
+            them=("Similar apps", "$30\u2013$70 every year"),
+            us=("This app", "$24.99 once"),
+            note="Typical yearly plans for comparable medication and health-record apps, checked August 2026. Most of them show ads. This one has none, and you never need a renewal.",
+        ),
         price="$24.99", audience="Families &amp; caregivers",
         primary=("Buy now \u2014 $24.99", go("medical-records")),
         secondary=("Prefer Etsy? Buy there instead", go("medical-records-etsy")),
@@ -159,7 +173,11 @@ FAQ = [
     ("Does it work on iPhone and Android?",
      "Yes \u2014 both, plus tablets and computers. Anything with a modern browser (Safari, Chrome, Edge, Firefox) works."),
     ("Is there a subscription?",
-     "Never. You pay once and it's yours to keep. No renewals, no upgrade nags, no price creep."),
+     "Never. You pay once and it's yours to keep. No renewals, no upgrade nags, no price creep. "
+     "Apps that do similar jobs are usually subscriptions running roughly $30\u2013$70 a year \u2014 "
+     "every year, for as long as you use them."),
+    ("What if I buy it and it isn't right for me?",
+     'Email <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a> within 30 days and you get your money back in full. No forms, no questions, no explanation needed. You can also try any app free before you buy \u2014 every one has a full demo with no email required.'),
     ("Can I get help if I get stuck?",
      'Yes. Email <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a> and Shauna will help you get set up. Every purchase also includes a short getting-started guide.'),
 ]
@@ -194,6 +212,23 @@ def icon(key):
             f'focusable="false">{ICONS[key]}</svg>')
 
 
+def cost_compare(c):
+    """Optional two-row cost comparison. Only rendered for apps that define one."""
+    if not c:
+        return ""
+    them_l, them_v = c["them"]
+    us_l, us_v = c["us"]
+    return f'''
+      <div class="cost-compare">
+        <p class="cc-head">{c['head']}</p>
+        <ul class="cc-rows">
+          <li><span class="cc-label">{them_l}</span> <span class="cc-val">{them_v}</span></li>
+          <li class="cc-us"><span class="cc-label">{us_l}</span> <span class="cc-val">{us_v}</span></li>
+        </ul>
+        <p class="cc-note">{c['note']}</p>
+      </div>'''
+
+
 def card(a, i):
     feats = "\n".join(f"        <li>{f}</li>" for f in a["features"])
     sec = ""
@@ -214,7 +249,7 @@ def card(a, i):
       <p class="card-blurb">{a['blurb']}</p>
       <ul class="card-features">
 {feats}
-      </ul>
+      </ul>{cost_compare(a.get("compare"))}
       <p class="card-price"><span class="price">{a['price']}</span> <span class="price-note">one-time</span></p>
       <div class="card-actions">
         <a class="btn btn-primary" href="{purl}" target="_blank" rel="noopener noreferrer">{plabel}</a>
@@ -315,6 +350,7 @@ HTML = f'''<!DOCTYPE html>
         <li>No accounts</li>
         <li>Your data stays on your device</li>
         <li>One-time price</li>
+        <li>30-day money-back guarantee</li>
       </ul>
     </div>
   </section>
@@ -332,7 +368,7 @@ HTML = f'''<!DOCTYPE html>
   <section class="apps" id="apps" aria-labelledby="apps-h">
     <div class="wrap">
       <h2 id="apps-h" class="sec-title">The five apps</h2>
-      <p class="sec-sub">Each one does a single job well. Try any demo free before you buy \u2014 no email required.</p>
+      <p class="sec-sub">Each one does a single job well. Try any demo free before you buy \u2014 no email required \u2014 and every purchase is covered by a 30-day money-back guarantee.</p>
       <div class="card-grid">
 
 {cards}
@@ -356,7 +392,7 @@ HTML = f'''<!DOCTYPE html>
           </tbody>
         </table>
       </div>
-      <p class="table-note">Prices are one-time. Pawfolio, Medical Records Keeper, and Puzzle Pig are also available on Etsy at Etsy's own pricing.</p>
+      <p class="table-note">Prices are one-time, and every app is covered by a 30-day money-back guarantee. Pawfolio, Medical Records Keeper, and Puzzle Pig are also available on Etsy at Etsy's own pricing.</p>
     </div>
   </section>
 
@@ -402,9 +438,16 @@ print(f"wrote {OUT} ({len(HTML)} bytes)")
 
 
 # --- /go/ click-tracking redirect pages --------------------------------------
-# Each page: loads the Cloudflare beacon, waits ~0.45s so the pageview is sent,
-# then replaces itself with the store URL (no back-button trap). A meta refresh
-# and a plain link cover no-JS and slow-network cases.
+# Each page: loads the Cloudflare beacon, waits for it to actually report, then
+# replaces itself with the store URL (no back-button trap). A meta refresh and a
+# plain link cover no-JS and slow-network cases.
+#
+# The redirect is chained off the beacon's own load event rather than a blind
+# timeout. A fixed short delay races the beacon: fire too early and the click is
+# never counted, which is the one thing these pages exist to do. Waiting on load
+# (then 350ms to let it send) means a counted click is the normal path, an
+# error listener covers a blocked beacon, and a 2.2s safety net means nobody is
+# ever stranded here.
 GO_TEMPLATE = '''<!doctype html>
 <html lang="en">
 <head>
@@ -413,7 +456,7 @@ GO_TEMPLATE = '''<!doctype html>
 <meta name="robots" content="noindex, nofollow">
 <title>Opening {store}\u2026 \u2014 CleartrackApps</title>
 <link rel="canonical" href="{dest}">
-<meta http-equiv="refresh" content="2; url={dest}">
+<meta http-equiv="refresh" content="3; url={dest}">
 <style>
   :root {{ color-scheme: light dark; }}
   body {{ margin:0; min-height:100vh; display:grid; place-items:center;
@@ -444,7 +487,20 @@ GO_TEMPLATE = '''<!doctype html>
   </div>
 {beacon}
 <script>
-  setTimeout(function () {{ window.location.replace({dest_js}); }}, 450);
+  (function () {{
+    var target = {dest_js};
+    var sent = false;
+    function go() {{ if (sent) return; sent = true; window.location.replace(target); }}
+    var beacon = document.getElementById("cf-beacon");
+    if (beacon) {{
+      // Redirect once the analytics beacon has loaded and had a moment to report.
+      beacon.addEventListener("load", function () {{ setTimeout(go, 350); }});
+      // If the beacon is blocked or fails, don't make the buyer wait.
+      beacon.addEventListener("error", go);
+    }}
+    // Safety net so nobody is ever stranded on this page.
+    setTimeout(go, 2200);
+  }})();
 </script>
 </body>
 </html>
