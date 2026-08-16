@@ -77,6 +77,13 @@ APPS = [
         primary=("Buy now \u2014 $14.99", go("pawfolio")),
         secondary=("Prefer Etsy? Buy there instead", go("pawfolio-etsy")),
         demo="https://cleartrackapps.com/pet-care-planner-demo/",
+        # Optional: a dedicated single-product page. When set, the card heading
+        # links to it and a text link appears under the buttons. Without this,
+        # /pawfolio/ is an orphan page — nothing on the site points at it, so
+        # search engines never find it and homepage visitors can't reach it.
+        # The other four apps simply omit the field until they have pages too.
+        page="./pawfolio/",
+        page_label="See the full Pawfolio page",
         tag="Pet care",
     ),
     dict(
@@ -231,6 +238,14 @@ def cost_compare(c):
 
 def card(a, i):
     feats = "\n".join(f"        <li>{f}</li>" for f in a["features"])
+    # A dedicated page gets two links: the heading (a linked heading is a strong
+    # signal to search engines about what that page covers) and a quiet text
+    # link under the buttons. Deliberately not a fourth button — three already
+    # ask a lot of one card, and a fourth would compete with Buy.
+    page = a.get("page")
+    title = a["name"] if not page else f'<a href="{page}">{a["name"]}</a>'
+    more = "" if not page else (
+        f'\n      <p class="card-alt"><a href="{page}">{a["page_label"]} &rarr;</a></p>')
     sec = ""
     if a["secondary"]:
         label, url = a["secondary"]
@@ -241,7 +256,7 @@ def card(a, i):
       <header class="card-head">
         <span class="card-icon">{icon(a['key'])}</span>
         <div>
-          <h3 class="card-title">{a['name']}</h3>
+          <h3 class="card-title">{title}</h3>
           <p class="card-tag">{a['tag']}</p>
         </div>
       </header>
@@ -254,7 +269,7 @@ def card(a, i):
       <div class="card-actions">
         <a class="btn btn-primary" href="{purl}" target="_blank" rel="noopener noreferrer">{plabel}</a>
         <a class="btn btn-ghost" href="{a['demo']}" target="_blank" rel="noopener noreferrer">Try the free demo</a>
-      </div>{sec}
+      </div>{more}{sec}
     </article>'''
 
 

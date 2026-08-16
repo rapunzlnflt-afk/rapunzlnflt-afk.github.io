@@ -345,6 +345,10 @@ section { scroll-margin-top: 92px; }
 }
 .app-icon { width: 24px; height: 24px; }
 .card-title { font-family: var(--font-display); font-size: var(--text-lg); letter-spacing: -.01em; }
+/* Only cards with a dedicated product page have a linked heading. */
+.card-title a { text-decoration: none; }
+.card-title a:hover { color: var(--accent); text-decoration: underline;
+  text-decoration-thickness: from-font; text-underline-offset: 3px; }
 .card-tag {
   font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .09em;
   color: var(--accent); font-weight: 500; margin-top: 2px;
