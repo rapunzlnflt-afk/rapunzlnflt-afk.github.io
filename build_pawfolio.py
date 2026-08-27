@@ -139,7 +139,11 @@ PAGE = f'''<!DOCTYPE html>
     margin-top: 2rem; }}
   .pf-micro {{ margin-top: 1rem; font-size: .92rem; opacity: .62; }}
   .pf-sec {{ padding: clamp(2.5rem, 6vw, 4rem) 0; }}
-  .pf-sec-alt {{ background: var(--bg-alt, #f4eee3); }}
+  /* The token is --color-bg-alt (style.css). The old name --bg-alt does not exist,
+     so this always fell back to the light hex and both alt bands -- the questions
+     section and the "One price, once" buy section -- stayed cream in dark mode,
+     putting light text on a light background. */
+  .pf-sec-alt {{ background: var(--color-bg-alt, #f4eee3); }}
   .pf-h2 {{ font-family: Zodiak, Georgia, serif; font-weight: 700; letter-spacing: -.015em;
     font-size: clamp(1.6rem, 4.4vw, 2.4rem); max-width: 26ch; }}
   .pf-h2.center {{ margin-inline: auto; text-align: center; }}
@@ -184,6 +188,62 @@ PAGE = f'''<!DOCTYPE html>
     .q-item {{ background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.12); }}
     .pf-frame::after {{ background: linear-gradient(to bottom, rgba(24,20,16,0), #181410); }}
   }}
+
+  /* ---------- interactive quiz ---------- */
+  /* Progressive enhancement: #q-static is the no-JS list, #q-quiz replaces it
+     once quiz.js boots. Both carry the same six questions and answers. */
+  .qz {{ max-width: 34rem; margin: 2rem auto 0; }}
+  .qz-card {{ background: var(--color-surface); border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg); padding: clamp(1.4rem, 4vw, 2rem);
+    box-shadow: 0 18px 40px -30px rgba(20,16,10,.45); }}
+  .qz-prog {{ display: flex; gap: .4rem; justify-content: center; margin-bottom: 1.4rem; }}
+  .qz-dot {{ width: .5rem; height: .5rem; border-radius: 999px;
+    background: var(--color-border-strong); transition: background-color .2s var(--ease); }}
+  .qz-dot.is-done {{ background: var(--accent-pawfolio, #464191); }}
+  .qz-dot.is-now {{ background: var(--accent-pawfolio, #464191); transform: scale(1.35); }}
+  .qz-step {{ font-size: .82rem; letter-spacing: .06em; text-transform: uppercase;
+    font-weight: 600; opacity: .55; text-align: center; }}
+  .qz-q {{ font-family: Zodiak, Georgia, serif; font-weight: 700;
+    font-size: clamp(1.35rem, 4.6vw, 1.85rem); letter-spacing: -.015em;
+    text-align: center; margin: .7rem 0 0; }}
+  .qz-btns {{ display: grid; gap: .7rem; margin-top: 1.6rem; }}
+  @media (min-width: 26rem) {{ .qz-btns {{ grid-template-columns: 1fr 1fr; }} }}
+  .qz-btns .btn {{ width: 100%; font-size: var(--text-base); }}
+  .qz-skip {{ display: block; margin: 1.1rem auto 0; background: none; border: 0;
+    font: inherit; font-size: .9rem; opacity: .55; cursor: pointer;
+    text-decoration: underline; color: inherit; }}
+  .qz-skip:hover {{ opacity: .85; }}
+
+  .qz-score {{ font-family: Zodiak, Georgia, serif; font-weight: 700;
+    font-size: clamp(2.6rem, 9vw, 3.6rem); line-height: 1; text-align: center;
+    color: var(--accent-pawfolio, #464191); }}
+  .qz-score small {{ display: block; font-family: inherit; font-size: .3em;
+    font-weight: 500; opacity: .6; margin-top: .45rem; color: var(--color-text); }}
+  /* #qz-current receives programmatic focus() on each step so screen readers and
+     keyboard users land on the new content. It is tabindex="-1" (not reachable by
+     Tab), so the ring is never a navigation affordance here -- only visual noise. */
+  #qz-current {{ outline: none; }}
+  .qz-verdict {{ font-family: Zodiak, Georgia, serif; font-weight: 700;
+    font-size: clamp(1.3rem, 4.4vw, 1.7rem); text-align: center; margin-top: 1.1rem; }}
+  .qz-note {{ text-align: center; margin-top: .7rem; opacity: .78;
+    font-size: var(--text-base); }}
+  .qz-rev {{ list-style: none; padding: 0; margin: 1.6rem 0 0; display: grid; gap: .55rem;
+    border-top: 1px solid var(--color-border); padding-top: 1.4rem; }}
+  .qz-rev li {{ display: flex; gap: .7rem; align-items: flex-start; font-size: .95rem; }}
+  .qz-mark {{ flex: none; font-weight: 600; width: 1.1rem; text-align: center;
+    color: var(--accent-pawfolio, #464191); }}
+  .qz-rev b {{ font-weight: 600; }}
+  .qz-rev span.qz-where {{ opacity: .7; }}
+  .qz-cta {{ margin-top: 1.8rem; }}
+  .qz-cta .pf-actions {{ margin-top: 0; }}
+  .qz-again {{ display: block; margin: 1.2rem auto 0; background: none; border: 0;
+    font: inherit; font-size: .9rem; opacity: .55; cursor: pointer;
+    text-decoration: underline; color: inherit; }}
+
+  @media (prefers-reduced-motion: no-preference) {{
+    .qz-fade {{ animation: qzIn .28s var(--ease) both; }}
+  }}
+  @keyframes qzIn {{ from {{ opacity: 0; transform: translateY(6px); }} }}
 </style>
 </head>
 <body>
@@ -217,10 +277,16 @@ PAGE = f'''<!DOCTYPE html>
   <section class="pf-sec pf-sec-alt" id="questions" aria-labelledby="q-h">
     <div class="wrap">
       <h2 class="pf-h2 center" id="q-h">The six that catch everyone</h2>
-      <p class="pf-sub center">Most people manage two. Here's where each answer lives.</p>
+      <p class="pf-sub center" id="q-sub">Most people manage two. Here's where each answer lives.</p>
+
+      <!-- quiz.js unhides this and hides #q-static. Without JS the list below stands alone. -->
+      <div class="qz" id="q-quiz" hidden></div>
+
+      <div id="q-static">
       <ul class="q-list">
 {q_cards()}
       </ul>
+      </div>
     </div>
   </section>
 
@@ -309,6 +375,8 @@ PAGE = f'''<!DOCTYPE html>
 </footer>
 
 <script src="../app.js" defer></script>
+<script src="../meta-pixel.js" defer></script>
+<script src="./quiz.js" defer></script>
 {CF_BEACON}
 </body>
 </html>

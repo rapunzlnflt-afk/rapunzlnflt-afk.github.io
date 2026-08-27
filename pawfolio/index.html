@@ -40,8 +40,8 @@
   .pf-micro { margin-top: 1rem; font-size: .92rem; opacity: .62; }
   .pf-sec { padding: clamp(2.5rem, 6vw, 4rem) 0; }
   /* The token is --color-bg-alt (style.css). The old name --bg-alt does not exist,
-     so this always fell back to the light hex and both alt bands — the questions
-     section and the "One price, once" buy section — stayed cream in dark mode,
+     so this always fell back to the light hex and both alt bands -- the questions
+     section and the "One price, once" buy section -- stayed cream in dark mode,
      putting light text on a light background. */
   .pf-sec-alt { background: var(--color-bg-alt, #f4eee3); }
   .pf-h2 { font-family: Zodiak, Georgia, serif; font-weight: 700; letter-spacing: -.015em;
@@ -91,7 +91,7 @@
 
   /* ---------- interactive quiz ---------- */
   /* Progressive enhancement: #q-static is the no-JS list, #q-quiz replaces it
-     once the script boots. Both carry the same six questions and answers. */
+     once quiz.js boots. Both carry the same six questions and answers. */
   .qz { max-width: 34rem; margin: 2rem auto 0; }
   .qz-card { background: var(--color-surface); border: 1px solid var(--color-border);
     border-radius: var(--radius-lg); padding: clamp(1.4rem, 4vw, 2rem);
@@ -121,7 +121,7 @@
     font-weight: 500; opacity: .6; margin-top: .45rem; color: var(--color-text); }
   /* #qz-current receives programmatic focus() on each step so screen readers and
      keyboard users land on the new content. It is tabindex="-1" (not reachable by
-     Tab), so the ring is never a navigation affordance here — only visual noise. */
+     Tab), so the ring is never a navigation affordance here -- only visual noise. */
   #qz-current { outline: none; }
   .qz-verdict { font-family: Zodiak, Georgia, serif; font-weight: 700;
     font-size: clamp(1.3rem, 4.4vw, 1.7rem); text-align: center; margin-top: 1.1rem; }
