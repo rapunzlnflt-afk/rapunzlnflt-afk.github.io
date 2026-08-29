@@ -67,7 +67,8 @@ FAQ = [
      "because that's where remembering everything actually breaks down."),
     ("What if it isn't for me?",
      "Email cleartrackapps@gmail.com within 30 days and you get your money back. Try the demo "
-     "first though — it's the whole app, free, with no email required."),
+     "first though — it's the full app with a sample pet loaded, free, no email "
+     "required. The only difference is the demo forgets everything when you close it."),
 ]
 
 
@@ -270,7 +271,7 @@ PAGE = f'''<!DOCTYPE html>
         <a class="btn btn-primary btn-lg" href="{DEMO}">Try the free demo</a>
         <a class="btn btn-ghost btn-lg" href="{BUY}">Buy now &mdash; {PRICE}</a>
       </div>
-      <p class="pf-micro">The demo is the whole app. No email, no account, nothing to install.</p>
+      <p class="pf-micro">The demo is the full app with a sample pet loaded &mdash; but it forgets when you close it. The paid version remembers forever. No email, no account.</p>
     </div>
   </section>
 
