@@ -296,6 +296,18 @@ faq = "\n".join(
         <p>{a}</p>
       </details>''' for i, (q, a) in enumerate(FAQ))
 
+# QR tiles: a desktop visitor points their phone camera at a code and the demo
+# opens on the phone, where the app actually lives. Hidden on narrow screens --
+# you cannot scan the screen you are holding, and phone visitors already have a
+# "Try the demo" button on every card.
+qr_tiles = "\n".join(
+    f'''        <li class="qr-tile">
+          <img class="qr-img" src="./assets/qr-{a['slug']}.png" width="148" height="148" loading="lazy"
+               alt="QR code that opens the {html.unescape(a['name'])} demo">
+          <p class="qr-name">{a['name']}</p>
+          <a class="qr-link" href="{a['demo']}">Open the demo</a>
+        </li>''' for a in APPS)
+
 DESC = ("Simple, private life-admin apps for your phone from CleartrackApps \u2014 pet records, family medical "
         "records, budgeting, kids' chores and savings, and procedure planning. Work offline, no app store, "
         "no accounts, no subscription. Pay once.")
@@ -389,6 +401,16 @@ HTML = f'''<!DOCTYPE html>
 {cards}
 
       </div>
+    </div>
+  </section>
+
+  <section class="scan" id="scan" aria-labelledby="scan-h">
+    <div class="wrap">
+      <h2 id="scan-h" class="sec-title">Try one on your phone right now</h2>
+      <p class="sec-sub">Point your phone camera at a code. The free demo opens in your phone's browser \u2014 nothing to install, no signup.</p>
+      <ul class="qr-grid">
+{qr_tiles}
+      </ul>
     </div>
   </section>
 
