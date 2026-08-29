@@ -123,7 +123,8 @@
             '<a class="btn btn-primary btn-lg" href="' + DEMO + '" data-qz-cta="demo">Try the free demo</a>' +
             '<a class="btn btn-ghost btn-lg" href="' + BUY + '" data-qz-cta="buy">Buy now &mdash; $14.99</a>' +
           '</div>' +
-          '<p class="pf-micro">The demo is the whole app. No email, no account, nothing to install.</p>' +
+          '<p class="pf-micro">The demo is the full app with a sample pet loaded &mdash; but it ' +
+            'forgets when you close it. The paid version remembers forever.</p>' +
         '</div>' +
         '<button type="button" class="qz-again" data-again="1">Start over</button>' +
       '</div>';
