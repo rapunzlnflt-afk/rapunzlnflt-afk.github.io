@@ -386,3 +386,48 @@ PAGE = f'''<!DOCTYPE html>
 OUT_DIR.mkdir(exist_ok=True)
 (OUT_DIR / "index.html").write_text(PAGE, encoding="utf-8")
 print(f"wrote {OUT_DIR / 'index.html'} ({len(PAGE)} bytes)")
+
+# ---------------------------------------------------------------------------
+# Quiz step stubs.
+#
+# quiz.js pushes a real path as the visitor advances (/pawfolio/q2/ ... /q6/,
+# then /pawfolio/score/) so Cloudflare Web Analytics reports quiz drop-off in
+# the Paths list. pushState never fetches those URLs, but a refresh, a shared
+# link or a crawler would, so each one gets a real file that bounces back to
+# the landing page.
+#
+# Deliberately no Cloudflare beacon on these: a direct hit on a stub is not a
+# real funnel step and must not inflate the counts it exists to measure.
+# noindex keeps them out of search results.
+# ---------------------------------------------------------------------------
+STEP_STUBS = {
+    "q2": "Question 2",
+    "q3": "Question 3",
+    "q4": "Question 4",
+    "q5": "Question 5",
+    "q6": "Question 6",
+    "score": "Your score",
+}
+
+STUB = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, follow">
+<title>{label} &mdash; Pawfolio</title>
+<link rel="canonical" href="https://cleartrackapps.com/pawfolio/">
+<meta http-equiv="refresh" content="0; url=/pawfolio/">
+<script>location.replace('/pawfolio/' + location.search);</script>
+</head>
+<body>
+<p>Taking you to <a href="/pawfolio/">Pawfolio</a>&hellip;</p>
+</body>
+</html>
+'''
+
+for seg, label in STEP_STUBS.items():
+    d = OUT_DIR / seg
+    d.mkdir(exist_ok=True)
+    (d / "index.html").write_text(STUB.format(label=label), encoding="utf-8")
+print(f"wrote {len(STEP_STUBS)} quiz step stubs: {', '.join(STEP_STUBS)}")
