@@ -44,6 +44,10 @@ GO_LINKS = {
     "puzzle-pig-etsy":          ("Etsy",    "https://www.etsy.com/listing/4490566794"),
     "cosmetic-surgery-planner": ("Etsy",    "https://www.etsy.com/listing/4487732067"),
     "etsy-shop":                ("Etsy",    "https://cleartrackapps.etsy.com"),
+    # Not a store link. This one is for the Instagram bio, so reel traffic lands on
+    # the try-it-yourself demo instead of the storefront, and shows up as its own
+    # row in Cloudflare separately from people who arrive via /pawfolio/.
+    "pawfolio-demo":            ("the Pawfolio demo", "https://cleartrackapps.com/pet-care-planner-demo/?ref=reel"),
 }
 
 
