@@ -29,11 +29,13 @@
 <link rel="stylesheet" href="../base.css">
 <link rel="stylesheet" href="../style.css">
 <style>
-  .pf-hero { padding: clamp(3rem, 8vw, 5.5rem) 0 clamp(2rem, 5vw, 3rem); text-align: center; }
+  /* Tighter than before on purpose: the quiz card now sits inside the hero and
+     has to be visible on a phone without scrolling. */
+  .pf-hero { padding: clamp(1.5rem, 4vw, 2.5rem) 0 clamp(2rem, 5vw, 3rem); text-align: center; }
   .pf-hero h1 { font-family: Zodiak, Georgia, serif; font-weight: 700;
-    font-size: clamp(2.1rem, 6.4vw, 3.6rem); letter-spacing: -.02em; max-width: 22ch;
-    margin: .75rem auto 0; }
-  .pf-lede { max-width: 46ch; margin: 1.15rem auto 0; font-size: clamp(1.02rem, 2.4vw, 1.18rem);
+    font-size: clamp(1.85rem, 5.4vw, 3rem); letter-spacing: -.02em; max-width: 22ch;
+    margin: .6rem auto 0; }
+  .pf-lede { max-width: 46ch; margin: .9rem auto 0; font-size: clamp(1rem, 2.2vw, 1.1rem);
     opacity: .82; }
   .pf-actions { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center;
     margin-top: 2rem; }
@@ -92,7 +94,7 @@
   /* ---------- interactive quiz ---------- */
   /* Progressive enhancement: #q-static is the no-JS list, #q-quiz replaces it
      once quiz.js boots. Both carry the same six questions and answers. */
-  .qz { max-width: 34rem; margin: 2rem auto 0; }
+  .qz { max-width: 34rem; margin: 1.6rem auto 0; }
   .qz-card { background: var(--color-surface); border: 1px solid var(--color-border);
     border-radius: var(--radius-lg); padding: clamp(1.4rem, 4vw, 2rem);
     box-shadow: 0 18px 40px -30px rgba(20,16,10,.45); }
@@ -147,7 +149,7 @@
 </style>
 </head>
 <body>
-<a class="skip" href="#questions">Skip to the questions</a>
+<a class="skip" href="#top">Skip to content</a>
 
 <header class="site-head">
   <div class="wrap head-inner">
@@ -159,31 +161,24 @@
 
 <main id="top">
 
-  <section class="pf-hero">
+  <!-- The quiz is the hero. It used to sit in section two behind a "skip to the
+       questions" link, so the first screen was a headline and a price; ~195 ad
+       arrivals produced 5 onward clicks. The first thing on the page is now the
+       thing that shows people they have the problem, and the only ask above the
+       fold is answering a question about their own pet. Both purchase CTAs live
+       on the quiz result card (quiz.js) and in the "One price, once" section. -->
+  <section class="pf-hero" id="questions" aria-labelledby="q-h">
     <div class="wrap">
       <p class="eyebrow">Pawfolio &mdash; for pet owners</p>
-      <h1>Could you answer these 6 questions about your pet?</h1>
-      <p class="pf-lede">Your vet asks every one of them. Pawfolio keeps the answers
-        on your phone, so you're not standing there scrolling your photos looking
-        for a piece of paper.</p>
-      <div class="pf-actions">
-        <a class="btn btn-primary btn-lg" href="https://cleartrackapps.com/pet-care-planner-demo/">Try the free demo</a>
-        <a class="btn btn-ghost btn-lg" href="https://cleartrackapps.com/go/pawfolio/">Buy now &mdash; $14.99</a>
-      </div>
-      <p class="pf-micro">The demo is the full app with a sample pet loaded &mdash; but it forgets when you close it. The paid version remembers forever. No email, no account.</p>
-    </div>
-  </section>
-
-  <section class="pf-sec pf-sec-alt" id="questions" aria-labelledby="q-h">
-    <div class="wrap">
-      <h2 class="pf-h2 center" id="q-h">The six that catch everyone</h2>
-      <p class="pf-sub center" id="q-sub">Most people manage two. Here's where each answer lives.</p>
+      <h1 id="q-h">Could you answer these 6 questions about your pet?</h1>
+      <p class="pf-lede">Your vet asks every one of them. Six questions, one point
+        each &mdash; then we&rsquo;ll show you where each answer lives.</p>
 
       <!-- quiz.js unhides this and hides #q-static. Without JS the list below stands alone. -->
       <div class="qz" id="q-quiz" hidden></div>
 
       <div id="q-static">
-      <ul class="q-list">
+        <ul class="q-list">
         <li class="q-item">
           <span class="q-num">01</span>
           <div>
@@ -226,8 +221,13 @@
             <p class="q-ans">On the profile, ready to read out.</p>
           </div>
         </li>
-      </ul>
+        </ul>
+        <div class="pf-actions">
+          <a class="btn btn-primary btn-lg" href="https://cleartrackapps.com/pet-care-planner-demo/">Try the free demo</a>
+        </div>
       </div>
+
+      <p class="pf-micro">The demo is the full app with a sample pet loaded &mdash; but it forgets when you close it. The paid version remembers forever. No email, no account.</p>
     </div>
   </section>
 
