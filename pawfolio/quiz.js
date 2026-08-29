@@ -17,6 +17,25 @@
   var DEMO = 'https://cleartrackapps.com/pet-care-planner-demo/';
   var BUY = 'https://cleartrackapps.com/go/pawfolio/';
 
+  /* Funnel measurement without a tag manager.
+   * Cloudflare's beacon patches history.pushState and reports the route the
+   * visitor is leaving, so pushing a real path on each step makes quiz
+   * drop-off readable straight from the Paths report in Web Analytics:
+   *   /pawfolio/        arrivals
+   *   /pawfolio/q2..q6/ answered question 1..5
+   *   /pawfolio/score/  answered all six
+   * Query strings are stripped in that report, so the utm tags are carried
+   * along purely for other tools and never split the counts.
+   * Matching stub pages exist on disk (built by build_pawfolio.py) so a
+   * refresh or a shared link still resolves instead of 404ing. */
+  var BASE = '/pawfolio/';
+
+  function mark(seg) {
+    try {
+      history.pushState({ qz: seg }, '', BASE + (seg ? seg + '/' : '') + location.search);
+    } catch (e) { /* history unavailable — measurement is not worth breaking the quiz over */ }
+  }
+
   // Kept in step with the six .q-item entries in index.html.
   var QUESTIONS = [
     { ask: 'When was your pet&rsquo;s last vaccination?',
@@ -153,6 +172,7 @@
     }
     if (t.hasAttribute('data-again')) {
       answers = [];
+      mark('');
       renderQuestion(0);
       return;
     }
@@ -164,9 +184,24 @@
       if (answers.length >= QUESTIONS.length) return; // guard against double taps
       if (!started) { started = true; track('QuizStart', {}); }
       answers.push(t.getAttribute('data-yes') === '1' ? 1 : 0);
-      if (answers.length >= QUESTIONS.length) renderResult();
-      else renderQuestion(answers.length);
+      if (answers.length >= QUESTIONS.length) { mark('score'); renderResult(); }
+      else { mark('q' + (answers.length + 1)); renderQuestion(answers.length); }
     }
+  });
+
+  /* Because each step is a real history entry, Back now means "undo my last
+   * answer" rather than "leave the page", which is what people expect.
+   * Re-rendering here never calls mark(), so replaying history cannot loop. */
+  window.addEventListener('popstate', function (e) {
+    var seg = (e.state && e.state.qz) || '';
+    if (seg === 'score') {
+      if (answers.length === QUESTIONS.length) renderResult();
+      return;
+    }
+    var m = /^q([2-6])$/.exec(seg);
+    var idx = m ? parseInt(m[1], 10) - 1 : 0;
+    answers = answers.slice(0, idx);
+    renderQuestion(idx);
   });
 
   // Boot: swap the static list for the quiz.
