@@ -74,6 +74,16 @@
   var answers = [];
   var started = false;
 
+  /* Visitors who arrive from the paid reel have already been asked all six
+   * questions by the video itself, so opening on "Question 1 of 6" makes the
+   * click feel like a repeat and is the most likely reason paid traffic reaches
+   * the page and stops. They get the answers view instead, with the quiz still
+   * one tap away. Organic and direct visitors are unaffected. */
+  function paidArrival() {
+    return /(^|[?&])utm_medium=paid(&|$)/.test(location.search) ||
+           /(^|[?&])where=1(&|$)/.test(location.search);
+  }
+
   function track(name, params) {
     if (typeof window.ctTrack === 'function') window.ctTrack(name, params);
   }
@@ -159,6 +169,38 @@
     });
   }
 
+  /* The result card without a score: the six questions and where each answer
+   * lives. Shares .qz-rev styling with renderResult so nothing new is needed
+   * in the stylesheet. */
+  function renderWhere() {
+    var rows = QUESTIONS.map(function (q) {
+      return '<li>' +
+        '<span class="qz-mark" aria-hidden="true">\u2192</span>' +
+        '<span><b>' + q.ask + '</b><br>' +
+        '<span class="qz-where">' + q.where + '</span></span>' +
+      '</li>';
+    }).join('');
+
+    mount.innerHTML =
+      '<div class="qz-card qz-fade">' +
+        '<p class="qz-step">You just answered those six in your head.</p>' +
+        '<h3 class="qz-q" id="qz-current" tabindex="-1">Here&rsquo;s where each answer lives.</h3>' +
+        '<ul class="qz-rev">' + rows + '</ul>' +
+        '<div class="qz-cta">' +
+          '<div class="pf-actions">' +
+            '<a class="btn btn-primary btn-lg" href="' + DEMO + '" data-qz-cta="demo">Try the free demo</a>' +
+            '<a class="btn btn-ghost btn-lg" href="' + BUY + '" data-qz-cta="buy">Buy now &mdash; $14.99</a>' +
+          '</div>' +
+          '<p class="pf-micro">The demo is the full app with a sample pet loaded &mdash; but it ' +
+            'forgets when you close it. The paid version remembers forever.</p>' +
+        '</div>' +
+        '<button type="button" class="qz-again" data-quiz="1">Score yourself out of six &mdash; it takes a minute</button>' +
+      '</div>';
+
+    var h = document.getElementById('qz-current');
+    if (h && started) h.focus({ preventScroll: true });
+  }
+
   // Single delegated handler — the card is re-rendered on every step.
   mount.addEventListener('click', function (e) {
     var t = e.target && e.target.closest ? e.target.closest('button, a') : null;
@@ -168,6 +210,13 @@
       track('QuizSkipped', {});
       var buy = document.getElementById('buy-h');
       if (buy) buy.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    if (t.hasAttribute('data-quiz')) {
+      answers = [];
+      mark('');
+      started = true;
+      renderQuestion(0);
       return;
     }
     if (t.hasAttribute('data-again')) {
@@ -198,6 +247,7 @@
       if (answers.length === QUESTIONS.length) renderResult();
       return;
     }
+    if (seg === 'where') { renderWhere(); return; }
     var m = /^q([2-6])$/.exec(seg);
     var idx = m ? parseInt(m[1], 10) - 1 : 0;
     answers = answers.slice(0, idx);
@@ -205,11 +255,21 @@
   });
 
   // Boot: swap the static list for the quiz.
-  renderQuestion(0);
+  var fromAd = paidArrival();
+  if (fromAd) {
+    mark('where');
+    track('PaidLanding', {});
+    renderWhere();
+  } else {
+    renderQuestion(0);
+  }
   mount.hidden = false;
   staticList.hidden = true;
   if (sub) {
-    sub.innerHTML = 'Six questions, one point each. Answer honestly &mdash; ' +
-                    'then we&rsquo;ll show you where each one lives.';
+    sub.innerHTML = fromAd
+      ? 'You have already been asked all six. Here is where each answer lives &mdash; ' +
+        'and you can still score yourself if you want to.'
+      : 'Six questions, one point each. Answer honestly &mdash; ' +
+        'then we&rsquo;ll show you where each one lives.';
   }
 })();

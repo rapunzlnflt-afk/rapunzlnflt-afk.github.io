@@ -407,6 +407,9 @@ STEP_STUBS = {
     "q5": "Question 5",
     "q6": "Question 6",
     "score": "Your score",
+    # Paid traffic skips the quiz and lands straight on the answers, so that
+    # view gets a countable path of its own.
+    "where": "Where each answer lives",
 }
 
 STUB = '''<!DOCTYPE html>
