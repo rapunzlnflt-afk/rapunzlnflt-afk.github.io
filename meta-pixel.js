@@ -14,7 +14,9 @@
  * (use "./meta-pixel.js" for pages at the site root)
  * --------------------------------------------------------------------------- */
 
-var CT_META_PIXEL_ID = '';
+// Dataset "CleartrackApps", created 3 Sep 2026 under the Shauna Wimberley
+// business portfolio (153047974028599).
+var CT_META_PIXEL_ID = '4666083910313835';
 
 (function () {
   'use strict';
