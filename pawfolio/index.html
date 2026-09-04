@@ -131,7 +131,10 @@
     font-size: var(--text-base); }
   .qz-rev { list-style: none; padding: 0; margin: 1.6rem 0 0; display: grid; gap: .55rem;
     border-top: 1px solid var(--color-border); padding-top: 1.4rem; }
-  .qz-rev li { display: flex; gap: .7rem; align-items: flex-start; font-size: .95rem; }
+  /* The card centres its own copy; these rows are two-column and read as a
+     ragged mess when each line starts in a different place. */
+  .qz-rev li { display: flex; gap: .7rem; align-items: flex-start; font-size: .95rem;
+    text-align: left; }
   .qz-mark { flex: none; font-weight: 600; width: 1.1rem; text-align: center;
     color: var(--accent-pawfolio, #464191); }
   .qz-rev b { font-weight: 600; }
