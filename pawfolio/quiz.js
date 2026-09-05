@@ -149,8 +149,8 @@
         '<ul class="qz-rev">' + rows + '</ul>' +
         '<div class="qz-cta">' +
           '<div class="pf-actions">' +
-            '<a class="btn btn-primary btn-lg" href="' + DEMO + '" data-qz-cta="demo">Try the free demo</a>' +
-            '<a class="btn btn-ghost btn-lg" href="' + BUY + '" data-qz-cta="buy">Buy now &mdash; $14.99</a>' +
+            '<a class="btn btn-primary btn-lg" href="' + BUY + '" data-qz-cta="buy">Buy now &mdash; $14.99</a>' +
+            '<a class="btn btn-ghost btn-lg" href="' + DEMO + '" data-qz-cta="demo">Try the free demo</a>' +
           '</div>' +
           '<p class="pf-micro">The demo is the full app with a sample pet loaded &mdash; but it ' +
             'forgets when you close it. The paid version remembers forever.</p>' +
@@ -188,8 +188,8 @@
         '<ul class="qz-rev">' + rows + '</ul>' +
         '<div class="qz-cta">' +
           '<div class="pf-actions">' +
-            '<a class="btn btn-primary btn-lg" href="' + DEMO + '" data-qz-cta="demo">Try the free demo</a>' +
-            '<a class="btn btn-ghost btn-lg" href="' + BUY + '" data-qz-cta="buy">Buy now &mdash; $14.99</a>' +
+            '<a class="btn btn-primary btn-lg" href="' + BUY + '" data-qz-cta="buy">Buy now &mdash; $14.99</a>' +
+            '<a class="btn btn-ghost btn-lg" href="' + DEMO + '" data-qz-cta="demo">Try the free demo</a>' +
           '</div>' +
           '<p class="pf-micro">The demo is the full app with a sample pet loaded &mdash; but it ' +
             'forgets when you close it. The paid version remembers forever.</p>' +
