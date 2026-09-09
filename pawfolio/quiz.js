@@ -79,6 +79,14 @@
    * click feel like a repeat and is the most likely reason paid traffic reaches
    * the page and stops. They get the answers view instead, with the quiz still
    * one tap away. Organic and direct visitors are unaffected. */
+  /* The Daisy reel tells a story instead of asking the six questions, so a
+   * visitor arriving from it must not be told they "just answered those six in
+   * their head". ?from=daisy gets the timeline it promised, with Buy on the
+   * same card. The quiz is one tap below and everyone else is unaffected. */
+  function daisyArrival() {
+    return /(^|[?&])from=daisy(&|$)/.test(location.search);
+  }
+
   function paidArrival() {
     return /(^|[?&])utm_medium=paid(&|$)/.test(location.search) ||
            /(^|[?&])where=1(&|$)/.test(location.search);
@@ -197,6 +205,37 @@
     if (h && started) h.focus({ preventScroll: true });
   }
 
+  /* Arrival panel for the Daisy reel. Reuses .qz-card / .qz-cta / .pf-actions
+   * so it needs nothing new in the stylesheet; the screenshot is the real
+   * Timeline screen with the clinic names removed. */
+  function renderDaisy() {
+    var shot = 'display:block;width:100%;max-width:330px;margin:0 auto 0.85rem;' +
+               'border-radius:14px;border:1px solid rgba(28,32,51,0.12);' +
+               'box-shadow:0 10px 26px rgba(28,32,51,0.14);';
+
+    mount.innerHTML =
+      '<div class="qz-card qz-fade">' +
+        '<p class="qz-step">08/16 &middot; 4:15 AM</p>' +
+        '<h3 class="qz-q" id="qz-current" tabindex="-1">The night it stopped being a funny story.</h3>' +
+        '<img src="/assets/daisy-timeline.png" alt="A Pawfolio timeline card: Daisy, Emergency, 08/16/2026 at 4:15 AM at a 24-hour emergency vet. The vet tried to lance the abscess and found that it is instead a mast cell tumor." style="' + shot + '" width="780" height="660" loading="eager">' +
+        '<p class="qz-note">On 08/09 the skunk spray was a funny story I typed in and forgot. ' +
+          'On 08/18 my vet read that note back and worked out that all the bathing afterwards ' +
+          'had irritated a tumor &mdash; which is what started the whole thing.</p>' +
+        '<p class="qz-note">That is the entire point. The small note is still there on the night ' +
+          'it turns out to matter, along with every visit, dose and weight.</p>' +
+        '<div class="qz-cta">' +
+          '<div class="pf-actions">' +
+            '<a class="btn btn-primary btn-lg" href="' + BUY + '" data-qz-cta="buy">Buy now &mdash; $14.99</a>' +
+            '<a class="btn btn-ghost btn-lg" href="' + DEMO + '" data-qz-cta="demo">Try the free demo</a>' +
+          '</div>' +
+        '</div>' +
+        '<button type="button" class="qz-again" data-quiz="1">Or answer six questions about your own pet</button>' +
+      '</div>';
+
+    var h = document.getElementById('qz-current');
+    if (h && started) h.focus({ preventScroll: true });
+  }
+
   // Single delegated handler — the card is re-rendered on every step.
   mount.addEventListener('click', function (e) {
     var t = e.target && e.target.closest ? e.target.closest('button, a') : null;
@@ -251,8 +290,13 @@
   });
 
   // Boot: swap the static list for the quiz.
-  var fromAd = paidArrival();
-  if (fromAd) {
+  var fromDaisy = daisyArrival();
+  var fromAd = !fromDaisy && paidArrival();
+  if (fromDaisy) {
+    mark('daisy');
+    track('DaisyLanding', {});
+    renderDaisy();
+  } else if (fromAd) {
     mark('where');
     track('PaidLanding', {});
     renderWhere();
@@ -261,7 +305,14 @@
   }
   mount.hidden = false;
   staticList.hidden = true;
-  if (sub) {
+  if (fromDaisy) {
+    var h1 = document.getElementById('q-h');
+    if (h1) h1.textContent = 'The skunk was nine days earlier.';
+    if (sub) {
+      sub.innerHTML = 'Daisy is my own dog. Everything below is her real record, ' +
+                      'with the clinic names taken out.';
+    }
+  } else if (sub) {
     sub.innerHTML = fromAd
       ? 'You have already been asked all six. Here is where each answer lives &mdash; ' +
         'and you can still score yourself if you want to.'
