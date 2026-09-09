@@ -209,7 +209,7 @@
    * so it needs nothing new in the stylesheet; the screenshot is the real
    * Timeline screen with the clinic names removed. */
   function renderDaisy() {
-    var shot = 'display:block;width:100%;max-width:330px;margin:0 auto 0.85rem;' +
+    var shot = 'display:block;width:100%;height:auto;max-width:330px;margin:0 auto 0.85rem;' +
                'border-radius:14px;border:1px solid rgba(28,32,51,0.12);' +
                'box-shadow:0 10px 26px rgba(28,32,51,0.14);';
 
