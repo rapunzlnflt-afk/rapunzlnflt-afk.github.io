@@ -275,7 +275,7 @@ PAGE = f'''<!DOCTYPE html>
     <div class="wrap">
       <p class="eyebrow">Pawfolio &mdash; for pet owners</p>
       <h1 id="q-h">Could you answer these 6 questions about your pet?</h1>
-      <p class="pf-lede">Your vet asks every one of them. Six questions, one point
+      <p class="pf-lede" id="q-sub">Your vet asks every one of them. Six questions, one point
         each &mdash; then we&rsquo;ll show you where each answer lives.</p>
 
       <!-- quiz.js unhides this and hides #q-static. Without JS the list below stands alone. -->
@@ -413,6 +413,9 @@ STEP_STUBS = {
     # Paid traffic skips the quiz and lands straight on the answers, so that
     # view gets a countable path of its own.
     "where": "Where each answer lives",
+    # The Daisy reel tells a story rather than asking the six questions, so
+    # its arrivals land on their own panel and get their own countable path.
+    "daisy": "Daisy's timeline",
 }
 
 STUB = '''<!DOCTYPE html>
