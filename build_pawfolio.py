@@ -250,6 +250,26 @@ PAGE = f'''<!DOCTYPE html>
     .qz-fade {{ animation: qzIn .28s var(--ease) both; }}
   }}
   @keyframes qzIn {{ from {{ opacity: 0; transform: translateY(6px); }} }}
+  /* Sticky buy bar. The page is ~6.5 phone screens tall and the two real buy
+     buttons sit at 1.1 and 5.2 screens, leaving four screens of features and
+     install steps with nothing to tap. This bar fills that gap: it appears
+     whenever no genuine buy button is on screen, and gets out of the way the
+     moment one is, so it never doubles up with the real CTAs. */
+  .buybar {{ position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+    display: flex; align-items: center; gap: .9rem;
+    padding: .7rem 1rem; padding-bottom: calc(.7rem + env(safe-area-inset-bottom, 0px));
+    background: var(--color-bg-alt, #f4eee3);
+    border-top: 1px solid rgba(42,35,24,.14);
+    box-shadow: 0 -6px 20px rgba(42,35,24,.10);
+    transform: translateY(115%); transition: transform .22s var(--ease, ease-out);
+    visibility: hidden; }}
+  .buybar.is-on {{ transform: none; visibility: visible; }}
+  .buybar-txt {{ flex: 1 1 auto; min-width: 0; line-height: 1.25; }}
+  .buybar-name {{ font-weight: 600; font-size: .98rem; }}
+  .buybar-note {{ font-size: .82rem; opacity: .62; }}
+  .buybar .btn {{ flex: none; }}
+  body.has-buybar .site-foot {{ padding-bottom: 5.5rem; }}
+  @media (prefers-reduced-motion: reduce) {{ .buybar {{ transition: none; }} }}
 </style>
 </head>
 <body>
@@ -360,6 +380,14 @@ PAGE = f'''<!DOCTYPE html>
 
 </main>
 
+<div class="buybar" id="buybar" hidden>
+  <div class="buybar-txt">
+    <div class="buybar-name">Pawfolio</div>
+    <div class="buybar-note">One-time {PRICE} &middot; no subscription</div>
+  </div>
+  <a class="btn btn-primary" id="buybar-link" href="{BUY}">Buy now</a>
+</div>
+
 <footer class="site-foot">
   <div class="wrap foot-inner">
     <div class="foot-brand">
@@ -381,6 +409,45 @@ PAGE = f'''<!DOCTYPE html>
 <script src="../app.js" defer></script>
 <script src="../meta-pixel.js" defer></script>
 <script src="./quiz.js" defer></script>
+<script>
+(function () {{
+  var bar = document.getElementById('buybar');
+  if (!bar) return;
+  bar.hidden = false;
+  document.body.classList.add('has-buybar');
+  var ticking = false;
+
+  // A "real" buy button is any /go/pawfolio/ link outside this bar. That covers
+  // both the static price section and the CTA quiz.js injects on the result card.
+  function realBuyOnScreen() {{
+    var els = document.querySelectorAll('a[href*="/go/pawfolio/"]');
+    for (var i = 0; i < els.length; i++) {{
+      var el = els[i];
+      if (bar.contains(el)) continue;
+      var r = el.getBoundingClientRect();
+      if (r.width > 0 && r.bottom > 0 && r.top < (window.innerHeight || 0)) return true;
+    }}
+    return false;
+  }}
+
+  function update() {{
+    ticking = false;
+    var scrolled = (window.scrollY || window.pageYOffset || 0) > 320;
+    bar.classList.toggle('is-on', scrolled && !realBuyOnScreen());
+  }}
+  function onScroll() {{
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(update);
+  }}
+
+  window.addEventListener('scroll', onScroll, {{ passive: true }});
+  window.addEventListener('resize', onScroll);
+  // quiz.js swaps the hero in after load, which moves the first buy button.
+  window.setTimeout(update, 400);
+  update();
+}})();
+</script>
 {CF_BEACON}
 </body>
 </html>
