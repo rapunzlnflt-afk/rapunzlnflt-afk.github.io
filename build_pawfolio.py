@@ -270,6 +270,11 @@ PAGE = f'''<!DOCTYPE html>
   .buybar .btn {{ flex: none; }}
   body.has-buybar .site-foot {{ padding-bottom: 5.5rem; }}
   @media (prefers-reduced-motion: reduce) {{ .buybar {{ transition: none; }} }}
+  .foot-verse {{ margin-top: 1.25rem; font-family: Zodiak, Georgia, serif;
+    font-size: .9rem; font-style: italic; line-height: 1.5;
+    color: var(--color-text-muted); }}
+  .foot-verse cite {{ font-style: normal; font-size: .82em; opacity: .8;
+    white-space: nowrap; }}
 </style>
 </head>
 <body>
@@ -402,6 +407,8 @@ PAGE = f'''<!DOCTYPE html>
       <a href="https://cleartrackapps.com/go/etsy-shop/" target="_blank" rel="noopener noreferrer">Full Etsy shop</a>
       <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a>
     </nav>
+    <p class="foot-verse">&ldquo;The righteous care for the needs of their animals.&rdquo;
+      <cite>&mdash; Proverbs 12:10</cite></p>
     <p class="foot-fine">&copy; 2026 CleartrackApps. Pawfolio&trade; is a trademark of CleartrackApps.</p>
   </div>
 </footer>
