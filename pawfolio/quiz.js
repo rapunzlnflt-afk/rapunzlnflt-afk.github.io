@@ -215,8 +215,11 @@
 
     mount.innerHTML =
       '<div class="qz-card qz-fade">' +
-        '<p class="qz-step">08/16 &middot; 4:15 AM</p>' +
-        '<h3 class="qz-q" id="qz-current" tabindex="-1">The night it stopped being a funny story.</h3>' +
+        /* No inner headline here: the page h1 above already carries the line,
+         * and repeating it pushed the ask off the first screen on a phone. The
+         * qz-current id moves onto the date so the focus handling below still
+         * has a node to land on. */
+        '<p class="qz-step" id="qz-current" tabindex="-1">08/16 &middot; 4:15 AM</p>' +
         '<img src="/assets/daisy-timeline.png" alt="A Pawfolio timeline card: Daisy, Emergency, 08/16/2026 at 4:15 AM at a 24-hour emergency vet. The vet tried to lance the abscess and found that it is instead a mast cell tumor." style="' + shot + '" width="780" height="660" loading="eager">' +
         /* The ask sits directly under the screenshot rather than below the
          * story. Visitors arrive here straight from the reel, so they have
