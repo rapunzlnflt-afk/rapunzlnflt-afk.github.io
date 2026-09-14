@@ -261,8 +261,27 @@
       return;
     }
     if (t.hasAttribute('data-qz-cta')) {
-      track('QuizCtaClick', { cta: t.getAttribute('data-qz-cta') });
-      return; // let the link navigate
+      /* The pixel's request is routinely cancelled once the page starts
+       * unloading, which is why this event read as zero in Events Manager
+       * while DaisyLanding (which fires on load, with nothing to interrupt
+       * it) came through fine. Hold the navigation for a quarter second so
+       * the beacon actually leaves, then follow the link by hand. Modified
+       * clicks and new-tab links are left entirely alone. */
+      var cta = t.getAttribute('data-qz-cta');
+      var dest = t.getAttribute('href');
+      track('QuizCtaClick', { cta: cta });
+      if (!dest || t.getAttribute('target') === '_blank' ||
+          e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) {
+        return; // let the browser handle it normally
+      }
+      e.preventDefault();
+      var went = false;
+      setTimeout(function () {
+        if (went) return;
+        went = true;
+        location.href = dest;
+      }, 250);
+      return;
     }
     if (t.hasAttribute('data-yes')) {
       if (answers.length >= QUESTIONS.length) return; // guard against double taps
@@ -288,6 +307,44 @@
     answers = answers.slice(0, idx);
     renderQuestion(idx);
   });
+
+  /* ---- engagement measurement -------------------------------------------
+   * Neither of these navigates anywhere, so unlike the CTA event they cannot
+   * be lost to an unload. Together they separate "no attentive human ever
+   * arrived" from "real people arrived, saw the ask and declined it":
+   *   Engaged10s  the tab was genuinely visible for ten seconds
+   *   CtaInView   the Buy / demo row was scrolled onto the screen
+   * Only armed for ad arrivals, so organic storefront traffic cannot muddy
+   * the read. */
+  function engaged10s() {
+    var visibleMs = 0;
+    var last = document.hidden ? null : Date.now();
+    var iv = setInterval(function () {
+      if (document.hidden) { last = null; return; }
+      var now = Date.now();
+      if (last !== null) visibleMs += now - last;
+      last = now;
+      if (visibleMs >= 10000) {
+        clearInterval(iv);
+        track('Engaged10s', {});
+      }
+    }, 1000);
+  }
+
+  function ctaInView() {
+    var row = mount.querySelector('.pf-actions');
+    if (!row || typeof window.IntersectionObserver !== 'function') return;
+    var io = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          io.disconnect();
+          track('CtaInView', {});
+          return;
+        }
+      }
+    }, { threshold: 0.5 });
+    io.observe(row);
+  }
 
   // Boot: swap the static list for the quiz.
   var fromDaisy = daisyArrival();
@@ -318,5 +375,10 @@
         'and you can still score yourself if you want to.'
       : 'Six questions, one point each. Answer honestly &mdash; ' +
         'then we&rsquo;ll show you where each one lives.';
+  }
+
+  if (fromDaisy || fromAd) {
+    engaged10s();
+    ctaInView();
   }
 })();
