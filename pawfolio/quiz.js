@@ -218,17 +218,22 @@
         '<p class="qz-step">08/16 &middot; 4:15 AM</p>' +
         '<h3 class="qz-q" id="qz-current" tabindex="-1">The night it stopped being a funny story.</h3>' +
         '<img src="/assets/daisy-timeline.png" alt="A Pawfolio timeline card: Daisy, Emergency, 08/16/2026 at 4:15 AM at a 24-hour emergency vet. The vet tried to lance the abscess and found that it is instead a mast cell tumor." style="' + shot + '" width="780" height="660" loading="eager">' +
-        '<p class="qz-note">On 08/09 the skunk spray was a funny story I typed in and forgot. ' +
-          'On 08/18 my vet read that note back and worked out that all the bathing afterwards ' +
-          'had irritated a tumor &mdash; which is what started the whole thing.</p>' +
-        '<p class="qz-note">That is the entire point. The small note is still there on the night ' +
-          'it turns out to matter, along with every visit, dose and weight.</p>' +
-        '<div class="qz-cta">' +
+        /* The ask sits directly under the screenshot rather than below the
+         * story. Visitors arrive here straight from the reel, so they have
+         * already heard the story once; the paragraphs below are
+         * reinforcement, and burying the buttons under them put the ask off
+         * the first screen on a phone. */
+        '<div class="qz-cta" style="margin-top:1.1rem">' +
           '<div class="pf-actions">' +
             '<a class="btn btn-primary btn-lg" href="' + BUY + '" data-qz-cta="buy">Buy now &mdash; $14.99</a>' +
             '<a class="btn btn-ghost btn-lg" href="' + DEMO + '" data-qz-cta="demo">Try the free demo</a>' +
           '</div>' +
         '</div>' +
+        '<p class="qz-note">On 08/09 the skunk spray was a funny story I typed in and forgot. ' +
+          'On 08/18 my vet read that note back and worked out that all the bathing afterwards ' +
+          'had irritated a tumor &mdash; which is what started the whole thing.</p>' +
+        '<p class="qz-note">That is the entire point. The small note is still there on the night ' +
+          'it turns out to matter, along with every visit, dose and weight.</p>' +
         '<button type="button" class="qz-again" data-quiz="1">Or answer six questions about your own pet</button>' +
       '</div>';
 
@@ -269,7 +274,10 @@
        * clicks and new-tab links are left entirely alone. */
       var cta = t.getAttribute('data-qz-cta');
       var dest = t.getAttribute('href');
-      track('QuizCtaClick', { cta: cta });
+      /* Named CtaClick, not QuizCtaClick: these are the Buy / demo buttons on
+       * whichever card is showing, including the Daisy arrival card, which has
+       * nothing to do with the six-question quiz. */
+      track('CtaClick', { cta: cta });
       if (!dest || t.getAttribute('target') === '_blank' ||
           e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) {
         return; // let the browser handle it normally
