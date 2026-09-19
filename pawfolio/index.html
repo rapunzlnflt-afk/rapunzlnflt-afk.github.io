@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pawfolio — your pet's whole life, on your phone</title>
-<meta name="description" content="Vet visits, medications, vaccination dates, weight and receipts for every pet you have — in one offline app. No account, no subscription, nothing leaves your phone. One-time $14.99 with a 30-day money-back guarantee.">
+<meta name="description" content="Vet visits, medications, vaccination dates, weight and receipts for every pet you have — in one offline app. No account needed and your records stay on your phone. Free to use. An optional $29.99-a-year upgrade is coming soon.">
 <meta name="theme-color" content="#faf6ef" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#181410" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://cleartrackapps.com/pawfolio/">
@@ -12,14 +12,14 @@
 <meta property="og:site_name" content="CleartrackApps">
 <meta property="og:url" content="https://cleartrackapps.com/pawfolio/">
 <meta property="og:title" content="Pawfolio — your pet's whole life, on your phone">
-<meta property="og:description" content="Vet visits, medications, vaccination dates, weight and receipts for every pet you have — in one offline app. No account, no subscription, nothing leaves your phone. One-time $14.99 with a 30-day money-back guarantee.">
+<meta property="og:description" content="Vet visits, medications, vaccination dates, weight and receipts for every pet you have — in one offline app. No account needed and your records stay on your phone. Free to use. An optional $29.99-a-year upgrade is coming soon.">
 <meta property="og:image" content="https://cleartrackapps.com/assets/og-pawfolio.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Pawfolio — pet records that work offline.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Pawfolio — your pet's whole life, on your phone">
-<meta name="twitter:description" content="Vet visits, medications, vaccination dates, weight and receipts for every pet you have — in one offline app. No account, no subscription, nothing leaves your phone. One-time $14.99 with a 30-day money-back guarantee.">
+<meta name="twitter:description" content="Vet visits, medications, vaccination dates, weight and receipts for every pet you have — in one offline app. No account needed and your records stay on your phone. Free to use. An optional $29.99-a-year upgrade is coming soon.">
 <meta name="twitter:image" content="https://cleartrackapps.com/assets/og-pawfolio.png">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
@@ -50,6 +50,37 @@
     font-size: clamp(1.6rem, 4.4vw, 2.4rem); max-width: 26ch; }
   .pf-h2.center { margin-inline: auto; text-align: center; }
   .pf-sub { max-width: 52ch; margin-top: .75rem; opacity: .78; }
+  .pf-h3 { font-family: Zodiak, Georgia, serif; font-weight: 700; font-size: 1.3rem;
+    letter-spacing: -.01em; margin: 2.9rem 0 0; }
+  .pf-price-2 { margin-top: 1rem; }
+  .pf-soon { display: inline-block; vertical-align: middle; margin-left: .5rem;
+    font-family: Satoshi, system-ui, sans-serif; font-weight: 600; font-size: .62em;
+    letter-spacing: .04em; text-transform: uppercase; padding: .28em .6em .24em;
+    border: 1px solid currentColor; border-radius: 999px; opacity: .6; white-space: nowrap; }
+  .up-back { position: fixed; inset: 0; z-index: 120; display: none;
+    background: rgba(18,16,14,.58); padding: 1.25rem; overflow-y: auto; }
+  .up-back[open] { display: grid; place-items: center; }
+  .up-modal { background: var(--paper, #fbf7f1); color: inherit; border-radius: 1.1rem;
+    max-width: 34rem; width: 100%; padding: 1.9rem 1.6rem 1.6rem; position: relative;
+    box-shadow: 0 24px 60px rgba(0,0,0,.28);
+    max-height: calc(100vh - 2.5rem); overflow-y: auto; overscroll-behavior: contain; }
+  .up-h { font-family: Zodiak, Georgia, serif; font-weight: 700; font-size: 1.45rem;
+    letter-spacing: -.01em; margin: 0 2rem 0 0; }
+  .up-sub { margin: .7rem 0 0; font-size: .95rem; opacity: .78; }
+  .up-list { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 1.05rem; }
+  .up-item { display: block; }
+  .up-name { font-weight: 600; font-size: 1rem; margin: 0; }
+  .up-desc { margin: .2rem 0 0; font-size: .9rem; opacity: .75; line-height: 1.45; }
+  .up-foot { margin: 1.6rem 0 0; font-size: .86rem; opacity: .7; line-height: 1.5; }
+  .up-actions { margin-top: 1.4rem; }
+  .up-x { position: absolute; top: .7rem; right: .7rem; width: 2.2rem; height: 2.2rem;
+    border: 0; border-radius: 50%; background: transparent; color: inherit; cursor: pointer;
+    font-size: 1.5rem; line-height: 1; opacity: .55; }
+  .up-x:hover { opacity: 1; background: rgba(0,0,0,.06); }
+  body.up-lock { overflow: hidden; }
+  .pf-h3.center { text-align: center; margin-bottom: -.5rem; }
+  .pf-plan-sep { border: 0; border-top: 1px solid currentColor; opacity: .14;
+    max-width: 26rem; margin: 3.2rem auto 0; }
   .pf-sub.center { margin-inline: auto; text-align: center; }
   .q-list { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: .9rem;
     grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); }
@@ -255,7 +286,7 @@
         </div>
       </div>
 
-      <p class="pf-micro">The demo is the full app with a sample pet loaded &mdash; but it forgets when you close it. The paid version remembers forever. No email, no account.</p>
+      <p class="pf-micro">The demo is the whole app with a sample pet loaded, so you can open every tab and try anything. It resets when you close it. Pawfolio on your own phone keeps what you enter, and it's free. No email, no account.</p>
     </div>
   </section>
 
@@ -280,17 +311,38 @@
 
   <section class="pf-sec pf-sec-alt" aria-labelledby="f-h">
     <div class="wrap">
-      <h2 class="pf-h2" id="f-h">What's in it</h2>
+      <h2 class="pf-h2" id="f-h">What's free, and what Complete adds</h2>
+      <p class="pf-sub">Pawfolio is free. Not a trial, not a taster &mdash; the parts most people need
+        every week don't cost anything, and they never will. Complete, coming soon, adds six more tabs
+        if you want them.</p>
+
+      <h3 class="pf-h3">Free, forever</h3>
       <ul class="f-list">
-        <li class="f-item"><h3 class="f-title">Unlimited pets</h3><p class="f-body">One dog or a full household — each pet gets its own profile.</p></li>
-        <li class="f-item"><h3 class="f-title">Vet visit history</h3><p class="f-body">Date, reason, diagnosis, weight and cost for every appointment.</p></li>
-        <li class="f-item"><h3 class="f-title">Vaccination due dates</h3><p class="f-body">See what's coming up before the reminder card arrives.</p></li>
-        <li class="f-item"><h3 class="f-title">Medications &amp; supplements</h3><p class="f-body">What each pet takes, and the dose.</p></li>
-        <li class="f-item"><h3 class="f-title">Weight tracking</h3><p class="f-body">Entries over time, per pet.</p></li>
-        <li class="f-item"><h3 class="f-title">Expense history</h3><p class="f-body">What you're actually spending, per pet.</p></li>
-        <li class="f-item"><h3 class="f-title">Document vault</h3><p class="f-body">Records, receipts, adoption papers, insurance details.</p></li>
-        <li class="f-item"><h3 class="f-title">Pet-sitter sheet</h3><p class="f-body">A printable page with tap-to-call vet numbers.</p></li>
+        <li class="f-item"><p class="f-title">Unlimited pets</p><p class="f-body">One dog or a full household &mdash; each pet gets its own profile.</p></li>
+        <li class="f-item"><p class="f-title">Everything due, at a glance</p><p class="f-body">The home screen shows what's coming up.</p></li>
+        <li class="f-item"><p class="f-title">Medications &amp; supplements</p><p class="f-body">What each pet takes, the dose, and a reminder when a refill or a dose is due.</p></li>
+        <li class="f-item"><p class="f-title">Microchip, rabies date and insurance</p><p class="f-body">On the profile, ready to read out.</p></li>
+        <li class="f-item"><p class="f-title">Your vet's details</p><p class="f-body">Tap to call, straight from the app.</p></li>
+        <li class="f-item"><p class="f-title">Pet-sitter sheet</p><p class="f-body">A printable page with tap-to-call numbers &mdash; and you can text it to a sitter. Always free.</p></li>
+        <li class="f-item"><p class="f-title">Notes and useful links</p><p class="f-body">Insurance providers, pet pharmacies, airline pet policies.</p></li>
+        <li class="f-item"><p class="f-title">Print, back up and export</p><p class="f-body">Your records, any time.</p></li>
       </ul>
+
+      <h3 class="pf-h3">Pawfolio Complete <span class="pf-soon">coming soon</span></h3>
+      <p class="pf-sub">Six more tabs, for the record-keeping that builds up over years. These aren't
+        ready to buy yet &mdash; the free version is, and it stays free either way.</p>
+      <ul class="f-list">
+        <li class="f-item"><p class="f-title">Vet visit history</p><p class="f-body">Date, reason, what the vet found, the cost and the weight for every appointment, with a photo of the receipt attached to the visit it belongs to.</p></li>
+        <li class="f-item"><p class="f-title">Vaccination due dates</p><p class="f-body">What was given, when, and what's next &mdash; with a reminder before it expires.</p></li>
+        <li class="f-item"><p class="f-title">Weight tracking</p><p class="f-body">Drawn as a chart, so a slow gain or loss is easy to see.</p></li>
+        <li class="f-item"><p class="f-title">Expense history</p><p class="f-body">What you're actually spending per pet, by category.</p></li>
+        <li class="f-item"><p class="f-title">Timeline</p><p class="f-body">Every record for one pet in a single history, newest first.</p></li>
+        <li class="f-item"><p class="f-title">Document vault</p><p class="f-body">Certificates, receipts, adoption papers and lab results, filed under the right pet.</p></li>
+      </ul>
+
+      <p class="pf-micro">Nothing you've already entered ever gets taken away. If you stop paying,
+        those six tabs go read-only &mdash; your records stay visible, printable and exportable, you
+        just can't add new ones until you start again.</p>
     </div>
   </section>
 
@@ -299,24 +351,39 @@
       <h2 class="pf-h2 center" id="how-h">How a download becomes an app on your phone</h2>
       <p class="pf-sub center">Four steps, about two minutes. No app store involved.</p>
       <ol class="steps">
-        <li class="step"><span class="step-num">1</span><div class="step-copy"><p class="step-title">Buy it</p><p>You get a link straight away.</p></div></li>
+        <li class="step"><span class="step-num">1</span><div class="step-copy"><p class="step-title">Open the link</p><p>Free, no email, no account.</p></div></li>
         <li class="step"><span class="step-num">2</span><div class="step-copy"><p class="step-title">Open the link on your phone</p><p>Safari on iPhone, Chrome on Android.</p></div></li>
         <li class="step"><span class="step-num">3</span><div class="step-copy"><p class="step-title">Add to Home Screen</p><p>From the share menu. Now it's an icon like any other app.</p></div></li>
-        <li class="step"><span class="step-num">4</span><div class="step-copy"><p class="step-title">Use it offline, forever</p><p>No signal needed, no account, no subscription.</p></div></li>
+        <li class="step"><span class="step-num">4</span><div class="step-copy"><p class="step-title">Use it offline, forever</p><p>No signal needed, no account, no app store.</p></div></li>
       </ol>
     </div>
   </section>
 
   <section class="pf-sec pf-sec-alt" aria-labelledby="buy-h">
     <div class="wrap pf-buy">
-      <h2 class="pf-h2 center" id="buy-h">One price, once</h2>
-      <p class="pf-price">$14.99<small>One-time. No subscription, ever.</small></p>
+      <h2 class="pf-h2 center" id="buy-h">Two ways to use Pawfolio</h2>
+
+      <h3 class="pf-h3 center">Pawfolio</h3>
+      <p class="pf-price">Free<small>No card, ever. Unlimited pets, medications and reminders,
+        the sitter sheet, printing and backups.</small></p>
       <div class="pf-actions">
-        <a class="btn btn-primary btn-lg" href="https://cleartrackapps.com/go/pawfolio/">Buy Pawfolio &mdash; $14.99</a>
+        <a class="btn btn-primary btn-lg js-upgrade-cta" href="https://cleartrackapps.com/pet-care-planner/">Open Pawfolio &mdash; free</a>
         <a class="btn btn-ghost btn-lg" href="https://cleartrackapps.com/pet-care-planner-demo/">Try the demo first</a>
       </div>
-      <p class="pf-micro">30-day money-back guarantee &mdash; email cleartrackapps@gmail.com.<br>
-        Prefer Etsy? <a href="https://cleartrackapps.com/go/pawfolio-etsy/">Buy it there instead</a> at Etsy's pricing.</p>
+
+      <hr class="pf-plan-sep">
+      <h3 class="pf-h3 center">Pawfolio Complete <span class="pf-soon">coming soon</span></h3>
+      <p class="pf-price pf-price-2">$29.99 a year<small>or $4.99 a month &mdash; cancel
+        any time. Not available to buy yet &mdash; I'm finishing the payment setup. The free version
+        above is ready now and always will be.</small></p>
+      <div class="pf-actions">
+        <button class="btn btn-ghost btn-lg js-open-upgrade" type="button"
+          aria-haspopup="dialog">See what Complete will include</button>
+      </div>
+
+      <p class="pf-micro">Already using Pawfolio? You keep everything, free, for good &mdash;
+        including anyone who previously purchased the app. You don't need to do anything.<br>
+        On the yearly plan, email cleartrackapps@gmail.com within 30 days and you get your money back.</p>
     </div>
   </section>
 
@@ -334,15 +401,31 @@
       </details>
       <details class="faq-item">
         <summary>Where is my pet's information stored?</summary>
-        <p>On your phone, and nowhere else. There is no account to create and no server holding your records. Nothing is uploaded, so there is nothing of yours for anyone to lose.</p>
+        <p>On your phone. There's no account to create and no server holding your records. The one exception is if you choose to send the sitter sheet to someone: that page is scrambled on your phone before it goes, and I can't read it. Nothing else leaves your device.</p>
       </details>
       <details class="faq-item">
         <summary>Can I add more than one pet?</summary>
         <p>As many as you want, each with a separate profile. It was built for multi-pet households because that's where remembering everything actually breaks down.</p>
       </details>
       <details class="faq-item">
+        <summary>What do I actually get for free?</summary>
+        <p>Unlimited pets, medications with refill and dose reminders, your vet's tap-to-call details, the microchip and rabies dates, the printable pet-sitter sheet, notes, the useful-links directory, and printing and backups. Most people can run their household on that.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I upgrade now?</summary>
+        <p>Not yet. Pawfolio Complete is coming soon — I'm still setting up the payment side. Everything described as free is live today and needs no card, so there's nothing to wait for if the free tabs cover what you need.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What happens if I cancel?</summary>
+        <p>Your records stay. Vet visits, vaccinations, weights, expenses, the timeline and the vault all go read-only — still there, still printable, still exportable. You just can't add new entries until you subscribe again. Nothing is deleted and nothing is held hostage.</p>
+      </details>
+      <details class="faq-item">
+        <summary>I already bought Pawfolio. Am I losing anything?</summary>
+        <p>No. Pawfolio unlocks itself for anyone who was already using it, free and permanently, including anyone who previously purchased the app. You don't need a code and you don't need to contact me.</p>
+      </details>
+      <details class="faq-item">
         <summary>What if it isn't for me?</summary>
-        <p>Email cleartrackapps@gmail.com within 30 days and you get your money back. Try the demo first though — it's the full app with a sample pet loaded, free, no email required. The only difference is the demo forgets everything when you close it.</p>
+        <p>Start with the free version — there's nothing to lose and no card involved. If you upgrade to Complete and change your mind, cancel any time. On the yearly plan, email cleartrackapps@gmail.com within 30 days and you get your money back.</p>
       </details>
       </div>
       <p style="text-align:center"><a class="pf-back" href="../">See all five CleartrackApps &rarr;</a></p>
@@ -351,12 +434,35 @@
 
 </main>
 
+<div class="up-back" id="up-back" role="dialog" aria-modal="true" aria-labelledby="up-h">
+  <div class="up-modal">
+    <button class="up-x js-close-upgrade" type="button" aria-label="Close">&times;</button>
+    <h2 class="up-h" id="up-h">What Pawfolio Complete will add</h2>
+    <p class="up-sub">Coming soon &mdash; not available to buy yet. $29.99 a year, or
+      $4.99 a month, cancel any time. Six tabs on top of everything that's already free:</p>
+    <ul class="up-list">
+      <li class="up-item"><p class="up-name">Vet visit history</p><p class="up-desc">Date, reason, what the vet found, the cost and the weight for every appointment, with a photo of the receipt attached to the visit it belongs to.</p></li>
+      <li class="up-item"><p class="up-name">Vaccination due dates</p><p class="up-desc">What was given, when, and what's next &mdash; with a reminder before it expires.</p></li>
+      <li class="up-item"><p class="up-name">Weight tracking</p><p class="up-desc">Drawn as a chart, so a slow gain or loss is easy to see.</p></li>
+      <li class="up-item"><p class="up-name">Expense history</p><p class="up-desc">What you're actually spending per pet, by category.</p></li>
+      <li class="up-item"><p class="up-name">Timeline</p><p class="up-desc">Every record for one pet in a single history, newest first.</p></li>
+      <li class="up-item"><p class="up-name">Document vault</p><p class="up-desc">Certificates, receipts, adoption papers and lab results, filed under the right pet.</p></li>
+    </ul>
+    <p class="up-foot">If you ever stop paying, those six tabs go read-only. Every record you
+      entered stays visible, printable and exportable &mdash; you just can't add new ones until you
+      start again. And if you're already using Pawfolio today, you keep the whole app free for good.</p>
+    <div class="up-actions">
+      <a class="btn btn-primary" href="https://cleartrackapps.com/pet-care-planner/">Open Pawfolio &mdash; free</a>
+    </div>
+  </div>
+</div>
+
 <div class="buybar" id="buybar" hidden>
   <div class="buybar-txt">
     <div class="buybar-name">Pawfolio</div>
-    <div class="buybar-note">One-time $14.99 &middot; no subscription</div>
+    <div class="buybar-note">Free &middot; optional $29.99/year upgrade coming soon</div>
   </div>
-  <a class="btn btn-primary" id="buybar-link" href="https://cleartrackapps.com/go/pawfolio/">Buy now</a>
+  <a class="btn btn-primary" id="buybar-link" href="https://cleartrackapps.com/pet-care-planner/">Open free</a>
 </div>
 
 <footer class="site-foot">
@@ -364,7 +470,7 @@
     <div class="foot-brand">
       <div>
         <p class="foot-name">CleartrackApps</p>
-        <p class="foot-note">Simple offline apps &mdash; no app store, no subscription. Granbury, Texas.</p>
+        <p class="foot-note">Simple apps that work offline &mdash; no app store, no account. Granbury, Texas.</p>
       </div>
     </div>
     <nav class="foot-links" aria-label="Elsewhere">
@@ -384,6 +490,38 @@
 <script src="./quiz.js" defer></script>
 <script>
 (function () {
+  var back = document.getElementById('up-back');
+  if (!back) return;
+  var lastFocus = null;
+
+  function open(e) {
+    if (e) e.preventDefault();
+    lastFocus = document.activeElement;
+    back.setAttribute('open', '');
+    document.body.classList.add('up-lock');
+    var x = back.querySelector('.up-x');
+    if (x) x.focus();
+  }
+  function close() {
+    back.removeAttribute('open');
+    document.body.classList.remove('up-lock');
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  var triggers = document.querySelectorAll('.js-open-upgrade');
+  for (var i = 0; i < triggers.length; i++) triggers[i].addEventListener('click', open);
+
+  var closers = back.querySelectorAll('.js-close-upgrade');
+  for (var j = 0; j < closers.length; j++) closers[j].addEventListener('click', close);
+
+  back.addEventListener('click', function (ev) { if (ev.target === back) close(); });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape' && back.hasAttribute('open')) close();
+  });
+})();
+</script>
+<script>
+(function () {
   var bar = document.getElementById('buybar');
   if (!bar) return;
   bar.hidden = false;
@@ -393,7 +531,7 @@
   // A "real" buy button is any /go/pawfolio/ link outside this bar. That covers
   // both the static price section and the CTA quiz.js injects on the result card.
   function realBuyOnScreen() {
-    var els = document.querySelectorAll('a[href*="/go/pawfolio/"]');
+    var els = document.querySelectorAll('a[href*="/go/pawfolio/"], .js-upgrade-cta');
     for (var i = 0; i < els.length; i++) {
       var el = els[i];
       if (bar.contains(el)) continue;

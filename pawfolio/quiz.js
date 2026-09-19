@@ -16,6 +16,7 @@
 
   var DEMO = 'https://cleartrackapps.com/pet-care-planner-demo/';
   var BUY = 'https://cleartrackapps.com/go/pawfolio/';
+  var APP = 'https://cleartrackapps.com/pet-care-planner/';
 
   /* Funnel measurement without a tag manager.
    * Cloudflare's beacon patches history.pushState and reports the route the
@@ -157,7 +158,7 @@
         '<ul class="qz-rev">' + rows + '</ul>' +
         '<div class="qz-cta">' +
           '<div class="pf-actions">' +
-            '<a class="btn btn-primary btn-lg" href="' + BUY + '" data-qz-cta="buy">Buy now &mdash; $14.99</a>' +
+            '<a class="btn btn-primary btn-lg" href="' + APP + '" data-qz-cta="buy">Open Pawfolio &mdash; free</a>' +
             '<a class="btn btn-ghost btn-lg" href="' + DEMO + '" data-qz-cta="demo">Try the free demo</a>' +
           '</div>' +
         '</div>' +
@@ -194,7 +195,7 @@
         '<ul class="qz-rev">' + rows + '</ul>' +
         '<div class="qz-cta">' +
           '<div class="pf-actions">' +
-            '<a class="btn btn-primary btn-lg" href="' + BUY + '" data-qz-cta="buy">Buy now &mdash; $14.99</a>' +
+            '<a class="btn btn-primary btn-lg" href="' + APP + '" data-qz-cta="buy">Open Pawfolio &mdash; free</a>' +
             '<a class="btn btn-ghost btn-lg" href="' + DEMO + '" data-qz-cta="demo">Try the free demo</a>' +
           '</div>' +
         '</div>' +
@@ -228,7 +229,7 @@
          * the first screen on a phone. */
         '<div class="qz-cta" style="margin-top:1.1rem">' +
           '<div class="pf-actions">' +
-            '<a class="btn btn-primary btn-lg" href="' + BUY + '" data-qz-cta="buy">Buy now &mdash; $14.99</a>' +
+            '<a class="btn btn-primary btn-lg" href="' + APP + '" data-qz-cta="buy">Open Pawfolio &mdash; free</a>' +
             '<a class="btn btn-ghost btn-lg" href="' + DEMO + '" data-qz-cta="demo">Try the free demo</a>' +
           '</div>' +
         '</div>' +

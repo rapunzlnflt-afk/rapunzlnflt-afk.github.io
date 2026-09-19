@@ -35,8 +35,15 @@ CF_BEACON = (
 # and costs a third-party script on every pageview. The plain link below does
 # more with less.
 GO_LINKS = {
+    # "pawfolio" is now the Pawfolio Complete checkout. Repoint it at the Lemon
+    # Squeezy subscription before this goes live — it still points at the old
+    # one-time Gumroad product.
     "pawfolio":                 ("secure checkout", "https://cleartrackapps.gumroad.com/l/Pawfolio?wanted=true&ref=site"),
-    "pawfolio-etsy":            ("Etsy",    "https://www.etsy.com/listing/4487742972"),
+    "pawfolio-app":             ("Pawfolio", "https://cleartrackapps.com/pet-care-planner/?ref=site"),
+    # The Etsy listing is deactivated (Sept 2026). Old pins and captions still
+    # carry this link, so it now lands on the Pawfolio page rather than a dead
+    # Etsy listing. Restore the listing URL here if a one-time Etsy licence returns.
+    "pawfolio-etsy":            ("Pawfolio", "https://cleartrackapps.com/pawfolio/?ref=etsy-legacy"),
     "medical-records":          ("secure checkout", "https://cleartrackapps.gumroad.com/l/MedRecords?wanted=true&ref=site"),
     "medical-records-etsy":     ("Etsy",    "https://www.etsy.com/listing/4487743018"),
     "budget-tracker":           ("Etsy",    "https://www.etsy.com/listing/4489254039"),
@@ -71,15 +78,15 @@ APPS = [
         who="For pet owners who want every vet detail in one place.",
         blurb="Pawfolio keeps your pet's whole life on your phone \u2014 vet visits, medications, vaccine dates, weight, and receipts. Add as many pets as you like, from one dog to a full household of animals. When you travel, hand the sitter a printable sheet with tap-to-call vet numbers instead of a rushed text thread.",
         features=[
-            "Vet visits, medications &amp; supplements, and vaccination due dates",
-            "Weight tracking and expense history for each pet",
-            "Document vault for records, receipts, and adoption papers",
-            "Shareable, printable pet-sitter sheet with tap-to-call vet numbers",
-            "Unlimited pets, each with its own profile",
+            "Unlimited pets, each with its own profile &mdash; free",
+            "Medications, supplements and dose reminders &mdash; free",
+            "Printable pet-sitter sheet with tap-to-call vet numbers &mdash; free",
+            "Vet visits, vaccination due dates and weight tracking &mdash; in Complete",
+            "Expense history and document vault &mdash; in Complete",
         ],
-        price="$14.99", audience="Pet owners",
-        primary=("Buy now \u2014 $14.99", go("pawfolio")),
-        secondary=("Prefer Etsy? Buy there instead", go("pawfolio-etsy")),
+        price="Free", price_note="upgrade coming soon", audience="Pet owners",
+        primary=("Open Pawfolio \u2014 free", go("pawfolio-app")),
+        secondary=("See what Pawfolio Complete adds", "./pawfolio/"),
         demo="https://cleartrackapps.com/pet-care-planner-demo/",
         # Optional: a dedicated single-product page. When set, the card heading
         # links to it and a text link appears under the buttons. Without this,
@@ -184,9 +191,11 @@ FAQ = [
     ("Does it work on iPhone and Android?",
      "Yes \u2014 both, plus tablets and computers. Anything with a modern browser (Safari, Chrome, Edge, Firefox) works."),
     ("Is there a subscription?",
-     "Never. You pay once and it's yours to keep. No renewals, no upgrade nags, no price creep. "
-     "Apps that do similar jobs are usually subscriptions running roughly $30\u2013$70 a year \u2014 "
-     "every year, for as long as you use them."),
+     "Four of the five are pay-once: you buy it and it's yours to keep, with no renewals and no "
+     "price creep. Pawfolio is free, and an optional $29.99-a-year upgrade is coming soon that will unlock "
+     "the long-term record keeping \u2014 vet visit history, vaccination dates, weights, expenses and "
+     "the document vault. You are never pushed into it, and if you cancel your records stay "
+     "readable, printable and exportable."),
     ("What if I buy it and it isn't right for me?",
      'Email <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a> within 30 days and you get your money back in full. No forms, no questions, no explanation needed. You can also try any app free before you buy \u2014 every one has a full demo with no email required.'),
     ("Can I get help if I get stuck?",
@@ -197,7 +206,7 @@ STEPS = [
     ("1", "Buy it", "Tap a buy button and you go straight to a checkout \u2014 no second product page to read. Your download link arrives right away, no waiting on shipping."),
     ("2", "Open the link on your phone", "Tap the file or link and the app opens in your phone's browser. Nothing to install, nothing to sign up for."),
     ("3", "Add to Home Screen", "Use your browser's share menu, then <strong>Add to Home Screen</strong>. Now it has its own icon and opens full screen, exactly like a normal app."),
-    ("4", "Use it offline, forever", "Your data is saved on the device. No signal needed, no account, no monthly fee \u2014 it just keeps working."),
+    ("4", "Use it offline, forever", "Your data is saved on the device. No signal needed and no account \u2014 it just keeps working."),
 ]
 
 # Shauna's own logo, processed by make_logo.py into a transparent PNG plus a
@@ -269,7 +278,7 @@ def card(a, i):
       <ul class="card-features">
 {feats}
       </ul>{cost_compare(a.get("compare"))}
-      <p class="card-price"><span class="price">{a['price']}</span> <span class="price-note">one-time</span></p>
+      <p class="card-price"><span class="price">{a['price']}</span> <span class="price-note">{a.get('price_note', 'one-time')}</span></p>
       <div class="card-actions">
         <a class="btn btn-primary" href="{purl}" target="_blank" rel="noopener noreferrer">{plabel}</a>
         <a class="btn btn-ghost" href="{a['demo']}" target="_blank" rel="noopener noreferrer">Try the free demo</a>
@@ -314,7 +323,7 @@ qr_tiles = "\n".join(
 
 DESC = ("Simple, private life-admin apps for your phone from CleartrackApps \u2014 pet records, family medical "
         "records, budgeting, kids' chores and savings, and procedure planning. Work offline, no app store, "
-        "no accounts, no subscription. Pay once.")
+        "no accounts. Pawfolio is free; the others are pay-once.")
 
 HTML = f'''<!DOCTYPE html>
 <html lang="en">
@@ -371,7 +380,7 @@ HTML = f'''<!DOCTYPE html>
     <div class="wrap hero-inner">
       <p class="eyebrow">Made in Granbury, Texas by Shauna</p>
       <h1>Small apps that quietly keep your life in order &mdash; right on your phone.</h1>
-      <p class="lede">Five simple planners for pets, family health, money, kids, and big-ticket plans. They work offline, live on your home screen, and keep your information on your device. <strong>No app store, no account, no subscription \u2014 pay once.</strong></p>
+      <p class="lede">Five simple planners for pets, family health, money, kids, and big-ticket plans. They work offline, live on your home screen, and keep your information on your device. <strong>No app store and no account \u2014 Pawfolio is free, the rest are pay-once.</strong></p>
       <div class="hero-actions">
         <a class="btn btn-primary btn-lg" href="#apps">See the 5 apps</a>
         <a class="btn btn-ghost btn-lg" href="#how">How it works</a>
@@ -380,7 +389,7 @@ HTML = f'''<!DOCTYPE html>
         <li>Works offline</li>
         <li>No accounts</li>
         <li>Your data stays on your device</li>
-        <li>One-time price</li>
+        <li>Free, or pay once</li>
         <li>30-day money-back guarantee</li>
       </ul>
     </div>
@@ -424,7 +433,7 @@ HTML = f'''<!DOCTYPE html>
       <p class="sec-sub">A quick side-by-side of all five.</p>
       <div class="table-scroll">
         <table class="ctable">
-          <caption class="sr-only">All five CleartrackApps apps, who each is for, the one-time price, and a link to the free demo.</caption>
+          <caption class="sr-only">All five CleartrackApps apps, who each is for, the price, and a link to the free demo.</caption>
           <thead>
             <tr><th scope="col">App</th><th scope="col">Who it's for</th><th scope="col">Price</th><th scope="col">Try it</th></tr>
           </thead>
@@ -433,7 +442,7 @@ HTML = f'''<!DOCTYPE html>
           </tbody>
         </table>
       </div>
-      <p class="table-note">Prices are one-time, and every app is covered by a 30-day money-back guarantee. Pawfolio, Medical Records Keeper, and Puzzle Pig are also available on Etsy at Etsy's own pricing.</p>
+      <p class="table-note">Pawfolio is free to use, with an optional $29.99-a-year upgrade. The other four are one-time prices, and every paid app is covered by a 30-day money-back guarantee. Medical Records Keeper and Puzzle Pig are also available on Etsy at Etsy's own pricing.</p>
     </div>
   </section>
 
@@ -454,7 +463,7 @@ HTML = f'''<!DOCTYPE html>
       {LOGO_FOOT}
       <div>
         <p class="foot-name">CleartrackApps</p>
-        <p class="foot-note">Simple offline apps \u2014 no app store, no subscription. Granbury, Texas.</p>
+        <p class="foot-note">Simple apps that work offline \u2014 no app store, no account. Granbury, Texas.</p>
       </div>
     </div>
     <nav class="foot-links" aria-label="Elsewhere">

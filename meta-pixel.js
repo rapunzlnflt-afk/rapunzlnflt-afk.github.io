@@ -68,11 +68,14 @@ var CT_META_PIXEL_ID = '4666083910313835';
     var a = e.target.closest && e.target.closest('a[href*="/go/"]');
     if (!a) return;
     var href = a.getAttribute('href') || '';
-    if (href.indexOf('/go/pawfolio') === -1) return;
+    /* Only the Complete checkout counts. /go/pawfolio-app/ (the free app) and
+     * /go/pawfolio-demo/ also start with "/go/pawfolio", and neither is a
+     * purchase intent — counting them would make the ad numbers meaningless. */
+    if (href.indexOf('/go/pawfolio/') === -1) return;
     window.fbq('track', 'InitiateCheckout', {
-      content_name: 'Pawfolio',
+      content_name: 'Pawfolio Complete',
       content_ids: ['pawfolio'],
-      value: 14.99,
+      value: 29.99,
       currency: 'USD'
     });
   }, true);
@@ -83,7 +86,7 @@ var CT_META_PIXEL_ID = '4666083910313835';
       content_name: 'Pawfolio',
       content_ids: ['pawfolio'],
       content_type: 'product',
-      value: 14.99,
+      value: 29.99,
       currency: 'USD'
     });
   }
