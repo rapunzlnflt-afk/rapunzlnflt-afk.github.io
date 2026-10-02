@@ -35,10 +35,9 @@ CF_BEACON = (
 # and costs a third-party script on every pageview. The plain link below does
 # more with less.
 GO_LINKS = {
-    # "pawfolio" is now the Pawfolio Complete checkout. Repoint it at the Lemon
-    # Squeezy subscription before this goes live — it still points at the old
-    # one-time Gumroad product.
-    "pawfolio":                 ("secure checkout", "https://cleartrackapps.gumroad.com/l/Pawfolio?wanted=true&ref=site"),
+    # "pawfolio" is the Pawfolio Complete checkout (Lemon Squeezy subscription,
+    # monthly or yearly). Launched Oct 2, 2026; replaced the one-time Gumroad product.
+    "pawfolio":                 ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/7c9c2303-cea0-4a31-9526-138981e4d0df"),
     "pawfolio-app":             ("Pawfolio", "https://cleartrackapps.com/pet-care-planner/?ref=site"),
     # The Etsy listing is deactivated (Sept 2026). Old pins and captions still
     # carry this link, so it now lands on the Pawfolio page rather than a dead
@@ -84,7 +83,7 @@ APPS = [
             "Vet visits, vaccination due dates and weight tracking &mdash; in Complete",
             "Expense history and document vault &mdash; in Complete",
         ],
-        price="Free", price_note="upgrade coming soon", audience="Pet owners",
+        price="Free", price_note="Complete from $4.99/mo", audience="Pet owners",
         primary=("Open Pawfolio \u2014 free", go("pawfolio-app")),
         secondary=("See what Pawfolio Complete adds", "./pawfolio/"),
         demo="https://cleartrackapps.com/pet-care-planner-demo/",
@@ -192,7 +191,7 @@ FAQ = [
      "Yes \u2014 both, plus tablets and computers. Anything with a modern browser (Safari, Chrome, Edge, Firefox) works."),
     ("Is there a subscription?",
      "Four of the five are pay-once: you buy it and it's yours to keep, with no renewals and no "
-     "price creep. Pawfolio is free, and an optional $29.99-a-year upgrade is coming soon that will unlock "
+     "price creep. Pawfolio is free, and an optional upgrade ($4.99 a month or $29.99 a year) unlocks "
      "the long-term record keeping \u2014 vet visit history, vaccination dates, weights, expenses and "
      "the document vault. You are never pushed into it, and if you cancel your records stay "
      "readable, printable and exportable."),

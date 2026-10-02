@@ -35,7 +35,7 @@ CF_BEACON = (
 TITLE = "Pawfolio — your pet's whole life, on your phone"
 DESC = ("Vet visits, medications, vaccination dates, weight and receipts for every pet you have — "
         "in one offline app. No account needed and your records stay on your phone. "
-        "Free to use. An optional $29.99-a-year upgrade is coming soon.")
+        "Free to use. Pawfolio Complete is $4.99 a month or $29.99 a year.")
 
 QUESTIONS = [
     ("When was the last vaccination?", "Every due date, with the next one already worked out."),
@@ -85,9 +85,9 @@ FAQ = [
      "the microchip and rabies dates, the printable pet-sitter sheet, notes, the useful-links "
      "directory, and printing and backups. Most people can run their household on that."),
     ("Can I upgrade now?",
-     "Not yet. Pawfolio Complete is coming soon — I'm still setting up the payment side. "
-     "Everything described as free is live today and needs no card, so there's nothing to wait "
-     "for if the free tabs cover what you need."),
+     "Yes. Pawfolio Complete is $4.99 a month or $29.99 a year. Your license key arrives by "
+     "email: tap Open Pawfolio in the receipt, or open the app, tap any locked tab and enter "
+     "the key. Everything described as free still needs no card."),
     ("What happens if I cancel?",
      "Your records stay. Vet visits, vaccinations, weights, expenses, the timeline and the vault "
      "all go read-only — still there, still printable, still exportable. You just can't add new "
@@ -410,7 +410,7 @@ PAGE = f'''<!DOCTYPE html>
     <div class="wrap">
       <h2 class="pf-h2" id="f-h">What's free, and what Complete adds</h2>
       <p class="pf-sub">Pawfolio is free. Not a trial, not a taster &mdash; the parts most people need
-        every week don't cost anything, and they never will. Complete, coming soon, adds six more tabs
+        every week don't cost anything, and they never will. Complete adds six more tabs
         if you want them.</p>
 
       <h3 class="pf-h3">Free, forever</h3>
@@ -418,9 +418,9 @@ PAGE = f'''<!DOCTYPE html>
 {f_cards(FREE_FEATURES)}
       </ul>
 
-      <h3 class="pf-h3">Pawfolio Complete <span class="pf-soon">coming soon</span></h3>
-      <p class="pf-sub">Six more tabs, for the record-keeping that builds up over years. These aren't
-        ready to buy yet &mdash; the free version is, and it stays free either way.</p>
+      <h3 class="pf-h3">Pawfolio Complete</h3>
+      <p class="pf-sub">Six more tabs, for the record-keeping that builds up over years. The free
+        version stays free either way.</p>
       <ul class="f-list">
 {f_cards(PAID_FEATURES)}
       </ul>
@@ -457,13 +457,13 @@ PAGE = f'''<!DOCTYPE html>
       </div>
 
       <hr class="pf-plan-sep">
-      <h3 class="pf-h3 center">Pawfolio Complete <span class="pf-soon">coming soon</span></h3>
+      <h3 class="pf-h3 center">Pawfolio Complete</h3>
       <p class="pf-price pf-price-2">{PRICE_YEAR} a year<small>or {PRICE_MONTH} a month &mdash; cancel
-        any time. Not available to buy yet &mdash; I'm finishing the payment setup. The free version
-        above is ready now and always will be.</small></p>
+        any time. Your license key arrives by email and unlocks Complete in the app.</small></p>
       <div class="pf-actions">
+        <a class="btn btn-primary btn-lg" href="{BUY}">Get Pawfolio Complete</a>
         <button class="btn btn-ghost btn-lg js-open-upgrade" type="button"
-          aria-haspopup="dialog">See what Complete will include</button>
+          aria-haspopup="dialog">See what Complete includes</button>
       </div>
 
       <p class="pf-micro">Already using Pawfolio? You keep everything, free, for good &mdash;
@@ -487,9 +487,8 @@ PAGE = f'''<!DOCTYPE html>
 <div class="up-back" id="up-back" role="dialog" aria-modal="true" aria-labelledby="up-h">
   <div class="up-modal">
     <button class="up-x js-close-upgrade" type="button" aria-label="Close">&times;</button>
-    <h2 class="up-h" id="up-h">What Pawfolio Complete will add</h2>
-    <p class="up-sub">Coming soon &mdash; not available to buy yet. {PRICE_YEAR} a year, or
-      {PRICE_MONTH} a month, cancel any time. Six tabs on top of everything that's already free:</p>
+    <h2 class="up-h" id="up-h">What Pawfolio Complete adds</h2>
+    <p class="up-sub">{PRICE_YEAR} a year, or {PRICE_MONTH} a month, cancel any time. Six tabs on top of everything that's already free:</p>
     <ul class="up-list">
 {up_items()}
     </ul>
@@ -497,7 +496,8 @@ PAGE = f'''<!DOCTYPE html>
       entered stays visible, printable and exportable &mdash; you just can't add new ones until you
       start again. And if you're already using Pawfolio today, you keep the whole app free for good.</p>
     <div class="up-actions">
-      <a class="btn btn-primary" href="{APP}">Open Pawfolio &mdash; free</a>
+      <a class="btn btn-primary" href="{BUY}">Get Pawfolio Complete</a>
+      <a class="btn btn-ghost" href="{APP}">Open Pawfolio &mdash; free</a>
     </div>
   </div>
 </div>
@@ -505,7 +505,7 @@ PAGE = f'''<!DOCTYPE html>
 <div class="buybar" id="buybar" hidden>
   <div class="buybar-txt">
     <div class="buybar-name">Pawfolio</div>
-    <div class="buybar-note">Free &middot; optional {PRICE_YEAR}/year upgrade coming soon</div>
+    <div class="buybar-note">Free &middot; Complete from {PRICE_MONTH}/month</div>
   </div>
   <a class="btn btn-primary" id="buybar-link" href="{APP}">Open free</a>
 </div>
