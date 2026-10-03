@@ -1,0 +1,7 @@
+# cleartrackapps.com
+User-agent: *
+# Tracking redirects and an image-making template, not pages for search.
+Disallow: /go/
+Disallow: /og-source.html
+
+Sitemap: https://cleartrackapps.com/sitemap.xml
