@@ -191,6 +191,12 @@ PAGE = f'''<!DOCTYPE html>
   .pf-h3 {{ font-family: Zodiak, Georgia, serif; font-weight: 700; font-size: 1.3rem;
     letter-spacing: -.01em; margin: 2.9rem 0 0; }}
   .pf-price-2 {{ margin-top: 1rem; }}
+  /* "Pawfolio COMPLETE": the tier's name mark, used on its plan headings only. */
+  .pf-tag {{ display: inline-block; vertical-align: .18em; margin-left: .1em;
+    font-family: Satoshi, system-ui, sans-serif; font-weight: 700; font-size: .5em;
+    letter-spacing: .08em; text-transform: uppercase; line-height: 1; padding: .42em .7em .38em;
+    border-radius: 999px; background: var(--accent-pawfolio); color: var(--accent-pawfolio-soft);
+    white-space: nowrap; }}
   .pf-soon {{ display: inline-block; vertical-align: middle; margin-left: .5rem;
     font-family: Satoshi, system-ui, sans-serif; font-weight: 600; font-size: .62em;
     letter-spacing: .04em; text-transform: uppercase; padding: .28em .6em .24em;
@@ -408,9 +414,9 @@ PAGE = f'''<!DOCTYPE html>
 
   <section class="pf-sec pf-sec-alt" aria-labelledby="f-h">
     <div class="wrap">
-      <h2 class="pf-h2" id="f-h">What's free, and what Complete adds</h2>
+      <h2 class="pf-h2" id="f-h">What's free, and what Pawfolio Complete adds</h2>
       <p class="pf-sub">Pawfolio is free. Not a trial, not a taster &mdash; the parts most people need
-        every week don't cost anything, and they never will. Complete adds six more tabs
+        every week don't cost anything, and they never will. Pawfolio Complete adds six more tabs
         if you want them.</p>
 
       <h3 class="pf-h3">Free, forever</h3>
@@ -418,7 +424,7 @@ PAGE = f'''<!DOCTYPE html>
 {f_cards(FREE_FEATURES)}
       </ul>
 
-      <h3 class="pf-h3">Pawfolio Complete</h3>
+      <h3 class="pf-h3">Pawfolio <span class="pf-tag">Complete</span></h3>
       <p class="pf-sub">Six more tabs, for the record-keeping that builds up over years. The free
         version stays free either way.</p>
       <ul class="f-list">
@@ -457,13 +463,13 @@ PAGE = f'''<!DOCTYPE html>
       </div>
 
       <hr class="pf-plan-sep">
-      <h3 class="pf-h3 center">Pawfolio Complete</h3>
+      <h3 class="pf-h3 center">Pawfolio <span class="pf-tag">Complete</span></h3>
       <p class="pf-price pf-price-2">{PRICE_YEAR} a year<small>or {PRICE_MONTH} a month &mdash; cancel
-        any time. Your license key arrives by email and unlocks Complete in the app.</small></p>
+        any time. Your license key arrives by email and unlocks Pawfolio Complete in the app.</small></p>
       <div class="pf-actions">
         <a class="btn btn-primary btn-lg" href="{BUY}">Get Pawfolio Complete</a>
         <button class="btn btn-ghost btn-lg js-open-upgrade" type="button"
-          aria-haspopup="dialog">See what Complete includes</button>
+          aria-haspopup="dialog">See what Pawfolio Complete includes</button>
       </div>
 
       <p class="pf-micro">Already using Pawfolio? You keep everything, free, for good &mdash;
@@ -505,7 +511,7 @@ PAGE = f'''<!DOCTYPE html>
 <div class="buybar" id="buybar" hidden>
   <div class="buybar-txt">
     <div class="buybar-name">Pawfolio</div>
-    <div class="buybar-note">Free &middot; Complete from {PRICE_MONTH}/month</div>
+    <div class="buybar-note">Free &middot; Pawfolio Complete from {PRICE_MONTH}/mo</div>
   </div>
   <a class="btn btn-primary" id="buybar-link" href="{APP}">Open free</a>
 </div>
