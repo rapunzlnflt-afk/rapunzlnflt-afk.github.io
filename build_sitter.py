@@ -57,9 +57,9 @@ def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
 
 
-def field(fid, label, ph="", area=False, rows=2):
+def field(fid, label, ph="", area=False, rows=2, lines=1):
     if area:
-        ctl = f'<textarea id="{fid}" data-k="{fid}" rows="{rows}" placeholder="{esc(ph)}"></textarea>'
+        ctl = f'<textarea id="{fid}" data-k="{fid}" data-lines="{lines}" rows="{rows}" placeholder="{esc(ph)}"></textarea>'
     else:
         ctl = f'<input id="{fid}" data-k="{fid}" type="text" placeholder="{esc(ph)}" autocomplete="off">'
     return f'<label class="sf"><span>{label}</span>{ctl}</label>'
@@ -81,7 +81,7 @@ def pet_block(n):
         {field(p+"-food", "Feeding instructions", "e.g., 1 cup dry food, splash of warm water. No table scraps.", area=True)}
         {field(p+"-walk", "Walk schedule", "e.g., Morning and evening, 20 minutes. Pulls toward squirrels.", area=True)}
         {field(p+"-meds", "Medications", "e.g., Apoquel 16 mg, 1 tablet with breakfast", area=True)}
-        {field(p+"-notes", "Additional notes", "e.g., Hides under the bed during storms", area=True)}
+        {field(p+"-notes", "Additional notes", "e.g., Hides under the bed during storms", area=True, rows=3, lines=3)}
       </section>'''
 
 
@@ -179,6 +179,9 @@ PAGE = f'''<!DOCTYPE html>
     .sf ::placeholder {{ color: transparent; }}
     /* Text boxes print as plain text blocks that grow with what's written. */
     .sf textarea {{ display: none !important; }}
+    .pv[data-lines] {{ min-height: calc(var(--n) * 1.8em); }}
+    .pv .rl {{ height: 1.8em; border-bottom: 1px solid #999; }}
+    .pv:has(.rl) {{ border-bottom: 0; padding: 0; }}
     .pv {{ display: block; min-height: 2.2em; padding: .2rem 0; border-bottom: 1px solid #999;
       white-space: pre-wrap; overflow-wrap: anywhere; font-size: 10pt; color: #000; }}
     .sheet-top {{ display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }}
@@ -225,19 +228,20 @@ PAGE = f'''<!DOCTYPE html>
           {field("emerg-phone", "Phone", "Their phone number")}
         </div>
 
-        <h3>Veterinarian</h3>
-        <div class="sg">
-          {field("vet-name", "Clinic", "e.g., Happy Paws Clinic")}
-          {field("vet-phone", "Phone", "(555) 123-4567")}
+        <div class="sg vets">
+          <div>
+            <h3>Veterinarian</h3>
+            {field("vet-name", "Clinic", "e.g., Happy Paws Clinic")}
+            {field("vet-phone", "Phone", "(555) 123-4567")}
+            {field("vet-address", "Address", "123 Main St")}
+          </div>
+          <div>
+            <h3>Emergency vet</h3>
+            {field("evet-name", "Clinic", "e.g., 24-hour animal hospital")}
+            {field("evet-phone", "Phone", "(555) 999-0000")}
+            {field("evet-address", "Address", "Address")}
+          </div>
         </div>
-        {field("vet-address", "Address", "123 Main St")}
-
-        <h3>Emergency vet</h3>
-        <div class="sg">
-          {field("evet-name", "Clinic", "e.g., 24-hour animal hospital")}
-          {field("evet-phone", "Phone", "(555) 999-0000")}
-        </div>
-        {field("evet-address", "Address", "Address")}
 {pet_block(1)}{pet_block(2)}{pet_block(3)}{pet_block(4)}
 
         <div class="sheet-tools">
@@ -245,7 +249,7 @@ PAGE = f'''<!DOCTYPE html>
         </div>
 
         <h3>The house</h3>
-        {field("home", "Instructions and notes", "Door codes, where the food and leash are, rooms that are off-limits…", area=True, rows=3)}
+        {field("home", "Instructions and notes", "Door codes, where the food and leash are, rooms that are off-limits…", area=True, rows=4, lines=3)}
 
         <div class="sheet-tools">
           <button type="button" class="btn btn-primary" id="print">Print</button>
@@ -317,7 +321,7 @@ PAGE = f'''<!DOCTYPE html>
   var data = {{}};
   try {{ data = JSON.parse(localStorage.getItem(KEY) || '{{}}') || {{}}; }} catch (e) {{ data = {{}}; }}
 
-  function mirror(t) {{ if (t.tagName === 'TEXTAREA') {{ var v = t.nextElementSibling; if (!v || !v.classList.contains('pv')) {{ v = document.createElement('div'); v.className = 'pv'; t.after(v); }} v.textContent = t.value; }} }}
+  function mirror(t) {{ if (t.tagName === 'TEXTAREA') {{ var v = t.nextElementSibling; if (!v || !v.classList.contains('pv')) {{ v = document.createElement('div'); v.className = 'pv'; var n = +t.dataset.lines || 1; if (n > 1) {{ v.dataset.lines = n; v.style.setProperty('--n', n); }} t.after(v); }} v.textContent = t.value; var n = +(v.dataset.lines || 0); if (n > 1 && !t.value) {{ for (var i = 0; i < n; i++) {{ var l = document.createElement('div'); l.className = 'rl'; v.appendChild(l); }} }} }} }}
   function grow(t) {{ if (t.tagName === 'TEXTAREA') {{ t.style.height = 'auto'; t.style.height = t.scrollHeight + 'px'; }} }}
   function shown() {{ var n = 0; pets.forEach(function (p) {{ if (!p.hidden) n++; }}); return n; }}
   function showPets(n) {{

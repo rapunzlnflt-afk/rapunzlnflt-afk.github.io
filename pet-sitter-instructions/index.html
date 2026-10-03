@@ -81,6 +81,9 @@
     .sf ::placeholder { color: transparent; }
     /* Text boxes print as plain text blocks that grow with what's written. */
     .sf textarea { display: none !important; }
+    .pv[data-lines] { min-height: calc(var(--n) * 1.8em); }
+    .pv .rl { height: 1.8em; border-bottom: 1px solid #999; }
+    .pv:has(.rl) { border-bottom: 0; padding: 0; }
     .pv { display: block; min-height: 2.2em; padding: .2rem 0; border-bottom: 1px solid #999;
       white-space: pre-wrap; overflow-wrap: anywhere; font-size: 10pt; color: #000; }
     .sheet-top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
@@ -127,19 +130,20 @@
           <label class="sf"><span>Phone</span><input id="emerg-phone" data-k="emerg-phone" type="text" placeholder="Their phone number" autocomplete="off"></label>
         </div>
 
-        <h3>Veterinarian</h3>
-        <div class="sg">
-          <label class="sf"><span>Clinic</span><input id="vet-name" data-k="vet-name" type="text" placeholder="e.g., Happy Paws Clinic" autocomplete="off"></label>
-          <label class="sf"><span>Phone</span><input id="vet-phone" data-k="vet-phone" type="text" placeholder="(555) 123-4567" autocomplete="off"></label>
+        <div class="sg vets">
+          <div>
+            <h3>Veterinarian</h3>
+            <label class="sf"><span>Clinic</span><input id="vet-name" data-k="vet-name" type="text" placeholder="e.g., Happy Paws Clinic" autocomplete="off"></label>
+            <label class="sf"><span>Phone</span><input id="vet-phone" data-k="vet-phone" type="text" placeholder="(555) 123-4567" autocomplete="off"></label>
+            <label class="sf"><span>Address</span><input id="vet-address" data-k="vet-address" type="text" placeholder="123 Main St" autocomplete="off"></label>
+          </div>
+          <div>
+            <h3>Emergency vet</h3>
+            <label class="sf"><span>Clinic</span><input id="evet-name" data-k="evet-name" type="text" placeholder="e.g., 24-hour animal hospital" autocomplete="off"></label>
+            <label class="sf"><span>Phone</span><input id="evet-phone" data-k="evet-phone" type="text" placeholder="(555) 999-0000" autocomplete="off"></label>
+            <label class="sf"><span>Address</span><input id="evet-address" data-k="evet-address" type="text" placeholder="Address" autocomplete="off"></label>
+          </div>
         </div>
-        <label class="sf"><span>Address</span><input id="vet-address" data-k="vet-address" type="text" placeholder="123 Main St" autocomplete="off"></label>
-
-        <h3>Emergency vet</h3>
-        <div class="sg">
-          <label class="sf"><span>Clinic</span><input id="evet-name" data-k="evet-name" type="text" placeholder="e.g., 24-hour animal hospital" autocomplete="off"></label>
-          <label class="sf"><span>Phone</span><input id="evet-phone" data-k="evet-phone" type="text" placeholder="(555) 999-0000" autocomplete="off"></label>
-        </div>
-        <label class="sf"><span>Address</span><input id="evet-address" data-k="evet-address" type="text" placeholder="Address" autocomplete="off"></label>
 
       <section class="sheet-pet" data-pet="1">
         <h3>Pet 1</h3>
@@ -151,10 +155,10 @@
           <label class="sf"><span>When to feed</span><input id="pet1-when" data-k="pet1-when" type="text" placeholder="e.g., 7 a.m. and 5 p.m." autocomplete="off"></label>
           <label class="sf"><span>Supplements</span><input id="pet1-supp" data-k="pet1-supp" type="text" placeholder="e.g., Fish oil, 1 pump on dinner" autocomplete="off"></label>
         </div>
-        <label class="sf"><span>Feeding instructions</span><textarea id="pet1-food" data-k="pet1-food" rows="2" placeholder="e.g., 1 cup dry food, splash of warm water. No table scraps."></textarea></label>
-        <label class="sf"><span>Walk schedule</span><textarea id="pet1-walk" data-k="pet1-walk" rows="2" placeholder="e.g., Morning and evening, 20 minutes. Pulls toward squirrels."></textarea></label>
-        <label class="sf"><span>Medications</span><textarea id="pet1-meds" data-k="pet1-meds" rows="2" placeholder="e.g., Apoquel 16 mg, 1 tablet with breakfast"></textarea></label>
-        <label class="sf"><span>Additional notes</span><textarea id="pet1-notes" data-k="pet1-notes" rows="2" placeholder="e.g., Hides under the bed during storms"></textarea></label>
+        <label class="sf"><span>Feeding instructions</span><textarea id="pet1-food" data-k="pet1-food" data-lines="1" rows="2" placeholder="e.g., 1 cup dry food, splash of warm water. No table scraps."></textarea></label>
+        <label class="sf"><span>Walk schedule</span><textarea id="pet1-walk" data-k="pet1-walk" data-lines="1" rows="2" placeholder="e.g., Morning and evening, 20 minutes. Pulls toward squirrels."></textarea></label>
+        <label class="sf"><span>Medications</span><textarea id="pet1-meds" data-k="pet1-meds" data-lines="1" rows="2" placeholder="e.g., Apoquel 16 mg, 1 tablet with breakfast"></textarea></label>
+        <label class="sf"><span>Additional notes</span><textarea id="pet1-notes" data-k="pet1-notes" data-lines="3" rows="3" placeholder="e.g., Hides under the bed during storms"></textarea></label>
       </section>
       <section class="sheet-pet" data-pet="2" hidden>
         <h3>Pet 2</h3>
@@ -166,10 +170,10 @@
           <label class="sf"><span>When to feed</span><input id="pet2-when" data-k="pet2-when" type="text" placeholder="e.g., 7 a.m. and 5 p.m." autocomplete="off"></label>
           <label class="sf"><span>Supplements</span><input id="pet2-supp" data-k="pet2-supp" type="text" placeholder="e.g., Fish oil, 1 pump on dinner" autocomplete="off"></label>
         </div>
-        <label class="sf"><span>Feeding instructions</span><textarea id="pet2-food" data-k="pet2-food" rows="2" placeholder="e.g., 1 cup dry food, splash of warm water. No table scraps."></textarea></label>
-        <label class="sf"><span>Walk schedule</span><textarea id="pet2-walk" data-k="pet2-walk" rows="2" placeholder="e.g., Morning and evening, 20 minutes. Pulls toward squirrels."></textarea></label>
-        <label class="sf"><span>Medications</span><textarea id="pet2-meds" data-k="pet2-meds" rows="2" placeholder="e.g., Apoquel 16 mg, 1 tablet with breakfast"></textarea></label>
-        <label class="sf"><span>Additional notes</span><textarea id="pet2-notes" data-k="pet2-notes" rows="2" placeholder="e.g., Hides under the bed during storms"></textarea></label>
+        <label class="sf"><span>Feeding instructions</span><textarea id="pet2-food" data-k="pet2-food" data-lines="1" rows="2" placeholder="e.g., 1 cup dry food, splash of warm water. No table scraps."></textarea></label>
+        <label class="sf"><span>Walk schedule</span><textarea id="pet2-walk" data-k="pet2-walk" data-lines="1" rows="2" placeholder="e.g., Morning and evening, 20 minutes. Pulls toward squirrels."></textarea></label>
+        <label class="sf"><span>Medications</span><textarea id="pet2-meds" data-k="pet2-meds" data-lines="1" rows="2" placeholder="e.g., Apoquel 16 mg, 1 tablet with breakfast"></textarea></label>
+        <label class="sf"><span>Additional notes</span><textarea id="pet2-notes" data-k="pet2-notes" data-lines="3" rows="3" placeholder="e.g., Hides under the bed during storms"></textarea></label>
       </section>
       <section class="sheet-pet" data-pet="3" hidden>
         <h3>Pet 3</h3>
@@ -181,10 +185,10 @@
           <label class="sf"><span>When to feed</span><input id="pet3-when" data-k="pet3-when" type="text" placeholder="e.g., 7 a.m. and 5 p.m." autocomplete="off"></label>
           <label class="sf"><span>Supplements</span><input id="pet3-supp" data-k="pet3-supp" type="text" placeholder="e.g., Fish oil, 1 pump on dinner" autocomplete="off"></label>
         </div>
-        <label class="sf"><span>Feeding instructions</span><textarea id="pet3-food" data-k="pet3-food" rows="2" placeholder="e.g., 1 cup dry food, splash of warm water. No table scraps."></textarea></label>
-        <label class="sf"><span>Walk schedule</span><textarea id="pet3-walk" data-k="pet3-walk" rows="2" placeholder="e.g., Morning and evening, 20 minutes. Pulls toward squirrels."></textarea></label>
-        <label class="sf"><span>Medications</span><textarea id="pet3-meds" data-k="pet3-meds" rows="2" placeholder="e.g., Apoquel 16 mg, 1 tablet with breakfast"></textarea></label>
-        <label class="sf"><span>Additional notes</span><textarea id="pet3-notes" data-k="pet3-notes" rows="2" placeholder="e.g., Hides under the bed during storms"></textarea></label>
+        <label class="sf"><span>Feeding instructions</span><textarea id="pet3-food" data-k="pet3-food" data-lines="1" rows="2" placeholder="e.g., 1 cup dry food, splash of warm water. No table scraps."></textarea></label>
+        <label class="sf"><span>Walk schedule</span><textarea id="pet3-walk" data-k="pet3-walk" data-lines="1" rows="2" placeholder="e.g., Morning and evening, 20 minutes. Pulls toward squirrels."></textarea></label>
+        <label class="sf"><span>Medications</span><textarea id="pet3-meds" data-k="pet3-meds" data-lines="1" rows="2" placeholder="e.g., Apoquel 16 mg, 1 tablet with breakfast"></textarea></label>
+        <label class="sf"><span>Additional notes</span><textarea id="pet3-notes" data-k="pet3-notes" data-lines="3" rows="3" placeholder="e.g., Hides under the bed during storms"></textarea></label>
       </section>
       <section class="sheet-pet" data-pet="4" hidden>
         <h3>Pet 4</h3>
@@ -196,10 +200,10 @@
           <label class="sf"><span>When to feed</span><input id="pet4-when" data-k="pet4-when" type="text" placeholder="e.g., 7 a.m. and 5 p.m." autocomplete="off"></label>
           <label class="sf"><span>Supplements</span><input id="pet4-supp" data-k="pet4-supp" type="text" placeholder="e.g., Fish oil, 1 pump on dinner" autocomplete="off"></label>
         </div>
-        <label class="sf"><span>Feeding instructions</span><textarea id="pet4-food" data-k="pet4-food" rows="2" placeholder="e.g., 1 cup dry food, splash of warm water. No table scraps."></textarea></label>
-        <label class="sf"><span>Walk schedule</span><textarea id="pet4-walk" data-k="pet4-walk" rows="2" placeholder="e.g., Morning and evening, 20 minutes. Pulls toward squirrels."></textarea></label>
-        <label class="sf"><span>Medications</span><textarea id="pet4-meds" data-k="pet4-meds" rows="2" placeholder="e.g., Apoquel 16 mg, 1 tablet with breakfast"></textarea></label>
-        <label class="sf"><span>Additional notes</span><textarea id="pet4-notes" data-k="pet4-notes" rows="2" placeholder="e.g., Hides under the bed during storms"></textarea></label>
+        <label class="sf"><span>Feeding instructions</span><textarea id="pet4-food" data-k="pet4-food" data-lines="1" rows="2" placeholder="e.g., 1 cup dry food, splash of warm water. No table scraps."></textarea></label>
+        <label class="sf"><span>Walk schedule</span><textarea id="pet4-walk" data-k="pet4-walk" data-lines="1" rows="2" placeholder="e.g., Morning and evening, 20 minutes. Pulls toward squirrels."></textarea></label>
+        <label class="sf"><span>Medications</span><textarea id="pet4-meds" data-k="pet4-meds" data-lines="1" rows="2" placeholder="e.g., Apoquel 16 mg, 1 tablet with breakfast"></textarea></label>
+        <label class="sf"><span>Additional notes</span><textarea id="pet4-notes" data-k="pet4-notes" data-lines="3" rows="3" placeholder="e.g., Hides under the bed during storms"></textarea></label>
       </section>
 
         <div class="sheet-tools">
@@ -207,7 +211,7 @@
         </div>
 
         <h3>The house</h3>
-        <label class="sf"><span>Instructions and notes</span><textarea id="home" data-k="home" rows="3" placeholder="Door codes, where the food and leash are, rooms that are off-limits…"></textarea></label>
+        <label class="sf"><span>Instructions and notes</span><textarea id="home" data-k="home" data-lines="3" rows="4" placeholder="Door codes, where the food and leash are, rooms that are off-limits…"></textarea></label>
 
         <div class="sheet-tools">
           <button type="button" class="btn btn-primary" id="print">Print</button>
@@ -288,7 +292,7 @@
   var data = {};
   try { data = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { data = {}; }
 
-  function mirror(t) { if (t.tagName === 'TEXTAREA') { var v = t.nextElementSibling; if (!v || !v.classList.contains('pv')) { v = document.createElement('div'); v.className = 'pv'; t.after(v); } v.textContent = t.value; } }
+  function mirror(t) { if (t.tagName === 'TEXTAREA') { var v = t.nextElementSibling; if (!v || !v.classList.contains('pv')) { v = document.createElement('div'); v.className = 'pv'; var n = +t.dataset.lines || 1; if (n > 1) { v.dataset.lines = n; v.style.setProperty('--n', n); } t.after(v); } v.textContent = t.value; var n = +(v.dataset.lines || 0); if (n > 1 && !t.value) { for (var i = 0; i < n; i++) { var l = document.createElement('div'); l.className = 'rl'; v.appendChild(l); } } } }
   function grow(t) { if (t.tagName === 'TEXTAREA') { t.style.height = 'auto'; t.style.height = t.scrollHeight + 'px'; } }
   function shown() { var n = 0; pets.forEach(function (p) { if (!p.hidden) n++; }); return n; }
   function showPets(n) {
