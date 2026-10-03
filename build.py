@@ -329,6 +329,7 @@ HTML = f'''<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="OoYXKcYYsrCzi990k06u1eoWpMxFOF3ZSRk2TqRvpII">
 <title>CleartrackApps \u2014 Simple offline apps for real life admin</title>
 <meta name="description" content="{DESC}">
 <meta name="theme-color" content="#faf6ef" media="(prefers-color-scheme: light)">
