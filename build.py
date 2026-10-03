@@ -83,8 +83,8 @@ APPS = [
             "Vet visits, vaccination due dates and weight tracking &mdash; in Pawfolio Complete",
             "Expense history and document vault &mdash; in Pawfolio Complete",
         ],
-        price="Free", price_note="Complete from $4.99/mo", audience="Pet owners",
-        primary=("Open Pawfolio \u2014 free", go("pawfolio-app")),
+        price="Free", price_note="Pawfolio Complete from $4.99/mo", audience="Pet owners",
+        primary=("Open Pawfolio Free", go("pawfolio-app")),
         secondary=("See what Pawfolio Complete adds", "./pawfolio/"),
         demo="https://cleartrackapps.com/pet-care-planner-demo/",
         # Optional: a dedicated single-product page. When set, the card heading

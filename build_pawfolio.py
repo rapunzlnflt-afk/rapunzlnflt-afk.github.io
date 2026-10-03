@@ -97,9 +97,10 @@ FAQ = [
      "including anyone who previously purchased the app. You don't need a code and you don't "
      "need to contact me."),
     ("What if it isn't for me?",
-     "Start with the free version — there's nothing to lose and no card involved. If you upgrade "
-     "to Complete and change your mind, cancel any time. On the yearly plan, email "
-     "cleartrackapps@gmail.com within 30 days and you get your money back."),
+     "Start with Pawfolio Free — there's nothing to lose and no card involved. If you upgrade "
+     "to Pawfolio Complete and change your mind, cancel any time. On the yearly plan, email "
+     "cleartrackapps@gmail.com within 30 days for a full refund. Pawfolio Complete then switches "
+     "off, and your records stay in Pawfolio Free."),
 ]
 
 
@@ -475,7 +476,8 @@ PAGE = f'''<!DOCTYPE html>
 
       <p class="pf-micro">Already using Pawfolio? You keep everything, free, for good &mdash;
         including anyone who previously purchased the app. You don't need to do anything.<br>
-        On the yearly plan, email cleartrackapps@gmail.com within 30 days and you get your money back.</p>
+        On the yearly plan, email cleartrackapps@gmail.com within 30 days for a full refund.
+        Pawfolio Complete then switches off, and your records stay in Pawfolio Free.</p>
     </div>
   </section>
 
