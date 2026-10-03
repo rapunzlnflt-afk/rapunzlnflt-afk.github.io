@@ -54,6 +54,13 @@
   .linkbtn { background: none; border: 0; padding: .4rem 0; font: inherit; font-weight: 600;
     color: var(--color-primary); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 
+  .ps-text { margin-top: 1.4rem; padding: 1rem 1.1rem; border-radius: var(--radius);
+    background: var(--accent-pawfolio-soft); border: 1px solid color-mix(in srgb, var(--accent-pawfolio) 25%, transparent); }
+  .ps-text p { margin: 0; }
+  .ps-text-h { font-weight: 600; font-size: 1.05rem; color: var(--color-text); }
+  .ps-text p + p { margin-top: .35rem; color: var(--color-text-muted); }
+  .ps-text-link { display: inline-block; margin-top: .6rem; font-weight: 600; color: var(--accent-pawfolio);
+    text-decoration: underline; text-underline-offset: 3px; }
   .ps-list { max-width: 52ch; margin: 1.2rem 0 0; padding-left: 1.2rem; display: grid; gap: .7rem; }
   .ps-cta { max-width: 40rem; margin: 0 auto; text-align: center; }
   .ps-cta .pf-tag { display: inline-block; vertical-align: .18em; margin-left: .1em; font-family: Satoshi, system-ui, sans-serif;
@@ -216,6 +223,13 @@
         <div class="sheet-tools">
           <button type="button" class="btn btn-primary" id="print">Print</button>
           <button type="button" class="linkbtn" id="clear">Clear sheet</button>
+        </div>
+
+        <div class="ps-text ps-hide-print">
+          <p class="ps-text-h">Wouldn't it be easier to just text it?</p>
+          <p>Pawfolio Free texts your sitter a link that opens this whole sheet on their phone, with
+            tap-to-call numbers. It's ready again next trip.</p>
+          <a class="ps-text-link" href="https://cleartrackapps.com/go/pawfolio-app/?src=sitter-text">Text it with Pawfolio&nbsp;Free&nbsp;&rarr;</a>
         </div>
       </form>
       <p class="ps-note ps-hide-print">What you type stays in this browser. Nothing is sent anywhere.</p>
