@@ -39,7 +39,7 @@ DESC = ("Vet visits, medications, vaccination dates, weight and receipts for eve
 
 QUESTIONS = [
     ("When was the last vaccination?", "Every due date, with the next one already worked out."),
-    ("Which medication, and what dose?", "Current medications and supplements per pet."),
+    ("Which medication, and what dose?", "Each pet's medications, with every dose checked off."),
     ("What was the weight at the last visit?", "A weight history you can actually see a trend in."),
     ("What was the diagnosis last time?", "Every visit, reason, diagnosis and what it cost."),
     ("When was the last flea and tick dose?", "Logged with the rest, not in your head."),
@@ -50,6 +50,7 @@ FREE_FEATURES = [
     ("Unlimited pets", "One dog or a full household &mdash; each pet gets its own profile."),
     ("Everything due, at a glance", "The home screen shows what's coming up."),
     ("Medications &amp; supplements", "What each pet takes, the dose, and a reminder when a refill or a dose is due."),
+    ("Dose tracking", "Tap Given or Skip for each dose, with Undo if you tap by mistake. Set times, or every few hours from the last dose, plus what to do if one is missed."),
     ("Microchip, rabies date and insurance", "On the profile, ready to read out."),
     ("Your vet's details", "Tap to call, straight from the app."),
     ("Pet-sitter sheet", "A printable page with tap-to-call numbers &mdash; and you can text it to a sitter. Always free."),
@@ -58,11 +59,12 @@ FREE_FEATURES = [
 ]
 
 PAID_FEATURES = [
+    ("Share doses with a sitter", "Send your sitter a link to the medications you choose. They check off each dose and get reminders, and you see who gave it."),
     ("Vet visit history", "Date, reason, what the vet found, the cost and the weight for every appointment, with a photo of the receipt attached to the visit it belongs to."),
     ("Vaccination due dates", "What was given, when, and what's next &mdash; with a reminder before it expires."),
     ("Weight tracking", "Drawn as a chart, so a slow gain or loss is easy to see."),
     ("Expense history", "What you're actually spending per pet, by category."),
-    ("Timeline", "Every record for one pet in a single history, newest first."),
+    ("Timeline", "All of a pet's records in one history, newest first."),
     ("Document vault", "Certificates, receipts, adoption papers and lab results, filed under the right pet."),
 ]
 
@@ -72,26 +74,33 @@ FAQ = [
      "about two minutes. After that it behaves like any other app icon, and it opens with no internet."),
     ("Does it work without signal?",
      "Yes. Everything runs on your device. That matters most in a vet's back room or a rural "
-     "boarding kennel, which is exactly where you need it."),
+     "boarding kennel, which is exactly where you need it. Phone reminders and checking off "
+     "doses need a connection."),
     ("Where is my pet's information stored?",
-     "On your phone. There's no account to create and no server holding your records. The one "
-     "exception is if you choose to send the sitter sheet to someone: that page is scrambled on "
-     "your phone before it goes, and I can't read it. Nothing else leaves your device."),
+     "On your phone. There's no account and no server holding your records. If you send the "
+     "sitter sheet, it's scrambled on your phone first and I can't read it. If you turn on "
+     "reminders or share doses with a sitter, only the item name, your pet's name and the times "
+     "go to Pawfolio's reminder service."),
     ("Can I add more than one pet?",
      "As many as you want, each with a separate profile. It was built for multi-pet households "
      "because that's where remembering everything actually breaks down."),
     ("What do I actually get for free?",
-     "Unlimited pets, medications with refill and dose reminders, your vet's tap-to-call details, "
+     "Unlimited pets, medications with refill and dose reminders, dose tracking, your vet's tap-to-call details, "
      "the microchip and rabies dates, the printable pet-sitter sheet, notes, the useful-links "
      "directory, and printing and backups. Most people can run their household on that."),
     ("Can I upgrade now?",
      "Yes. Pawfolio Complete is $4.99 a month or $29.99 a year. Your license key arrives by "
      "email: tap Open Pawfolio in the receipt, or open the app, tap any locked tab and enter "
      "the key. Everything described as free still needs no card."),
+    ("Can my pet sitter see the doses?",
+     "With Pawfolio Complete, yes. Send your sitter a link to the medications you choose. They "
+     "check off each dose and get reminders on their own phone, and you see who gave it and when. "
+     "The printable sitter sheet stays free."),
     ("What happens if I cancel?",
      "Your records stay. Vet visits, vaccinations, weights, expenses, the timeline and the vault "
      "all go read-only — still there, still printable, still exportable. You just can't add new "
-     "entries until you subscribe again. Nothing is deleted and nothing is held hostage."),
+     "entries until you subscribe again, and sharing doses with a sitter stops. Nothing is "
+     "deleted and nothing is held hostage."),
     ("I already bought Pawfolio. Am I losing anything?",
      "No. Pawfolio unlocks itself for anyone who was already using it, free and permanently, "
      "including anyone who previously purchased the app. You don't need a code and you don't "
@@ -419,7 +428,7 @@ PAGE = f'''<!DOCTYPE html>
       <h2 class="pf-h2" id="f-h">What's free, and what Pawfolio Complete adds</h2>
       <p class="pf-sub">Pawfolio is free. Not a trial, not a taster &mdash; the parts most people need
         every week don't cost anything, and they never will. Pawfolio Complete adds six more tabs
-        if you want them.</p>
+        and sitter dose sharing if you want them.</p>
 
       <h3 class="pf-h3">Pawfolio <span class="pf-tag">Free</span></h3>
       <ul class="f-list">
@@ -427,15 +436,15 @@ PAGE = f'''<!DOCTYPE html>
       </ul>
 
       <h3 class="pf-h3">Pawfolio <span class="pf-tag">Complete</span></h3>
-      <p class="pf-sub">Six more tabs, for the record-keeping that builds up over years. The free
-        version stays free either way.</p>
+      <p class="pf-sub">Six more tabs for the record-keeping that builds up over years, plus dose
+        sharing with a sitter. The free version stays free either way.</p>
       <ul class="f-list">
 {f_cards(PAID_FEATURES)}
       </ul>
 
       <p class="pf-micro">Nothing you've already entered ever gets taken away. If you stop paying,
         those six tabs go read-only &mdash; your records stay visible, printable and exportable, you
-        just can't add new ones until you start again.</p>
+        just can't add new ones until you start again. Sitter dose sharing stops.</p>
     </div>
   </section>
 
@@ -457,8 +466,8 @@ PAGE = f'''<!DOCTYPE html>
       <h2 class="pf-h2 center" id="buy-h">Two ways to use Pawfolio</h2>
 
       <h3 class="pf-h3 center">Pawfolio <span class="pf-tag">Free</span></h3>
-      <p class="pf-price">$0, forever<small>No card, ever. Unlimited pets, medications and reminders,
-        the sitter sheet, printing and backups.</small></p>
+      <p class="pf-price">$0, forever<small>No card, ever. Unlimited pets, medications, dose tracking and
+        reminders, the sitter sheet, printing and backups.</small></p>
       <div class="pf-actions">
         <a class="btn btn-primary btn-lg js-upgrade-cta" href="{APP}">Open Pawfolio Free</a>
         <a class="btn btn-ghost btn-lg" href="{DEMO}">Try the demo first</a>
@@ -497,13 +506,13 @@ PAGE = f'''<!DOCTYPE html>
   <div class="up-modal">
     <button class="up-x js-close-upgrade" type="button" aria-label="Close">&times;</button>
     <h2 class="up-h" id="up-h">What Pawfolio Complete adds</h2>
-    <p class="up-sub">{PRICE_YEAR} a year, or {PRICE_MONTH} a month, cancel any time. Six tabs on top of everything that's already free:</p>
+    <p class="up-sub">{PRICE_YEAR} a year, or {PRICE_MONTH} a month, cancel any time. Six tabs and sitter dose sharing, on top of everything that's already free:</p>
     <ul class="up-list">
 {up_items()}
     </ul>
-    <p class="up-foot">If you ever stop paying, those six tabs go read-only. Every record you
-      entered stays visible, printable and exportable &mdash; you just can't add new ones until you
-      start again. And if you're already using Pawfolio today, you keep the whole app free for good.</p>
+    <p class="up-foot">If you ever stop paying, those six tabs go read-only and sitter dose sharing
+      stops. Every record you entered stays visible, printable and exportable &mdash; you just can't
+      add new ones until you start again. And if you're already using Pawfolio today, you keep the whole app free for good.</p>
     <div class="up-actions">
       <a class="btn btn-primary" href="{BUY}">Get Pawfolio Complete</a>
       <a class="btn btn-ghost" href="{APP}">Open Pawfolio Free</a>
