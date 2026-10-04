@@ -78,10 +78,10 @@ APPS = [
         blurb="Pawfolio keeps your pet's whole life on your phone \u2014 vet visits, medications, vaccine dates, weight, and receipts. Add as many pets as you like, from one dog to a full household of animals. When you travel, hand the sitter a printable sheet with tap-to-call vet numbers instead of a rushed text thread.",
         features=[
             "Unlimited pets, each with its own profile &mdash; free",
-            "Medications, supplements and dose reminders &mdash; free",
+            "Medications, dose reminders and dose tracking &mdash; free",
             "Printable pet-sitter sheet with tap-to-call vet numbers &mdash; free",
             "Vet visits, vaccination due dates and weight tracking &mdash; in Pawfolio Complete",
-            "Expense history and document vault &mdash; in Pawfolio Complete",
+            "Expense history, document vault and sharing doses with a sitter &mdash; in Pawfolio Complete",
         ],
         price="Free", price_note="Pawfolio Complete from $4.99/mo", audience="Pet owners",
         primary=("Open Pawfolio Free", go("pawfolio-app")),
@@ -186,14 +186,14 @@ FAQ = [
     ("Do I need to create an account or sign in?",
      "No account, no password, no email verification. Open it and start using it."),
     ("Does my data leave my device?",
-     "No. Everything you type stays on the device you typed it on. There is no server to send it to, no cloud sync, and no analytics collecting what you enter. That's why these apps work on a plane or in a basement with no signal."),
+     "Your records stay on the device you typed them on. There's no cloud sync and no analytics collecting what you enter, which is why these apps work with no signal. If you switch on phone reminders, or share doses with a sitter in Pawfolio, only what the reminder needs is sent, such as the name and the time."),
     ("Does it work on iPhone and Android?",
      "Yes \u2014 both, plus tablets and computers. Anything with a modern browser (Safari, Chrome, Edge, Firefox) works."),
     ("Is there a subscription?",
      "Four of the five are pay-once: you buy it and it's yours to keep, with no renewals and no "
      "price creep. Pawfolio is free, and an optional upgrade ($4.99 a month or $29.99 a year) unlocks "
      "the long-term record keeping \u2014 vet visit history, vaccination dates, weights, expenses and "
-     "the document vault. You are never pushed into it, and if you cancel your records stay "
+     "the document vault, plus sharing doses with a sitter. You are never pushed into it, and if you cancel your records stay "
      "readable, printable and exportable."),
     ("What if I buy it and it isn't right for me?",
      'Email <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a> within 30 days and you get your money back in full. No forms, no questions, no explanation needed. You can also try any app free before you buy \u2014 every one has a full demo with no email required.'),
