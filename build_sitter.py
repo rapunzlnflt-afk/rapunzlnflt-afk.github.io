@@ -27,13 +27,14 @@ CF_BEACON = (
 
 TITLE = "Free Printable Pet Sitter Instructions Sheet | Pawfolio"
 DESC = ("A free pet sitter instructions sheet you can fill in and print: your contact info, "
-        "emergency contacts, vet and emergency vet, plus feeding, walks and medications for "
-        "each pet. No signup.")
+        "emergency contacts, vet and emergency vet, plus each pet's photo, microchip number, "
+        "feeding, walks and medications. Blank PDF too. No signup.")
 
 CHECKLIST = [
     ("How to reach you", "Your phone and email, and the dates you'll be away."),
     ("A backup contact", "Someone nearby who can make decisions if you can't be reached."),
     ("Your vet and the emergency vet", "Clinic names, phone numbers and addresses, so the sitter isn't searching at 2 a.m."),
+    ("A photo, description and microchip number", "If your pet slips out, the sitter can show the photo and give shelters the chip number."),
     ("Feeding", "When, how much, and what's off-limits. Treats count."),
     ("Walks and routines", "Times, leash habits, and anything your pet does that might worry a stranger."),
     ("Medications and supplements", "The name, the dose, the time, and how you usually give it."),
@@ -47,7 +48,10 @@ FAQ = [
      "Nowhere. It stays in this browser on this device so it's still here if you come back. "
      "Clear sheet erases it."),
     ("Can I print it blank and fill it in by hand?",
-     "Yes. Tap Print without typing anything and you get a sheet with space to write."),
+     "Yes. Download the blank PDF, or tap Print without typing anything. Either way you get a one-page sheet with space to write."),
+    ("Where does my pet's photo go?",
+     "It stays in this browser with the rest of the sheet and prints at the top of that pet's section. "
+     "Nothing is uploaded."),
     ("Can I send it to my sitter instead of printing it?",
      "This page prints. Pawfolio Free builds the same sheet from your pet profiles and medications, "
      "keeps it for next time, and lets you text it to your sitter with tap-to-call numbers."),
@@ -72,8 +76,18 @@ def pet_block(n):
       <section class="sheet-pet" data-pet="{n}"{' hidden' if n > 1 else ''}>
         <h3>Pet {n}</h3>
         <div class="sg">
-          {field(p+"-name", "Name", "e.g., Bella")}
-          {field(p+"-kind", "Type and breed", "e.g., Dog, golden retriever")}
+          <div class="pet-id">
+          <div class="pet-photo" data-photo="{p}-photo">
+            <label class="pet-photo-btn" for="{p}-photo-in"><img alt="" hidden><span class="ps-hide-print">Add photo</span><span class="print-only">Photo</span></label>
+            <input type="file" id="{p}-photo-in" accept="image/*" class="ps-hide-print">
+            <button type="button" class="linkbtn pet-photo-rm ps-hide-print" hidden>Remove</button>
+          </div>
+          <div class="pet-id-fields">
+            {field(p+"-name", "Name", "e.g., Bella")}
+            {field(p+"-kind", "Type and breed", "e.g., Dog, golden retriever")}
+            {field(p+"-desc", "Description", "e.g., Light gold, 65 lb, white patch on chest")}
+            {field(p+"-chip", "Microchip number", "e.g., 985 112 004 567 890")}
+          </div>
         </div>
         <div class="sg">
           {field(p+"-when", "When to feed", "e.g., 7 a.m. and 5 p.m.")}
@@ -167,6 +181,36 @@ PAGE = f'''<!DOCTYPE html>
     padding: .3em .5em .26em; border-radius: 999px; background: var(--accent-pawfolio);
     color: var(--accent-pawfolio-soft); white-space: nowrap; }}
 
+  /* Pet photo (round, like Pawfolio), description and microchip. */
+  .pet-id {{ display: flex; gap: 1rem; align-items: flex-start; width: 100%; grid-column: 1 / -1; }}
+  .pet-id-fields {{ flex: 1; min-width: 0; display: grid; gap: 0 1rem; grid-template-columns: 1fr; }}
+  @media (min-width: 560px) {{ .pet-id-fields {{ grid-template-columns: 1fr 1fr; }} }}
+  /* Phones: name and type beside the photo, description and chip full width below. */
+  @media screen and (max-width: 559px) {{
+    .pet-id {{ display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 0 1rem; }}
+    .pet-id-fields {{ display: contents; }}
+    .pet-photo {{ grid-row: span 2; }}
+    .pet-id-fields .sf:nth-child(n+3) {{ grid-column: 1 / -1; }}
+  }}
+  .pet-photo {{ flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; }}
+  .pet-photo input {{ position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }}
+  .pet-photo-btn {{ width: 88px; height: 88px; border-radius: 50%; overflow: hidden; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    border: 1.5px dashed var(--color-border); background: var(--accent-pawfolio-soft);
+    font-size: .8rem; font-weight: 600; color: var(--accent-pawfolio); }}
+  .pet-photo-btn img {{ width: 100%; height: 100%; object-fit: cover; display: block; }}
+  .pet-photo-btn img[hidden] {{ display: none; }}
+  .pet-photo.has .pet-photo-btn {{ border-style: solid; }}
+  .pet-photo.has .pet-photo-btn span {{ display: none; }}
+  .pet-photo input:focus-visible + .pet-photo-rm, .pet-photo-btn:focus-within {{ outline: 2px solid var(--accent-pawfolio); }}
+  .pet-photo-rm {{ font-size: .8rem; padding: .2rem 0; }}
+  .ps-links {{ margin: 1rem auto 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem 1.2rem; }}
+  .ps-links a {{ font-weight: 600; color: var(--accent-pawfolio); text-decoration: underline; text-underline-offset: 3px; }}
+  .ps-example {{ display: grid; gap: 1.2rem; align-items: center; }}
+  @media (min-width: 720px) {{ .ps-example {{ grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }} }}
+  .ps-example img {{ width: 100%; max-width: 420px; height: auto; display: block; margin: 0 auto;
+    border: 1px solid var(--color-border); border-radius: 6px; box-shadow: 0 6px 24px rgba(0,0,0,.08); background: #fff; }}
+
   .print-only, .pv {{ display: none; }}
   @media print {{
     @page {{ margin: 10mm; }}
@@ -194,6 +238,12 @@ PAGE = f'''<!DOCTYPE html>
       white-space: pre-wrap; overflow-wrap: anywhere; font-size: 10pt; color: #000; }}
     .sheet-top {{ display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }}
     .print-only {{ display: block; font-size: 8pt; color: #555; margin: 0; }}
+    .pet-id {{ grid-column: 1 / -1; }}
+    .pet-id-fields {{ grid-template-columns: 1fr 1fr; }}
+    .pet-photo-btn {{ width: 0.95in; height: 0.95in; border: 1px solid #999; background: none; color: #999; font-size: 8pt; }}
+    .pet-photo.has .pet-photo-btn {{ border: 0; }}
+    /* A filled-in pet with no photo doesn't print an empty circle. */
+    .pet-photo[data-print-hide] {{ display: none; }}
   }}
 </style>
 </head>
@@ -213,7 +263,8 @@ PAGE = f'''<!DOCTYPE html>
     <div class="wrap">
       <h1>Free printable pet sitter instructions</h1>
       <p class="ps-lede">Everything your sitter needs in one place: how to reach you, the vet, and each
-        pet's food, walks and medications. Fill it in here and print it, or print it blank.</p>
+        pet's photo, food, walks and medications. Fill it in here and print it, or print it blank.</p>
+      <p class="ps-links"><a href="#example">See a filled-in example</a><a href="pet-sitter-instructions-blank.pdf" download>Download the blank PDF</a></p>
     </div>
   </section>
 
@@ -261,6 +312,7 @@ PAGE = f'''<!DOCTYPE html>
 
         <div class="sheet-tools">
           <button type="button" class="btn btn-primary" id="print">Print</button>
+          <a class="linkbtn" href="pet-sitter-instructions-blank.pdf" download>Blank PDF</a>
           <button type="button" class="linkbtn" id="clear">Clear sheet</button>
         </div>
 
@@ -272,6 +324,21 @@ PAGE = f'''<!DOCTYPE html>
         </div>
       </form>
       <p class="ps-note ps-hide-print">What you type stays in this browser. Nothing is sent anywhere.</p>
+    </div>
+  </section>
+
+  <section class="ps-sec ps-hide-print" id="example" aria-labelledby="ex-h">
+    <div class="wrap ps-example">
+      <div>
+        <h2 class="ps-h2" id="ex-h">A filled-in example</h2>
+        <p class="ps-sub">This is what a finished sheet looks like for Bella, with her photo, description and
+          microchip number at the top. If a pet ever slips out, the sitter has everything a shelter or vet
+          will ask for.</p>
+        <p class="ps-links" style="justify-content:flex-start"><a href="pet-sitter-instructions-example.pdf" target="_blank" rel="noopener">Open the example (PDF)</a><a href="pet-sitter-instructions-blank.pdf" download>Download the blank PDF</a></p>
+      </div>
+      <a href="pet-sitter-instructions-example.pdf" target="_blank" rel="noopener"><img src="example-sheet.png" width="840" height="1087" loading="lazy"
+        alt="A filled-in pet sitter instructions sheet for Bella, a golden retriever, with her photo, vet numbers, feeding, walks and medication"></a>
+
     </div>
   </section>
 
@@ -356,9 +423,41 @@ PAGE = f'''<!DOCTYPE html>
   var used = 1;
   pets.forEach(function (p, i) {{
     p.querySelectorAll('[data-k]').forEach(function (f) {{ if (f.value) used = Math.max(used, i + 1); }});
+    if (data['pet' + (i + 1) + '-photo']) used = Math.max(used, i + 1);
   }});
   showPets(Math.max(used, data.pets || 1));
   requestAnimationFrame(function () {{ fields.forEach(grow); }});
+
+  // Pet photos: center-cropped, shrunk to 360px and kept with the sheet.
+  var photos = form.querySelectorAll('.pet-photo');
+  function setPhoto(box, url) {{
+    var img = box.querySelector('img'), rm = box.querySelector('.pet-photo-rm');
+    if (url) {{ img.src = url; img.hidden = false; box.classList.add('has'); rm.hidden = false; }}
+    else {{ img.removeAttribute('src'); img.hidden = true; box.classList.remove('has'); rm.hidden = true; }}
+  }}
+  function shrink(file, done) {{
+    var r = new FileReader();
+    r.onload = function () {{
+      var im = new Image();
+      im.onload = function () {{
+        var S = 360, c = document.createElement('canvas'); c.width = c.height = S;
+        var side = Math.min(im.width, im.height);
+        c.getContext('2d').drawImage(im, (im.width - side) / 2, (im.height - side) / 2, side, side, 0, 0, S, S);
+        done(c.toDataURL('image/jpeg', 0.82));
+      }};
+      im.src = r.result;
+    }};
+    r.readAsDataURL(file);
+  }}
+  photos.forEach(function (box) {{
+    var k = box.dataset.photo, inp = box.querySelector('input'), rm = box.querySelector('.pet-photo-rm');
+    if (data[k]) setPhoto(box, data[k]);
+    inp.addEventListener('change', function () {{
+      var f = inp.files && inp.files[0]; if (!f) return;
+      shrink(f, function (url) {{ data[k] = url; setPhoto(box, url); save(); inp.value = ''; }});
+    }});
+    rm.addEventListener('click', function () {{ delete data[k]; setPhoto(box, ''); save(); }});
+  }});
 
   addBtn.addEventListener('click', function () {{
     var n = shown() + 1; showPets(n); save();
@@ -369,19 +468,27 @@ PAGE = f'''<!DOCTYPE html>
     if (!confirm('Erase everything on this sheet?')) return;
     data = {{}}; try {{ localStorage.removeItem(KEY); }} catch (e) {{}}
     fields.forEach(function (f) {{ f.value = ''; grow(f); mirror(f); }});
+    photos.forEach(function (box) {{ setPhoto(box, ''); }});
     showPets(1);
   }});
   // Blank pet blocks after the first don't need to print.
   window.addEventListener('beforeprint', function () {{
     pets.forEach(function (p, i) {{
       if (i === 0 || p.hidden) return;
-      var any = false; p.querySelectorAll('[data-k]').forEach(function (f) {{ if (f.value) any = true; }});
+      var any = !!data['pet' + (i + 1) + '-photo']; p.querySelectorAll('[data-k]').forEach(function (f) {{ if (f.value) any = true; }});
       if (!any) p.dataset.printHide = '1', p.hidden = true;
+    }});
+    // A pet with details but no photo skips the empty photo circle.
+    pets.forEach(function (p, i) {{
+      var box = p.querySelector('.pet-photo'); if (!box || data['pet' + (i + 1) + '-photo']) return;
+      var any = false; p.querySelectorAll('[data-k]').forEach(function (f) {{ if (f.value) any = true; }});
+      if (any) box.dataset.printHide = '1';
     }});
     fields.forEach(mirror);
   }});
   window.addEventListener('afterprint', function () {{
     pets.forEach(function (p) {{ if (p.dataset.printHide) {{ delete p.dataset.printHide; p.hidden = false; }} }});
+    photos.forEach(function (b) {{ delete b.dataset.printHide; }});
   }});
 }})();
 </script>
