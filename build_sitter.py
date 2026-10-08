@@ -84,9 +84,10 @@ def pet_block(n):
           </div>
           <div class="pet-id-fields">
             {field(p+"-name", "Name", "e.g., Bella")}
+            {field(p+"-age", "Age", "e.g., 4 years")}
             {field(p+"-kind", "Type and breed", "e.g., Dog, golden retriever")}
-            {field(p+"-desc", "Description", "e.g., Light gold, 65 lb, white patch on chest")}
             {field(p+"-chip", "Microchip number", "e.g., 985 112 004 567 890")}
+            <div class="pet-desc">{field(p+"-desc", "Description", "e.g., Light gold, 65 lb, white patch on chest")}</div>
           </div>
         </div>
         <div class="sg">
@@ -118,8 +119,8 @@ PAGE = f'''<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{TITLE}</title>
 <meta name="description" content="{DESC}">
-<meta name="theme-color" content="#faf6ef" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#181410" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f2f4f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15181e" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="{URL}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CleartrackApps">
@@ -136,6 +137,32 @@ PAGE = f'''<!DOCTYPE html>
 <link rel="stylesheet" href="../base.css">
 <link rel="stylesheet" href="../style.css">
 <style>
+  /* Page colors: soft gray with a light slate blue accent (this page only). */
+  body.ps-page {{
+    --color-bg: #f2f4f7; --color-bg-alt: #e8edf5; --color-surface: #ffffff; --color-surface-2: #f5f7fa;
+    --color-border: #d6dce6; --color-border-strong: #c3cbd8; --color-text: #262b35; --color-text-muted: #5d6676;
+    --color-primary: #4c5f8f; --color-primary-hover: #3d4d76; --color-focus: #4c5f8f;
+    --accent-pawfolio: #4c5f8f; --accent-pawfolio-soft: #e7ecf6;
+    background-color: var(--color-bg);
+    background-image: url("paws.svg"); background-repeat: repeat; background-position: center top; background-size: 900px 1100px;
+  }}
+  [data-theme='dark'] body.ps-page {{
+    --color-bg: #15181e; --color-bg-alt: #1b2029; --color-surface: #1e232c; --color-surface-2: #232934;
+    --color-border: #333b49; --color-border-strong: #424b5b; --color-text: #dde2ea; --color-text-muted: #9aa3b2;
+    --color-primary: #a3b4dc; --color-primary-hover: #bdcae8; --color-focus: #a3b4dc;
+    --accent-pawfolio: #a3b4dc; --accent-pawfolio-soft: #252d3d; background-image: url("paws-dark.svg");
+  }}
+  @media (prefers-color-scheme: dark) {{
+    :root:not([data-theme='light']) body.ps-page {{
+      --color-bg: #15181e; --color-bg-alt: #1b2029; --color-surface: #1e232c; --color-surface-2: #232934;
+      --color-border: #333b49; --color-border-strong: #424b5b; --color-text: #dde2ea; --color-text-muted: #9aa3b2;
+      --color-primary: #a3b4dc; --color-primary-hover: #bdcae8; --color-focus: #a3b4dc;
+      --accent-pawfolio: #a3b4dc; --accent-pawfolio-soft: #252d3d; background-image: url("paws-dark.svg");
+    }}
+  }}
+  @media (max-width: 640px) {{ body.ps-page {{ background-size: 560px 684px; }} }}
+  body.ps-page .site-head {{ background: color-mix(in srgb, var(--color-bg) 92%, transparent); }}
+  body.ps-page .ps-alt, body.ps-page .faq {{ background: color-mix(in srgb, var(--color-bg-alt) 45%, transparent); }}
   .ps-hero {{ padding: clamp(1.5rem, 4vw, 2.5rem) 0 1rem; text-align: center; }}
   .ps-hero h1 {{ font-family: Zodiak, Georgia, serif; font-weight: 700;
     font-size: clamp(1.85rem, 5.4vw, 3rem); letter-spacing: -.02em; max-width: 20ch; margin: .4rem auto 0; }}
@@ -190,8 +217,9 @@ PAGE = f'''<!DOCTYPE html>
     .pet-id {{ display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 0 1rem; }}
     .pet-id-fields {{ display: contents; }}
     .pet-photo {{ grid-row: span 2; }}
-    .pet-id-fields .sf:nth-child(n+3) {{ grid-column: 1 / -1; }}
+    .pet-id-fields > :nth-child(n+3) {{ grid-column: 1 / -1; }}
   }}
+  .pet-desc {{ grid-column: 1 / -1; }}
   .pet-photo {{ flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; }}
   .pet-photo input {{ position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }}
   .pet-photo-btn {{ width: 88px; height: 88px; border-radius: 50%; overflow: hidden; cursor: pointer;
@@ -215,10 +243,11 @@ PAGE = f'''<!DOCTYPE html>
   @media print {{
     @page {{ margin: 10mm; }}
     body {{ background: #fff !important; color: #000 !important; }}
+    body.ps-page {{ background-image: none !important; }}
     .site-head, .site-foot, .ps-hero, .ps-hide-print, .sheet-tools, .skip {{ display: none !important; }}
     .ps-sec {{ padding: 0 !important; background: none !important; }}
     .sheet {{ border: 0; padding: 0; margin: 0; max-width: none; background: none; }}
-    .sheet h3 {{ color: #000; border-color: #000; break-after: avoid; }}
+    .sheet h3 {{ color: #3d4d76; border-color: #8a9bc2; break-after: avoid; }}
     .sheet {{ font-size: 10pt; }}
     .sheet-title {{ font-size: 15pt; }}
     .sheet h3 {{ font-size: 10.5pt; margin: .75rem 0 .35rem; }}
@@ -239,7 +268,8 @@ PAGE = f'''<!DOCTYPE html>
     .sheet-top {{ display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }}
     .print-only {{ display: block; font-size: 8pt; color: #555; margin: 0; }}
     .pet-id {{ grid-column: 1 / -1; }}
-    .pet-id-fields {{ grid-template-columns: 1fr 1fr; }}
+    .pet-id-fields {{ grid-template-columns: 1.1fr .7fr 1.2fr; }}
+    .pet-desc {{ grid-column: span 2; }}
     .pet-photo-btn {{ width: 0.95in; height: 0.95in; border: 1px solid #999; background: none; color: #999; font-size: 8pt; }}
     .pet-photo.has .pet-photo-btn {{ border: 0; }}
     /* A filled-in pet with no photo doesn't print an empty circle. */
@@ -247,7 +277,7 @@ PAGE = f'''<!DOCTYPE html>
   }}
 </style>
 </head>
-<body>
+<body class="ps-page">
 <a class="skip" href="#top">Skip to content</a>
 
 <header class="site-head">
@@ -497,7 +527,34 @@ PAGE = f'''<!DOCTYPE html>
 </html>
 '''
 
+def paws_svg(color, opacity):
+    """A wandering trail of paw prints. The tile is 900x1100 and the trail enters
+    and leaves at the same x, so tiles stacked vertically make one long walk."""
+    import math
+    W, H, steps = 900, 1100, 22
+    out = []
+    for i in range(steps):
+        t = (i + 0.5) / steps
+        x = 450 + 300 * math.sin(2 * math.pi * t)
+        y = H * (1 - t)
+        dx = 300 * 2 * math.pi * math.cos(2 * math.pi * t) / steps
+        dy = -H / steps
+        ang = math.degrees(math.atan2(dy, dx)) + 90      # paw points the way it walks
+        side = 1 if i % 2 else -1
+        n = math.hypot(dx, dy)
+        px, py = x + side * 16 * (-dy / n), y + side * 16 * (dx / n)
+        out.append(
+            f'<g transform="translate({px:.1f} {py:.1f}) rotate({ang:.1f})">'
+            '<ellipse cx="0" cy="6" rx="9" ry="7.5"/>'
+            '<ellipse cx="-10" cy="-5" rx="3.6" ry="4.6"/><ellipse cx="-3.6" cy="-11" rx="3.6" ry="4.8"/>'
+            '<ellipse cx="3.6" cy="-11" rx="3.6" ry="4.8"/><ellipse cx="10" cy="-5" rx="3.6" ry="4.6"/></g>')
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">'
+            f'<g fill="{color}" fill-opacity="{opacity}">' + "".join(out) + '</g></svg>')
+
+
 if __name__ == "__main__":
     OUT_DIR.mkdir(exist_ok=True)
+    (OUT_DIR / "paws.svg").write_text(paws_svg("#4c5f8f", 0.15), encoding="utf-8")
+    (OUT_DIR / "paws-dark.svg").write_text(paws_svg("#a3b4dc", 0.11), encoding="utf-8")
     (OUT_DIR / "index.html").write_text(PAGE, encoding="utf-8")
     print(f"wrote {OUT_DIR / 'index.html'}")
