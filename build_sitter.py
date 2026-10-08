@@ -190,8 +190,9 @@ PAGE = f'''<!DOCTYPE html>
     border-radius: 0; padding: .35rem 0; resize: none; overflow: hidden; -webkit-appearance: none; appearance: none; }}
   .sf input:focus, .sf textarea:focus {{ outline: none; border-bottom-color: var(--accent-pawfolio); }}
   .sf ::placeholder {{ color: var(--color-text-muted); opacity: .55; }}
-  .sheet-tools {{ display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1rem; }}
-  .linkbtn {{ background: none; border: 0; padding: .4rem 0; font: inherit; font-weight: 600;
+  .sheet-tools {{ display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.4rem; margin-top: 1rem; }}
+  @media (max-width: 360px) {{ .sheet-tools {{ gap: .5rem 1.4rem; }} .sheet-tools #print {{ flex-basis: 100%; }} }}
+  .linkbtn {{ display: inline-flex; align-items: center; line-height: 1.3; background: none; border: 0; padding: .4rem 0; font: inherit; font-weight: 600;
     color: var(--color-primary); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }}
 
   .ps-text {{ margin-top: 1.4rem; padding: 1rem 1.1rem; border-radius: var(--radius);
