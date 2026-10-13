@@ -93,7 +93,7 @@ BUILDER_CSS = '''
     border-bottom: 3px solid #7b9a9e; text-align: center; line-height: 1.05; }
   .mc-tbl th:first-child { text-align: left; padding-left: 12px; }
   .mc-tbl th small { display: block; font-weight: 400; font-size: 10.5px; letter-spacing: 0; opacity: .8; margin-top: 2px; }
-  .mc-tbl td { border: 1px solid #cfd3d3; vertical-align: top; height: 72px; padding: 0; position: relative; }
+  .mc-tbl td { border: 1px solid #cfd3d3; vertical-align: top; height: var(--rh, 72px); padding: 0; position: relative; }
   .mc-tbl tr.s-first td { border-top: 3px solid #7b9a9e; }
   .mc-tbl tbody tr:first-child td { border-top: 0; }
   .mc-tbl tr.s-last td { border-bottom: 3px solid #7b9a9e; }
@@ -104,11 +104,11 @@ BUILDER_CSS = '''
   .mc-med-n:empty { margin-top: 20px; }
   .mc-med-s { display: block; margin-top: 6px; color: #12676e; font-size: 13.5px; font-weight: 500; }
   .mc-tbl td.dose { vertical-align: middle; text-align: center; font-size: 13.5px; color: #555; }
-  .mc-cell { position: absolute; inset: 0; padding: 14px 8px 0 11px; }
+  .mc-cell { position: absolute; inset: 0; padding: var(--pt, 14px) 7px 0 18px; }
   .mc-ln { display: flex; align-items: flex-end; gap: 6px; height: 25px; color: #777; }
   .mc-ln i { flex: 1; min-width: 0; font-style: normal; border-bottom: 1px solid #aaa; height: 15px; margin-left: 4px; font-size: 11.5px; color: #222;
     font-weight: 600; text-align: center; line-height: 14px; white-space: nowrap; letter-spacing: -.01em; }
-  .mc-ln.d i { margin-left: 13px; }
+  .mc-ln.d i { margin-left: 11px; }
   .mc-ar { position: absolute; color: #3f8f96; }
   .mc-ar.r { right: 6px; bottom: 3px; width: 34px; height: 8px; }
   .mc-ar.dn { left: 6px; bottom: -12px; width: 8px; height: 22px; z-index: 1; }
@@ -140,7 +140,7 @@ BUILDER_JS = r'''
     { h: 6, label: 'Every 6 hours', note: '4 doses a day' },
     { h: 4, label: 'Every 4 hours', note: '6 doses a day' }
   ];
-  var MAX = 6, ROWS_PER_PAGE = 8;
+  var MAX = 6, ROWS_PER_PAGE = 10, ROOM = 600;
   var DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   var DEF = { counts: { 24: 2, 12: 2, 8: 0, 6: 0, 4: 0 }, meds: {}, name: '', week: '' };
@@ -269,7 +269,9 @@ BUILDER_JS = r'''
     var head = '<tr><th style="width:150px">MEDICINE</th><th style="width:62px">DOSE</th>' +
       days.map(function (d) { return '<th>' + d.d + (d.sub ? '<small>' + d.sub + '</small>' : '') + '</th>'; }).join('') + '</tr>';
     stage.innerHTML = pages.map(function (pg, pi) {
-      return '<div class="mc-fit"><div class="mc-paper">' +
+      var n = pg.reduce(function (a, x) { return a + x.n; }, 0);
+      var rh = Math.min(72, Math.floor(ROOM / n));
+      return '<div class="mc-fit"><div class="mc-paper" style="--rh:' + rh + 'px;--pt:' + Math.max(4, Math.round((rh - 50) / 2) + 3) + 'px">' +
         '<div class="mc-head"><div><p class="mc-title">Weekly Medication Chart</p>' +
         '<p class="mc-subt">Write the medicine name, the time each dose is due, and the time it was actually taken.</p></div>' +
         '<div class="mc-who"><div>Name:<span class="v">' + esc(st.name) + '</span></div><div>Week of:<span class="v">' + esc(wl) + '</span></div></div></div>' +
