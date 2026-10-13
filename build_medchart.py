@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Generates /pet-medication-chart/index.html — a free weekly pet medication
-chart (printable PDF, fillable PDF and spreadsheet) for people searching
+chart builder (every 24, 12, 8, 6 or 4 hours, printed in the browser) plus the
+ready-made printable PDF, fillable PDF and spreadsheet for people searching
 "pet medication chart printable" and similar. Ends with Pawfolio Free, which
 does the same job with reminders and Given / Skip check-offs. Re-run after
 build.py; it writes only into ./pet-medication-chart/.
 """
 import pathlib
+
+from medchart_builder import BUILDER_HTML, BUILDER_CSS, BUILDER_JS
 
 ROOT = pathlib.Path(__file__).parent
 OUT_DIR = ROOT / "pet-medication-chart"
@@ -21,9 +24,9 @@ CF_BEACON = (
 )
 
 TITLE = "Free Printable Pet Medication Chart (Weekly Dose Log) | Pawfolio"
-DESC = ("A free weekly pet medication chart for dogs and cats: write the time each dose is due "
-        "and the time it was actually given, for once-a-day and every-12-hours medicines. "
-        "Printable PDF, fillable PDF and spreadsheet. No signup.")
+DESC = ("Make a free weekly pet medication chart for dogs and cats. Pick medicines given every "
+        "24, 12, 8, 6 or 4 hours, add the times, and print. Or download the ready-made PDF or "
+        "spreadsheet. No signup.")
 
 DOWNLOADS = [
     ("pet-medication-chart.pdf", "Printable PDF", "Print it and keep it by the pill bottles. Write in pen."),
@@ -34,11 +37,12 @@ DOWNLOADS = [
 HOW = [
     ("Write the medicine and dose in the left column.",
      "One medicine per section, for example \u201cApoquel 16 mg, 1 tablet.\u201d"),
-    ("Use an every-24-hours section for once-a-day medicines,",
-     "and an every-12-hours section for twice-a-day ones like insulin or seizure medication. "
-     "Each 12-hour day has two boxes: 1 of 2 and 2 of 2."),
+    ("Each medicine gets a section for its schedule.",
+     "Once a day gets one box per day. Every 12 hours gets two (1 of 2 and 2 of 2), every 8 hours "
+     "three, every 6 hours four, and every 4 hours six."),
     ("Fill in \u201cDue\u201d with the time the dose is scheduled.",
-     "For every-12-hours medicines, the second dose is due 12 hours after the first."),
+     "Each dose is due that many hours after the one before. In the builder, set the first dose "
+     "of the day and the rest are filled in for you."),
     ("Fill in \u201cTaken\u201d with the time it was actually given.",
      "If it was late, the gap is right there on the page, and you can count 12 hours from when it was really given."),
     ("Follow the arrows.",
@@ -68,10 +72,15 @@ FAQ = [
      "names and times first. The spreadsheet if you want to add rows or change the layout."),
     ("Does it work for cats, or for more than one pet?",
      "Yes. Write the pet's name beside the medicine, or use the Name line at the top and print one sheet per pet."),
-    ("What if my pet takes more than four medicines?",
-     "Print a second sheet. Or open the spreadsheet and copy a section."),
+    ("Can I make a chart for every-8-hours, every-6-hours or every-4-hours medicines?",
+     "Yes. Use Build your chart at the top of the page and choose how many medicines are on each schedule. "
+     "The chart changes as you go, and Print gives you exactly what you see."),
+    ("What if my pet takes a lot of medicines?",
+     "The builder takes up to six on each schedule. When they don't fit on one page, the chart goes onto a "
+     "second page, so the boxes stay big enough to write in."),
     ("What size does it print?",
-     "One page, landscape, on US letter paper. One sheet covers Sunday through Saturday."),
+     "Landscape, on US letter paper. One page covers a week. If the week starting date is set, each "
+     "day shows its date."),
     ("Is there a version that reminds me?",
      "Pawfolio Free reminds you when each dose is due, lets you tap Given or Skip, and for every-few-hours "
      "medicines counts the next dose from when it was really given. It's free and needs no account. Pawfolio Complete adds sitter "
@@ -109,7 +118,7 @@ PAGE = f'''<!DOCTYPE html>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CleartrackApps">
 <meta property="og:url" content="{URL}">
-<meta property="og:title" content="Free printable pet medication chart">
+<meta property="og:title" content="Free pet medication chart maker">
 <meta property="og:description" content="{DESC}">
 <meta property="og:image" content="https://cleartrackapps.com/pet-medication-chart/chart-preview.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -185,6 +194,7 @@ PAGE = f'''<!DOCTYPE html>
   .ps-text p + p {{ margin-top: .35rem; color: var(--color-text-muted); }}
   .ps-text-link {{ display: inline-block; margin-top: .6rem; font-weight: 600; color: var(--accent-pawfolio);
     text-decoration: underline; text-underline-offset: 3px; }}
+ {BUILDER_CSS}
   .two {{ display: grid; gap: 2rem; }}
   @media (min-width: 880px) {{ .two {{ grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; }} }}
 </style>
@@ -199,23 +209,25 @@ PAGE = f'''<!DOCTYPE html>
   </div>
 </header>
 <main id="top">
-  <section class="ps-hero">
+  <section class="ps-hero ps-hide-print">
     <div class="wrap">
       <h1>Free printable pet medication chart</h1>
-      <p class="ps-lede">A one-page weekly dose log for dogs and cats. Write the time each dose is due and
-        the time it was actually given, for once-a-day and every-12-hours medicines.</p>
+      <p class="ps-lede">A weekly dose log for dogs and cats. Pick medicines given every 24, 12, 8, 6 or
+        4 hours, then print. Write the time each dose is due and the time it was actually given.</p>
       <div class="ps-actions">
-        <a class="btn btn-primary btn-lg" href="pet-medication-chart.pdf" download>Download the free PDF</a>
-        <a class="btn btn-ghost btn-lg" href="#downloads">Fillable PDF or spreadsheet</a>
+        <a class="btn btn-primary btn-lg" href="#builder">Build your chart</a>
+        <a class="btn btn-ghost btn-lg" href="#downloads">Download a ready-made PDF</a>
       </div>
     </div>
   </section>
-  <section class="ps-sec" aria-label="Chart preview">
+{BUILDER_HTML}
+  <section class="ps-sec ps-alt ps-hide-print" aria-labelledby="dl-h">
     <div class="wrap">
+      <h2 class="ps-h2" id="dl-h" style="margin-inline:auto;text-align:center">Or download the ready-made chart</h2>
+      <p class="ps-sub" style="margin-inline:auto;text-align:center">Two once-a-day sections and two every-12-hours sections, Sunday through Saturday.</p>
       <figure class="chart-fig">
-        <a href="pet-medication-chart.pdf" target="_blank" rel="noopener"><img src="chart-preview.png" width="1650" height="960" loading="eager"
+        <a href="pet-medication-chart.pdf" target="_blank" rel="noopener"><img src="chart-preview.png" width="1650" height="960" loading="lazy"
           alt="Weekly medication chart with two every-24-hours sections and two every-12-hours sections, Sunday through Saturday, with Due and Taken lines for each dose"></a>
-        <figcaption>One page, landscape, US letter. Sunday through Saturday.</figcaption>
       </figure>
       <div class="dls" id="downloads">
 {downloads()}
@@ -229,7 +241,7 @@ PAGE = f'''<!DOCTYPE html>
       <p class="ps-note">Free. No signup, no email.</p>
     </div>
   </section>
-  <section class="ps-sec ps-alt" aria-labelledby="how-h">
+  <section class="ps-sec ps-hide-print" aria-labelledby="how-h">
     <div class="wrap two">
       <div>
         <h2 class="ps-h2" id="how-h">How to use the chart</h2>
@@ -245,7 +257,7 @@ PAGE = f'''<!DOCTYPE html>
       </div>
     </div>
   </section>
-  <section class="ps-sec" aria-labelledby="cta-h">
+  <section class="ps-sec ps-alt ps-hide-print" aria-labelledby="cta-h">
     <div class="wrap ps-cta">
       <h2 class="ps-h2" id="cta-h" style="margin-inline:auto">Want reminders instead of paper?</h2>
       <p class="ps-sub" style="margin-inline:auto">Pawfolio Free keeps each pet's medications with a reminder
@@ -258,7 +270,7 @@ PAGE = f'''<!DOCTYPE html>
       </div>
     </div>
   </section>
-  <section class="faq" aria-labelledby="faq-h">
+  <section class="faq ps-hide-print" aria-labelledby="faq-h">
     <div class="wrap faq-wrap">
       <h2 class="sec-title ps-h2" id="faq-h">Questions</h2>
       <div class="faq-list">
@@ -286,6 +298,7 @@ PAGE = f'''<!DOCTYPE html>
   </div>
 </footer>
 <script src="../app.js" defer></script>
+{BUILDER_JS}
 {CF_BEACON}
 </body>
 </html>
