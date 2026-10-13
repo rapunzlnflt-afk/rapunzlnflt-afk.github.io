@@ -418,6 +418,7 @@ PAGE = f'''<!DOCTYPE html>
     </div>
     <nav class="foot-links" aria-label="Elsewhere">
       <a href="../pawfolio/">Pawfolio</a>
+      <a href="../pet-medication-chart/">Free pet medication chart</a>
       <a href="https://instagram.com/cleartrackapps" target="_blank" rel="noopener noreferrer">Instagram</a>
       <a href="https://www.pinterest.com/cleartrackapps" target="_blank" rel="noopener noreferrer">Pinterest</a>
       <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a>
