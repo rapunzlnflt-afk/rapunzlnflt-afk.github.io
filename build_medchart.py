@@ -76,7 +76,7 @@ FAQ = [
      "Yes. Use Build your chart at the top of the page and choose how many medicines are on each schedule. "
      "The chart changes as you go, and Print gives you exactly what you see."),
     ("What if my pet takes a lot of medicines?",
-     "The builder takes up to six on each schedule. A page holds up to 10 dose rows. Past that, the chart "
+     "The builder takes up to six on each schedule. A page holds up to 9 dose rows. Past that, the chart "
      "goes onto a second page, so the boxes stay big enough to write in."),
     ("What size does it print?",
      "Landscape, on US letter paper. One page covers a week. If the week starting date is set, each "

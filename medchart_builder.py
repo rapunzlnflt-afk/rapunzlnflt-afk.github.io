@@ -80,7 +80,7 @@ BUILDER_CSS = '''
   .mc-paper { position: absolute; top: 0; left: 0; width: 1056px; height: 816px; transform-origin: 0 0;
     box-sizing: border-box; padding: 34px 34px 26px; background: #fff; color: #2b2b2b;
     font-family: Lato, "General Sans", Arial, sans-serif; border: 1px solid var(--color-border);
-    border-radius: 6px; box-shadow: 0 6px 24px rgba(0,0,0,.08); display: flex; flex-direction: column; }
+    border-radius: 6px; box-shadow: 0 6px 24px rgba(0,0,0,.08); display: flex; flex-direction: column; overflow: hidden; }
   .mc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
   .mc-title { margin: 0; font-size: 28px; font-weight: 700; color: #2b2723; letter-spacing: -.01em; line-height: 1.1; font-family: inherit; }
   .mc-subt { margin: 6px 0 0; font-size: 13.5px; color: #666; }
@@ -112,7 +112,14 @@ BUILDER_CSS = '''
   .mc-ar { position: absolute; color: #3f8f96; }
   .mc-ar.r { right: 6px; bottom: 3px; width: 34px; height: 8px; }
   .mc-ar.dn { left: 6px; bottom: -12px; width: 8px; height: 22px; z-index: 1; }
-  .mc-foot { margin-top: auto; padding-top: 10px; display: flex; justify-content: space-between; gap: 16px; font-size: 11.5px; color: #666; }
+  .mc-foot { margin-top: auto; padding-top: 10px; display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; font-size: 11.5px; color: #666; }
+  .mc-foot p { margin: 0; line-height: 1.45; }
+  .mc-src { margin-top: 4px !important; color: #4a4a4a; font-weight: 600; }
+  .mc-plug { flex: 0 0 auto; display: flex; align-items: center; gap: 12px; padding: 8px 14px 8px 8px;
+    border: 1.5px solid #7b9a9e; border-radius: 8px; background: #f1f7f7; color: #444; max-width: 560px; }
+  .mc-plug img { display: block; width: 66px; height: 66px; background: #fff; border-radius: 3px; }
+  .mc-plug-h { font-weight: 700; font-size: 13px; color: #12676e; }
+  .mc-plug-u { font-weight: 600; color: #2b2723; }
 
   @media print {
     @page { size: letter landscape; margin: 0; }
@@ -140,7 +147,7 @@ BUILDER_JS = r'''
     { h: 6, label: 'Every 6 hours', note: '4 doses a day' },
     { h: 4, label: 'Every 4 hours', note: '6 doses a day' }
   ];
-  var MAX = 6, ROWS_PER_PAGE = 10, ROOM = 600;
+  var MAX = 6, ROWS_PER_PAGE = 9;
   var DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   var DEF = { counts: { 24: 2, 12: 2, 8: 0, 6: 0, 4: 0 }, meds: {}, name: '', week: '' };
@@ -269,22 +276,39 @@ BUILDER_JS = r'''
     var head = '<tr><th style="width:150px">MEDICINE</th><th style="width:62px">DOSE</th>' +
       days.map(function (d) { return '<th>' + d.d + (d.sub ? '<small>' + d.sub + '</small>' : '') + '</th>'; }).join('') + '</tr>';
     stage.innerHTML = pages.map(function (pg, pi) {
-      var n = pg.reduce(function (a, x) { return a + x.n; }, 0);
-      var rh = Math.min(72, Math.floor(ROOM / n));
-      return '<div class="mc-fit"><div class="mc-paper" style="--rh:' + rh + 'px;--pt:' + Math.max(4, Math.round((rh - 50) / 2) + 3) + 'px">' +
+      return '<div class="mc-fit"><div class="mc-paper">' +
         '<div class="mc-head"><div><p class="mc-title">Weekly Medication Chart</p>' +
         '<p class="mc-subt">Write the medicine name, the time each dose is due, and the time it was actually taken.</p></div>' +
         '<div class="mc-who"><div>Name:<span class="v">' + esc(st.name) + '</span></div><div>Week of:<span class="v">' + esc(wl) + '</span></div></div></div>' +
         '<table class="mc-tbl"><thead>' + head + '</thead><tbody>' +
         pg.map(function (x) { return sectionRows(x, x.alt, days); }).join('') +
         '</tbody></table>' +
-        '<div class="mc-foot"><span>&ldquo;Due&rdquo; = scheduled time. &nbsp; &ldquo;Taken&rdquo; = actual time given. &nbsp; Arrows point to the next box to fill: down the day, then across to the next day.</span>' +
-        '<span style="white-space:nowrap">' + (pages.length > 1 ? 'Page ' + (pi + 1) + ' of ' + pages.length + ' &middot; ' : '') + 'cleartrackapps.com/pet-medication-chart</span></div>' +
+        '<div class="mc-foot"><div class="mc-legend"><p>&ldquo;Due&rdquo; = scheduled time. &nbsp; &ldquo;Taken&rdquo; = actual time given.</p>' +
+        '<p>Arrows point to the next box to fill: down the day, then across to the next day.</p>' +
+        '<p class="mc-src">' + (pages.length > 1 ? 'Page ' + (pi + 1) + ' of ' + pages.length + ' &middot; ' : '') + 'Free chart from cleartrackapps.com/pet-medication-chart</p></div>' +
+        '<div class="mc-plug"><img src="qr-pawfolio.svg" width="66" height="66" alt="">' +
+        '<div><p class="mc-plug-h">Get free dose reminders on your phone with Pawfolio Free.</p>' +
+        '<p>Using a sitter? Pawfolio Complete shares dose times and shows who gave each one.</p>' +
+        '<p class="mc-plug-u">Scan the code or visit cleartrackapps.com/pawfolio</p></div></div></div>' +
         '</div></div>';
     }).join('');
+    sizeRows();
     note.textContent = (pages.length > 1 ? 'Your chart is ' + pages.length + ' pages. ' : '') +
       'Prints landscape on US letter paper. What you type stays in this browser.';
     fit();
+  }
+
+  // Rows fill the space between the table header and the footer, up to 72px each.
+  function sizeRows() {
+    stage.querySelectorAll('.mc-paper').forEach(function (paper) {
+      var tbl = paper.querySelector('.mc-tbl'), foot = paper.querySelector('.mc-foot');
+      var n = paper.querySelectorAll('tbody tr').length;
+      var head = tbl.offsetTop + paper.querySelector('thead').offsetHeight;
+      var avail = paper.clientHeight - 26 - foot.offsetHeight - 14 - head - n * 1.5;
+      var rh = Math.max(52, Math.min(72, Math.floor(avail / n)));
+      paper.style.setProperty('--rh', rh + 'px');
+      paper.style.setProperty('--pt', Math.max(4, Math.round((rh - 50) / 2) + 3) + 'px');
+    });
   }
 
   function fit() {
