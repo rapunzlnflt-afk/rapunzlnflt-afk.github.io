@@ -59,7 +59,7 @@ FREE_FEATURES = [
 ]
 
 PAID_FEATURES = [
-    ("Share doses with a sitter", "Send your sitter a link to the medications you choose. They check off each dose and get reminders, and you see who gave it."),
+    ("Share doses with a sitter", "Send your sitter a link to the medications you choose. They check off each dose and get reminders, and you see who gave it. <a href=\"sitter-sharing/\">Watch how it works</a>"),
     ("Vet visit history", "Date, reason, what the vet found, the cost and the weight for every appointment, with a photo of the receipt attached to the visit it belongs to."),
     ("Vaccination due dates", "What was given, when, and what's next &mdash; with a reminder before it expires."),
     ("Weight tracking", "Drawn as a chart, so a slow gain or loss is easy to see."),
