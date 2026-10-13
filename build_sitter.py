@@ -253,23 +253,31 @@ PAGE = f'''<!DOCTYPE html>
     .sheet h3 {{ color: #3d4d76; border-color: #8a9bc2; break-after: avoid; }}
     .sheet {{ font-size: 10pt; }}
     .sheet-title {{ font-size: 15pt; }}
-    .sheet h3 {{ font-size: 10.5pt; margin: .75rem 0 .35rem; }}
+    .sheet h3 {{ font-size: 10.5pt; margin: .6rem 0 .3rem; }}
     .sg {{ grid-template-columns: 1fr 1fr; }}
     .sf span {{ font-size: 8.5pt; margin-bottom: 0; }}
-    .sf input, .sf textarea {{ font-size: 10pt; padding: .2rem 0; }}
-    .sf {{ break-inside: avoid; margin-bottom: .35rem; }}
+    .sf input, .sf textarea {{ font-size: 10pt; padding: .12rem 0; }}
+    .sf {{ break-inside: avoid; margin-bottom: .22rem; }}
     .sf span {{ color: #333; }}
     .sf input, .sf textarea {{ color: #000; border-bottom: 1px solid #999; resize: none; }}
     .sf ::placeholder {{ color: transparent; }}
     /* Text boxes print as plain text blocks that grow with what's written. */
     .sf textarea {{ display: none !important; }}
-    .pv[data-lines] {{ min-height: calc(var(--n) * 1.8em); }}
+    .pv[data-lines]:has(.rl) {{ min-height: calc(var(--n) * 1.8em); }}
     .pv .rl {{ height: 1.8em; border-bottom: 1px solid #999; }}
     .pv:has(.rl) {{ border-bottom: 0; padding: 0; }}
     .pv {{ display: block; min-height: 2.2em; padding: .2rem 0; border-bottom: 1px solid #999;
       white-space: pre-wrap; overflow-wrap: anywhere; font-size: 10pt; color: #000; }}
     .sheet-top {{ display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }}
     .print-only {{ display: block; font-size: 8pt; color: #555; margin: 0; }}
+    .sheet-top .print-only {{ font-size: 8.5pt; color: #333; font-weight: 600; }}
+    .ps-plug.print-only {{ display: flex; align-items: center; gap: 10pt; margin-top: 10pt; padding: 6pt 10pt 6pt 6pt;
+      border: 1px solid #8a9bc2; border-radius: 6pt; background: #eef1f7; break-inside: avoid;
+      -webkit-print-color-adjust: exact; print-color-adjust: exact; }}
+    .ps-plug img {{ width: 0.62in; height: 0.62in; flex: 0 0 auto; background: #fff; }}
+    .ps-plug p {{ margin: 0; font-size: 8pt; color: #333; line-height: 1.35; }}
+    .ps-plug .ps-plug-h {{ font-size: 9.5pt; font-weight: 700; color: #3d4d76; }}
+    .ps-plug .ps-plug-u {{ font-weight: 700; color: #262b35; }}
     .pet-id {{ grid-column: 1 / -1; }}
     .pet-id-fields {{ grid-template-columns: 1.1fr .7fr 1.2fr; }}
     .pet-desc {{ grid-column: span 2; }}
@@ -349,6 +357,14 @@ PAGE = f'''<!DOCTYPE html>
           <button type="button" class="linkbtn" id="clear">Clear sheet</button>
         </div>
 
+        <div class="ps-plug print-only">
+          <img src="qr-pawfolio.svg" width="58" height="58" alt="">
+          <div>
+            <p class="ps-plug-h">Text this sheet to your sitter with Pawfolio Free.</p>
+            <p>It also reminds you when doses are due. With Pawfolio Complete, you see who gave each dose.</p>
+            <p class="ps-plug-u">Scan the code or visit cleartrackapps.com/pawfolio</p>
+          </div>
+        </div>
         <div class="ps-text ps-hide-print">
           <p class="ps-text-h">Wouldn't it be easier to just text it?</p>
           <p>Pawfolio Free texts your sitter a link that opens this whole sheet on their phone, with
