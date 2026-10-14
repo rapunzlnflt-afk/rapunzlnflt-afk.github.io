@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pawfolio — your pet's whole life, on your phone</title>
 <meta name="description" content="Vet visits, medications, vaccination dates, weight and receipts for every pet you have — in one offline app. No account needed and your records stay on your phone. Free to use. Pawfolio Complete is $4.99 a month or $29.99 a year.">
-<meta name="theme-color" content="#faf6ef" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#181410" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f2f4f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15181e" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://cleartrackapps.com/pawfolio/">
 <meta property="og:type" content="product">
 <meta property="og:site_name" content="CleartrackApps">
@@ -29,189 +29,85 @@
 <link rel="stylesheet" href="../base.css">
 <link rel="stylesheet" href="../style.css">
 <style>
-  /* Tighter than before on purpose: the quiz card now sits inside the hero and
-     has to be visible on a phone without scrolling. */
-  .pf-hero { padding: clamp(1.5rem, 4vw, 2.5rem) 0 clamp(2rem, 5vw, 3rem); text-align: center; }
+  /* Pawfolio page: a short product page. Hero with the app, one side-by-side
+     Free / Complete comparison, three pictures, then questions. The six-question
+     quiz that used to be the hero is gone; its ?from=daisy arrivals now land on
+     the Timeline picture (see the script at the bottom). */
+  .pf-hero { padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(2.5rem, 6vw, 4rem); }
+  .pf-hero-grid { display: grid; gap: 2.5rem; align-items: center; }
   .pf-hero h1 { font-family: Zodiak, Georgia, serif; font-weight: 700;
-    font-size: clamp(1.85rem, 5.4vw, 3rem); letter-spacing: -.02em; max-width: 22ch;
-    margin: .6rem auto 0; }
-  .pf-lede { max-width: 46ch; margin: .9rem auto 0; font-size: clamp(1rem, 2.2vw, 1.1rem);
-    opacity: .82; }
-  .pf-actions { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center;
-    margin-top: 2rem; }
-  .pf-micro { margin-top: 1rem; font-size: .92rem; opacity: .62; }
-  .pf-sec { padding: clamp(2.5rem, 6vw, 4rem) 0; }
-  /* The token is --color-bg-alt (style.css). The old name --bg-alt does not exist,
-     so this always fell back to the light hex and both alt bands -- the questions
-     section and the "One price, once" buy section -- stayed cream in dark mode,
-     putting light text on a light background. */
-  .pf-sec-alt { background: var(--color-bg-alt, #f4eee3); }
-  .pf-h2 { font-family: Zodiak, Georgia, serif; font-weight: 700; letter-spacing: -.015em;
-    font-size: clamp(1.6rem, 4.4vw, 2.4rem); max-width: 26ch; }
-  .pf-h2.center { margin-inline: auto; text-align: center; }
-  .pf-sub { max-width: 52ch; margin-top: .75rem; opacity: .78; }
-  .pf-h3 { font-family: Zodiak, Georgia, serif; font-weight: 700; font-size: 1.3rem;
-    letter-spacing: -.01em; margin: 2.9rem 0 0; }
-  .pf-price-2 { margin-top: 1rem; }
-  /* "Pawfolio COMPLETE": the tier's name mark, used on its plan headings only. */
-  .pf-tag { display: inline-block; vertical-align: .18em; margin-left: .1em;
-    font-family: Satoshi, system-ui, sans-serif; font-weight: 700; font-size: .66em;
-    letter-spacing: .04em; text-transform: uppercase; line-height: 1; padding: .3em .5em .26em;
-    border-radius: 999px; background: var(--accent-pawfolio); color: var(--accent-pawfolio-soft);
-    white-space: nowrap; }
-  .buybar-name .pf-tag { font-size: .78em; vertical-align: .08em; }
-  .pf-soon { display: inline-block; vertical-align: middle; margin-left: .5rem;
-    font-family: Satoshi, system-ui, sans-serif; font-weight: 600; font-size: .62em;
-    letter-spacing: .04em; text-transform: uppercase; padding: .28em .6em .24em;
-    border: 1px solid currentColor; border-radius: 999px; opacity: .6; white-space: nowrap; }
-  .up-back { position: fixed; inset: 0; z-index: 120; display: none;
-    background: rgba(18,16,14,.58); padding: 1.25rem; overflow-y: auto; }
-  .up-back[open] { display: grid; place-items: center; }
-  .up-modal { background: var(--paper, #fbf7f1); color: inherit; border-radius: 1.1rem;
-    max-width: 34rem; width: 100%; padding: 1.9rem 1.6rem 1.6rem; position: relative;
-    box-shadow: 0 24px 60px rgba(0,0,0,.28);
-    max-height: calc(100vh - 2.5rem); overflow-y: auto; overscroll-behavior: contain; }
-  .up-h { font-family: Zodiak, Georgia, serif; font-weight: 700; font-size: 1.45rem;
-    letter-spacing: -.01em; margin: 0 2rem 0 0; }
-  .up-sub { margin: .7rem 0 0; font-size: .95rem; opacity: .78; }
-  .up-list { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 1.05rem; }
-  .up-item { display: block; }
-  .up-name { font-weight: 600; font-size: 1rem; margin: 0; }
-  .up-desc { margin: .2rem 0 0; font-size: .9rem; opacity: .75; line-height: 1.45; }
-  .up-foot { margin: 1.6rem 0 0; font-size: .86rem; opacity: .7; line-height: 1.5; }
-  .up-actions { margin-top: 1.4rem; }
-  .up-x { position: absolute; top: .7rem; right: .7rem; width: 2.2rem; height: 2.2rem;
-    border: 0; border-radius: 50%; background: transparent; color: inherit; cursor: pointer;
-    font-size: 1.5rem; line-height: 1; opacity: .55; }
-  .up-x:hover { opacity: 1; background: rgba(0,0,0,.06); }
-  body.up-lock { overflow: hidden; }
-  .pf-h3.center { text-align: center; margin-bottom: -.5rem; }
-  .pf-plan-sep { border: 0; border-top: 1px solid currentColor; opacity: .14;
-    max-width: 26rem; margin: 3.2rem auto 0; }
-  .pf-sub.center { margin-inline: auto; text-align: center; }
-  .q-list { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: .9rem;
-    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); }
-  .q-item { display: flex; gap: 1.1rem; align-items: flex-start; padding: 1.15rem 1.3rem;
-    background: rgba(255,255,255,.55); border: 1px solid rgba(42,35,24,.09);
-    border-radius: 16px; }
-  .q-num { font-family: Zodiak, Georgia, serif; font-weight: 700; font-size: 1.35rem;
-    color: #464191; line-height: 1.2; flex: none; }
-  .q-ask { font-weight: 600; }
-  .q-ans { margin-top: .3rem; font-size: .95rem; opacity: .72; }
-  .pf-shots { display: flex; gap: clamp(1rem, 4vw, 2.5rem); justify-content: center;
-    align-items: flex-start; margin-top: 2.5rem; flex-wrap: wrap; }
-  .pf-shot { max-width: 17rem; flex: 1 1 14rem; }
-  /* base.css sets max-width:100% on img but not height, so the intrinsic height
-     attribute would stretch these vertically once the column narrows. */
-  .pf-shot img { height: auto; width: 100%; }
-  .pf-frame { position: relative; border-radius: 20px; overflow: hidden;
-    border: 1px solid rgba(42,35,24,.12);
-    box-shadow: 0 24px 50px -26px rgba(20,16,10,.4); }
-  /* The source captures are scrolling screens, so the bottom edge lands mid-row.
-     Fading it out reads as intentional instead of like a broken crop. */
-  .pf-frame::after { content: ""; position: absolute; inset: auto 0 0 0; height: 18%;
-    background: linear-gradient(to bottom, rgba(250,246,239,0), #faf6ef);
-    pointer-events: none; }
-  .pf-cap { margin-top: .8rem; font-size: .9rem; opacity: .68; text-align: center; }
-  .f-list { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 1.4rem 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
-  .f-title { font-size: 1.02rem; font-weight: 600; }
-  .f-body { margin-top: .3rem; font-size: .95rem; opacity: .75; }
-  .pf-buy { text-align: center; }
-  .pf-price { font-family: Zodiak, Georgia, serif; font-weight: 700;
-    font-size: clamp(2.4rem, 7vw, 3.2rem); }
-  .pf-price small { display: block; font-family: inherit; font-size: .95rem;
-    font-weight: 500; opacity: .66; margin-top: .3rem; }
-  .pf-faq { max-width: 44rem; margin-inline: auto; }
-  .pf-back { display: inline-block; margin-top: 2.5rem; font-size: .95rem; opacity: .7; }
-  @media (prefers-color-scheme: dark) {
-    .q-item { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.12); }
-    .pf-frame::after { background: linear-gradient(to bottom, rgba(24,20,16,0), #181410); }
-  }
-
-  /* ---------- interactive quiz ---------- */
-  /* Progressive enhancement: #q-static is the no-JS list, #q-quiz replaces it
-     once quiz.js boots. Both carry the same six questions and answers. */
-  .qz { max-width: 34rem; margin: 1.6rem auto 0; }
-  .qz-card { background: var(--color-surface); border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg); padding: clamp(1.4rem, 4vw, 2rem);
-    box-shadow: 0 18px 40px -30px rgba(20,16,10,.45); }
-  .qz-prog { display: flex; gap: .4rem; justify-content: center; margin-bottom: 1.4rem; }
-  .qz-dot { width: .5rem; height: .5rem; border-radius: 999px;
-    background: var(--color-border-strong); transition: background-color .2s var(--ease); }
-  .qz-dot.is-done { background: var(--accent-pawfolio, #464191); }
-  .qz-dot.is-now { background: var(--accent-pawfolio, #464191); transform: scale(1.35); }
-  .qz-step { font-size: .82rem; letter-spacing: .06em; text-transform: uppercase;
-    font-weight: 600; opacity: .55; text-align: center; }
-  .qz-q { font-family: Zodiak, Georgia, serif; font-weight: 700;
-    font-size: clamp(1.35rem, 4.6vw, 1.85rem); letter-spacing: -.015em;
-    text-align: center; margin: .7rem 0 0; }
-  .qz-btns { display: grid; gap: .7rem; margin-top: 1.6rem; }
-  @media (min-width: 26rem) { .qz-btns { grid-template-columns: 1fr 1fr; } }
-  .qz-btns .btn { width: 100%; font-size: var(--text-base); }
-  .qz-skip { display: block; margin: 1.1rem auto 0; background: none; border: 0;
-    font: inherit; font-size: .9rem; opacity: .55; cursor: pointer;
-    text-decoration: underline; color: inherit; }
-  .qz-skip:hover { opacity: .85; }
-
-  .qz-score { font-family: Zodiak, Georgia, serif; font-weight: 700;
-    font-size: clamp(2.6rem, 9vw, 3.6rem); line-height: 1; text-align: center;
-    color: var(--accent-pawfolio, #464191); }
-  .qz-score small { display: block; font-family: inherit; font-size: .3em;
-    font-weight: 500; opacity: .6; margin-top: .45rem; color: var(--color-text); }
-  /* #qz-current receives programmatic focus() on each step so screen readers and
-     keyboard users land on the new content. It is tabindex="-1" (not reachable by
-     Tab), so the ring is never a navigation affordance here -- only visual noise. */
-  #qz-current { outline: none; }
-  .qz-verdict { font-family: Zodiak, Georgia, serif; font-weight: 700;
-    font-size: clamp(1.3rem, 4.4vw, 1.7rem); text-align: center; margin-top: 1.1rem; }
-  .qz-note { text-align: center; margin-top: .7rem; opacity: .78;
-    font-size: var(--text-base); }
-  .qz-rev { list-style: none; padding: 0; margin: 1.6rem 0 0; display: grid; gap: .55rem;
-    border-top: 1px solid var(--color-border); padding-top: 1.4rem; }
-  /* The card centres its own copy; these rows are two-column and read as a
-     ragged mess when each line starts in a different place. */
-  .qz-rev li { display: flex; gap: .7rem; align-items: flex-start; font-size: .95rem;
-    text-align: left; }
-  .qz-mark { flex: none; font-weight: 600; width: 1.1rem; text-align: center;
-    color: var(--accent-pawfolio, #464191); }
-  .qz-rev b { font-weight: 600; }
-  .qz-rev span.qz-where { opacity: .7; }
-  .qz-cta { margin-top: 1.8rem; }
-  .qz-cta .pf-actions { margin-top: 0; }
-  .qz-again { display: block; margin: 1.2rem auto 0; background: none; border: 0;
-    font: inherit; font-size: .9rem; opacity: .55; cursor: pointer;
-    text-decoration: underline; color: inherit; }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .qz-fade { animation: qzIn .28s var(--ease) both; }
-  }
-  @keyframes qzIn { from { opacity: 0; transform: translateY(6px); } }
-  /* Sticky buy bar. The page is ~6.5 phone screens tall and the two real buy
-     buttons sit at 1.1 and 5.2 screens, leaving four screens of features and
-     install steps with nothing to tap. This bar fills that gap: it appears
-     whenever no genuine buy button is on screen, and gets out of the way the
-     moment one is, so it never doubles up with the real CTAs. */
-  .buybar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
-    display: flex; align-items: center; gap: .9rem;
-    padding: .7rem 1rem; padding-bottom: calc(.7rem + env(safe-area-inset-bottom, 0px));
-    background: var(--color-bg-alt, #f4eee3);
-    border-top: 1px solid rgba(42,35,24,.14);
-    box-shadow: 0 -6px 20px rgba(42,35,24,.10);
-    transform: translateY(115%); transition: transform .22s var(--ease, ease-out);
-    visibility: hidden; }
-  .buybar.is-on { transform: none; visibility: visible; }
-  .buybar-txt { flex: 1 1 auto; min-width: 0; line-height: 1.25; }
-  .buybar-name { font-weight: 600; font-size: .98rem; }
-  .buybar-note { font-size: .82rem; opacity: .62; }
-  .buybar .btn { flex: none; }
-  body.has-buybar .site-foot { padding-bottom: 5.5rem; }
-  @media (prefers-reduced-motion: reduce) { .buybar { transition: none; } }
-  .foot-verse { margin-top: 1.25rem; font-family: Zodiak, Georgia, serif;
-    font-size: .9rem; font-style: italic; line-height: 1.5;
+    font-size: clamp(1.9rem, 5vw, 3rem); letter-spacing: -.02em; max-width: 18ch; margin-top: .6rem; }
+  .pf-lede { max-width: 42ch; margin-top: 1rem; font-size: clamp(1rem, 2.2vw, 1.1rem);
     color: var(--color-text-muted); }
-  .foot-verse cite { font-style: normal; font-size: .82em; opacity: .8;
-    white-space: nowrap; }
+  .pf-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.8rem; }
+  .pf-ticks { display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; margin-top: 1.4rem;
+    font-size: var(--text-xs); color: var(--color-text-muted); }
+  .pf-ticks li::before { content: "\2713"; color: var(--accent-pawfolio); font-weight: 700; margin-right: .4rem; }
+  .pf-shots { display: flex; gap: 1rem; justify-content: center; }
+  .pf-shot { flex: 1 1 0; max-width: 15rem; margin: 0; }
+  .pf-shot:nth-child(2) { margin-top: 2.5rem; }
+  .pf-frame { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 780 / 1280;
+    border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-md); }
+  .pf-frame img { width: 100%; height: auto; display: block; }
+  .pf-frame::after { content: ""; position: absolute; inset: auto 0 0 0; height: 16%;
+    background: linear-gradient(to bottom, transparent, var(--color-surface)); pointer-events: none; }
+
+  .pf-sec { padding: clamp(2.5rem, 6vw, 4rem) 0; }
+  .pf-sec-alt { background: var(--color-bg-alt); }
+  .pf-h2 { font-family: Zodiak, Georgia, serif; font-weight: 700; letter-spacing: -.015em;
+    font-size: clamp(1.5rem, 4vw, 2.2rem); }
+  .pf-sub { max-width: 52ch; margin-top: .6rem; color: var(--color-text-muted); font-size: var(--text-sm); }
+
+  .plans { display: grid; gap: 1.25rem; margin-top: 2rem; }
+  .plan { background: var(--color-surface); border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg); padding: 1.5rem 1.4rem; box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column; }
+  .plan-top { border-top: 3px solid var(--accent-pawfolio); }
+  .plan-name { font-weight: 600; font-size: 1.05rem; }
+  .plan-price { font-family: Zodiak, Georgia, serif; font-weight: 700; font-size: 2rem; margin-top: .35rem; }
+  .plan-price small { font-family: var(--font-body); font-size: .9rem; font-weight: 500; color: var(--color-text-muted); margin-left: .3rem; }
+  .plan-note { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: .2rem; }
+  .plan ul { margin: 1.2rem 0 1.4rem; display: grid; gap: .55rem; font-size: var(--text-sm); }
+  .plan li { display: grid; grid-template-columns: 1.1rem 1fr; gap: .45rem; }
+  .plan li::before { content: "\2713"; color: var(--accent-pawfolio); font-weight: 700; }
+  .plan li.plus::before { content: "+"; }
+  .plan .btn { margin-top: auto; }
+  .plan-fine { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: .8rem; }
+  .plan-fine a { color: var(--accent-pawfolio); font-weight: 600; }
+  /* "Pawfolio COMPLETE": the tier's name mark. */
+  .pf-tag { display: inline-block; vertical-align: .14em; margin-left: .15em;
+    font-weight: 700; font-size: .66em; letter-spacing: .04em; text-transform: uppercase; line-height: 1;
+    padding: .3em .5em .26em; border-radius: 999px;
+    background: var(--accent-pawfolio); color: var(--accent-pawfolio-soft); white-space: nowrap; }
+
+  .looks { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 1.25rem; }
+  .look { display: grid; grid-template-rows: auto 1fr; background: var(--color-surface);
+    border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden;
+    box-shadow: var(--shadow-sm); text-decoration: none; color: inherit; height: 100%;
+    transition: box-shadow .22s var(--ease), border-color .22s var(--ease); }
+  a.look:hover { box-shadow: var(--shadow-md); border-color: var(--accent-pawfolio); }
+  .look-img { aspect-ratio: 4 / 3; overflow: hidden; background: var(--color-surface-2); }
+  .look-img img { width: 100%; height: 100%; object-fit: cover; }
+  .look-img.top img { object-position: top; }
+  .look-body { padding: 1rem 1.1rem 1.15rem; }
+  .look-title { font-weight: 600; display: block; }
+  .look-title span { color: var(--accent-pawfolio); }
+  .look-copy { margin-top: .25rem; font-size: var(--text-sm); color: var(--color-text-muted); }
+  .look-tag { display: block; margin-bottom: .2rem; font-size: .68rem; font-weight: 700; letter-spacing: .05em;
+    text-transform: uppercase; color: var(--accent-pawfolio); vertical-align: .1em; }
+
+  .pf-faq { max-width: 44rem; }
+  .foot-verse { font-family: Zodiak, Georgia, serif; font-size: .9rem; font-style: italic;
+    line-height: 1.5; color: var(--color-text-muted); }
+  .foot-verse cite { font-style: normal; font-size: .82em; opacity: .8; white-space: nowrap; }
+
+  @media (min-width: 46rem) {
+    .plans { grid-template-columns: 1fr 1fr; align-items: stretch; }
+    .looks { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (min-width: 62rem) {
+    .pf-hero-grid { grid-template-columns: 1.1fr 1fr; gap: 3rem; }
+  }
 </style>
 </head>
 <body>
@@ -234,180 +130,118 @@
 
 <main id="top">
 
-  <!-- The quiz is the hero. It used to sit in section two behind a "skip to the
-       questions" link, so the first screen was a headline and a price; ~195 ad
-       arrivals produced 5 onward clicks. The first thing on the page is now the
-       thing that shows people they have the problem, and the only ask above the
-       fold is answering a question about their own pet. Both purchase CTAs live
-       on the quiz result card (quiz.js) and in the "One price, once" section. -->
-  <section class="pf-hero" id="questions" aria-labelledby="q-h">
-    <div class="wrap">
-      <p class="eyebrow">Pawfolio &mdash; for pet owners</p>
-      <h1 id="q-h">Could you answer these 6 questions about your pet?</h1>
-      <p class="pf-lede" id="q-sub">Your vet asks every one of them. Six questions, one point
-        each &mdash; then we&rsquo;ll show you where each answer lives.</p>
-
-      <!-- quiz.js unhides this and hides #q-static. Without JS the list below stands alone. -->
-      <div class="qz" id="q-quiz" hidden></div>
-
-      <div id="q-static">
-        <ul class="q-list">
-        <li class="q-item">
-          <span class="q-num">01</span>
-          <div>
-            <p class="q-ask">When was the last vaccination?</p>
-            <p class="q-ans">Every due date, with the next one already worked out.</p>
-          </div>
-        </li>
-        <li class="q-item">
-          <span class="q-num">02</span>
-          <div>
-            <p class="q-ask">Which medication, and what dose?</p>
-            <p class="q-ans">Each pet's medications, with every dose checked off.</p>
-          </div>
-        </li>
-        <li class="q-item">
-          <span class="q-num">03</span>
-          <div>
-            <p class="q-ask">What was the weight at the last visit?</p>
-            <p class="q-ans">A weight history you can actually see a trend in.</p>
-          </div>
-        </li>
-        <li class="q-item">
-          <span class="q-num">04</span>
-          <div>
-            <p class="q-ask">What was the diagnosis last time?</p>
-            <p class="q-ans">Every visit, reason, diagnosis and what it cost.</p>
-          </div>
-        </li>
-        <li class="q-item">
-          <span class="q-num">05</span>
-          <div>
-            <p class="q-ask">When was the last flea and tick dose?</p>
-            <p class="q-ans">Logged with the rest, not in your head.</p>
-          </div>
-        </li>
-        <li class="q-item">
-          <span class="q-num">06</span>
-          <div>
-            <p class="q-ask">What is the microchip number?</p>
-            <p class="q-ans">On the profile, ready to read out.</p>
-          </div>
-        </li>
-        </ul>
+  <section class="pf-hero" aria-labelledby="pf-h">
+    <div class="wrap pf-hero-grid">
+      <div>
+        <p class="eyebrow">Pawfolio &mdash; for pet owners</p>
+        <h1 id="pf-h">Every vet detail for every pet, on your phone.</h1>
+        <p class="pf-lede">Medications, dose reminders, vet numbers and a sitter sheet, free for as many pets as you have. It works offline, with no account.</p>
         <div class="pf-actions">
-          <a class="btn btn-primary btn-lg" href="https://cleartrackapps.com/pet-care-planner-demo/">Try the free demo</a>
+          <a class="btn btn-primary btn-lg js-free-cta" href="https://cleartrackapps.com/pet-care-planner/">Open Pawfolio Free</a>
+          <a class="btn btn-ghost btn-lg" href="https://cleartrackapps.com/pet-care-planner-demo/">Try the demo</a>
         </div>
+        <ul class="pf-ticks">
+          <li>Unlimited pets</li>
+          <li>Works offline</li>
+          <li>No account</li>
+          <li>Records stay on your phone</li>
+        </ul>
       </div>
-
-      <p class="pf-micro">The demo is the whole app with a sample pet loaded, so you can open every tab and try anything. It resets when you close it. Pawfolio on your own phone keeps what you enter, and it's free. No email, no account.</p>
-    </div>
-  </section>
-
-  <section class="pf-sec" aria-labelledby="shot-h">
-    <div class="wrap">
-      <h2 class="pf-h2 center" id="shot-h">You shouldn't have to remember all of this</h2>
-      <p class="pf-sub center">So it's all in one place, on the home screen, working offline.</p>
       <div class="pf-shots">
         <figure class="pf-shot">
-          <div class="pf-frame"><img src="../assets/pawfolio-overview.png" width="780" height="1600" loading="lazy" decoding="async"
-            alt="Pawfolio overview screen showing two pets with their latest weights and upcoming reminders."></div>
-          <figcaption class="pf-cap">Everything due, at a glance.</figcaption>
+          <div class="pf-frame"><img src="../assets/pawfolio-overview.png" width="780" height="1600" decoding="async"
+            alt="Pawfolio overview screen: two pets, Bella and Milo, with upcoming medications and vaccinations."></div>
         </figure>
         <figure class="pf-shot">
-          <div class="pf-frame"><img src="../assets/pawfolio-pets.png" width="780" height="1600" loading="lazy" decoding="async"
-            alt="Pawfolio pet profiles screen showing a dog and a cat with breed, age, microchip and allergy details."></div>
-          <figcaption class="pf-cap">One profile per pet, however many you have.</figcaption>
+          <div class="pf-frame"><img src="../assets/pawfolio-pets.png" width="780" height="1600" decoding="async"
+            alt="Pawfolio pet profiles screen with Bella's breed, microchip and vet details."></div>
         </figure>
       </div>
     </div>
   </section>
 
-  <section class="pf-sec pf-sec-alt" aria-labelledby="f-h">
+  <section class="pf-sec pf-sec-alt" id="plans" aria-labelledby="plans-h">
     <div class="wrap">
-      <h2 class="pf-h2" id="f-h">What's free, and what Pawfolio Complete adds</h2>
-      <p class="pf-sub">Pawfolio is free. Not a trial, not a taster &mdash; the parts most people need
-        every week don't cost anything, and they never will. Pawfolio Complete adds six more tabs
-        and sitter dose sharing if you want them.</p>
-
-      <h3 class="pf-h3">Pawfolio <span class="pf-tag">Free</span></h3>
-      <ul class="f-list">
-        <li class="f-item"><p class="f-title">Unlimited pets</p><p class="f-body">One dog or a full household &mdash; each pet gets its own profile.</p></li>
-        <li class="f-item"><p class="f-title">Everything due, at a glance</p><p class="f-body">The home screen shows what's coming up.</p></li>
-        <li class="f-item"><p class="f-title">Medications &amp; supplements</p><p class="f-body">What each pet takes, the dose, and a reminder when a refill or a dose is due.</p></li>
-        <li class="f-item"><p class="f-title">Dose tracking</p><p class="f-body">Tap Given or Skip for each dose, with Undo if you tap by mistake. Set times, or every few hours from the last dose, plus what to do if one is missed.</p></li>
-        <li class="f-item"><p class="f-title">Microchip, rabies date and insurance</p><p class="f-body">On the profile, ready to read out.</p></li>
-        <li class="f-item"><p class="f-title">Your vet's details</p><p class="f-body">Tap to call, straight from the app.</p></li>
-        <li class="f-item"><p class="f-title">Pet-sitter sheet</p><p class="f-body">A printable page with tap-to-call numbers &mdash; and you can text it to a sitter. Always free.</p></li>
-        <li class="f-item"><p class="f-title">Notes and useful links</p><p class="f-body">Insurance providers, pet pharmacies, airline pet policies.</p></li>
-        <li class="f-item"><p class="f-title">Print, back up and export</p><p class="f-body">Your records, any time.</p></li>
-      </ul>
-
-      <h3 class="pf-h3">Pawfolio <span class="pf-tag">Complete</span></h3>
-      <p class="pf-sub">Six more tabs for the record-keeping that builds up over years, plus dose
-        sharing with a sitter. The free version stays free either way.</p>
-      <ul class="f-list">
-        <li class="f-item"><p class="f-title">Share doses with a sitter</p><p class="f-body">Send your sitter a link to the medications you choose. They check off each dose and get reminders, and you see who gave it. <a href="sitter-sharing/">Watch how it works</a></p></li>
-        <li class="f-item"><p class="f-title">Vet visit history</p><p class="f-body">Date, reason, what the vet found, the cost and the weight for every appointment, with a photo of the receipt attached to the visit it belongs to.</p></li>
-        <li class="f-item"><p class="f-title">Vaccination due dates</p><p class="f-body">What was given, when, and what's next &mdash; with a reminder before it expires.</p></li>
-        <li class="f-item"><p class="f-title">Weight tracking</p><p class="f-body">Drawn as a chart, so a slow gain or loss is easy to see.</p></li>
-        <li class="f-item"><p class="f-title">Expense history</p><p class="f-body">What you're actually spending per pet, by category.</p></li>
-        <li class="f-item"><p class="f-title">Timeline</p><p class="f-body">All of a pet's records in one history, newest first.</p></li>
-        <li class="f-item"><p class="f-title">Document vault</p><p class="f-body">Certificates, receipts, adoption papers and lab results, filed under the right pet.</p></li>
-      </ul>
-
-      <p class="pf-micro">Nothing you've already entered ever gets taken away. If you stop paying,
-        those six tabs go read-only &mdash; your records stay visible, printable and exportable, you
-        just can't add new ones until you start again. Sitter dose sharing stops.</p>
+      <h2 class="pf-h2" id="plans-h">Free, or Complete</h2>
+      <p class="pf-sub">Free isn't a trial. Complete adds the long-term records and live dose sharing with your sitter.</p>
+      <div class="plans">
+        <div class="plan">
+          <p class="plan-name">Pawfolio <span class="pf-tag">Free</span></p>
+          <p class="plan-price">$0<small>forever</small></p>
+          <p class="plan-note">No card, ever.</p>
+          <ul>
+            <li>Unlimited pets</li>
+            <li>Everything due, at a glance</li>
+            <li>Medications &amp; supplements</li>
+            <li>Dose tracking</li>
+            <li>Microchip, rabies date and insurance</li>
+            <li>Your vet's details</li>
+            <li>Pet-sitter sheet</li>
+            <li>Notes and useful links</li>
+            <li>Print, back up and export</li>
+          </ul>
+          <a class="btn btn-ghost btn-lg js-free-cta" href="https://cleartrackapps.com/pet-care-planner/">Open Pawfolio Free</a>
+        </div>
+        <div class="plan plan-top">
+          <p class="plan-name">Pawfolio <span class="pf-tag">Complete</span></p>
+          <p class="plan-price">$4.99<small>a month</small></p>
+          <p class="plan-note">or $29.99 a year. Cancel any time.</p>
+          <ul>
+            <li class="plus">Everything in Free</li>
+            <li>Share doses with a sitter</li>
+            <li>Vet visit history</li>
+            <li>Vaccination due dates</li>
+            <li>Weight tracking</li>
+            <li>Expense history</li>
+            <li>Timeline</li>
+            <li>Document vault</li>
+          </ul>
+          <a class="btn btn-primary btn-lg js-upgrade-cta" href="https://cleartrackapps.com/go/pawfolio/">Get Pawfolio Complete</a>
+          <p class="plan-fine">If you stop paying, your records stay visible, printable and exportable. Already using Pawfolio? You keep everything free.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="pf-sec" aria-labelledby="how-h">
+  <section class="pf-sec" aria-labelledby="looks-h">
     <div class="wrap">
-      <h2 class="pf-h2 center" id="how-h">How a download becomes an app on your phone</h2>
-      <p class="pf-sub center">Four steps, about two minutes. No app store involved.</p>
-      <ol class="steps">
-        <li class="step"><span class="step-num">1</span><div class="step-copy"><p class="step-title">Open the link</p><p>Free, no email, no account.</p></div></li>
-        <li class="step"><span class="step-num">2</span><div class="step-copy"><p class="step-title">Open the link on your phone</p><p>Safari on iPhone, Chrome on Android.</p></div></li>
-        <li class="step"><span class="step-num">3</span><div class="step-copy"><p class="step-title">Add to Home Screen</p><p>From the share menu. Now it's an icon like any other app.</p></div></li>
-        <li class="step"><span class="step-num">4</span><div class="step-copy"><p class="step-title">Use it offline, forever</p><p>No signal needed, no account, no app store.</p></div></li>
-      </ol>
+      <h2 class="pf-h2" id="looks-h">A closer look</h2>
+      <ul class="looks">
+        <li>
+          <a class="look" href="sitter-sharing/">
+            <span class="look-img"><img src="sitter-sharing/give-pill.jpg" alt="Hands giving a pill in a treat to a golden retriever in a kitchen." loading="lazy" decoding="async"></span>
+            <span class="look-body">
+              <span class="look-tag">Complete</span><span class="look-title">Share doses with a sitter</span>
+              <span class="look-copy" style="display:block">They tap Given on their phone, and you see who gave each dose. <span style="color:var(--accent-pawfolio);font-weight:600">Watch how &rarr;</span></span>
+            </span>
+          </a>
+        </li>
+        <li id="timeline">
+          <div class="look">
+            <span class="look-img top"><img src="../assets/daisy-timeline.png" width="780" height="660" alt="A Pawfolio timeline card: Daisy, Emergency, 08/16/2026 at 4:15 AM at a 24-hour emergency vet. The vet tried to lance the abscess and found that it is instead a mast cell tumor." loading="lazy" decoding="async"></span>
+            <span class="look-body">
+              <span class="look-tag">Complete</span><span class="look-title">Every visit, in one timeline</span>
+              <span class="look-copy" style="display:block">Reasons, findings and costs, newest first. Ready when the next vet asks.</span>
+            </span>
+          </div>
+        </li>
+        <li>
+          <a class="look" href="../pet-sitter-instructions/">
+            <span class="look-img top"><img src="../pet-sitter-instructions/example-sheet.png" alt="A filled-in pet sitter instructions sheet with owner and emergency contacts." loading="lazy" decoding="async"></span>
+            <span class="look-body">
+              <span class="look-tag">Free</span><span class="look-title">A sitter sheet to print or text</span>
+              <span class="look-copy" style="display:block">Feeding, meds and tap-to-call vet numbers on one page. <span style="color:var(--accent-pawfolio);font-weight:600">Get the free sheet &rarr;</span></span>
+            </span>
+          </a>
+        </li>
+      </ul>
     </div>
   </section>
 
-  <section class="pf-sec pf-sec-alt" aria-labelledby="buy-h">
-    <div class="wrap pf-buy">
-      <h2 class="pf-h2 center" id="buy-h">Two ways to use Pawfolio</h2>
-
-      <h3 class="pf-h3 center">Pawfolio <span class="pf-tag">Free</span></h3>
-      <p class="pf-price">$0, forever<small>No card, ever. Unlimited pets, medications, dose tracking and
-        reminders, the sitter sheet, printing and backups.</small></p>
-      <div class="pf-actions">
-        <a class="btn btn-primary btn-lg js-upgrade-cta" href="https://cleartrackapps.com/pet-care-planner/">Open Pawfolio Free</a>
-        <a class="btn btn-ghost btn-lg" href="https://cleartrackapps.com/pet-care-planner-demo/">Try the demo first</a>
-      </div>
-
-      <hr class="pf-plan-sep">
-      <h3 class="pf-h3 center">Pawfolio <span class="pf-tag">Complete</span></h3>
-      <p class="pf-price pf-price-2">$29.99 a year<small>or $4.99 a month &mdash; cancel
-        any time. Your license key arrives by email and unlocks Pawfolio Complete in the app.</small></p>
-      <div class="pf-actions">
-        <a class="btn btn-primary btn-lg" href="https://cleartrackapps.com/go/pawfolio/">Get Pawfolio Complete</a>
-        <button class="btn btn-ghost btn-lg js-open-upgrade" type="button"
-          aria-haspopup="dialog">See what Pawfolio Complete includes</button>
-      </div>
-
-      <p class="pf-micro">Already using Pawfolio? You keep everything, free, for good &mdash;
-        including anyone who previously purchased the app. You don't need to do anything.<br>
-        On the yearly plan, email cleartrackapps@gmail.com within 30 days for a full refund.
-        Pawfolio Complete then switches off, and your records stay in Pawfolio Free.</p>
-    </div>
-  </section>
-
-  <section class="pf-sec" aria-labelledby="faq-h">
+  <section class="pf-sec pf-sec-alt" id="faq" aria-labelledby="faq-h">
     <div class="wrap pf-faq">
-      <h2 class="pf-h2 center" id="faq-h">Questions people ask first</h2>
-      <div class="faq-list" style="margin-top:1.75rem">
+      <h2 class="pf-h2" id="faq-h">Questions</h2>
+      <div class="faq-list" style="margin-top:1.5rem">
       <details class="faq-item">
         <summary>Is this in the App Store?</summary>
         <p>No, and that's deliberate. You open a link on your phone and add it to your home screen — about two minutes. After that it behaves like any other app icon, and it opens with no internet.</p>
@@ -449,43 +283,10 @@
         <p>Start with Pawfolio Free — there's nothing to lose and no card involved. If you upgrade to Pawfolio Complete and change your mind, cancel any time. On the yearly plan, email cleartrackapps@gmail.com within 30 days for a full refund. Pawfolio Complete then switches off, and your records stay in Pawfolio Free.</p>
       </details>
       </div>
-      <p style="text-align:center"><a class="pf-back" href="../">See all five CleartrackApps &rarr;</a></p>
     </div>
   </section>
 
 </main>
-
-<div class="up-back" id="up-back" role="dialog" aria-modal="true" aria-labelledby="up-h">
-  <div class="up-modal">
-    <button class="up-x js-close-upgrade" type="button" aria-label="Close">&times;</button>
-    <h2 class="up-h" id="up-h">What Pawfolio Complete adds</h2>
-    <p class="up-sub">$29.99 a year, or $4.99 a month, cancel any time. Six tabs and sitter dose sharing, on top of everything that's already free:</p>
-    <ul class="up-list">
-      <li class="up-item"><p class="up-name">Share doses with a sitter</p><p class="up-desc">Send your sitter a link to the medications you choose. They check off each dose and get reminders, and you see who gave it. <a href="sitter-sharing/">Watch how it works</a></p></li>
-      <li class="up-item"><p class="up-name">Vet visit history</p><p class="up-desc">Date, reason, what the vet found, the cost and the weight for every appointment, with a photo of the receipt attached to the visit it belongs to.</p></li>
-      <li class="up-item"><p class="up-name">Vaccination due dates</p><p class="up-desc">What was given, when, and what's next &mdash; with a reminder before it expires.</p></li>
-      <li class="up-item"><p class="up-name">Weight tracking</p><p class="up-desc">Drawn as a chart, so a slow gain or loss is easy to see.</p></li>
-      <li class="up-item"><p class="up-name">Expense history</p><p class="up-desc">What you're actually spending per pet, by category.</p></li>
-      <li class="up-item"><p class="up-name">Timeline</p><p class="up-desc">All of a pet's records in one history, newest first.</p></li>
-      <li class="up-item"><p class="up-name">Document vault</p><p class="up-desc">Certificates, receipts, adoption papers and lab results, filed under the right pet.</p></li>
-    </ul>
-    <p class="up-foot">If you ever stop paying, those six tabs go read-only and sitter dose sharing
-      stops. Every record you entered stays visible, printable and exportable &mdash; you just can't
-      add new ones until you start again. And if you're already using Pawfolio today, you keep the whole app free for good.</p>
-    <div class="up-actions">
-      <a class="btn btn-primary" href="https://cleartrackapps.com/go/pawfolio/">Get Pawfolio Complete</a>
-      <a class="btn btn-ghost" href="https://cleartrackapps.com/pet-care-planner/">Open Pawfolio Free</a>
-    </div>
-  </div>
-</div>
-
-<div class="buybar" id="buybar" hidden>
-  <div class="buybar-txt">
-    <div class="buybar-name">Pawfolio <span class="pf-tag">Free</span></div>
-    <div class="buybar-note">Upgrade to Pawfolio Complete any time</div>
-  </div>
-  <a class="btn btn-primary" id="buybar-link" href="https://cleartrackapps.com/pet-care-planner/">Open the app</a>
-</div>
 
 <footer class="site-foot">
   <div class="wrap foot-inner">
@@ -525,76 +326,26 @@
 
 <script src="../app.js" defer></script>
 <script src="../meta-pixel.js" defer></script>
-<script src="./quiz.js" defer></script>
 <script>
 (function () {
-  var back = document.getElementById('up-back');
-  if (!back) return;
-  var lastFocus = null;
-
-  function open(e) {
-    if (e) e.preventDefault();
-    lastFocus = document.activeElement;
-    back.setAttribute('open', '');
-    document.body.classList.add('up-lock');
-    var x = back.querySelector('.up-x');
-    if (x) x.focus();
+  // Visitors from the Daisy reel (?from=daisy) were promised her timeline:
+  // bring that picture into view instead of the top of the page.
+  if (/(^|[?&])from=daisy(&|$)/.test(location.search)) {
+    window.addEventListener('load', function () {
+      var t = document.getElementById('timeline');
+      if (t) t.scrollIntoView({ block: 'center' });
+    });
   }
-  function close() {
-    back.removeAttribute('open');
-    document.body.classList.remove('up-lock');
-    if (lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-
-  var triggers = document.querySelectorAll('.js-open-upgrade');
-  for (var i = 0; i < triggers.length; i++) triggers[i].addEventListener('click', open);
-
-  var closers = back.querySelectorAll('.js-close-upgrade');
-  for (var j = 0; j < closers.length; j++) closers[j].addEventListener('click', close);
-
-  back.addEventListener('click', function (ev) { if (ev.target === back) close(); });
-  document.addEventListener('keydown', function (ev) {
-    if (ev.key === 'Escape' && back.hasAttribute('open')) close();
+  function track(name, params) { if (typeof window.ctTrack === 'function') window.ctTrack(name, params || {}); }
+  // Same event names the quiz used, so Meta reporting carries on.
+  if (/(^|[?&])from=daisy(&|$)/.test(location.search)) track('DaisyLanding');
+  else if (/(^|[?&])utm_medium=paid(&|$)/.test(location.search)) track('PaidLanding');
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a');
+    if (!a) return;
+    if (a.classList.contains('js-upgrade-cta')) track('CtaClick', { cta: 'complete' });
+    else if (a.classList.contains('js-free-cta')) track('CtaClick', { cta: 'free' });
   });
-})();
-</script>
-<script>
-(function () {
-  var bar = document.getElementById('buybar');
-  if (!bar) return;
-  bar.hidden = false;
-  document.body.classList.add('has-buybar');
-  var ticking = false;
-
-  // A "real" buy button is any /go/pawfolio/ link outside this bar. That covers
-  // both the static price section and the CTA quiz.js injects on the result card.
-  function realBuyOnScreen() {
-    var els = document.querySelectorAll('a[href*="/go/pawfolio/"], .js-upgrade-cta');
-    for (var i = 0; i < els.length; i++) {
-      var el = els[i];
-      if (bar.contains(el)) continue;
-      var r = el.getBoundingClientRect();
-      if (r.width > 0 && r.bottom > 0 && r.top < (window.innerHeight || 0)) return true;
-    }
-    return false;
-  }
-
-  function update() {
-    ticking = false;
-    var scrolled = (window.scrollY || window.pageYOffset || 0) > 320;
-    bar.classList.toggle('is-on', scrolled && !realBuyOnScreen());
-  }
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(update);
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  // quiz.js swaps the hero in after load, which moves the first buy button.
-  window.setTimeout(update, 400);
-  update();
 })();
 </script>
 <!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->
