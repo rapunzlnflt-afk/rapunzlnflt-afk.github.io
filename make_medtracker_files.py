@@ -34,8 +34,33 @@ def overlay():
     c.setFillColor("#4a4a4a"); c.drawString(24, 76, "Free chart from cleartrackapps.com/medication-tracker")
     c.save(); buf.seek(0); return PdfReader(buf).pages[0]
 
+DROP = ("Pawfolio", "pet-medication-chart", "Scan the code or visit")
+
+def strip_old_text(w, page):
+    """Remove the old Pawfolio box / footer text blocks, so it can't be copied or found."""
+    from pypdf.generic import ContentStream, NameObject
+    cs = ContentStream(page.get_contents(), w)
+    out, block, keep = [], [], True
+    for operands, op in cs.operations:
+        if op == b"BT":
+            block, keep = [(operands, op)], True; continue
+        if block:
+            block.append((operands, op))
+            if op in (b"Tj", b"TJ"):
+                raw = operands[0]
+                txt = "".join(str(x) for x in raw) if op == b"TJ" else str(raw)
+                if any(d in txt for d in DROP): keep = False
+            if op == b"ET":
+                if keep: out.extend(block)
+                block = []
+            continue
+        out.append((operands, op))
+    cs.operations = out
+    page[NameObject("/Contents")] = w._add_object(cs)
+
 def pdf(src, dst):
     w = PdfWriter(clone_from=str(SRC / src))
+    strip_old_text(w, w.pages[0])
     w.pages[0].merge_page(overlay(), over=True)
     w.add_metadata({"/Title": "Weekly Medication Tracker", "/Author": "CleartrackApps"})
     with open(OUT / dst, "wb") as f: w.write(f)
