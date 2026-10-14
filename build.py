@@ -365,8 +365,8 @@ HTML = f'''<!DOCTYPE html>
 <link rel="apple-touch-icon" href="./assets/favicon-180.png" sizes="180x180">
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&f[]=zodiak@600,700&display=swap">
-<link rel="stylesheet" href="./base.css?v=20261014b">
-<link rel="stylesheet" href="./style.css?v=20261014b">
+<link rel="stylesheet" href="./base.css?v=20261014c">
+<link rel="stylesheet" href="./style.css?v=20261014c">
 </head>
 <body>
 <a class="skip" href="#apps">Skip to the apps</a>
@@ -448,7 +448,7 @@ HTML = f'''<!DOCTYPE html>
 
 <footer class="site-foot"></footer>
 
-<script src="./app.js?v=20261014b" defer></script>
+<script src="./app.js?v=20261014c" defer></script>
 <!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{{"token": "5673e14274004df9a11f87d759a6b624"}}'></script>
 </body>
