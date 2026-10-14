@@ -36,9 +36,9 @@
   --color-text: #262b35;
   --color-text-muted: #5d6676;
   --color-inverse: #ffffff;
-  --color-primary: #1c574a;
-  --color-primary-hover: #14433a;
-  --color-focus: #1c574a;
+  --color-primary: #1f5b5c;
+  --color-primary-hover: #174647;
+  --color-focus: #1f5b5c;
 
   --head-pad: 11px;
   --accent-pawfolio: #464191;
@@ -67,9 +67,9 @@
   --color-text: #dde2ea;
   --color-text-muted: #9aa3b2;
   --color-inverse: #15181e;
-  --color-primary: #7fd0bb;
-  --color-primary-hover: #9adfcc;
-  --color-focus: #7fd0bb;
+  --color-primary: #86cfcf;
+  --color-primary-hover: #a4dede;
+  --color-focus: #86cfcf;
 
   --accent-pawfolio: #a9a5ee;
   --accent-pawfolio-soft: #262346;
@@ -97,9 +97,9 @@
     --color-text: #dde2ea;
     --color-text-muted: #9aa3b2;
     --color-inverse: #15181e;
-    --color-primary: #7fd0bb;
-    --color-primary-hover: #9adfcc;
-    --color-focus: #7fd0bb;
+    --color-primary: #86cfcf;
+    --color-primary-hover: #a4dede;
+    --color-focus: #86cfcf;
     --accent-pawfolio: #a9a5ee;  --accent-pawfolio-soft: #262346;
     --accent-medical: #8dc6e2;   --accent-medical-soft: #1c3140;
     --accent-budget: #e0bf72;    --accent-budget-soft: #3a2f16;
@@ -222,9 +222,9 @@ body {
   background: var(--accent, var(--color-primary)); color: var(--color-inverse);
   box-shadow: var(--shadow-sm);
 }
-[data-theme='dark'] .btn-primary { color: #14110d; }
+[data-theme='dark'] .btn-primary { color: #101518; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .btn-primary { color: #14110d; }
+  :root:not([data-theme='light']) .btn-primary { color: #101518; }
 }
 .btn-primary:hover {
   background: color-mix(in srgb, var(--accent, var(--color-primary)) 86%, #000);
@@ -316,9 +316,9 @@ section { scroll-margin-top: 92px; }
   background: var(--color-primary); color: var(--color-inverse);
   font-size: var(--text-xs); font-weight: 600;
 }
-[data-theme='dark'] .step-num { color: #14110d; }
+[data-theme='dark'] .step-num { color: #101518; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .step-num { color: #14110d; }
+  :root:not([data-theme='light']) .step-num { color: #101518; }
 }
 .step-title { font-size: var(--text-base); font-weight: 600; align-self: center; }
 .step-copy { font-size: var(--text-sm); color: var(--color-text-muted); }
