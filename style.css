@@ -36,9 +36,9 @@
   --color-text: #262b35;
   --color-text-muted: #5d6676;
   --color-inverse: #ffffff;
-  --color-primary: #24365c;
-  --color-primary-hover: #1a2846;
-  --color-focus: #24365c;
+  --color-primary: #3a6ab0;
+  --color-primary-hover: #2f5793;
+  --color-focus: #3a6ab0;
 
   --head-pad: 11px;
   --accent-pawfolio: #464191;
@@ -67,9 +67,9 @@
   --color-text: #dde2ea;
   --color-text-muted: #9aa3b2;
   --color-inverse: #15181e;
-  --color-primary: #a7b9de;
-  --color-primary-hover: #c0cee9;
-  --color-focus: #a7b9de;
+  --color-primary: #9fc0ef;
+  --color-primary-hover: #bcd4f5;
+  --color-focus: #9fc0ef;
 
   --accent-pawfolio: #a9a5ee;
   --accent-pawfolio-soft: #262346;
@@ -97,9 +97,9 @@
     --color-text: #dde2ea;
     --color-text-muted: #9aa3b2;
     --color-inverse: #15181e;
-    --color-primary: #a7b9de;
-    --color-primary-hover: #c0cee9;
-    --color-focus: #a7b9de;
+    --color-primary: #9fc0ef;
+    --color-primary-hover: #bcd4f5;
+    --color-focus: #9fc0ef;
     --accent-pawfolio: #a9a5ee;  --accent-pawfolio-soft: #262346;
     --accent-medical: #8dc6e2;   --accent-medical-soft: #1c3140;
     --accent-budget: #e0bf72;    --accent-budget-soft: #3a2f16;
