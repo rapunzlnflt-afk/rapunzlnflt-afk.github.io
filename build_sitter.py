@@ -577,5 +577,7 @@ if __name__ == "__main__":
     OUT_DIR.mkdir(exist_ok=True)
     (OUT_DIR / "paws.svg").write_text(paws_svg("#4c5f8f", 0.15), encoding="utf-8")
     (OUT_DIR / "paws-dark.svg").write_text(paws_svg("#a3b4dc", 0.11), encoding="utf-8")
+    import chrome
+    PAGE = chrome.apply(PAGE, "../", "&copy; 2026 CleartrackApps. Pawfolio&trade; is a trademark of CleartrackApps.", extra="")
     (OUT_DIR / "index.html").write_text(PAGE, encoding="utf-8")
     print(f"wrote {OUT_DIR / 'index.html'}")

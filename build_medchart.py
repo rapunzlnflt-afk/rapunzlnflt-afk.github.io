@@ -306,5 +306,7 @@ PAGE = f'''<!DOCTYPE html>
 
 if __name__ == "__main__":
     OUT_DIR.mkdir(exist_ok=True)
+    import chrome
+    PAGE = chrome.apply(PAGE, "../", "&copy; 2026 CleartrackApps. Pawfolio&trade; is a trademark of CleartrackApps.", extra="")
     (OUT_DIR / "index.html").write_text(PAGE, encoding="utf-8")
     print("wrote", OUT_DIR / "index.html")

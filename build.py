@@ -74,8 +74,9 @@ ICONS = {
 APPS = [
     dict(
         slug="pawfolio", key="pawfolio", name="Pawfolio",
-        who="For pet owners who want every vet detail in one place.",
+        who="Every vet detail for every pet, in one place.",
         blurb="Pawfolio keeps your pet's whole life on your phone \u2014 vet visits, medications, vaccine dates, weight, and receipts. Add as many pets as you like, from one dog to a full household of animals. When you travel, text the sitter one care sheet with tap-to-call vet numbers instead of a rushed string of messages. You can print it too.",
+        points=["Unlimited pets, medications and dose reminders &mdash; free", "Printable pet-sitter sheet with tap-to-call vet numbers &mdash; free", "Vet visits, vaccines, expenses and sitter dose sharing &mdash; Pawfolio Complete"],
         features=[
             "Unlimited pets, each with its own profile &mdash; free",
             "Medications, dose reminders and dose tracking &mdash; free",
@@ -98,8 +99,9 @@ APPS = [
     ),
     dict(
         slug="medical-records", key="medical", name="Medical Records Keeper",
-        who="For families and caregivers juggling more than one person's health.",
+        who="Medications, doctors and visits for the whole family. $24.99 once, no ads.",
         blurb="Most apps that do this bill you every year, forever \u2014 and most of them show ads. This one is $24.99 once, with no ads and no renewals. It keeps what a doctor's office asks for in one private place on your phone: medications and doses, appointment notes, vitals, and pharmacy details. Track up to six family members, each with their own records, and print a clean summary for the next visit.",
+        points=["Medications with doses and phone reminders", "Doctors, appointments, visit notes and vitals", "Up to 6 family members, with printable records"],
         features=[
             "Doctors, pharmacies, and emergency contacts in one list",
             "Medications with doses plus phone reminders",
@@ -129,8 +131,9 @@ APPS = [
     ),
     dict(
         slug="budget-tracker", key="budget", name="Budget Tracker",
-        who="For anyone who wants a budget that stays on their own phone.",
+        who="A full budget with no bank login and no monthly fee.",
         blurb="A full personal budget without a bank login or a monthly fee. Log income, bills, and spending by category, then watch savings goals and debt payoff move month to month. Already have statements? Import a CSV or OFX file from your bank instead of typing everything in.",
+        points=["Income, bills and spending by category", "Savings goals and a debt payoff plan", "Import bank statements (CSV / OFX)"],
         features=[
             "Income, bills, and spending organised by category",
             "Savings goals and a debt payoff plan",
@@ -146,8 +149,9 @@ APPS = [
     ),
     dict(
         slug="puzzle-pig", key="puzzlepig", name="Puzzle Pig",
-        who="For parents teaching kids to earn, save, and give.",
+        who="Kids earn, save and give, and watch a goal photo appear.",
         blurb="Kids do chores, earn money, and split it between Save, Spend, and Give jars. The thing they're saving for sits behind a hidden photo that reveals itself piece by piece as the jar fills, which is what keeps them checking in. Parents get a PIN-protected dashboard, and phones can sync between parent and child.",
+        points=["Chore chart kids tick off themselves", "Save / Spend / Give jars, with a goal photo that reveals itself", "PIN-protected parent dashboard and phone sync"],
         features=[
             "Chore chart kids can tick off themselves",
             "Save / Spend / Give jars for every payout",
@@ -163,8 +167,9 @@ APPS = [
     ),
     dict(
         slug="cosmetic-surgery-planner", key="beauty", name="Cosmetic Surgery Planner",
-        who="For anyone planning a procedure and saving up for it.",
+        who="Plan the real cost and save toward it, privately.",
         blurb="Plan the whole thing before you book: estimate the real cost, compare physicians, and save toward the total week by week. Twelve sections cover deposits, payments, travel, recovery notes, and a private photo log. It stays on your phone, so nothing about it lives in someone else's account.",
+        points=["Cost estimator for surgeon, facility and extras", "Weekly savings tracker with streaks", "Physician notes, travel, recovery and a private photo log"],
         features=[
             "Cost estimator covering surgeon, facility, and extras",
             "Savings tracker with weekly streaks",
@@ -202,10 +207,20 @@ FAQ = [
 ]
 
 STEPS = [
-    ("1", "Buy it", "Tap a buy button and you go straight to a checkout \u2014 no second product page to read. Your download link arrives right away, no waiting on shipping."),
-    ("2", "Open the link on your phone", "Tap the file or link and the app opens in your phone's browser. Nothing to install, nothing to sign up for."),
-    ("3", "Add to Home Screen", "Use your browser's share menu, then <strong>Add to Home Screen</strong>. Now it has its own icon and opens full screen, exactly like a normal app."),
-    ("4", "Use it offline, forever", "Your data is saved on the device. No signal needed and no account \u2014 it just keeps working."),
+    ("1", "Get it", "Pawfolio is free. The others are one quick checkout, and your link arrives right away."),
+    ("2", "Open it on your phone", "It opens in your phone's browser. Nothing to install, no sign-up."),
+    ("3", "Add to Home Screen", "From your browser's Share menu. Now it has its own icon, like any app."),
+    ("4", "Use it, even offline", "Your information stays on your device and works with no signal."),
+]
+
+# Free printables: the three lead-in pages, shown as picture tiles.
+FREEBIES = [
+    dict(href="./medication-tracker/", img="./medication-tracker/chart-preview.png",
+         title="Medication tracker", copy="A weekly dose log for you, your kids or an aging parent."),
+    dict(href="./pet-medication-chart/", img="./pet-medication-chart/chart-preview.png",
+         title="Pet medication chart", copy="Every dose for every pet, with times you can check off."),
+    dict(href="./pet-sitter-instructions/", img="./pet-sitter-instructions/example-sheet.png",
+         title="Pet sitter sheet", copy="Feeding, meds, vet numbers and house notes on one page."),
 ]
 
 # Shauna's own logo, processed by make_logo.py into a transparent PNG plus a
@@ -249,7 +264,7 @@ def cost_compare(c):
 
 
 def card(a, i):
-    feats = "\n".join(f"        <li>{f}</li>" for f in a["features"])
+    feats = "\n".join(f"        <li>{f}</li>" for f in a["points"])
     # A dedicated page gets two links: the heading (a linked heading is a strong
     # signal to search engines about what that page covers) and a quiet text
     # link under the buttons. Deliberately not a fourth button — three already
@@ -273,10 +288,9 @@ def card(a, i):
         </div>
       </header>
       <p class="card-who">{a['who']}</p>
-      <p class="card-blurb">{a['blurb']}</p>
       <ul class="card-features">
 {feats}
-      </ul>{cost_compare(a.get("compare"))}
+      </ul>
       <p class="card-price"><span class="price">{a['price']}</span> <span class="price-note">{a.get('price_note', 'one-time')}</span></p>
       <div class="card-actions">
         <a class="btn btn-primary" href="{purl}" target="_blank" rel="noopener noreferrer">{plabel}</a>
@@ -285,25 +299,23 @@ def card(a, i):
     </article>'''
 
 
-def table_row(a):
-    return f'''        <tr>
-          <th scope="row"><span class="t-dot" style="background: var(--accent-{a['key']})" aria-hidden="true"></span><a href="#{a['slug']}">{a['name']}</a></th>
-          <td data-label="Who it's for">{a['audience']}</td>
-          <td class="t-price" data-label="Price">{a['price']}</td>
-          <td data-label="Try it"><a class="t-demo" href="{a['demo']}" target="_blank" rel="noopener noreferrer">Demo<span class="sr-only"> for {a['name']}</span> &rarr;</a></td>
-        </tr>'''
-
-
 cards = "\n\n".join(card(a, i) for i, a in enumerate(APPS))
-rows = "\n".join(table_row(a) for a in APPS)
 steps = "\n".join(
     f'''      <li class="step">
         <span class="step-num" aria-hidden="true">{n}</span>
         <h3 class="step-title">{t}</h3>
         <p class="step-copy">{c}</p>
       </li>''' for n, t, c in STEPS)
+freebies = "\n".join(
+    f'''        <li>
+          <a class="free-tile" href="{f['href']}">
+            <span class="free-thumb"><img src="{f['img']}" alt="" loading="lazy" decoding="async"></span>
+            <span class="free-title">{f['title']} <span aria-hidden="true">&rarr;</span></span>
+            <span class="free-copy">{f['copy']}</span>
+          </a>
+        </li>''' for f in FREEBIES)
 faq = "\n".join(
-    f'''      <details class="faq-item"{' open' if i == 0 else ''}>
+    f'''      <details class="faq-item">
         <summary><span>{q}</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
         <p>{a}</p>
       </details>''' for i, (q, a) in enumerate(FAQ))
@@ -359,20 +371,7 @@ HTML = f'''<!DOCTYPE html>
 <body>
 <a class="skip" href="#apps">Skip to the apps</a>
 
-<header class="site-head">
-  <div class="wrap head-inner">
-    <a class="brand" href="#top" aria-label="Cleartrack Apps home">
-      {LOGO}
-    </a>
-    <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch colour theme">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-        <circle class="t-sun" cx="12" cy="12" r="4.2"/>
-        <g class="t-rays"><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/></g>
-        <path class="t-moon" d="M20 13.4A8 8 0 1 1 10.6 4a6.4 6.4 0 0 0 9.4 9.4Z"/>
-      </svg>
-    </button>
-  </div>
-</header>
+<header class="site-head"></header>
 
 <main id="top">
 
@@ -380,35 +379,24 @@ HTML = f'''<!DOCTYPE html>
     <div class="wrap hero-inner">
       <p class="eyebrow">Made in Granbury, Texas by Shauna</p>
       <h1>Small apps that quietly keep your life in order &mdash; right on your phone.</h1>
-      <p class="lede">Five simple planners for pets, family health, money, kids, and big-ticket plans. They work offline, live on your home screen, and keep your information on your device. <strong>No app store and no account \u2014 Pawfolio is free, the rest are pay-once.</strong></p>
+      <p class="lede">Simple planners for pets, family health, money, kids and big plans. They work offline and keep your information on your device. No app store, no account.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary btn-lg" href="#apps">See the 5 apps</a>
-        <a class="btn btn-ghost btn-lg" href="#how">How it works</a>
+        <a class="btn btn-primary btn-lg" href="#apps">See the apps</a>
+        <a class="btn btn-ghost btn-lg" href="#free">Free printables</a>
       </div>
       <ul class="promises">
         <li>Works offline</li>
-        <li>No accounts</li>
+        <li>No account</li>
         <li>Your data stays on your device</li>
-        <li>Free, or pay once</li>
         <li>30-day money-back guarantee</li>
       </ul>
     </div>
   </section>
 
-  <section class="how" id="how" aria-labelledby="how-h">
-    <div class="wrap">
-      <h2 id="how-h" class="sec-title">How a download becomes an app on your phone</h2>
-      <p class="sec-sub">It sounds too simple, so here it is, start to finish. Four steps, about two minutes.</p>
-      <ol class="steps">
-{steps}
-      </ol>
-    </div>
-  </section>
-
   <section class="apps" id="apps" aria-labelledby="apps-h">
     <div class="wrap">
-      <h2 id="apps-h" class="sec-title">The five apps</h2>
-      <p class="sec-sub">Each one does a single job well. Try any demo free before you buy \u2014 no email required \u2014 and every purchase is covered by a 30-day money-back guarantee.</p>
+      <h2 id="apps-h" class="sec-title">The apps</h2>
+      <p class="sec-sub">Try any demo free, no email needed. Paid apps have a 30-day money-back guarantee.</p>
       <div class="card-grid">
 
 {cards}
@@ -417,38 +405,39 @@ HTML = f'''<!DOCTYPE html>
     </div>
   </section>
 
+  <section class="free" id="free" aria-labelledby="free-h">
+    <div class="wrap">
+      <h2 id="free-h" class="sec-title">Free printables</h2>
+      <p class="sec-sub">Print them, fill them in on screen, or open them in a spreadsheet. No sign-up.</p>
+      <ul class="free-grid">
+{freebies}
+      </ul>
+    </div>
+  </section>
+
+  <section class="how" id="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <h2 id="how-h" class="sec-title">How it works</h2>
+      <p class="sec-sub">From link to app on your home screen in about two minutes.</p>
+      <ol class="steps">
+{steps}
+      </ol>
+    </div>
+  </section>
+
   <section class="scan" id="scan" aria-labelledby="scan-h">
     <div class="wrap">
-      <h2 id="scan-h" class="sec-title">Try one on your phone right now</h2>
-      <p class="sec-sub">Point your phone camera at a code. The free demo opens in your phone's browser \u2014 nothing to install, no signup.</p>
+      <h2 id="scan-h" class="sec-title">Try one on your phone</h2>
+      <p class="sec-sub">Point your phone camera at a code to open the free demo.</p>
       <ul class="qr-grid">
 {qr_tiles}
       </ul>
     </div>
   </section>
 
-  <section class="compare" id="compare" aria-labelledby="compare-h">
-    <div class="wrap">
-      <h2 id="compare-h" class="sec-title">Not sure which one?</h2>
-      <p class="sec-sub">A quick side-by-side of all five.</p>
-      <div class="table-scroll">
-        <table class="ctable">
-          <caption class="sr-only">All five CleartrackApps apps, who each is for, the price, and a link to the free demo.</caption>
-          <thead>
-            <tr><th scope="col">App</th><th scope="col">Who it's for</th><th scope="col">Price</th><th scope="col">Try it</th></tr>
-          </thead>
-          <tbody>
-{rows}
-          </tbody>
-        </table>
-      </div>
-      <p class="table-note">Pawfolio is free to use, with an optional $29.99-a-year upgrade. The other four are one-time prices, and every paid app is covered by a 30-day money-back guarantee. Medical Records Keeper and Puzzle Pig are also available on Etsy at Etsy's own pricing.</p>
-    </div>
-  </section>
-
   <section class="faq" id="faq" aria-labelledby="faq-h">
     <div class="wrap faq-wrap">
-      <h2 id="faq-h" class="sec-title">Questions people ask first</h2>
+      <h2 id="faq-h" class="sec-title">Questions</h2>
       <div class="faq-list">
 {faq}
       </div>
@@ -457,27 +446,7 @@ HTML = f'''<!DOCTYPE html>
 
 </main>
 
-<footer class="site-foot">
-  <div class="wrap foot-inner">
-    <div class="foot-brand">
-      {LOGO_FOOT}
-      <div>
-        <p class="foot-name">CleartrackApps</p>
-        <p class="foot-note">Simple apps that work offline \u2014 no app store, no account. Granbury, Texas.</p>
-      </div>
-    </div>
-    <nav class="foot-links" aria-label="Elsewhere">
-      <a href="./pet-sitter-instructions/">Free pet sitter sheet</a>
-      <a href="./pet-medication-chart/">Free pet medication chart</a>
-      <a href="./medication-tracker/">Free medication tracker</a>
-      <a href="https://instagram.com/cleartrackapps" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="https://www.pinterest.com/cleartrackapps" target="_blank" rel="noopener noreferrer">Pinterest</a>
-      <a href="https://cleartrackapps.com/go/etsy-shop/" target="_blank" rel="noopener noreferrer">Full Etsy shop</a>
-      <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a>
-    </nav>
-    <p class="foot-fine">&copy; 2026 CleartrackApps. Pawfolio&trade; and Puzzle Pig&trade; are trademarks of CleartrackApps.</p>
-  </div>
-</footer>
+<footer class="site-foot"></footer>
 
 <script src="./app.js" defer></script>
 <!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->
@@ -486,6 +455,8 @@ HTML = f'''<!DOCTYPE html>
 </html>
 '''
 
+import chrome
+HTML = chrome.apply(HTML, "./", "&copy; 2026 CleartrackApps. Pawfolio&trade; and Puzzle Pig&trade; are trademarks of CleartrackApps.", toggle=True)
 OUT.write_text(HTML, encoding="utf-8")
 print(f"wrote {OUT} ({len(HTML)} bytes)")
 
