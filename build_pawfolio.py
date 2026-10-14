@@ -630,6 +630,8 @@ PAGE = f'''<!DOCTYPE html>
 '''
 
 OUT_DIR.mkdir(exist_ok=True)
+import chrome
+PAGE = chrome.apply(PAGE, "../", "&copy; 2026 CleartrackApps. Pawfolio&trade; is a trademark of CleartrackApps.", extra='\n    <p class="foot-verse">&ldquo;The righteous care for the needs of their animals.&rdquo;\n      <cite>&mdash; Proverbs 12:10</cite></p>')
 (OUT_DIR / "index.html").write_text(PAGE, encoding="utf-8")
 print(f"wrote {OUT_DIR / 'index.html'} ({len(PAGE)} bytes)")
 
