@@ -344,8 +344,8 @@ HTML = f'''<!DOCTYPE html>
 <meta name="google-site-verification" content="OoYXKcYYsrCzi990k06u1eoWpMxFOF3ZSRk2TqRvpII">
 <title>CleartrackApps \u2014 Simple offline apps for real life admin</title>
 <meta name="description" content="{DESC}">
-<meta name="theme-color" content="#faf6ef" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#181410" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f2f4f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15181e" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CleartrackApps">
 <link rel="canonical" href="https://cleartrackapps.com/">
