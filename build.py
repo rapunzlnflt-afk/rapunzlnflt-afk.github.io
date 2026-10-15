@@ -48,9 +48,11 @@ GO_LINKS = {
     # Free; printed medication-tracker QR codes use it too.
     "medrecords-max":           ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/ac094b3b-9ed8-4571-a7d7-a538aff71666"),
     "medrecords-app":           ("MedRecords", "https://cleartrackapps.com/medical-records-keeper/?ref=site"),
-    # The two one-time MedRecords listings below stay until they're retired.
+    # The one-time Gumroad listing below stays until it's retired.
     "medical-records":          ("secure checkout", "https://cleartrackapps.gumroad.com/l/MedRecords?wanted=true&ref=site"),
-    "medical-records-etsy":     ("Etsy",    "https://www.etsy.com/listing/4487743018"),
+    # The MedRecords Etsy listing is deactivated (Oct 2026). Old pins and
+    # captions may still carry this link, so it lands on the MedRecords page.
+    "medical-records-etsy":     ("MedRecords", "https://cleartrackapps.com/medrecords/?ref=etsy-legacy"),
     "budget-tracker":           ("Etsy",    "https://www.etsy.com/listing/4489254039"),
     "puzzle-pig":               ("secure checkout", "https://cleartrackapps.gumroad.com/l/puzzlepig?wanted=true&ref=site"),
     "puzzle-pig-etsy":          ("Etsy",    "https://www.etsy.com/listing/4490566794"),
