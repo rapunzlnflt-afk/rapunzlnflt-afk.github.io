@@ -43,6 +43,12 @@ GO_LINKS = {
     # carry this link, so it now lands on the Pawfolio page rather than a dead
     # Etsy listing. Restore the listing URL here if a one-time Etsy licence returns.
     "pawfolio-etsy":            ("Pawfolio", "https://cleartrackapps.com/pawfolio/?ref=etsy-legacy"),
+    # "medrecords-max" is the MedRecords Max checkout (Lemon Squeezy subscription,
+    # monthly or yearly), launched Oct 15, 2026. "medrecords-app" opens MedRecords
+    # Free; printed medication-tracker QR codes use it too.
+    "medrecords-max":           ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/ac094b3b-9ed8-4571-a7d7-a538aff71666"),
+    "medrecords-app":           ("MedRecords", "https://cleartrackapps.com/medical-records-keeper/?ref=site"),
+    # The two one-time MedRecords listings below stay until they're retired.
     "medical-records":          ("secure checkout", "https://cleartrackapps.gumroad.com/l/MedRecords?wanted=true&ref=site"),
     "medical-records-etsy":     ("Etsy",    "https://www.etsy.com/listing/4487743018"),
     "budget-tracker":           ("Etsy",    "https://www.etsy.com/listing/4489254039"),
@@ -98,35 +104,23 @@ APPS = [
         tag="Pet care",
     ),
     dict(
-        slug="medical-records", key="medical", name="Medical Records Keeper",
-        who="Medications, doctors and visits for the whole family. $24.99 once, no ads.",
-        blurb="Most apps that do this bill you every year, forever \u2014 and most of them show ads. This one is $24.99 once, with no ads and no renewals. It keeps what a doctor's office asks for in one private place on your phone: medications and doses, appointment notes, vitals, and pharmacy details. Track up to six family members, each with their own records, and print a clean summary for the next visit.",
-        points=["Medications with doses and phone reminders", "Doctors, appointments, visit notes and vitals", "Up to 6 family members, with printable records"],
+        slug="medical-records", key="medical", name="MedRecords",
+        who="Medications, doctors and visits for the whole family. Free, with no ads.",
+        blurb="MedRecords keeps what a doctor's office asks for in one private place on your phone: medications and doses, doctors, appointments, pharmacies and insurance cards. Track up to six family members, print a clean summary for the next visit, and never see an ad. MedRecords Max adds caregiver dose sharing, medical records, vitals, a timeline and visit notes.",
+        points=["Up to 6 family members, medications and dose reminders &mdash; free", "Doctors, appointments and insurance cards, with no ads &mdash; free", "Caregiver dose sharing, records, vitals and visit notes &mdash; MedRecords Max"],
         features=[
-            "Doctors, pharmacies, and emergency contacts in one list",
-            "Medications with doses plus phone reminders",
-            "Appointments with visit notes you write afterwards",
-            "Vitals history \u2014 blood pressure, weight, glucose, and more",
-            "Up to 6 family members, with printable records for any visit",
+            "Up to 6 family members, each with their own records &mdash; free",
+            "Medications, dose reminders and dose history &mdash; free",
+            "Doctors, pharmacies, appointments and insurance cards &mdash; free",
+            "Share doses with a caregiver &mdash; in MedRecords Max",
+            "Medical records, vitals, timeline and visit notes &mdash; in MedRecords Max",
         ],
-        # Cost comparison. The point of this block is that a one-time price beats a
-        # renewing one, so it names no competitor: naming them teaches a shopper the
-        # name of a free-with-ads alternative, and any specific price we print goes
-        # stale the moment they change it. A dated range says the same thing and
-        # survives. Range spans the yearly plans verified 2026-08-14 across Dosecast
-        # ($27.99), Capzule PHR ($29.99), Medisafe and CareClinic ($39.99), and
-        # EveryDose ($59.99, $69.99 for Plus) \u2014 every one a subscription, most
-        # carrying ads. Re-check before editing the numbers.
-        compare=dict(
-            head="Pay once, not every year",
-            them=("Similar apps", "$30\u2013$70 every year"),
-            us=("This app", "$24.99 once"),
-            note="Typical yearly plans for comparable medication and health-record apps, checked August 2026. Most of them show ads. This one has none, and you never need a renewal.",
-        ),
-        price="$24.99", audience="Families &amp; caregivers",
-        primary=("Buy now \u2014 $24.99", go("medical-records")),
-        secondary=("Prefer Etsy? Buy there instead", go("medical-records-etsy")),
+        price="Free", price_note="MedRecords Max from $4.99/mo", audience="Families &amp; caregivers",
+        primary=("Open MedRecords Free", go("medrecords-app")),
+        secondary=("See what MedRecords Max adds", "./medrecords/"),
         demo="https://cleartrackapps.com/medical-records-demo/",
+        page="./medrecords/",
+        page_label="See the full MedRecords page",
         tag="Family health",
     ),
     dict(
