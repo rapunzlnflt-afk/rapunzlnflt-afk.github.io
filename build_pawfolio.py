@@ -127,7 +127,7 @@ PAGE = f'''<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{TITLE}</title>
 <meta name="description" content="{DESC}">
-<meta name="theme-color" content="#f2f4f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#15181e" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://cleartrackapps.com/pawfolio/">
 <meta property="og:type" content="product">
@@ -148,8 +148,8 @@ PAGE = f'''<!DOCTYPE html>
 <link rel="apple-touch-icon" href="../assets/favicon-180.png" sizes="180x180">
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&f[]=zodiak@600,700&display=swap">
-<link rel="stylesheet" href="../base.css?v=20261014c">
-<link rel="stylesheet" href="../style.css?v=20261014c">
+<link rel="stylesheet" href="../base.css?v=20261014f">
+<link rel="stylesheet" href="../style.css?v=20261014f">
 <style>
   /* Pawfolio page: a short product page. Hero with the app, one side-by-side
      Free / Complete comparison, three pictures, then questions. The six-question
@@ -175,7 +175,7 @@ PAGE = f'''<!DOCTYPE html>
     background: linear-gradient(to bottom, transparent, var(--color-surface)); pointer-events: none; }}
 
   .pf-sec {{ padding: clamp(2.5rem, 6vw, 4rem) 0; }}
-  .pf-sec-alt {{ background: var(--color-bg-alt); }}
+  .pf-sec-alt {{ background: transparent; }}
   .pf-h2 {{ font-family: Zodiak, Georgia, serif; font-weight: 700; letter-spacing: -.015em;
     font-size: clamp(1.5rem, 4vw, 2.2rem); }}
   .pf-sub {{ max-width: 52ch; margin-top: .6rem; color: var(--color-text-muted); font-size: var(--text-sm); }}
@@ -346,7 +346,7 @@ PAGE = f'''<!DOCTYPE html>
 
 <footer class="site-foot"></footer>
 
-<script src="../app.js?v=20261014c" defer></script>
+<script src="../app.js?v=20261014f" defer></script>
 <script src="../meta-pixel.js" defer></script>
 <script>
 (function () {{

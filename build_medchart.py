@@ -112,7 +112,7 @@ PAGE = f'''<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{TITLE}</title>
 <meta name="description" content="{DESC}">
-<meta name="theme-color" content="#f2f4f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#15181e" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="{URL}">
 <meta property="og:type" content="website">
@@ -127,30 +127,30 @@ PAGE = f'''<!DOCTYPE html>
 <link rel="apple-touch-icon" href="../assets/favicon-180.png" sizes="180x180">
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&f[]=zodiak@600,700&display=swap">
-<link rel="stylesheet" href="../base.css?v=20261014c">
-<link rel="stylesheet" href="../style.css?v=20261014c">
+<link rel="stylesheet" href="../base.css?v=20261014f">
+<link rel="stylesheet" href="../style.css?v=20261014f">
 <style>
   /* Same soft gray / slate blue as the sitter sheet page. */
   body.ps-page {{
-    --color-bg: #f2f4f7; --color-bg-alt: #e8edf5; --color-surface: #ffffff; --color-surface-2: #f5f7fa;
-    --color-border: #d6dce6; --color-border-strong: #c3cbd8; --color-text: #262b35; --color-text-muted: #5d6676;
-    --color-primary: #4c5f8f; --color-primary-hover: #3d4d76; --color-focus: #4c5f8f;
-    --accent-pawfolio: #4c5f8f; --accent-pawfolio-soft: #e7ecf6;
+    --color-bg: #f5f6f8; --color-bg-alt: #eceff3; --color-surface: #ffffff; --color-surface-2: #f7f8fa;
+    --color-border: #e2e4e8; --color-border-strong: #d0d4db; --color-text: #24272b; --color-text-muted: #5d636c;
+    --color-primary: #5e7c73; --color-primary-hover: #4f6b63; --color-focus: #5e7c73;
+    --accent-pawfolio: #5e7c73; --accent-pawfolio-soft: #e9efec;
     background-color: var(--color-bg);
-    background-image: url("paws.svg"); background-repeat: repeat; background-position: center top; background-size: 900px 1100px;
+    background-image: url("paws.svg"), var(--page-grad); background-repeat: repeat, no-repeat; background-position: center top, 0 0; background-size: 900px 1100px, 100% 100%; background-attachment: scroll, fixed;
   }}
   [data-theme='dark'] body.ps-page {{
     --color-bg: #15181e; --color-bg-alt: #1b2029; --color-surface: #1e232c; --color-surface-2: #232934;
     --color-border: #333b49; --color-border-strong: #424b5b; --color-text: #dde2ea; --color-text-muted: #9aa3b2;
-    --color-primary: #a3b4dc; --color-primary-hover: #bdcae8; --color-focus: #a3b4dc;
-    --accent-pawfolio: #a3b4dc; --accent-pawfolio-soft: #252d3d; background-image: url("paws-dark.svg");
+    --color-primary: #9dbcb2; --color-primary-hover: #b4cfc6; --color-focus: #9dbcb2;
+    --accent-pawfolio: #9dbcb2; --accent-pawfolio-soft: #22302c; background-image: url("paws-dark.svg"), var(--page-grad);
   }}
   @media (prefers-color-scheme: dark) {{
     :root:not([data-theme='light']) body.ps-page {{
       --color-bg: #15181e; --color-bg-alt: #1b2029; --color-surface: #1e232c; --color-surface-2: #232934;
       --color-border: #333b49; --color-border-strong: #424b5b; --color-text: #dde2ea; --color-text-muted: #9aa3b2;
-      --color-primary: #a3b4dc; --color-primary-hover: #bdcae8; --color-focus: #a3b4dc;
-      --accent-pawfolio: #a3b4dc; --accent-pawfolio-soft: #252d3d; background-image: url("paws-dark.svg");
+      --color-primary: #9dbcb2; --color-primary-hover: #b4cfc6; --color-focus: #9dbcb2;
+      --accent-pawfolio: #9dbcb2; --accent-pawfolio-soft: #22302c; background-image: url("paws-dark.svg"), var(--page-grad);
     }}
   }}
   @media (max-width: 640px) {{ body.ps-page {{ background-size: 560px 684px; }} }}
@@ -204,7 +204,7 @@ PAGE = f'''<!DOCTYPE html>
 <header class="site-head">
   <div class="wrap head-inner">
     <a class="brand" href="../" aria-label="Cleartrack Apps home">
-      <span class="lockup logo-head"><img class="logo logo-on-light" src="../assets/logo.png" width="720" height="289" alt="Cleartrack Apps" decoding="async"><img class="logo logo-on-dark" src="../assets/logo-dark.png" width="720" height="289" alt="" aria-hidden="true" decoding="async"></span>
+      <span class="lockup logo-head"><img class="logo logo-on-light" src="../assets/logo.png?v=2" width="720" height="289" alt="Cleartrack Apps" decoding="async"><img class="logo logo-on-dark" src="../assets/logo-dark.png?v=2" width="720" height="289" alt="" aria-hidden="true" decoding="async"></span>
     </a>
   </div>
 </header>
@@ -297,7 +297,7 @@ PAGE = f'''<!DOCTYPE html>
     <p class="foot-fine">&copy; 2026 CleartrackApps. Pawfolio&trade; is a trademark of CleartrackApps.</p>
   </div>
 </footer>
-<script src="../app.js?v=20261014c" defer></script>
+<script src="../app.js?v=20261014f" defer></script>
 {BUILDER_JS}
 {CF_BEACON}
 </body>

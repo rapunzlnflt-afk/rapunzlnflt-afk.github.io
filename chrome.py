@@ -19,9 +19,9 @@ TOGGLE = '''    <button class="theme-toggle" type="button" id="theme-toggle" ari
 
 def _logo(prefix, cls):
     return (f'<span class="lockup {cls}">'
-            f'<img class="logo logo-on-light" src="{prefix}assets/logo.png" width="720" height="289" '
+            f'<img class="logo logo-on-light" src="{prefix}assets/logo.png?v=2" width="720" height="289" '
             f'alt="Cleartrack Apps" decoding="async">'
-            f'<img class="logo logo-on-dark" src="{prefix}assets/logo-dark.png" width="720" height="289" '
+            f'<img class="logo logo-on-dark" src="{prefix}assets/logo-dark.png?v=2" width="720" height="289" '
             f'alt="" aria-hidden="true" decoding="async">'
             f'</span>')
 
