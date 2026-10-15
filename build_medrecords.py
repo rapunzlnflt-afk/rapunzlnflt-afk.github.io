@@ -45,7 +45,7 @@ FREE_FEATURES = [
 ]
 
 PAID_FEATURES = [
-    ("Share doses with a caregiver", ""),
+    ("Share doses with caregivers", ""),
     ("Medical Records: labs, scans &amp; documents", ""),
     ("Vitals", ""),
     ("Timeline", ""),
@@ -69,8 +69,10 @@ FAQ = [
      "no ads and no time limit."),
     ("How does sharing doses with a caregiver work?",
      "With MedRecords Max, you send a caregiver a link to the medications you choose. They get a reminder "
-     "when a dose is due and tap Given or Skip on their own phone, and you see who gave each dose. "
-     "They don't need an account, and they see nothing else in your records."),
+     "when a dose is due and tap Given or Skip on their own phone. "
+     "They don't need an account, and they see nothing else in your records. Send the same link to as many "
+     "caregivers as you like, like a sibling, an aide or a neighbor. Each one adds their first name, so you "
+     "see who gave each dose."),
     ("How do I upgrade?",
      "MedRecords Max is $4.99 a month or $29.99 a year. Your license key arrives by email. Open "
      "MedRecords, tap MedRecords Max in the menu, and paste the key. One key works on up to 3 devices."),
