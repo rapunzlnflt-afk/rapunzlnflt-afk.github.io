@@ -135,14 +135,14 @@ PAGE = f'''<!DOCTYPE html>
 <meta property="og:url" content="https://cleartrackapps.com/pawfolio/">
 <meta property="og:title" content="{TITLE}">
 <meta property="og:description" content="{DESC}">
-<meta property="og:image" content="https://cleartrackapps.com/assets/og-pawfolio.png">
+<meta property="og:image" content="https://cleartrackapps.com/assets/og-pawfolio.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Pawfolio — pet records that work offline.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{TITLE}">
 <meta name="twitter:description" content="{DESC}">
-<meta name="twitter:image" content="https://cleartrackapps.com/assets/og-pawfolio.png">
+<meta name="twitter:image" content="https://cleartrackapps.com/assets/og-pawfolio.png?v=2">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="../assets/favicon-180.png" sizes="180x180">

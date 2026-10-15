@@ -37,20 +37,20 @@ TEMPLATE = """<!DOCTYPE html>
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&f[]=zodiak@700&display=swap">
 <style>
   * {{ margin:0; box-sizing:border-box; }}
-  body {{ width:1200px; height:630px; background:#faf6ef; font-family:'General Sans',sans-serif;
-         color:#2a2318; padding:74px 80px; display:flex; flex-direction:column;
+  body {{ width:1200px; height:630px; background:#f5f6f8; font-family:'General Sans',sans-serif;
+         color:#24272b; padding:74px 80px; display:flex; flex-direction:column;
          justify-content:space-between;
-         background-image: radial-gradient(80% 60% at 100% 0%, {tint} 0%, transparent 60%),
-                           radial-gradient(70% 70% at 0% 100%, {tint2} 0%, transparent 62%); }}
+         background-image: linear-gradient(160deg,#fafbfc 0%,#f5f6f8 40%,#eceff3 75%,#e6e9ee 100%); }}
   .top {{ display:flex; align-items:center; gap:20px; }}
   .top img.logo {{ width:206px; height:auto; display:block; }}
   h1 {{ font-family:'Zodiak',serif; font-size:{size}px; line-height:1.06;
        letter-spacing:-.025em; max-width:17ch; font-weight:700; }}
-  p.sub {{ margin-top:22px; font-size:26px; color:#6b6152; max-width:34ch; }}
+  p.sub {{ margin-top:22px; font-size:26px; color:#5d636c; max-width:34ch; }}
   .row {{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; }}
   .chip {{ font-size:21px; font-weight:500; padding:10px 20px; border-radius:999px;
-          border:1.5px solid #d3c6b0; color:#4b4238; background:#fffdf9; }}
-  .chip.lead {{ background:#1c574a; border-color:#1c574a; color:#faf6ef; font-weight:600; }}
+          border:1.5px solid #d0d4db; color:#3c4148; background:#ffffff; }}
+  .chip.lead {{ background:linear-gradient(135deg,#7f9d94,#5e7c73 55%,#4f6b63); border-color:#5e7c73; color:#ffffff; font-weight:600;
+               box-shadow:0 4px 12px rgba(79,107,99,.25); }}
 </style></head>
 <body>
   <div class="top">

@@ -127,7 +127,7 @@ PAGE = f'''<!DOCTYPE html>
 <meta property="og:url" content="{URL}">
 <meta property="og:title" content="Free printable pet sitter instructions">
 <meta property="og:description" content="{DESC}">
-<meta property="og:image" content="https://cleartrackapps.com/assets/og-pawfolio.png">
+<meta property="og:image" content="https://cleartrackapps.com/assets/og-pawfolio.png?v=2">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
