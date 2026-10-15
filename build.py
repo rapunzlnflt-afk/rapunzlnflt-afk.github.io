@@ -229,9 +229,9 @@ FREEBIES = [
 # light-wordmark variant for the dark theme. Both are shipped; CSS shows one.
 def logo(cls):
     return (f'<span class="lockup {cls}">'
-            f'<img class="logo logo-on-light" src="./assets/logo.png" width="720" height="289" '
+            f'<img class="logo logo-on-light" src="./assets/logo.png?v=2" width="720" height="289" '
             f'alt="Cleartrack Apps" decoding="async">'
-            f'<img class="logo logo-on-dark" src="./assets/logo-dark.png" width="720" height="289" '
+            f'<img class="logo logo-on-dark" src="./assets/logo-dark.png?v=2" width="720" height="289" '
             f'alt="" aria-hidden="true" decoding="async">'
             f'</span>')
 
@@ -344,7 +344,7 @@ HTML = f'''<!DOCTYPE html>
 <meta name="google-site-verification" content="OoYXKcYYsrCzi990k06u1eoWpMxFOF3ZSRk2TqRvpII">
 <title>CleartrackApps \u2014 Simple offline apps for real life admin</title>
 <meta name="description" content="{DESC}">
-<meta name="theme-color" content="#f2f4f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#15181e" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CleartrackApps">
@@ -365,8 +365,8 @@ HTML = f'''<!DOCTYPE html>
 <link rel="apple-touch-icon" href="./assets/favicon-180.png" sizes="180x180">
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&f[]=zodiak@600,700&display=swap">
-<link rel="stylesheet" href="./base.css?v=20261014c">
-<link rel="stylesheet" href="./style.css?v=20261014c">
+<link rel="stylesheet" href="./base.css?v=20261014g">
+<link rel="stylesheet" href="./style.css?v=20261014g">
 </head>
 <body>
 <a class="skip" href="#apps">Skip to the apps</a>
@@ -448,7 +448,7 @@ HTML = f'''<!DOCTYPE html>
 
 <footer class="site-foot"></footer>
 
-<script src="./app.js?v=20261014c" defer></script>
+<script src="./app.js?v=20261014g" defer></script>
 <!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{{"token": "5673e14274004df9a11f87d759a6b624"}}'></script>
 </body>

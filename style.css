@@ -27,30 +27,36 @@
 
 /* ---------- light theme ---------- */
 :root, [data-theme='light'] {
-  --color-bg: #f2f4f7;
-  --color-bg-alt: #e8edf5;
+  --color-bg: #f5f6f8;
+  --color-bg-alt: #eceff3;
   --color-surface: #ffffff;
-  --color-surface-2: #f5f7fa;
-  --color-border: #d6dce6;
-  --color-border-strong: #c3cbd8;
-  --color-text: #262b35;
-  --color-text-muted: #5d6676;
+  --color-surface-2: #f7f8fa;
+  --color-border: #e2e4e8;
+  --color-border-strong: #d0d4db;
+  --color-text: #24272b;
+  --color-text-muted: #5d636c;
   --color-inverse: #ffffff;
-  --color-primary: #1f5b5c;
-  --color-primary-hover: #174647;
-  --color-focus: #1f5b5c;
+  --color-primary: #5e7c73;
+  --color-primary-hover: #4f6b63;
+  --color-focus: #5e7c73;
 
   --head-pad: 11px;
-  --accent-pawfolio: #464191;
-  --accent-pawfolio-soft: #ebe9f8;
-  --accent-medical: #22617f;
-  --accent-medical-soft: #e5f0f6;
-  --accent-budget: #7f611a;
-  --accent-budget-soft: #f6eed9;
-  --accent-puzzlepig: #a63f63;
-  --accent-puzzlepig-soft: #fae8ee;
-  --accent-beauty: #74476f;
-  --accent-beauty-soft: #f4e9f2;
+  --color-brown: #6b5b50; /* Cocoa gray: small warm accents beside the sage */
+  /* Soft Cloud-gray page gradient and sage button gradient. */
+  --page-grad: linear-gradient(160deg, #fafbfc 0%, #f5f6f8 40%, #eceff3 75%, #e6e9ee 100%);
+  --btn-grad: linear-gradient(135deg, #7f9d94 0%, #5e7c73 55%, #4f6b63 100%);
+  --btn-grad-hover: linear-gradient(135deg, #6f8d84 0%, #4f6b63 100%);
+  --btn-shadow: 0 2px 8px rgba(78, 107, 99, .25);
+  --accent-pawfolio: #6b5b50;
+  --accent-pawfolio-soft: #ece7e3;
+  --accent-medical: #6b5b50;
+  --accent-medical-soft: #ece7e3;
+  --accent-budget: #6b5b50;
+  --accent-budget-soft: #ece7e3;
+  --accent-puzzlepig: #6b5b50;
+  --accent-puzzlepig-soft: #ece7e3;
+  --accent-beauty: #6b5b50;
+  --accent-beauty-soft: #ece7e3;
 
   --shadow-sm: 0 1px 2px rgba(38, 43, 53, .06), 0 2px 10px -6px rgba(38, 43, 53, .14);
   --shadow-md: 0 2px 4px rgba(38, 43, 53, .07), 0 14px 32px -18px rgba(38, 43, 53, .3);
@@ -58,6 +64,7 @@
 
 /* ---------- dark theme ---------- */
 [data-theme='dark'] {
+  --color-brown: #c2b0a3;
   --color-bg: #15181e;
   --color-bg-alt: #1b2029;
   --color-surface: #1e232c;
@@ -67,27 +74,32 @@
   --color-text: #dde2ea;
   --color-text-muted: #9aa3b2;
   --color-inverse: #15181e;
-  --color-primary: #86cfcf;
-  --color-primary-hover: #a4dede;
-  --color-focus: #86cfcf;
+  --color-primary: #9dbcb2;
+  --color-primary-hover: #b4cfc6;
+  --color-focus: #9dbcb2;
 
-  --accent-pawfolio: #a9a5ee;
-  --accent-pawfolio-soft: #262346;
-  --accent-medical: #8dc6e2;
-  --accent-medical-soft: #1c3140;
-  --accent-budget: #e0bf72;
-  --accent-budget-soft: #3a2f16;
-  --accent-puzzlepig: #eda2bc;
-  --accent-puzzlepig-soft: #3d2029;
-  --accent-beauty: #d7a9d1;
-  --accent-beauty-soft: #33222f;
+  --accent-pawfolio: #c2b0a3;
+  --accent-pawfolio-soft: #2e2724;
+  --accent-medical: #c2b0a3;
+  --accent-medical-soft: #2e2724;
+  --accent-budget: #c2b0a3;
+  --accent-budget-soft: #2e2724;
+  --accent-puzzlepig: #c2b0a3;
+  --accent-puzzlepig-soft: #2e2724;
+  --accent-beauty: #c2b0a3;
+  --accent-beauty-soft: #2e2724;
 
+  --page-grad: linear-gradient(160deg, #1b1f26 0%, #15181e 45%, #111419 100%);
+  --btn-grad: linear-gradient(135deg, #c3dad2 0%, #9dbcb2 55%, #87a89d 100%);
+  --btn-grad-hover: linear-gradient(135deg, #d2e4de 0%, #a9c6bc 100%);
+  --btn-shadow: 0 2px 8px rgba(0, 0, 0, .35);
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
   --shadow-md: 0 2px 4px rgba(0, 0, 0, .35), 0 16px 34px -20px rgba(0, 0, 0, .8);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
+    --color-brown: #c2b0a3;
     --color-bg: #15181e;
     --color-bg-alt: #1b2029;
     --color-surface: #1e232c;
@@ -97,14 +109,18 @@
     --color-text: #dde2ea;
     --color-text-muted: #9aa3b2;
     --color-inverse: #15181e;
-    --color-primary: #86cfcf;
-    --color-primary-hover: #a4dede;
-    --color-focus: #86cfcf;
-    --accent-pawfolio: #a9a5ee;  --accent-pawfolio-soft: #262346;
-    --accent-medical: #8dc6e2;   --accent-medical-soft: #1c3140;
-    --accent-budget: #e0bf72;    --accent-budget-soft: #3a2f16;
-    --accent-puzzlepig: #eda2bc; --accent-puzzlepig-soft: #3d2029;
-    --accent-beauty: #d7a9d1;    --accent-beauty-soft: #33222f;
+    --color-primary: #9dbcb2;
+    --color-primary-hover: #b4cfc6;
+    --color-focus: #9dbcb2;
+    --accent-pawfolio: #c2b0a3;  --accent-pawfolio-soft: #2e2724;
+    --accent-medical: #c2b0a3;   --accent-medical-soft: #2e2724;
+    --accent-budget: #c2b0a3;    --accent-budget-soft: #2e2724;
+    --accent-puzzlepig: #c2b0a3; --accent-puzzlepig-soft: #2e2724;
+    --accent-beauty: #c2b0a3;    --accent-beauty-soft: #2e2724;
+    --page-grad: linear-gradient(160deg, #1b1f26 0%, #15181e 45%, #111419 100%);
+    --btn-grad: linear-gradient(135deg, #c3dad2 0%, #9dbcb2 55%, #87a89d 100%);
+    --btn-grad-hover: linear-gradient(135deg, #d2e4de 0%, #a9c6bc 100%);
+    --btn-shadow: 0 2px 8px rgba(0, 0, 0, .35);
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
     --shadow-md: 0 2px 4px rgba(0, 0, 0, .35), 0 16px 34px -20px rgba(0, 0, 0, .8);
   }
@@ -112,7 +128,8 @@
 
 /* ---------- shell ---------- */
 body {
-  background: var(--color-bg);
+  background: var(--page-grad) fixed, var(--color-bg);
+  min-height: 100vh;
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: var(--text-base);
@@ -219,7 +236,9 @@ body {
               border-color .18s var(--ease), transform .18s var(--ease), box-shadow .18s var(--ease);
 }
 .btn-primary {
-  background: var(--accent, var(--color-primary)); color: var(--color-inverse);
+  /* One sage gradient for every main button on the site. */
+  background: var(--btn-grad); color: var(--color-inverse);
+  box-shadow: var(--btn-shadow);
   box-shadow: var(--shadow-sm);
 }
 [data-theme='dark'] .btn-primary { color: #101518; }
@@ -227,7 +246,7 @@ body {
   :root:not([data-theme='light']) .btn-primary { color: #101518; }
 }
 .btn-primary:hover {
-  background: color-mix(in srgb, var(--accent, var(--color-primary)) 86%, #000);
+  background: var(--btn-grad-hover);
   transform: translateY(-1px); box-shadow: var(--shadow-md);
 }
 .btn-ghost {
@@ -235,8 +254,8 @@ body {
   border-color: var(--color-border-strong);
 }
 .btn-ghost:hover {
-  border-color: var(--accent, var(--color-primary));
-  color: var(--accent, var(--color-primary));
+  border-color: var(--color-primary);
+  color: var(--color-primary);
   transform: translateY(-1px);
 }
 .btn:active { transform: translateY(0); }
@@ -245,9 +264,6 @@ body {
 /* ---------- hero ---------- */
 .hero {
   padding-block: var(--space-12) var(--space-10);
-  background:
-    radial-gradient(120% 80% at 12% -10%, var(--color-bg-alt) 0%, transparent 62%),
-    radial-gradient(90% 70% at 100% 0%, color-mix(in srgb, var(--accent-medical-soft) 70%, transparent) 0%, transparent 60%);
 }
 .eyebrow {
   font-size: var(--text-xs); letter-spacing: .1em; text-transform: uppercase;
@@ -297,7 +313,7 @@ section { scroll-margin-top: 92px; }
 /* ---------- how it works ---------- */
 .how {
   padding-block: var(--space-12);
-  background: var(--color-bg-alt);
+  background: transparent;
   border-block: 1px solid var(--color-border);
 }
 .steps {
@@ -544,7 +560,7 @@ section { scroll-margin-top: 92px; }
 .site-head.is-compact .head-nav a { min-height: 34px; padding-block: var(--space-1); }
 
 /* ---------- free printables ---------- */
-.free { padding-block: var(--space-12); background: var(--color-bg-alt); }
+.free { padding-block: var(--space-12); }
 .free-grid { margin-top: var(--space-8); display: grid; gap: var(--space-4); }
 .free-tile {
   display: grid; height: 100%;
@@ -568,7 +584,7 @@ section { scroll-margin-top: 92px; }
 /* ---------- footer ---------- */
 .site-foot {
   border-top: 1px solid var(--color-border);
-  background: var(--color-bg-alt);
+  background: color-mix(in srgb, var(--color-surface) 45%, transparent);
   padding-block: var(--space-10);
 }
 .foot-inner { display: grid; gap: var(--space-8); }
@@ -640,3 +656,7 @@ section { scroll-margin-top: 92px; }
     scroll-behavior: auto !important;
   }
 }
+
+/* Cocoa gray touches */
+.eyebrow { color: var(--color-brown); }
+.price { color: var(--color-brown); }
