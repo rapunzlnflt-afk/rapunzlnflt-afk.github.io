@@ -41,21 +41,22 @@
   --color-focus: #5e7c73;
 
   --head-pad: 11px;
+  --color-brown: #6b5b50; /* Cocoa gray: small warm accents beside the sage */
   /* Soft Cloud-gray page gradient and sage button gradient. */
   --page-grad: linear-gradient(160deg, #fafbfc 0%, #f5f6f8 40%, #eceff3 75%, #e6e9ee 100%);
   --btn-grad: linear-gradient(135deg, #7f9d94 0%, #5e7c73 55%, #4f6b63 100%);
   --btn-grad-hover: linear-gradient(135deg, #6f8d84 0%, #4f6b63 100%);
   --btn-shadow: 0 2px 8px rgba(78, 107, 99, .25);
-  --accent-pawfolio: #5e7c73;
-  --accent-pawfolio-soft: #e9efec;
-  --accent-medical: #5e7c73;
-  --accent-medical-soft: #e9efec;
-  --accent-budget: #5e7c73;
-  --accent-budget-soft: #e9efec;
-  --accent-puzzlepig: #5e7c73;
-  --accent-puzzlepig-soft: #e9efec;
-  --accent-beauty: #5e7c73;
-  --accent-beauty-soft: #e9efec;
+  --accent-pawfolio: #6b5b50;
+  --accent-pawfolio-soft: #ece7e3;
+  --accent-medical: #6b5b50;
+  --accent-medical-soft: #ece7e3;
+  --accent-budget: #6b5b50;
+  --accent-budget-soft: #ece7e3;
+  --accent-puzzlepig: #6b5b50;
+  --accent-puzzlepig-soft: #ece7e3;
+  --accent-beauty: #6b5b50;
+  --accent-beauty-soft: #ece7e3;
 
   --shadow-sm: 0 1px 2px rgba(38, 43, 53, .06), 0 2px 10px -6px rgba(38, 43, 53, .14);
   --shadow-md: 0 2px 4px rgba(38, 43, 53, .07), 0 14px 32px -18px rgba(38, 43, 53, .3);
@@ -63,6 +64,7 @@
 
 /* ---------- dark theme ---------- */
 [data-theme='dark'] {
+  --color-brown: #c2b0a3;
   --color-bg: #15181e;
   --color-bg-alt: #1b2029;
   --color-surface: #1e232c;
@@ -76,16 +78,16 @@
   --color-primary-hover: #b4cfc6;
   --color-focus: #9dbcb2;
 
-  --accent-pawfolio: #9dbcb2;
-  --accent-pawfolio-soft: #22302c;
-  --accent-medical: #9dbcb2;
-  --accent-medical-soft: #22302c;
-  --accent-budget: #9dbcb2;
-  --accent-budget-soft: #22302c;
-  --accent-puzzlepig: #9dbcb2;
-  --accent-puzzlepig-soft: #22302c;
-  --accent-beauty: #9dbcb2;
-  --accent-beauty-soft: #22302c;
+  --accent-pawfolio: #c2b0a3;
+  --accent-pawfolio-soft: #2e2724;
+  --accent-medical: #c2b0a3;
+  --accent-medical-soft: #2e2724;
+  --accent-budget: #c2b0a3;
+  --accent-budget-soft: #2e2724;
+  --accent-puzzlepig: #c2b0a3;
+  --accent-puzzlepig-soft: #2e2724;
+  --accent-beauty: #c2b0a3;
+  --accent-beauty-soft: #2e2724;
 
   --page-grad: linear-gradient(160deg, #1b1f26 0%, #15181e 45%, #111419 100%);
   --btn-grad: linear-gradient(135deg, #c3dad2 0%, #9dbcb2 55%, #87a89d 100%);
@@ -97,6 +99,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
+    --color-brown: #c2b0a3;
     --color-bg: #15181e;
     --color-bg-alt: #1b2029;
     --color-surface: #1e232c;
@@ -109,11 +112,11 @@
     --color-primary: #9dbcb2;
     --color-primary-hover: #b4cfc6;
     --color-focus: #9dbcb2;
-    --accent-pawfolio: #9dbcb2;  --accent-pawfolio-soft: #22302c;
-    --accent-medical: #9dbcb2;   --accent-medical-soft: #22302c;
-    --accent-budget: #9dbcb2;    --accent-budget-soft: #22302c;
-    --accent-puzzlepig: #9dbcb2; --accent-puzzlepig-soft: #22302c;
-    --accent-beauty: #9dbcb2;    --accent-beauty-soft: #22302c;
+    --accent-pawfolio: #c2b0a3;  --accent-pawfolio-soft: #2e2724;
+    --accent-medical: #c2b0a3;   --accent-medical-soft: #2e2724;
+    --accent-budget: #c2b0a3;    --accent-budget-soft: #2e2724;
+    --accent-puzzlepig: #c2b0a3; --accent-puzzlepig-soft: #2e2724;
+    --accent-beauty: #c2b0a3;    --accent-beauty-soft: #2e2724;
     --page-grad: linear-gradient(160deg, #1b1f26 0%, #15181e 45%, #111419 100%);
     --btn-grad: linear-gradient(135deg, #c3dad2 0%, #9dbcb2 55%, #87a89d 100%);
     --btn-grad-hover: linear-gradient(135deg, #d2e4de 0%, #a9c6bc 100%);
@@ -653,3 +656,7 @@ section { scroll-margin-top: 92px; }
     scroll-behavior: auto !important;
   }
 }
+
+/* Cocoa gray touches */
+.eyebrow { color: var(--color-brown); }
+.price { color: var(--color-brown); }

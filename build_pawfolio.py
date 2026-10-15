@@ -148,8 +148,8 @@ PAGE = f'''<!DOCTYPE html>
 <link rel="apple-touch-icon" href="../assets/favicon-180.png" sizes="180x180">
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&f[]=zodiak@600,700&display=swap">
-<link rel="stylesheet" href="../base.css?v=20261014f">
-<link rel="stylesheet" href="../style.css?v=20261014f">
+<link rel="stylesheet" href="../base.css?v=20261014g">
+<link rel="stylesheet" href="../style.css?v=20261014g">
 <style>
   /* Pawfolio page: a short product page. Hero with the app, one side-by-side
      Free / Complete comparison, three pictures, then questions. The six-question
@@ -346,7 +346,7 @@ PAGE = f'''<!DOCTYPE html>
 
 <footer class="site-foot"></footer>
 
-<script src="../app.js?v=20261014f" defer></script>
+<script src="../app.js?v=20261014g" defer></script>
 <script src="../meta-pixel.js" defer></script>
 <script>
 (function () {{
