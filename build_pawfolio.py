@@ -162,6 +162,17 @@ PAGE = f'''<!DOCTYPE html>
   .pf-lede {{ max-width: 42ch; margin-top: 1rem; font-size: clamp(1rem, 2.2vw, 1.1rem);
     color: var(--color-text-muted); }}
   .pf-actions {{ display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.8rem; }}
+  .pf-watch {{ display: inline-flex; align-items: center; gap: .6rem; margin-top: 1.2rem;
+    font-weight: 600; font-size: var(--text-sm); color: var(--color-text); text-decoration: none; }}
+  .pf-watch:hover {{ color: var(--color-primary); }}
+  .pf-play {{ width: 2rem; height: 2rem; border-radius: 50%; flex: none; position: relative;
+    background: var(--btn-grad); box-shadow: var(--btn-shadow); }}
+  .pf-play::after {{ content: ""; position: absolute; left: 54%; top: 50%; transform: translate(-50%, -50%);
+    border-style: solid; border-width: .38rem 0 .38rem .6rem;
+    border-color: transparent transparent transparent var(--color-inverse); }}
+  .plan-watch {{ display: block; text-align: center; margin-top: .8rem; font-weight: 600;
+    font-size: var(--text-sm); color: var(--color-primary); text-decoration: none; }}
+  .plan-watch:hover {{ text-decoration: underline; text-underline-offset: 3px; }}
   .pf-ticks {{ display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; margin-top: 1.4rem;
     font-size: var(--text-xs); color: var(--color-text-muted); }}
   .pf-ticks li::before {{ content: "\\2713"; color: var(--accent-pawfolio); font-weight: 700; margin-right: .4rem; }}
@@ -249,6 +260,7 @@ PAGE = f'''<!DOCTYPE html>
           <a class="btn btn-primary btn-lg js-free-cta" href="{APP}">Open Pawfolio Free</a>
           <a class="btn btn-ghost btn-lg" href="{DEMO}">Try the demo</a>
         </div>
+        <a class="pf-watch" href="sitter-sharing/"><span class="pf-play" aria-hidden="true"></span>Watch how sitter sharing works</a>
         <ul class="pf-ticks">
           <li>Unlimited pets</li>
           <li>Works offline</li>
@@ -292,6 +304,7 @@ PAGE = f'''<!DOCTYPE html>
 {paid_list()}
           </ul>
           <a class="btn btn-primary btn-lg js-upgrade-cta" href="{BUY}">Get Pawfolio Complete</a>
+          <a class="plan-watch" href="sitter-sharing/">Watch how sitter sharing works &rarr;</a>
           <p class="plan-fine">If you stop paying, your records stay visible, printable and exportable. Already using Pawfolio? You keep everything free.</p>
         </div>
       </div>
