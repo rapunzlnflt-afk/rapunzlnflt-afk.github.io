@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MedRecords — your family's medications and doctor visits, on your phone</title>
+<meta name="description" content="Medications, dose reminders, doctors, appointments and insurance cards for up to six family members, in one offline app. No account, no ads, and your records stay on your phone. Free to use. MedRecords Max is $4.99 a month or $29.99 a year.">
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15181e" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://cleartrackapps.com/medrecords/">
+<meta property="og:type" content="product">
+<meta property="og:site_name" content="CleartrackApps">
+<meta property="og:url" content="https://cleartrackapps.com/medrecords/">
+<meta property="og:title" content="MedRecords — your family's medications and doctor visits, on your phone">
+<meta property="og:description" content="Medications, dose reminders, doctors, appointments and insurance cards for up to six family members, in one offline app. No account, no ads, and your records stay on your phone. Free to use. MedRecords Max is $4.99 a month or $29.99 a year.">
+<meta property="og:image" content="https://cleartrackapps.com/assets/og-medical-records.png?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="MedRecords — family medications and doctor visits that work offline.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MedRecords — your family's medications and doctor visits, on your phone">
+<meta name="twitter:description" content="Medications, dose reminders, doctors, appointments and insurance cards for up to six family members, in one offline app. No account, no ads, and your records stay on your phone. Free to use. MedRecords Max is $4.99 a month or $29.99 a year.">
+<meta name="twitter:image" content="https://cleartrackapps.com/assets/og-medical-records.png?v=2">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../assets/favicon-180.png" sizes="180x180">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&f[]=zodiak@600,700&display=swap">
+<link rel="stylesheet" href="../base.css?v=20261014g">
+<link rel="stylesheet" href="../style.css?v=20261014g">
+<style>
+  /* MedRecords page: same layout as /pawfolio/. Hero with the app, one
+     Free / Max comparison, three pictures, then questions. */
+  .pf-hero { padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(2.5rem, 6vw, 4rem); }
+  .pf-hero-grid { display: grid; gap: 2.5rem; align-items: center; }
+  .pf-hero h1 { font-family: Zodiak, Georgia, serif; font-weight: 700;
+    font-size: clamp(1.9rem, 5vw, 3rem); letter-spacing: -.02em; max-width: 18ch; margin-top: .6rem; }
+  .pf-lede { max-width: 42ch; margin-top: 1rem; font-size: clamp(1rem, 2.2vw, 1.1rem);
+    color: var(--color-text-muted); }
+  .pf-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.8rem; }
+  .pf-watch { display: inline-flex; align-items: center; gap: .6rem; margin-top: 1.2rem;
+    font-weight: 600; font-size: var(--text-sm); color: var(--color-text); text-decoration: none; }
+  .pf-watch:hover { color: var(--color-primary); }
+  .pf-play { width: 2rem; height: 2rem; border-radius: 50%; flex: none; position: relative;
+    background: var(--btn-grad); box-shadow: var(--btn-shadow); }
+  .pf-play::after { content: ""; position: absolute; left: 54%; top: 50%; transform: translate(-50%, -50%);
+    border-style: solid; border-width: .38rem 0 .38rem .6rem;
+    border-color: transparent transparent transparent var(--color-inverse); }
+  .plan-watch { display: block; text-align: center; margin-top: .8rem; font-weight: 600;
+    font-size: var(--text-sm); color: var(--color-primary); text-decoration: none; }
+  .plan-watch:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .pf-ticks { display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; margin-top: 1.4rem;
+    font-size: var(--text-xs); color: var(--color-text-muted); }
+  .pf-ticks li::before { content: "\2713"; color: var(--accent-medical); font-weight: 700; margin-right: .4rem; }
+  .pf-shots { display: flex; gap: 1rem; justify-content: center; }
+  .pf-shot { flex: 1 1 0; max-width: 15rem; margin: 0; }
+  .pf-shot:nth-child(2) { margin-top: 2.5rem; }
+  .pf-frame { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 780 / 1280;
+    border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-md); }
+  .pf-frame img { width: 100%; height: auto; display: block; }
+  .pf-frame::after { content: ""; position: absolute; inset: auto 0 0 0; height: 16%;
+    background: linear-gradient(to bottom, transparent, var(--color-surface)); pointer-events: none; }
+
+  .pf-sec { padding: clamp(2.5rem, 6vw, 4rem) 0; }
+  .pf-sec-alt { background: transparent; }
+  .pf-h2 { font-family: Zodiak, Georgia, serif; font-weight: 700; letter-spacing: -.015em;
+    font-size: clamp(1.5rem, 4vw, 2.2rem); }
+  .pf-sub { max-width: 52ch; margin-top: .6rem; color: var(--color-text-muted); font-size: var(--text-sm); }
+
+  .plans { display: grid; gap: 1.25rem; margin-top: 2rem; }
+  .plan { background: var(--color-surface); border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg); padding: 1.5rem 1.4rem; box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column; }
+  .plan-top { border-top: 3px solid var(--accent-medical); }
+  .plan-name { font-weight: 600; font-size: 1.05rem; }
+  .plan-price { font-family: Zodiak, Georgia, serif; font-weight: 700; font-size: 2rem; margin-top: .35rem; }
+  .plan-price small { font-family: var(--font-body); font-size: .9rem; font-weight: 500; color: var(--color-text-muted); margin-left: .3rem; }
+  .plan-note { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: .2rem; }
+  .plan ul { margin: 1.2rem 0 1.4rem; display: grid; gap: .55rem; font-size: var(--text-sm); }
+  .plan li { display: grid; grid-template-columns: 1.1rem 1fr; gap: .45rem; }
+  .plan li::before { content: "\2713"; color: var(--accent-medical); font-weight: 700; }
+  .plan li.plus::before { content: "+"; }
+  .plan .btn { margin-top: auto; }
+  .plan-fine { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: .8rem; }
+  .plan-fine a { color: var(--accent-medical); font-weight: 600; }
+  /* "MedRecords MAX": the tier's name mark. */
+  .pf-tag { display: inline-block; vertical-align: .14em; margin-left: .15em;
+    font-weight: 700; font-size: .66em; letter-spacing: .04em; text-transform: uppercase; line-height: 1;
+    padding: .3em .5em .26em; border-radius: 999px;
+    background: var(--accent-medical); color: var(--accent-medical-soft); white-space: nowrap; }
+
+  .looks { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 1.25rem; }
+  .look { display: grid; grid-template-rows: auto 1fr; background: var(--color-surface);
+    border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden;
+    box-shadow: var(--shadow-sm); text-decoration: none; color: inherit; height: 100%;
+    transition: box-shadow .22s var(--ease), border-color .22s var(--ease); }
+  a.look:hover { box-shadow: var(--shadow-md); border-color: var(--accent-medical); }
+  .look-img { aspect-ratio: 4 / 3; overflow: hidden; background: var(--color-surface-2); }
+  .look-img img { width: 100%; height: 100%; object-fit: cover; }
+  .look-img.top img { object-position: top; }
+  .look-body { padding: 1rem 1.1rem 1.15rem; }
+  .look-title { font-weight: 600; display: block; }
+  .look-title span { color: var(--accent-medical); }
+  .look-copy { margin-top: .25rem; font-size: var(--text-sm); color: var(--color-text-muted); }
+  .look-tag { display: block; margin-bottom: .2rem; font-size: .68rem; font-weight: 700; letter-spacing: .05em;
+    text-transform: uppercase; color: var(--accent-medical); vertical-align: .1em; }
+
+  .pf-faq { max-width: 44rem; }
+  .foot-verse { font-family: Zodiak, Georgia, serif; font-size: .9rem; font-style: italic;
+    line-height: 1.5; color: var(--color-text-muted); }
+  .foot-verse cite { font-style: normal; font-size: .82em; opacity: .8; white-space: nowrap; }
+
+  @media (min-width: 46rem) {
+    .plans { grid-template-columns: 1fr 1fr; align-items: stretch; }
+    .looks { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (min-width: 62rem) {
+    .pf-hero-grid { grid-template-columns: 1.1fr 1fr; gap: 3rem; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="../" aria-label="Cleartrack Apps home">
+      <span class="lockup logo-head"><img class="logo logo-on-light" src="../assets/logo.png?v=2" width="720" height="289" alt="Cleartrack Apps" decoding="async"><img class="logo logo-on-dark" src="../assets/logo-dark.png?v=2" width="720" height="289" alt="" aria-hidden="true" decoding="async"></span>
+    </a>
+    <nav class="head-nav" aria-label="Main">
+      <a href="../#apps">Apps</a>
+      <a href="../#free">Free printables</a>
+      <a href="../#how">How it works</a>
+      <a href="../#faq">FAQ</a>
+    </nav>
+
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="pf-hero" aria-labelledby="pf-h">
+    <div class="wrap pf-hero-grid">
+      <div>
+        <p class="eyebrow">MedRecords &mdash; for families &amp; caregivers</p>
+        <h1 id="pf-h">Every medication and doctor visit for your family, on your phone.</h1>
+        <p class="pf-lede">Medications, dose reminders, doctors, appointments and insurance cards for up to six people. Free, offline, with no account and no ads.</p>
+        <div class="pf-actions">
+          <a class="btn btn-primary btn-lg js-free-cta" href="https://cleartrackapps.com/go/medrecords-app/?src=medrecords-page">Open MedRecords Free</a>
+          <a class="btn btn-ghost btn-lg" href="https://cleartrackapps.com/medical-records-demo/">Try the demo</a>
+        </div>
+        <ul class="pf-ticks">
+          <li>Up to 6 family members</li>
+          <li>Works offline</li>
+          <li>No account</li>
+          <li>No ads</li>
+          <li>Records stay on your phone</li>
+        </ul>
+      </div>
+      <div class="pf-shots">
+        <figure class="pf-shot">
+          <div class="pf-frame"><img src="../assets/medrecords-dashboard.png" width="780" height="1600" decoding="async"
+            alt="MedRecords dashboard for Carol: one upcoming appointment, four active medications, two doctors."></div>
+        </figure>
+        <figure class="pf-shot">
+          <div class="pf-frame"><img src="../assets/medrecords-medications.png" width="780" height="1600" decoding="async"
+            alt="MedRecords medications screen: Lisinopril 10 mg daily with a refill date, and Metformin 500 mg twice daily."></div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="pf-sec pf-sec-alt" id="plans" aria-labelledby="plans-h">
+    <div class="wrap">
+      <h2 class="pf-h2" id="plans-h">Free, or Max</h2>
+      <p class="pf-sub">Free isn't a trial. Max adds caregiver dose sharing and the long-term records.</p>
+      <div class="plans">
+        <div class="plan">
+          <p class="plan-name">MedRecords <span class="pf-tag">Free</span></p>
+          <p class="plan-price">$0<small>forever</small></p>
+          <p class="plan-note">No card and no ads, ever.</p>
+          <ul>
+            <li>Up to 6 family members</li>
+            <li>Medications &amp; dose reminders</li>
+            <li>Dose history</li>
+            <li>Appointments &amp; reminders</li>
+            <li>Doctors, pharmacies &amp; emergency contacts</li>
+            <li>Insurance cards</li>
+            <li>Health notes, flagged for the doctor</li>
+            <li>Print, back up and export</li>
+          </ul>
+          <a class="btn btn-ghost btn-lg js-free-cta" href="https://cleartrackapps.com/go/medrecords-app/?src=medrecords-page">Open MedRecords Free</a>
+        </div>
+        <div class="plan plan-top">
+          <p class="plan-name">MedRecords <span class="pf-tag">Max</span></p>
+          <p class="plan-price">$4.99<small>a month</small></p>
+          <p class="plan-note">or $29.99 a year. Cancel any time.</p>
+          <ul>
+            <li class="plus">Everything in Free</li>
+            <li>Share doses with a caregiver</li>
+            <li>Medical Records: labs, scans &amp; documents</li>
+            <li>Vitals</li>
+            <li>Timeline</li>
+            <li>Visit notes</li>
+          </ul>
+          <a class="btn btn-primary btn-lg js-upgrade-cta" href="https://cleartrackapps.com/go/medrecords-max/">Get MedRecords Max</a>
+          <p class="plan-fine">One key works on 3 devices. If you stop paying, your records stay visible, printable and exportable. Already using the app? You keep Max for good.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pf-sec" aria-labelledby="looks-h">
+    <div class="wrap">
+      <h2 class="pf-h2" id="looks-h">A closer look</h2>
+      <ul class="looks">
+        <li>
+          <div class="look">
+            <span class="look-img top"><img src="../assets/medrecords-caregiver.png" width="692" height="519" alt="A caregiver's phone showing Amoxicillin 500 mg for Mom, due now, with Given and Skip buttons." loading="lazy" decoding="async"></span>
+            <span class="look-body">
+              <span class="look-tag">Max</span><span class="look-title">Share doses with a caregiver</span>
+              <span class="look-copy" style="display:block">They tap Given on their phone, and you see who gave each dose.</span>
+            </span>
+          </div>
+        </li>
+        <li>
+          <div class="look">
+            <span class="look-img top"><img src="../assets/medrecords-timeline.png" width="780" height="585" alt="A MedRecords timeline: a dizziness note flagged for Dr. James Ortiz, then the annual checkup." loading="lazy" decoding="async"></span>
+            <span class="look-body">
+              <span class="look-tag">Max</span><span class="look-title">Every visit and note, in one timeline</span>
+              <span class="look-copy" style="display:block">Newest first, with notes flagged for the next appointment.</span>
+            </span>
+          </div>
+        </li>
+        <li>
+          <a class="look" href="../medication-tracker/">
+            <span class="look-img top"><img src="../medication-tracker/chart-preview.png" alt="A printable weekly medication tracker with a row for each dose." loading="lazy" decoding="async"></span>
+            <span class="look-body">
+              <span class="look-tag">Free</span><span class="look-title">A medication chart to print</span>
+              <span class="look-copy" style="display:block">A weekly dose chart for the fridge. <span style="color:var(--accent-medical);font-weight:600">Get the free chart &rarr;</span></span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="pf-sec pf-sec-alt" id="faq" aria-labelledby="faq-h">
+    <div class="wrap pf-faq">
+      <h2 class="pf-h2" id="faq-h">Questions</h2>
+      <div class="faq-list" style="margin-top:1.5rem">
+      <details class="faq-item">
+        <summary>Is this in the App Store?</summary>
+        <p>No, and that's deliberate. You open a link on your phone and add it to your home screen — about two minutes. After that it behaves like any other app icon, and it opens with no internet.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Does it work without signal?</summary>
+        <p>Yes. Your records live on your phone, so a clinic basement or a hospital waiting room with no signal doesn't matter. Phone reminders and sharing doses with a caregiver need a connection.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Where is my family's information stored?</summary>
+        <p>On your phone. There's no account and no server holding your records. If you turn on reminders or share doses with a caregiver, only the medication name, who it's for and the dose times go to the MedRecords reminder service. Nothing else in your records leaves your phone.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What do I get for free?</summary>
+        <p>Up to six family members, medications with dose reminders and dose history, appointments, doctors, pharmacies, emergency contacts, insurance cards, health notes, printing and backups. No card, no ads and no time limit.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How does sharing doses with a caregiver work?</summary>
+        <p>With MedRecords Max, you send a caregiver a link to the medications you choose. They get a reminder when a dose is due and tap Given or Skip on their own phone, and you see who gave each dose. They don't need an account, and they see nothing else in your records.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do I upgrade?</summary>
+        <p>MedRecords Max is $4.99 a month or $29.99 a year. Your license key arrives by email. Open MedRecords, tap MedRecords Max in the menu, and paste the key. One key works on up to 3 devices.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What happens if I cancel?</summary>
+        <p>Your records stay. Medical Records, vitals and visit notes stay visible, printable and exportable. You just can't add new ones until you subscribe again, and caregiver sharing stops. Nothing is deleted.</p>
+      </details>
+      <details class="faq-item">
+        <summary>I already bought Medical Records Keeper. Am I losing anything?</summary>
+        <p>No. Anyone who was already using the app keeps MedRecords Max for good, including everyone who bought it on Etsy or Gumroad. You don't need a code and you don't need to contact me.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What if it isn't for me?</summary>
+        <p>Start with MedRecords Free — there's nothing to lose and no card involved. If you upgrade and change your mind, cancel any time. On the yearly plan, email cleartrackapps@gmail.com within 30 days for a full refund. Your records stay in MedRecords Free.</p>
+      </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <div class="foot-brand">
+      <span class="lockup logo-foot"><img class="logo logo-on-light" src="../assets/logo.png?v=2" width="720" height="289" alt="Cleartrack Apps" decoding="async"><img class="logo logo-on-dark" src="../assets/logo-dark.png?v=2" width="720" height="289" alt="" aria-hidden="true" decoding="async"></span>
+      <p class="foot-note">Simple apps that work offline. No app store, no account. Made in Granbury, Texas.</p>
+    </div>
+    <nav class="foot-cols" aria-label="Footer">
+      <div class="foot-col">
+        <p class="foot-h">Apps</p>
+        <a href="../pawfolio/">Pawfolio</a>
+        <a href="../medrecords/">MedRecords</a>
+        <a href="../#apps">All five apps</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Free printables</p>
+        <a href="../medication-tracker/">Medication tracker</a>
+        <a href="../pet-medication-chart/">Pet medication chart</a>
+        <a href="../pet-sitter-instructions/">Pet sitter sheet</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Follow</p>
+        <a href="https://instagram.com/cleartrackapps" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.pinterest.com/cleartrackapps" target="_blank" rel="noopener noreferrer">Pinterest</a>
+        <a href="https://cleartrackapps.com/go/etsy-shop/" target="_blank" rel="noopener noreferrer">Etsy shop</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Contact</p>
+        <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a>
+      </div>
+    </nav>
+    <p class="foot-fine">&copy; 2026 CleartrackApps. MedRecords&trade; is a trademark of CleartrackApps.</p>
+  </div>
+</footer>
+
+<script src="../app.js?v=20261014g" defer></script>
+<script src="../meta-pixel.js" defer></script>
+<script>
+(function () {
+  function track(name, params) { if (typeof window.ctTrack === 'function') window.ctTrack(name, params || {}); }
+  if (/(^|[?&])utm_medium=paid(&|$)/.test(location.search)) track('PaidLanding', { page: 'medrecords' });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a');
+    if (!a) return;
+    if (a.classList.contains('js-upgrade-cta')) track('CtaClick', { cta: 'medrecords-max' });
+    else if (a.classList.contains('js-free-cta')) track('CtaClick', { cta: 'medrecords-free' });
+  });
+})();
+</script>
+<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5673e14274004df9a11f87d759a6b624"}'></script>
+</body>
+</html>

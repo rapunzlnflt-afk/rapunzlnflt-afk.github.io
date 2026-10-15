@@ -61,7 +61,7 @@ def footer(prefix, fine, extra=""):
       <div class="foot-col">
         <p class="foot-h">Apps</p>
         <a href="{p}pawfolio/">Pawfolio</a>
-        <a href="{p}#medical-records">Medical Records Keeper</a>
+        <a href="{p}medrecords/">MedRecords</a>
         <a href="{p}#apps">All five apps</a>
       </div>
       <div class="foot-col">

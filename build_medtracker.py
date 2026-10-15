@@ -5,9 +5,8 @@ medication chart page. A free weekly medication tracker builder (every 24, 12,
 fillable PDF and spreadsheet (made by make_medtracker_files.py). Ends with
 MedRecords. Writes only into ./medication-tracker/.
 
-MedRecords links go through /go/medrecords-app/, which forwards to the demo
-until MedRecords Free launches and then to the free app, so printed QR codes
-never need to change.
+MedRecords links go through /go/medrecords-app/, which forwards to MedRecords
+Free, so printed QR codes never need to change.
 """
 import pathlib
 
