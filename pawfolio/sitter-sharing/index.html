@@ -509,7 +509,7 @@
   function dosePage(){
     // Due-now doses first, then the next one due (doses.html sort).
     var cards = S.given ? gabCard() + apoCard() : apoCard() + gabCard();
-    return '<div class="s-app">' + sitterHeader('Megan’s pets', 'Signed in as ' + S.name) + '<div class="wrap">' + cards +
+    return '<div class="s-app">' + sitterHeader('Doses for Daisy', 'Shared by Megan') + '<div class="wrap">' + cards +
       '<div class="card"><p style="margin:0;font-weight:800;">Get a reminder when a dose is due</p><p class="muted" style="margin:6px 0 0;">On iPhone, add this page to your Home Screen first: tap the Share button, then <strong>Add to Home Screen</strong>. Open it from there and turn reminders on.</p></div>' +
       '<div class="foot"><span class="lk">Stop getting these doses</span><p class="muted small" style="margin:6px 0 0;">Shared from <strong>Pawfolio</strong> by CleartrackApps. You see only the doses shared with you.</p></div></div></div>';
   }
