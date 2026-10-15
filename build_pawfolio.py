@@ -255,7 +255,7 @@ PAGE = f'''<!DOCTYPE html>
       <div>
         <p class="eyebrow">Pawfolio &mdash; for pet owners</p>
         <h1 id="pf-h">Every vet detail for every pet, on your phone.</h1>
-        <p class="pf-lede">Medications, dose reminders, vet numbers and a sitter sheet, free for as many pets as you have. It works offline, with no account.</p>
+        <p class="pf-lede">Medications, dose reminders, vet numbers and a sitter sheet, free for as many pets as you have. It works offline, with no account and no ads.</p>
         <div class="pf-actions">
           <a class="btn btn-primary btn-lg js-free-cta" href="{APP}">Open Pawfolio Free</a>
           <a class="btn btn-ghost btn-lg" href="{DEMO}">Try the demo</a>
@@ -265,6 +265,7 @@ PAGE = f'''<!DOCTYPE html>
           <li>Unlimited pets</li>
           <li>Works offline</li>
           <li>No account</li>
+          <li>No ads</li>
           <li>Records stay on your phone</li>
         </ul>
       </div>
@@ -289,7 +290,7 @@ PAGE = f'''<!DOCTYPE html>
         <div class="plan">
           <p class="plan-name">Pawfolio <span class="pf-tag">Free</span></p>
           <p class="plan-price">$0<small>forever</small></p>
-          <p class="plan-note">No card, ever.</p>
+          <p class="plan-note">No card and no ads, ever.</p>
           <ul>
 {free_list()}
           </ul>
