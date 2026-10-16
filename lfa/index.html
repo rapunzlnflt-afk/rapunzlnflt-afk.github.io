@@ -61,6 +61,11 @@
   .lf-fine { max-width: 46rem; margin: 2rem auto 0; text-align: center;
     font-size: var(--text-xs); color: var(--color-text-muted); }
   .lf-fine a { color: var(--color-primary); font-weight: 600; }
+  .lf-privacy { max-width: 46rem; margin: 2rem auto 0; padding: 1.4rem 1.4rem 1.5rem;
+    background: var(--color-surface); border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+  .lf-privacy h2 { font-family: Zodiak, Georgia, serif; font-weight: 700; font-size: 1.3rem; }
+  .lf-privacy p { margin-top: .6rem; font-size: var(--text-sm); color: var(--color-text-muted); }
   @media (min-width: 46rem) { .lf-apps { grid-template-columns: 1fr 1fr; align-items: stretch; } }
 </style>
 </head>
@@ -146,6 +151,12 @@
         </article>
 
       </div>
+      <section class="lf-privacy" aria-labelledby="lf-priv-h">
+        <h2 id="lf-priv-h">Your information stays yours.</h2>
+        <p>Your records live on your own phone, not on my servers. There's no account to create, no ads, and I never sell or share your information.</p>
+        <p>If you turn on reminders or share doses with a caregiver or pet sitter, only the medication name, who it's for and the dose times are sent so the reminders work. Nothing else in your records leaves your phone.</p>
+        <p>Purchases go through Lemon Squeezy, my secure checkout, so I never see your card number.</p>
+      </section>
       <p class="lf-fine">The 25% discount applies to the first year of a yearly plan. Not sure yet? Start free; there's no card and no time limit, and you can upgrade later from this page. Questions? <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a></p>
     </div>
   </section>
@@ -201,7 +212,6 @@
 <script>window.lemonSqueezyAffiliateConfig = { store: "cleartrackapps" };</script>
 <script src="https://lmsqueezy.com/affiliate.js" defer></script>
 <script src="../app.js?v=20261014g" defer></script>
-<script src="../meta-pixel.js" defer></script>
 <script>
 (function () {
   function track(name, params) { if (typeof window.ctTrack === 'function') window.ctTrack(name, params || {}); }
