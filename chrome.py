@@ -74,7 +74,6 @@ def footer(prefix, fine, extra=""):
         <p class="foot-h">Follow</p>
         <a href="https://instagram.com/cleartrackapps" target="_blank" rel="noopener noreferrer">Instagram</a>
         <a href="https://www.pinterest.com/cleartrackapps" target="_blank" rel="noopener noreferrer">Pinterest</a>
-        <a href="https://cleartrackapps.com/go/etsy-shop/" target="_blank" rel="noopener noreferrer">Etsy shop</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Contact</p>
