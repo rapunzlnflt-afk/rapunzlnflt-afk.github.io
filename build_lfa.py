@@ -1,0 +1,232 @@
+#!/usr/bin/env python3
+"""Generates /lfa/index.html, the landing page for the LFA show sponsorship.
+
+Listeners hear "cleartrackapps.com/lfa" on the show. They never type a code:
+both upgrade buttons open the Lemon Squeezy yearly checkout with the LFA
+discount (25% off the first year) already applied.
+
+Affiliate credit: set AFF_CODE to Jeremy's Lemon Squeezy affiliate code (the
+part after ?aff= in his affiliate URL) and re-run. The page then
+  1. adds ?aff=CODE to its own address before Lemon Squeezy's tracking script
+     loads, so a visit to plain /lfa still counts for him, and
+  2. adds aff=CODE to both checkout links.
+With AFF_CODE empty the page still works; sales just aren't credited.
+
+The page is noindex and left out of the sitemap: it's for show listeners.
+Re-run after build.py; it writes only into ./lfa/.
+"""
+import pathlib
+
+ROOT = pathlib.Path(__file__).parent
+OUT_DIR = ROOT / "lfa"
+
+AFF_CODE = ""          # Jeremy's affiliate code, once he joins
+DISCOUNT = "LFA"
+
+MED_CHECKOUT = "https://cleartrackapps.lemonsqueezy.com/checkout/buy/ac094b3b-9ed8-4571-a7d7-a538aff71666"
+PAW_CHECKOUT = "https://cleartrackapps.lemonsqueezy.com/checkout/buy/7c9c2303-cea0-4a31-9526-138981e4d0df"
+MED_FREE = "https://cleartrackapps.com/go/medrecords-app/?src=lfa"
+PAW_FREE = "https://cleartrackapps.com/pet-care-planner/?ref=lfa"
+
+PRICE_YEAR = "$29.99"
+PRICE_LFA = "$22.49"
+
+
+def checkout(url):
+    q = f"?checkout[discount_code]={DISCOUNT}"
+    if AFF_CODE:
+        q += f"&aff={AFF_CODE}"
+    return url + q
+
+
+CF_BEACON = (
+    '<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->\n'
+    '<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
+    'data-cf-beacon=\'{"token": "5673e14274004df9a11f87d759a6b624"}\'></script>'
+)
+
+TITLE = "Welcome, LFA family \u2014 25% off MedRecords and Pawfolio"
+DESC = ("MedRecords and Pawfolio are free, with no ads. LFA listeners get 25% off the first year "
+        "of MedRecords Max or Pawfolio Complete, applied automatically.")
+
+PAGE = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>{TITLE}</title>
+<meta name="description" content="{DESC}">
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15181e" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://cleartrackapps.com/lfa/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CleartrackApps">
+<meta property="og:url" content="https://cleartrackapps.com/lfa/">
+<meta property="og:title" content="{TITLE}">
+<meta property="og:description" content="{DESC}">
+<meta property="og:image" content="https://cleartrackapps.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../assets/favicon-180.png" sizes="180x180">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&f[]=zodiak@600,700&display=swap">
+<link rel="stylesheet" href="../base.css?v=20261014g">
+<link rel="stylesheet" href="../style.css?v=20261014g">
+<style>
+  .lf-hero {{ padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(1.5rem, 4vw, 2.5rem); text-align: center; }}
+  .lf-hero h1 {{ font-family: Zodiak, Georgia, serif; font-weight: 700;
+    font-size: clamp(1.9rem, 5vw, 3rem); letter-spacing: -.02em; margin: .6rem auto 0; max-width: 20ch; }}
+  .lf-lede {{ max-width: 46ch; margin: 1rem auto 0; font-size: clamp(1rem, 2.2vw, 1.1rem);
+    color: var(--color-text-muted); }}
+  .lf-badge {{ display: inline-block; margin-top: 1.4rem; padding: .55rem 1rem; border-radius: 999px;
+    background: var(--color-surface); border: 1px solid var(--color-border); box-shadow: var(--shadow-sm);
+    font-weight: 600; font-size: var(--text-sm); }}
+  .lf-badge b {{ color: var(--color-primary); }}
+
+  .lf-sec {{ padding: 0 0 clamp(2.5rem, 6vw, 4rem); }}
+  .lf-apps {{ display: grid; gap: 1.25rem; }}
+  .lf-app {{ background: var(--color-surface); border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden;
+    display: flex; flex-direction: column; }}
+  .lf-shot {{ height: 17rem; padding: 1.25rem; display: flex; align-items: center; justify-content: center;
+    background: var(--color-surface-2); border-bottom: 1px solid var(--color-border); }}
+  .lf-shot img {{ max-width: 100%; max-height: 100%; width: auto; height: auto; display: block;
+    border-radius: 14px; border: 1px solid var(--color-border); box-shadow: var(--shadow-md); }}
+  .lf-body {{ padding: 1.3rem 1.3rem 1.4rem; display: flex; flex-direction: column; flex: 1; }}
+  .lf-name {{ font-family: Zodiak, Georgia, serif; font-weight: 700; font-size: 1.45rem; }}
+  .lf-for {{ font-size: var(--text-sm); color: var(--color-text-muted); margin-top: .15rem; }}
+  .lf-body ul {{ list-style: none; padding: 0; margin: 1rem 0 1.2rem; display: grid; gap: .5rem; font-size: var(--text-sm); }}
+  .lf-body li {{ display: grid; grid-template-columns: 1.1rem 1fr; gap: .45rem; }}
+  .lf-body li::before {{ content: "\\2713"; color: var(--color-primary); font-weight: 700; }}
+  .lf-more {{ font-size: var(--text-sm); color: var(--color-text-muted); margin: -.4rem 0 1.2rem; }}
+  .lf-more a {{ color: var(--color-primary); font-weight: 600; }}
+  .lf-price {{ border-top: 1px solid var(--color-border); padding-top: 1rem; margin-top: auto; }}
+  .lf-price-row {{ display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; }}
+  .lf-now {{ font-family: Zodiak, Georgia, serif; font-weight: 700; font-size: 1.9rem; }}
+  .lf-was {{ text-decoration: line-through; color: var(--color-text-muted); }}
+  .lf-note {{ font-size: var(--text-xs); color: var(--color-text-muted); margin-top: .2rem; }}
+  .lf-btns {{ display: grid; gap: .6rem; margin-top: 1rem; }}
+  .lf-btns .btn {{ width: 100%; justify-content: center; text-align: center; }}
+  .lf-fine {{ max-width: 46rem; margin: 2rem auto 0; text-align: center;
+    font-size: var(--text-xs); color: var(--color-text-muted); }}
+  .lf-fine a {{ color: var(--color-primary); font-weight: 600; }}
+  @media (min-width: 46rem) {{ .lf-apps {{ grid-template-columns: 1fr 1fr; align-items: stretch; }} }}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+
+<header class="site-head"></header>
+
+<main id="top">
+
+  <section class="lf-hero" aria-labelledby="lf-h">
+    <div class="wrap">
+      <p class="eyebrow">For the LFA family</p>
+      <h1 id="lf-h">Welcome, LFA family.</h1>
+      <p class="lf-lede">I'm Shauna, and I make simple apps for real life. Both of these are free to use, with no ads and no account. If you want the extras, your LFA discount is already applied.</p>
+      <p class="lf-badge"><b>25% off</b> your first year &middot; no code needed</p>
+    </div>
+  </section>
+
+  <section class="lf-sec" aria-label="Apps">
+    <div class="wrap">
+      <div class="lf-apps">
+
+        <article class="lf-app">
+          <div class="lf-shot"><img src="../assets/lfa-medrecords.png" width="692" height="468" decoding="async"
+            alt="A caregiver's phone showing Amoxicillin 500 mg for Mom, due now, with Given and Skip buttons."></div>
+          <div class="lf-body">
+            <h2 class="lf-name">MedRecords</h2>
+            <p class="lf-for">For families looking after Mom, Dad or each other</p>
+            <ul>
+              <li>Medications, dose reminders and doctor visits for up to six people</li>
+              <li>Insurance cards, doctors and pharmacies in one place</li>
+              <li>With Max: your brother, sister or Mom's caregiver marks doses as given from their own phone, with no app to download, and you see who gave each one and when</li>
+            </ul>
+            <p class="lf-more">And a lot more. <a href="../medrecords/">See everything in MedRecords</a></p>
+            <div class="lf-price">
+              <p class="lf-name" style="font-size:1rem">MedRecords Max, yearly</p>
+              <div class="lf-price-row"><span class="lf-now">{PRICE_LFA}</span><span class="lf-was">{PRICE_YEAR}</span><span>first year</span></div>
+              <p class="lf-note">Then {PRICE_YEAR} a year. Cancel any time.</p>
+              <div class="lf-btns">
+                <a class="btn btn-primary btn-lg js-buy" data-app="medrecords" href="{checkout(MED_CHECKOUT)}">Get 25% off MedRecords Max</a>
+                <a class="btn btn-ghost btn-lg js-free" data-app="medrecords" href="{MED_FREE}">Start MedRecords Free</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="lf-app">
+          <div class="lf-shot"><img src="../assets/lfa-pawfolio.png" width="780" height="800" decoding="async"
+            alt="Pawfolio overview with Bella the golden retriever, Miso the cat and upcoming medication refill reminders."></div>
+          <div class="lf-body">
+            <h2 class="lf-name">Pawfolio</h2>
+            <p class="lf-for">For dogs, cats and every pet in the house</p>
+            <ul>
+              <li>Medications, dose tracking and reminders for every pet</li>
+              <li>A sitter sheet you can text, with your vet's number ready to tap and call</li>
+              <li>With Complete: vaccination records and due dates, vet visit history, a document vault, and dose sharing with your pet sitter, who checks off each dose on their own phone so you see who gave it</li>
+            </ul>
+            <p class="lf-more">And a lot more. <a href="../pawfolio/">See everything in Pawfolio</a></p>
+            <div class="lf-price">
+              <p class="lf-name" style="font-size:1rem">Pawfolio Complete, yearly</p>
+              <div class="lf-price-row"><span class="lf-now">{PRICE_LFA}</span><span class="lf-was">{PRICE_YEAR}</span><span>first year</span></div>
+              <p class="lf-note">Then {PRICE_YEAR} a year. Cancel any time.</p>
+              <div class="lf-btns">
+                <a class="btn btn-primary btn-lg js-buy" data-app="pawfolio" href="{checkout(PAW_CHECKOUT)}">Get 25% off Pawfolio Complete</a>
+                <a class="btn btn-ghost btn-lg js-free" data-app="pawfolio" href="{PAW_FREE}">Start Pawfolio Free</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+      <p class="lf-fine">The 25% discount applies to the first year of a yearly plan. Not sure yet? Start free; there's no card and no time limit, and you can upgrade later from this page. Questions? <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot"></footer>
+
+<script>
+  // Credit visits to the LFA affiliate even when listeners type plain /lfa.
+  // Runs before Lemon Squeezy's tracking script so the script sees ?aff=.
+  (function () {{
+    var AFF = "{AFF_CODE}";
+    if (!AFF) return;
+    var u = new URL(location.href);
+    if (!u.searchParams.get("aff")) {{
+      u.searchParams.set("aff", AFF);
+      history.replaceState(null, "", u.toString());
+    }}
+  }})();
+</script>
+<script>window.lemonSqueezyAffiliateConfig = {{ store: "cleartrackapps" }};</script>
+<script src="https://lmsqueezy.com/affiliate.js" defer></script>
+<script src="../app.js?v=20261014g" defer></script>
+<script src="../meta-pixel.js" defer></script>
+<script>
+(function () {{
+  function track(name, params) {{ if (typeof window.ctTrack === 'function') window.ctTrack(name, params || {{}}); }}
+  document.addEventListener('click', function (e) {{
+    var a = e.target.closest && e.target.closest('a');
+    if (!a) return;
+    if (a.classList.contains('js-buy')) track('CtaClick', {{ cta: 'lfa-' + a.dataset.app + '-buy' }});
+    else if (a.classList.contains('js-free')) track('CtaClick', {{ cta: 'lfa-' + a.dataset.app + '-free' }});
+  }});
+}})();
+</script>
+{CF_BEACON}
+</body>
+</html>
+'''
+
+OUT_DIR.mkdir(exist_ok=True)
+import chrome
+PAGE = chrome.apply(PAGE, "../", "&copy; 2026 CleartrackApps. MedRecords&trade; and Pawfolio&trade; are trademarks of CleartrackApps.")
+(OUT_DIR / "index.html").write_text(PAGE, encoding="utf-8")
+print(f"wrote {OUT_DIR / 'index.html'} ({len(PAGE)} bytes)")
