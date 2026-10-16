@@ -168,7 +168,7 @@ PAGE = f'''<!DOCTYPE html>
             <ul>
               <li>Medications, dose tracking and reminders for every pet</li>
               <li>A sitter sheet you can text, with your vet's number ready to tap and call</li>
-              <li>With Complete: vaccination records and due dates, vet visit history, a document vault, and sitters who check off each dose so you see who gave it</li>
+              <li>With Complete: vaccination records and due dates, vet visit history, a document vault, and dose sharing with your pet sitter, who checks off each dose on their own phone so you see who gave it</li>
             </ul>
             <p class="lf-more">And a lot more. <a href="../pawfolio/">See everything in Pawfolio</a></p>
             <div class="lf-price">
