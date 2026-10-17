@@ -83,7 +83,7 @@ ICONS = {
 APPS = [
     dict(
         slug="pawfolio", key="pawfolio", name="Pawfolio",
-        who="Every vet detail for every pet, in one place.",
+        who="Every vet detail for every pet, in one place. Free, with no ads.",
         blurb="Pawfolio keeps your pet's whole life on your phone \u2014 vet visits, medications, vaccine dates, weight, and receipts. Add as many pets as you like, from one dog to a full household of animals. When you travel, text the sitter one care sheet with tap-to-call vet numbers instead of a rushed string of messages. You can print it too.",
         points=["Unlimited pets, medications and dose reminders &mdash; free", "Printable pet-sitter sheet with tap-to-call vet numbers &mdash; free", "Vet visits, vaccines, expenses and sitter dose sharing &mdash; Pawfolio Complete"],
         features=[
