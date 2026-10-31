@@ -75,7 +75,7 @@ FAQ = [
      "pharmacies, emergency contacts, insurance cards, health notes, printing and backups. No card, "
      "no ads and no time limit."),
     ("How does sharing doses with a caregiver work?",
-     "With MedRecords Max, you send a caregiver a link to the medications you choose. They get a reminder "
+     "With MedRecords Max, you text or email a caregiver a link to the medications you choose. They get a reminder "
      "when a dose is due and tap Given or Skip on their own phone. "
      "They don't need an account, and they see nothing else in your records. Send the same link to as many "
      "caregivers as you like, like a sibling, an aide or a neighbor. Each one adds their first name, so you "
@@ -262,7 +262,7 @@ PAGE = f'''<!DOCTYPE html>
   @media (min-width: 46rem) {{
     .plans {{ grid-template-columns: 1fr 1fr; align-items: stretch; }}
     .plans .plan:first-child {{ grid-column: 1 / -1; }}
-    .looks {{ grid-template-columns: repeat(2, 1fr); }}
+    .looks {{ grid-template-columns: repeat(3, 1fr); }}
   }}
   @media (min-width: 62rem) {{
     .plans {{ grid-template-columns: repeat(3, 1fr); }}
@@ -357,7 +357,7 @@ PAGE = f'''<!DOCTYPE html>
         <div class="clip-copy">
           <p class="look-tag">MedRecords Max</p>
           <ol>
-            <li>Send a caregiver a link to the medications you choose.</li>
+            <li>Text a caregiver a link to the medications you choose.</li>
             <li>They tap Given on their phone. No app or account needed.</li>
             <li>You see who gave each dose, and when.</li>
           </ol>
@@ -384,7 +384,7 @@ PAGE = f'''<!DOCTYPE html>
             <span class="look-img top"><img src="../assets/medrecords-caregiver.png" width="692" height="519" alt="A caregiver's phone showing Amoxicillin 500 mg for Mom, due now, with Given and Skip buttons." loading="lazy" decoding="async"></span>
             <span class="look-body">
               <span class="look-tag">Max</span><span class="look-title">Share doses with a caregiver</span>
-              <span class="look-copy" style="display:block">They tap Given on their phone, and you see who gave each dose.</span>
+              <span class="look-copy" style="display:block">Text them a link. They tap Given on their phone, and you see who gave each dose.</span>
             </span>
           </div>
         </li>
@@ -397,16 +397,8 @@ PAGE = f'''<!DOCTYPE html>
             </span>
           </div>
         </li>
-        <li>
-          <a class="look" href="../medication-tracker/">
-            <span class="look-img top"><img src="../medication-tracker/chart-preview.png" alt="A printable weekly medication tracker with a row for each dose." loading="lazy" decoding="async"></span>
-            <span class="look-body">
-              <span class="look-tag">Free</span><span class="look-title">A medication chart to print</span>
-              <span class="look-copy" style="display:block">A weekly dose chart for the fridge. <span style="color:var(--accent-medical);font-weight:600">Get the free chart &rarr;</span></span>
-            </span>
-          </a>
-        </li>
       </ul>
+      <p class="pf-sub" style="margin-top:1.25rem">Want a paper copy for the fridge too? <a href="../medication-tracker/" style="color:var(--accent-medical);font-weight:600">Print a free weekly medication chart &rarr;</a></p>
     </div>
   </section>
 
