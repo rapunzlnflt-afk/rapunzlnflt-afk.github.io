@@ -47,6 +47,8 @@ GO_LINKS = {
     # monthly or yearly), launched Oct 15, 2026. "medrecords-app" opens MedRecords
     # Free; printed medication-tracker QR codes use it too.
     "medrecords-max":           ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/ac094b3b-9ed8-4571-a7d7-a538aff71666"),
+    # MedRecords Care checkout (Care Monthly preselected; Care Yearly on the same page).
+    "medrecords-care":          ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/aed5235d-4f96-402a-b722-29dbd1dc6c53"),
     "medrecords-app":           ("MedRecords", "https://cleartrackapps.com/medical-records-keeper/?ref=site"),
     # The one-time Gumroad product is archived (Oct 2026). Old links still
     # carry this address, so it lands on the MedRecords page.
@@ -110,7 +112,7 @@ APPS = [
         slug="medical-records", key="medical", name="MedRecords",
         who="Medications, doctors and visits for the whole family. Free, with no ads.",
         blurb="MedRecords keeps what a doctor's office asks for in one private place on your phone: medications and doses, doctors, appointments, pharmacies and insurance cards. Track up to six family members, print a clean summary for the next visit, and never see an ad. MedRecords Max adds caregiver dose sharing, medical records, vitals, a timeline and visit notes.",
-        points=["Up to 6 family members, medications and dose reminders &mdash; free", "Doctors, appointments and insurance cards, with no ads &mdash; free", "Caregiver dose sharing, records, vitals and visit notes &mdash; MedRecords Max"],
+        points=["Up to 6 family members, medications and dose reminders &mdash; free", "Doctors, appointments and insurance cards, with no ads &mdash; free", "Caregiver dose sharing and records &mdash; Max. A shared daily care log &mdash; Care"],
         features=[
             "Up to 6 family members, each with their own records &mdash; free",
             "Medications, dose reminders and dose history &mdash; free",
@@ -118,9 +120,9 @@ APPS = [
             "Share doses with a caregiver &mdash; in MedRecords Max",
             "Medical records, vitals, timeline and visit notes &mdash; in MedRecords Max",
         ],
-        price="Free", price_note="MedRecords Max from $4.99/mo", audience="Families &amp; caregivers",
+        price="Free", price_note="Max from $4.99/mo, Care from $7.99/mo", audience="Families &amp; caregivers",
         primary=("Open MedRecords Free", go("medrecords-app")),
-        secondary=("See what MedRecords Max adds", "./medrecords/"),
+        secondary=("See what Max and Care add", "./medrecords/"),
         demo="https://cleartrackapps.com/medical-records-demo/",
         page="./medrecords/",
         page_label="See the full MedRecords page",

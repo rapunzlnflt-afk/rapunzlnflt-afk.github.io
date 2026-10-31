@@ -2,7 +2,7 @@
 """Generates /medrecords/index.html, the MedRecords product page.
 
 Same shape as /pawfolio/ (build_pawfolio.py): hero with the real app, one
-Free / Max comparison, three pictures, then questions. MedRecords Free is the
+Free / Max / Care comparison, three pictures, then questions. MedRecords Free is the
 everyday app with no purchase; MedRecords Max is the Lemon Squeezy subscription
 ($4.99 a month or $29.99 a year) that adds caregiver dose sharing, Medical
 Records, Vitals, Timeline and visit notes.
@@ -18,9 +18,12 @@ ROOT = pathlib.Path(__file__).parent
 OUT_DIR = ROOT / "medrecords"
 DEMO = "https://cleartrackapps.com/medical-records-demo/"
 BUY = "https://cleartrackapps.com/go/medrecords-max/"
+BUY_CARE = "https://cleartrackapps.com/go/medrecords-care/"
 APP = "https://cleartrackapps.com/go/medrecords-app/?src=medrecords-page"
 PRICE_YEAR = "$29.99"
 PRICE_MONTH = "$4.99"
+CARE_YEAR = "$49.99"
+CARE_MONTH = "$7.99"
 
 CF_BEACON = (
     '<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->\n'
@@ -31,7 +34,8 @@ CF_BEACON = (
 TITLE = "MedRecords \u2014 your family's medications and doctor visits, on your phone"
 DESC = ("Medications, dose reminders, doctors, appointments and insurance cards for up to six family members, "
         "in one offline app. No account, no ads, and your records stay on your phone. "
-        "Free to use. MedRecords Max is $4.99 a month or $29.99 a year.")
+        "Free to use. MedRecords Max is $4.99 a month or $29.99 a year. MedRecords Care, with a daily care log "
+        "caregivers share, is $7.99 a month or $49.99 a year.")
 
 FREE_FEATURES = [
     ("Up to 6 family members", ""),
@@ -62,7 +66,10 @@ FAQ = [
     ("Where is my family's information stored?",
      "On your phone. There's no account and no server holding your records. If you turn on reminders "
      "or share doses with a caregiver, only the medication name, who it's for and the dose times go to "
-     "the MedRecords reminder service. Nothing else in your records leaves your phone."),
+     "the MedRecords reminder service. With MedRecords Care, when you share someone's care log, their "
+     "first name, their conditions (you can turn that off) and the entries caregivers log are kept on "
+     "the MedRecords service so every caregiver sees them. The entries you log stay on your phone unless "
+     "you turn on Caregivers see entries I log. Nothing else in your records leaves your phone."),
     ("What do I get for free?",
      "Up to six family members, medications with dose reminders and dose history, appointments, doctors, "
      "pharmacies, emergency contacts, insurance cards, health notes, printing and backups. No card, "
@@ -73,21 +80,47 @@ FAQ = [
      "They don't need an account, and they see nothing else in your records. Send the same link to as many "
      "caregivers as you like, like a sibling, an aide or a neighbor. Each one adds their first name, so you "
      "see who gave each dose."),
+    ("What does MedRecords Care add?",
+     "Everything in Max, plus a daily care log for the person you look after. Log meals and snacks, PT "
+     "and OT, bathing, changing clothes and cleaning, mood from 1 to 10 and awareness, each with notes, "
+     "and mark anything the patient declined. Share the log, and every caregiver logs from their own "
+     "phone and sees each other's entries, along with the patient's conditions."),
+    ("Do caregivers need to pay or sign up?",
+     "No. Caregivers join free with the same link you use for dose sharing. They don't need an account "
+     "or the app, and they see only the medications and care log you share for that person."),
     ("How do I upgrade?",
-     "MedRecords Max is $4.99 a month or $29.99 a year. Your license key arrives by email. Open "
-     "MedRecords, tap MedRecords Max in the menu, and paste the key. One key works on up to 3 devices."),
+     "MedRecords Max is $4.99 a month or $29.99 a year. MedRecords Care is $7.99 a month or $49.99 a "
+     "year. Your license key arrives by email. Open MedRecords, tap Get MedRecords Max in the menu, and "
+     "paste the key. One key works on up to 3 devices."),
+    ("I have MedRecords Max. How do I switch to Care?",
+     "Open My Orders at Lemon Squeezy, choose your MedRecords subscription, tap Update and pick a Care "
+     "option. Lemon Squeezy charges the difference, and you keep the same key."),
     ("What happens if I cancel?",
      "Your records stay. Medical Records, vitals and visit notes stay visible, printable and exportable. "
-     "You just can't add new ones until you subscribe again, and caregiver sharing stops. Nothing is "
-     "deleted."),
+     "You just can't add new ones until you subscribe again, and caregiver sharing and the shared care "
+     "log stop. Nothing is deleted."),
     ("I already bought Medical Records Keeper. Am I losing anything?",
-     "No. Anyone who was already using the app keeps MedRecords Max for good, including everyone who "
-     "bought it on Etsy or Gumroad. You don't need a code and you don't need to contact me."),
+     "No. Anyone who was already using the app keeps MedRecords Max and MedRecords Care for good, "
+     "including everyone who bought it on Etsy or Gumroad. You don't need a code and you don't need to "
+     "contact me."),
     ("What if it isn't for me?",
      "Start with MedRecords Free \u2014 there's nothing to lose and no card involved. If you upgrade and "
      "change your mind, cancel any time. On the yearly plan, email cleartrackapps@gmail.com within 30 days "
      "for a full refund. Your records stay in MedRecords Free."),
 ]
+
+
+CARE_FEATURES = [
+    "Daily care log: meals and snacks, PT and OT, bathing, changing clothes and cleaning",
+    "Mood from 1 to 10 and awareness, each with notes",
+    "Mark anything the patient declined",
+    "Caregivers log from their own phone and see each other's entries",
+    "Conditions shared with caregivers",
+]
+
+
+def care_list():
+    return "\n".join(f"            <li>{t}</li>" for t in CARE_FEATURES)
 
 
 def free_list():
@@ -228,9 +261,12 @@ PAGE = f'''<!DOCTYPE html>
 
   @media (min-width: 46rem) {{
     .plans {{ grid-template-columns: 1fr 1fr; align-items: stretch; }}
+    .plans .plan:first-child {{ grid-column: 1 / -1; }}
     .looks {{ grid-template-columns: repeat(3, 1fr); }}
   }}
   @media (min-width: 62rem) {{
+    .plans {{ grid-template-columns: repeat(3, 1fr); }}
+    .plans .plan:first-child {{ grid-column: auto; }}
     .pf-hero-grid {{ grid-template-columns: 1.1fr 1fr; gap: 3rem; }}
   }}
 </style>
@@ -275,8 +311,8 @@ PAGE = f'''<!DOCTYPE html>
 
   <section class="pf-sec pf-sec-alt" id="plans" aria-labelledby="plans-h">
     <div class="wrap">
-      <h2 class="pf-h2" id="plans-h">Free, or Max</h2>
-      <p class="pf-sub">Free isn't a trial. Max adds caregiver dose sharing and the long-term records.</p>
+      <h2 class="pf-h2" id="plans-h">Free, Max or Care</h2>
+      <p class="pf-sub">Free isn't a trial. Max adds caregiver dose sharing and the long-term records. Care adds a daily care log your caregivers share.</p>
       <div class="plans">
         <div class="plan">
           <p class="plan-name">MedRecords <span class="pf-tag">Free</span></p>
@@ -296,7 +332,18 @@ PAGE = f'''<!DOCTYPE html>
 {paid_list()}
           </ul>
           <a class="btn btn-primary btn-lg js-upgrade-cta" href="{BUY}">Get MedRecords Max</a>
-          <p class="plan-fine">One key works on 3 devices. If you stop paying, your records stay visible, printable and exportable. Already using the app? You keep Max for good.</p>
+          <p class="plan-fine">One key works on 3 devices. If you stop paying, your records stay visible, printable and exportable. Already using the app? You keep Max and Care for good.</p>
+        </div>
+        <div class="plan">
+          <p class="plan-name">MedRecords <span class="pf-tag">Care</span></p>
+          <p class="plan-price">{CARE_MONTH}<small>a month</small></p>
+          <p class="plan-note">or {CARE_YEAR} a year. Cancel any time. Caregivers join free.</p>
+          <ul>
+            <li class="plus">Everything in Max</li>
+{care_list()}
+          </ul>
+          <a class="btn btn-primary btn-lg js-care-cta" href="{BUY_CARE}">Get MedRecords Care</a>
+          <p class="plan-fine">One key works on 3 devices. Have Max? Switch to Care from My Orders and keep your key.</p>
         </div>
       </div>
     </div>
@@ -388,6 +435,7 @@ PAGE = f'''<!DOCTYPE html>
     var a = e.target.closest && e.target.closest('a');
     if (!a) return;
     if (a.classList.contains('js-upgrade-cta')) track('CtaClick', {{ cta: 'medrecords-max' }});
+    else if (a.classList.contains('js-care-cta')) track('CtaClick', {{ cta: 'medrecords-care' }});
     else if (a.classList.contains('js-free-cta')) track('CtaClick', {{ cta: 'medrecords-free' }});
   }});
 }})();
