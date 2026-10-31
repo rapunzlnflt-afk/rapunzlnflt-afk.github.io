@@ -262,7 +262,7 @@ PAGE = f'''<!DOCTYPE html>
   @media (min-width: 46rem) {{
     .plans {{ grid-template-columns: 1fr 1fr; align-items: stretch; }}
     .plans .plan:first-child {{ grid-column: 1 / -1; }}
-    .looks {{ grid-template-columns: repeat(3, 1fr); }}
+    .looks {{ grid-template-columns: repeat(2, 1fr); }}
   }}
   @media (min-width: 62rem) {{
     .plans {{ grid-template-columns: repeat(3, 1fr); }}
@@ -370,6 +370,15 @@ PAGE = f'''<!DOCTYPE html>
     <div class="wrap">
       <h2 class="pf-h2" id="looks-h">A closer look</h2>
       <ul class="looks">
+        <li>
+          <div class="look">
+            <span class="look-img top"><img src="../assets/medrecords-care-log.png" width="1200" height="900" alt="MedRecords Care Log for Linda, Mother, with heart failure and stroke shared with caregivers. Today: 2 meals eaten, PT 30 minutes, doing 7 out of 10, alert but quiet, bathing declined because she was tired. Entries logged by Dana." loading="lazy" decoding="async"></span>
+            <span class="look-body">
+              <span class="look-tag">Care</span><span class="look-title">A daily care log the whole family shares</span>
+              <span class="look-copy" style="display:block">Meals, therapy, mood, awareness and what she declined, with who logged each one.</span>
+            </span>
+          </div>
+        </li>
         <li>
           <div class="look">
             <span class="look-img top"><img src="../assets/medrecords-caregiver.png" width="692" height="519" alt="A caregiver's phone showing Amoxicillin 500 mg for Mom, due now, with Given and Skip buttons." loading="lazy" decoding="async"></span>
