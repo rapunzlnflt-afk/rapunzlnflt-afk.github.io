@@ -191,15 +191,17 @@ FAQ = [
     ("Do I need to create an account or sign in?",
      "No account, no password, no email verification. Open it and start using it."),
     ("Does my data leave my device?",
-     "Your records stay on the device you typed them on. There's no cloud sync and no analytics collecting what you enter, which is why these apps work with no signal. If you switch on phone reminders, or share doses with a sitter in Pawfolio, only what the reminder needs is sent, such as the name and the time."),
+     "Your records stay on the device you typed them on. There's no cloud sync and no analytics collecting what you enter, which is why these apps work with no signal. If you switch on phone reminders, or share doses or a care log with a sitter or caregiver, only what you share is sent, such as the medication name and the time."),
     ("Does it work on iPhone and Android?",
      "Yes \u2014 both, plus tablets and computers. Anything with a modern browser (Safari, Chrome, Edge, Firefox) works."),
     ("Is there a subscription?",
-     "Four of the five are pay-once: you buy it and it's yours to keep, with no renewals and no "
-     "price creep. Pawfolio is free, and an optional upgrade ($4.99 a month or $29.99 a year) unlocks "
-     "the long-term record keeping \u2014 vet visit history, vaccination dates, weights, expenses and "
-     "the document vault, plus sharing doses with a sitter. You are never pushed into it, and if you cancel your records stay "
-     "readable, printable and exportable."),
+     "Pawfolio and MedRecords are free to use, each with an optional upgrade. Pawfolio Complete ($4.99 a "
+     "month or $29.99 a year) adds vet visit history, vaccination dates, weights, expenses, the document "
+     "vault and sharing doses with a sitter. MedRecords Max ($4.99 a month or $29.99 a year) adds caregiver "
+     "dose sharing, medical records, vitals, a timeline and visit notes, and MedRecords Care ($7.99 a month "
+     "or $49.99 a year) adds a daily care log caregivers share. You are never pushed into an upgrade, and if "
+     "you cancel your records stay readable, printable and exportable. The other three apps are pay-once: "
+     "you buy it and it's yours to keep, with no renewals and no price creep."),
     ("What if I buy it and it isn't right for me?",
      'Email <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a> within 30 days and you get your money back in full. No forms, no questions, no explanation needed. You can also try any app free before you buy \u2014 every one has a full demo with no email required.'),
     ("Can I get help if I get stuck?",
@@ -207,7 +209,7 @@ FAQ = [
 ]
 
 STEPS = [
-    ("1", "Get it", "Pawfolio is free. The others are one quick checkout, and your link arrives right away."),
+    ("1", "Get it", "Pawfolio and MedRecords are free. The others are one quick checkout, and your link arrives right away."),
     ("2", "Open it on your phone", "It opens in your phone's browser. Nothing to install, no sign-up."),
     ("3", "Add to Home Screen", "From your browser's Share menu. Now it has its own icon, like any app."),
     ("4", "Use it, even offline", "Your information stays on your device and works with no signal."),
@@ -334,7 +336,7 @@ qr_tiles = "\n".join(
 
 DESC = ("Simple, private life-admin apps for your phone from CleartrackApps \u2014 pet records, family medical "
         "records, budgeting, kids' chores and savings, and procedure planning. Work offline, no app store, "
-        "no accounts. Pawfolio is free; the others are pay-once.")
+        "no accounts. Pawfolio and MedRecords are free; the others are pay-once.")
 
 HTML = f'''<!DOCTYPE html>
 <html lang="en">
@@ -379,7 +381,7 @@ HTML = f'''<!DOCTYPE html>
     <div class="wrap hero-inner">
       <p class="eyebrow">Made in Granbury, Texas by Shauna</p>
       <h1>Small apps that quietly keep your life in order &mdash; right on your phone.</h1>
-      <p class="lede">Simple planners for pets, family health, money, kids and big plans. They work offline and keep your information on your device. No app store, no account.</p>
+      <p class="lede">Simple planners for pets, family health, money, kids and big plans. They work offline and keep your information on your device. No app store, no account. Pawfolio and MedRecords are free.</p>
       <div class="hero-actions">
         <a class="btn btn-primary btn-lg" href="#apps">See the apps</a>
         <a class="btn btn-ghost btn-lg" href="#free">Free printables</a>
@@ -396,7 +398,7 @@ HTML = f'''<!DOCTYPE html>
   <section class="apps" id="apps" aria-labelledby="apps-h">
     <div class="wrap">
       <h2 id="apps-h" class="sec-title">The apps</h2>
-      <p class="sec-sub">Try any demo free, no email needed. Paid apps have a 30-day money-back guarantee.</p>
+      <p class="sec-sub">Pawfolio and MedRecords are free to use. Try any demo free, no email needed. Paid apps have a 30-day money-back guarantee.</p>
       <div class="card-grid">
 
 {cards}
