@@ -49,6 +49,7 @@ FREE_FEATURES = [
 ]
 
 PAID_FEATURES = [
+    ("As many family members as you need", ""),
     ("Share doses with caregivers", ""),
     ("Medical Records: labs, scans &amp; documents", ""),
     ("Vitals", ""),

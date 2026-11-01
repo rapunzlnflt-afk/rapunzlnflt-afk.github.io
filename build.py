@@ -78,7 +78,7 @@ ICONS = {
     "pawfolio": '<circle cx="7" cy="8" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="8" r="2"/><path d="M12 11c-3 0-5.5 2.4-5.5 5 0 1.7 1.4 2.6 3 2.2 1.7-.4 3.3-.4 5 0 1.6.4 3-.5 3-2.2 0-2.6-2.5-5-5.5-5Z"/>',
     "medical": '<path d="M8 4.5H6.5A1.5 1.5 0 0 0 5 6v13a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 19V6a1.5 1.5 0 0 0-1.5-1.5H16"/><rect x="8" y="2.8" width="8" height="3.4" rx="1.2"/><path d="M12 10.5v5M9.5 13h5"/>',
     "budget": '<path d="M4 18V7M9 18v-6M14 18v-9M19 18V5"/><path d="M3 21h18"/>',
-    "puzzlepig": '<path d="M4 13a6 6 0 0 1 6-6h4l3-2v3a6 6 0 0 1 2 4.5c0 3.6-3.4 6.5-7.5 6.5S4 16.6 4 13Z"/><circle cx="9" cy="12" r="1"/><path d="M7 19v2M15 19v2"/>',
+    "puzzlepig": '<path d="M5 11.5c0-3 3.1-5.5 7-5.5 1.4 0 2.7.3 3.8.8L18 5v3.2c.8.8 1.4 1.8 1.6 2.8H21v3h-1.6c-.4 1.3-1.3 2.4-2.4 3.1V20h-2.5v-1.3c-.8.2-1.6.3-2.5.3s-1.7-.1-2.5-.3V20H7v-2.4c-1.3-1.1-2-2.6-2-4.1Z"/><path d="M5 12H3.5"/><path d="M10.5 8.6h3"/><circle cx="16" cy="11" r=".6" fill="currentColor"/>',
     "beauty": '<path d="M12 3.5c2.5 3 4.5 5.2 4.5 8a4.5 4.5 0 0 1-9 0c0-2.8 2-5 4.5-8Z"/><path d="M12 21v-3.5"/>',
 }
 
@@ -111,12 +111,13 @@ APPS = [
     dict(
         slug="medical-records", key="medical", name="MedRecords",
         who="Medications, doctors and visits for the whole family. Free, with no ads.",
-        blurb="MedRecords keeps what a doctor's office asks for in one private place on your phone: medications and doses, doctors, appointments, pharmacies and insurance cards. Track up to six family members, print a clean summary for the next visit, and never see an ad. MedRecords Max adds caregiver dose sharing, medical records, vitals, a timeline and visit notes.",
+        blurb="MedRecords keeps what a doctor's office asks for in one private place on your phone: medications and doses, doctors, appointments, pharmacies and insurance cards. Track up to six family members, print a clean summary for the next visit, and never see an ad. MedRecords Max adds room for as many family members as you need, caregiver dose sharing, medical records, vitals, a timeline and visit notes.",
         points=["Up to 6 family members, medications and dose reminders &mdash; free", "Doctors, appointments and insurance cards, with no ads &mdash; free", "Caregiver dose sharing and records &mdash; Max. A shared daily care log &mdash; Care"],
         features=[
             "Up to 6 family members, each with their own records &mdash; free",
             "Medications, dose reminders and dose history &mdash; free",
             "Doctors, pharmacies, appointments and insurance cards &mdash; free",
+            "As many family members as you need &mdash; in MedRecords Max",
             "Share doses with a caregiver &mdash; in MedRecords Max",
             "Medical records, vitals, timeline and visit notes &mdash; in MedRecords Max",
         ],
