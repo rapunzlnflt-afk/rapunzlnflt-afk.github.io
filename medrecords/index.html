@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MedRecords — your family's medications and doctor visits, on your phone</title>
-<meta name="description" content="Medications, dose reminders, doctors, appointments and insurance cards for up to six family members, in one offline app. No account, no ads, and your records stay on your phone. Free to use. MedRecords Max is $4.99 a month or $29.99 a year.">
+<meta name="description" content="Medications, dose reminders, doctors, appointments and insurance cards for up to six family members, in one offline app. No account, no ads, and your records stay on your phone. Free to use. MedRecords Max is $4.99 a month or $29.99 a year. MedRecords Care, with a daily care log caregivers share, is $7.99 a month or $49.99 a year.">
 <meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#15181e" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://cleartrackapps.com/medrecords/">
@@ -12,14 +12,14 @@
 <meta property="og:site_name" content="CleartrackApps">
 <meta property="og:url" content="https://cleartrackapps.com/medrecords/">
 <meta property="og:title" content="MedRecords — your family's medications and doctor visits, on your phone">
-<meta property="og:description" content="Medications, dose reminders, doctors, appointments and insurance cards for up to six family members, in one offline app. No account, no ads, and your records stay on your phone. Free to use. MedRecords Max is $4.99 a month or $29.99 a year.">
+<meta property="og:description" content="Medications, dose reminders, doctors, appointments and insurance cards for up to six family members, in one offline app. No account, no ads, and your records stay on your phone. Free to use. MedRecords Max is $4.99 a month or $29.99 a year. MedRecords Care, with a daily care log caregivers share, is $7.99 a month or $49.99 a year.">
 <meta property="og:image" content="https://cleartrackapps.com/assets/og-medical-records.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="MedRecords — family medications and doctor visits that work offline.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="MedRecords — your family's medications and doctor visits, on your phone">
-<meta name="twitter:description" content="Medications, dose reminders, doctors, appointments and insurance cards for up to six family members, in one offline app. No account, no ads, and your records stay on your phone. Free to use. MedRecords Max is $4.99 a month or $29.99 a year.">
+<meta name="twitter:description" content="Medications, dose reminders, doctors, appointments and insurance cards for up to six family members, in one offline app. No account, no ads, and your records stay on your phone. Free to use. MedRecords Max is $4.99 a month or $29.99 a year. MedRecords Care, with a daily care log caregivers share, is $7.99 a month or $49.99 a year.">
 <meta name="twitter:image" content="https://cleartrackapps.com/assets/og-medical-records.png?v=2">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
@@ -120,9 +120,12 @@
 
   @media (min-width: 46rem) {
     .plans { grid-template-columns: 1fr 1fr; align-items: stretch; }
+    .plans .plan:first-child { grid-column: 1 / -1; }
     .looks { grid-template-columns: repeat(3, 1fr); }
   }
   @media (min-width: 62rem) {
+    .plans { grid-template-columns: repeat(3, 1fr); }
+    .plans .plan:first-child { grid-column: auto; }
     .pf-hero-grid { grid-template-columns: 1.1fr 1fr; gap: 3rem; }
   }
 </style>
@@ -180,8 +183,8 @@
 
   <section class="pf-sec pf-sec-alt" id="plans" aria-labelledby="plans-h">
     <div class="wrap">
-      <h2 class="pf-h2" id="plans-h">Free, or Max</h2>
-      <p class="pf-sub">Free isn't a trial. Max adds caregiver dose sharing and the long-term records.</p>
+      <h2 class="pf-h2" id="plans-h">Free, Max or Care</h2>
+      <p class="pf-sub">Free isn't a trial. Max adds caregiver dose sharing and the long-term records. Care adds a daily care log your caregivers share.</p>
       <div class="plans">
         <div class="plan">
           <p class="plan-name">MedRecords <span class="pf-tag">Free</span></p>
@@ -212,7 +215,22 @@
             <li>Visit notes</li>
           </ul>
           <a class="btn btn-primary btn-lg js-upgrade-cta" href="https://cleartrackapps.com/go/medrecords-max/">Get MedRecords Max</a>
-          <p class="plan-fine">One key works on 3 devices. If you stop paying, your records stay visible, printable and exportable. Already using the app? You keep Max for good.</p>
+          <p class="plan-fine">One key works on 3 devices. If you stop paying, your records stay visible, printable and exportable. Already using the app? You keep Max and Care for good.</p>
+        </div>
+        <div class="plan">
+          <p class="plan-name">MedRecords <span class="pf-tag">Care</span></p>
+          <p class="plan-price">$7.99<small>a month</small></p>
+          <p class="plan-note">or $49.99 a year. Cancel any time. Caregivers join free.</p>
+          <ul>
+            <li class="plus">Everything in Max</li>
+            <li>Daily care log: meals and snacks, PT and OT, bathing, changing clothes and cleaning</li>
+            <li>Mood from 1 to 10 and awareness, each with notes</li>
+            <li>Mark anything the patient declined</li>
+            <li>Caregivers log from their own phone and see each other's entries</li>
+            <li>Conditions shared with caregivers</li>
+          </ul>
+          <a class="btn btn-primary btn-lg js-care-cta" href="https://cleartrackapps.com/go/medrecords-care/">Get MedRecords Care</a>
+          <p class="plan-fine">One key works on 3 devices. Have Max? Switch to Care from My Orders and keep your key.</p>
         </div>
       </div>
     </div>
@@ -226,7 +244,7 @@
         <div class="clip-copy">
           <p class="look-tag">MedRecords Max</p>
           <ol>
-            <li>Send a caregiver a link to the medications you choose.</li>
+            <li>Text a caregiver a link to the medications you choose.</li>
             <li>They tap Given on their phone. No app or account needed.</li>
             <li>You see who gave each dose, and when.</li>
           </ol>
@@ -241,10 +259,19 @@
       <ul class="looks">
         <li>
           <div class="look">
+            <span class="look-img top"><img src="../assets/medrecords-care-log.png" width="1200" height="900" alt="MedRecords Care Log for Linda, Mother, with heart failure and stroke shared with caregivers. Today: 2 meals eaten, PT 30 minutes, doing 7 out of 10, alert but quiet, bathing declined because she was tired. Entries logged by Dana." loading="lazy" decoding="async"></span>
+            <span class="look-body">
+              <span class="look-tag">Care</span><span class="look-title">A daily care log the whole family shares</span>
+              <span class="look-copy" style="display:block">Meals, therapy, mood, awareness and what she declined, with who logged each one.</span>
+            </span>
+          </div>
+        </li>
+        <li>
+          <div class="look">
             <span class="look-img top"><img src="../assets/medrecords-caregiver.png" width="692" height="519" alt="A caregiver's phone showing Amoxicillin 500 mg for Mom, due now, with Given and Skip buttons." loading="lazy" decoding="async"></span>
             <span class="look-body">
               <span class="look-tag">Max</span><span class="look-title">Share doses with a caregiver</span>
-              <span class="look-copy" style="display:block">They tap Given on their phone, and you see who gave each dose.</span>
+              <span class="look-copy" style="display:block">Text them a link. They tap Given on their phone, and you see who gave each dose.</span>
             </span>
           </div>
         </li>
@@ -257,16 +284,8 @@
             </span>
           </div>
         </li>
-        <li>
-          <a class="look" href="../medication-tracker/">
-            <span class="look-img top"><img src="../medication-tracker/chart-preview.png" alt="A printable weekly medication tracker with a row for each dose." loading="lazy" decoding="async"></span>
-            <span class="look-body">
-              <span class="look-tag">Free</span><span class="look-title">A medication chart to print</span>
-              <span class="look-copy" style="display:block">A weekly dose chart for the fridge. <span style="color:var(--accent-medical);font-weight:600">Get the free chart &rarr;</span></span>
-            </span>
-          </a>
-        </li>
       </ul>
+      <p class="pf-sub" style="margin-top:1.25rem">Want a paper copy for the fridge too? <a href="../medication-tracker/" style="color:var(--accent-medical);font-weight:600">Print a free weekly medication chart &rarr;</a></p>
     </div>
   </section>
 
@@ -284,7 +303,7 @@
       </details>
       <details class="faq-item">
         <summary>Where is my family's information stored?</summary>
-        <p>On your phone. There's no account and no server holding your records. If you turn on reminders or share doses with a caregiver, only the medication name, who it's for and the dose times go to the MedRecords reminder service. Nothing else in your records leaves your phone.</p>
+        <p>On your phone. There's no account and no server holding your records. If you turn on reminders or share doses with a caregiver, only the medication name, who it's for and the dose times go to the MedRecords reminder service. With MedRecords Care, when you share someone's care log, their first name, their conditions (you can turn that off) and the entries caregivers log are kept on the MedRecords service so every caregiver sees them. The entries you log stay on your phone unless you turn on Caregivers see entries I log. Nothing else in your records leaves your phone.</p>
       </details>
       <details class="faq-item">
         <summary>What do I get for free?</summary>
@@ -292,19 +311,31 @@
       </details>
       <details class="faq-item">
         <summary>How does sharing doses with a caregiver work?</summary>
-        <p>With MedRecords Max, you send a caregiver a link to the medications you choose. They get a reminder when a dose is due and tap Given or Skip on their own phone. They don't need an account, and they see nothing else in your records. Send the same link to as many caregivers as you like, like a sibling, an aide or a neighbor. Each one adds their first name, so you see who gave each dose.</p>
+        <p>With MedRecords Max, you text or email a caregiver a link to the medications you choose. They get a reminder when a dose is due and tap Given or Skip on their own phone. They don't need an account, and they see nothing else in your records. Send the same link to as many caregivers as you like, like a sibling, an aide or a neighbor. Each one adds their first name, so you see who gave each dose.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What does MedRecords Care add?</summary>
+        <p>Everything in Max, plus a daily care log for the person you look after. Log meals and snacks, PT and OT, bathing, changing clothes and cleaning, mood from 1 to 10 and awareness, each with notes, and mark anything the patient declined. Share the log, and every caregiver logs from their own phone and sees each other's entries, along with the patient's conditions.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do caregivers need to pay or sign up?</summary>
+        <p>No. Caregivers join free with the same link you use for dose sharing. They don't need an account or the app, and they see only the medications and care log you share for that person.</p>
       </details>
       <details class="faq-item">
         <summary>How do I upgrade?</summary>
-        <p>MedRecords Max is $4.99 a month or $29.99 a year. Your license key arrives by email. Open MedRecords, tap MedRecords Max in the menu, and paste the key. One key works on up to 3 devices.</p>
+        <p>MedRecords Max is $4.99 a month or $29.99 a year. MedRecords Care is $7.99 a month or $49.99 a year. Your license key arrives by email. Open MedRecords, tap Get MedRecords Max in the menu, and paste the key. One key works on up to 3 devices.</p>
+      </details>
+      <details class="faq-item">
+        <summary>I have MedRecords Max. How do I switch to Care?</summary>
+        <p>Open My Orders at Lemon Squeezy, choose your MedRecords subscription, tap Update and pick a Care option. Lemon Squeezy charges the difference, and you keep the same key.</p>
       </details>
       <details class="faq-item">
         <summary>What happens if I cancel?</summary>
-        <p>Your records stay. Medical Records, vitals and visit notes stay visible, printable and exportable. You just can't add new ones until you subscribe again, and caregiver sharing stops. Nothing is deleted.</p>
+        <p>Your records stay. Medical Records, vitals and visit notes stay visible, printable and exportable. You just can't add new ones until you subscribe again, and caregiver sharing and the shared care log stop. Nothing is deleted.</p>
       </details>
       <details class="faq-item">
         <summary>I already bought Medical Records Keeper. Am I losing anything?</summary>
-        <p>No. Anyone who was already using the app keeps MedRecords Max for good, including everyone who bought it on Etsy or Gumroad. You don't need a code and you don't need to contact me.</p>
+        <p>No. Anyone who was already using the app keeps MedRecords Max and MedRecords Care for good, including everyone who bought it on Etsy or Gumroad. You don't need a code and you don't need to contact me.</p>
       </details>
       <details class="faq-item">
         <summary>What if it isn't for me?</summary>
@@ -370,6 +401,7 @@
     var a = e.target.closest && e.target.closest('a');
     if (!a) return;
     if (a.classList.contains('js-upgrade-cta')) track('CtaClick', { cta: 'medrecords-max' });
+    else if (a.classList.contains('js-care-cta')) track('CtaClick', { cta: 'medrecords-care' });
     else if (a.classList.contains('js-free-cta')) track('CtaClick', { cta: 'medrecords-free' });
   });
 })();
