@@ -57,6 +57,8 @@
   --accent-puzzlepig-soft: #ece7e3;
   --accent-beauty: #6b5b50;
   --accent-beauty-soft: #ece7e3;
+  --accent-bootstraps: #6b5b50;
+  --accent-bootstraps-soft: #ece7e3;
 
   --shadow-sm: 0 1px 2px rgba(38, 43, 53, .06), 0 2px 10px -6px rgba(38, 43, 53, .14);
   --shadow-md: 0 2px 4px rgba(38, 43, 53, .07), 0 14px 32px -18px rgba(38, 43, 53, .3);
@@ -88,6 +90,8 @@
   --accent-puzzlepig-soft: #2e2724;
   --accent-beauty: #c2b0a3;
   --accent-beauty-soft: #2e2724;
+  --accent-bootstraps: #c2b0a3;
+  --accent-bootstraps-soft: #2e2724;
 
   --page-grad: linear-gradient(160deg, #1b1f26 0%, #15181e 45%, #111419 100%);
   --btn-grad: linear-gradient(135deg, #c3dad2 0%, #9dbcb2 55%, #87a89d 100%);
@@ -117,6 +121,9 @@
     --accent-budget: #c2b0a3;    --accent-budget-soft: #2e2724;
     --accent-puzzlepig: #c2b0a3; --accent-puzzlepig-soft: #2e2724;
     --accent-beauty: #c2b0a3;    --accent-beauty-soft: #2e2724;
+    --accent-bootstraps: #c2b0a3; --accent-bootstraps-soft: #2e2724;
+  --accent-bootstraps: #c2b0a3;
+  --accent-bootstraps-soft: #2e2724;
     --page-grad: linear-gradient(160deg, #1b1f26 0%, #15181e 45%, #111419 100%);
     --btn-grad: linear-gradient(135deg, #c3dad2 0%, #9dbcb2 55%, #87a89d 100%);
     --btn-grad-hover: linear-gradient(135deg, #d2e4de 0%, #a9c6bc 100%);
@@ -633,9 +640,9 @@ section { scroll-margin-top: 92px; }
   .step { grid-template-columns: 1fr; }
   .step-num { grid-row: auto; margin-bottom: var(--space-3); }
   .card-grid { grid-template-columns: repeat(2, 1fr); align-items: start; }
-  .card-grid > .card:nth-child(5) { grid-column: span 2; }
-  .card-grid > .card:nth-child(5) .card-features { grid-template-columns: repeat(2, 1fr); column-gap: var(--space-6); }
-  .card-grid > .card:nth-child(5) .card-actions { grid-template-columns: auto auto; justify-content: start; }
+  .card-grid > .card:last-child:nth-child(odd) { grid-column: span 2; }
+  .card-grid > .card:last-child:nth-child(odd) .card-features { grid-template-columns: repeat(2, 1fr); column-gap: var(--space-6); }
+  .card-grid > .card:last-child:nth-child(odd) .card-actions { grid-template-columns: auto auto; justify-content: start; }
   .faq-wrap { display: grid; grid-template-columns: 20rem 1fr; gap: var(--space-10); align-items: start; }
   .faq-wrap .sec-title { grid-column: 1; }
   .faq-list { grid-column: 2; grid-row: 1; margin-top: 0; }

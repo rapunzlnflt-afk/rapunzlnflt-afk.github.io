@@ -60,6 +60,9 @@ GO_LINKS = {
     "puzzle-pig":               ("secure checkout", "https://cleartrackapps.gumroad.com/l/puzzlepig?wanted=true&ref=site"),
     "puzzle-pig-etsy":          ("Etsy",    "https://www.etsy.com/listing/4490566794"),
     "cosmetic-surgery-planner": ("Etsy",    "https://www.etsy.com/listing/4487732067"),
+    # Bootstraps: one-time $4.99 Lemon Squeezy product. PLACEHOLDER until the
+    # checkout link exists; points at the demo so the button is never dead.
+    "bootstraps":               ("secure checkout", "https://cleartrackapps.com/bootstraps-demo/?ref=site"),
     "etsy-shop":                ("Etsy",    "https://cleartrackapps.etsy.com"),
     # Not a store link. This one is for the Instagram bio, so reel traffic lands on
     # the try-it-yourself demo instead of the storefront, and shows up as its own
@@ -79,6 +82,7 @@ ICONS = {
     "medical": '<path d="M8 4.5H6.5A1.5 1.5 0 0 0 5 6v13a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 19V6a1.5 1.5 0 0 0-1.5-1.5H16"/><rect x="8" y="2.8" width="8" height="3.4" rx="1.2"/><path d="M12 10.5v5M9.5 13h5"/>',
     "budget": '<path d="M4 18V7M9 18v-6M14 18v-9M19 18V5"/><path d="M3 21h18"/>',
     "puzzlepig": '<path d="M5 11.5c0-3 3.1-5.5 7-5.5 1.4 0 2.7.3 3.8.8L18 5v3.2c.8.8 1.4 1.8 1.6 2.8H21v3h-1.6c-.4 1.3-1.3 2.4-2.4 3.1V20h-2.5v-1.3c-.8.2-1.6.3-2.5.3s-1.7-.1-2.5-.3V20H7v-2.4c-1.3-1.1-2-2.6-2-4.1Z"/><path d="M5 12H3.5"/><path d="M10.5 8.6h3"/><circle cx="16" cy="11" r=".6" fill="currentColor"/>',
+    "bootstraps": '<path d="M8 3h6v8.5l4.6 2.1c1.5.7 2.4 2 2.4 3.6V19H4v-4.5L5 11V3h3"/><path d="M4 21h17M8 3v4M14 6.5h-3M14 9h-3"/>',
     "beauty": '<path d="M12 3.5c2.5 3 4.5 5.2 4.5 8a4.5 4.5 0 0 1-9 0c0-2.8 2-5 4.5-8Z"/><path d="M12 21v-3.5"/>',
 }
 
@@ -166,6 +170,24 @@ APPS = [
         tag="Kids &amp; chores",
     ),
     dict(
+        slug="bootstraps", key="bootstraps", name="Bootstraps",
+        who="Knock out savings goals one stomped box at a time.",
+        blurb="Pick a goal, and Bootstraps turns it into a grid of boxes. Each time you set money aside, you stomp boxes until the whole grid is filled. Plan it around your paychecks, label every deposit, record money you had to take out, and print the grid for the fridge. It stays on your phone, with no bank login.",
+        points=["Savings goals as grids you fill in box by box", "Paycheck plans that show what to set aside each payday", "Labels for every deposit and withdrawal, plus a printable grid"],
+        features=[
+            "Savings goals turned into grids you fill in box by box",
+            "Paycheck plans that show what to set aside each payday",
+            "Labels for every deposit, like Paycheck or Birthday money",
+            "Record money you take out, and the boxes un-stomp to match",
+            "Printable grid and a tax refund checklist",
+        ],
+        price="$4.99", audience="Anyone saving up",
+        primary=("Buy now \u2014 $4.99", go("bootstraps")),
+        secondary=None,
+        demo="https://cleartrackapps.com/bootstraps-demo/",
+        tag="Savings goals",
+    ),
+    dict(
         slug="cosmetic-surgery-planner", key="beauty", name="Cosmetic Surgery Planner",
         who="Plan the real cost and save toward it, privately.",
         blurb="Plan the whole thing before you book: estimate the real cost, compare physicians, and save toward the total week by week. Twelve sections cover deposits, payments, travel, recovery notes, and a private photo log. It stays on your phone, so nothing about it lives in someone else's account.",
@@ -200,7 +222,7 @@ FAQ = [
      "vault and sharing doses with a sitter. MedRecords Max ($4.99 a month or $29.99 a year) adds caregiver "
      "dose sharing, medical records, vitals, a timeline and visit notes, and MedRecords Care ($7.99 a month "
      "or $49.99 a year) adds a daily care log caregivers share. You are never pushed into an upgrade, and if "
-     "you cancel your records stay readable, printable and exportable. The other three apps are pay-once: "
+     "you cancel your records stay readable, printable and exportable. The other four apps are pay-once: "
      "you buy it and it's yours to keep, with no renewals and no price creep."),
     ("What if I buy it and it isn't right for me?",
      'Email <a href="mailto:cleartrackapps@gmail.com">cleartrackapps@gmail.com</a> within 30 days and you get your money back in full. No forms, no questions, no explanation needed. You can also try any app free before you buy \u2014 every one has a full demo with no email required.'),
