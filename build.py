@@ -60,9 +60,8 @@ GO_LINKS = {
     "puzzle-pig":               ("secure checkout", "https://cleartrackapps.gumroad.com/l/puzzlepig?wanted=true&ref=site"),
     "puzzle-pig-etsy":          ("Etsy",    "https://www.etsy.com/listing/4490566794"),
     "cosmetic-surgery-planner": ("Etsy",    "https://www.etsy.com/listing/4487732067"),
-    # Bootstraps: one-time $4.99 Lemon Squeezy product. PLACEHOLDER until the
-    # checkout link exists; points at the demo so the button is never dead.
-    "bootstraps":               ("secure checkout", "https://cleartrackapps.com/bootstraps-demo/?ref=site"),
+    # Bootstraps: one-time $4.99 Lemon Squeezy product (Nov 2026).
+    "bootstraps":               ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/44efa96d-0b90-42a8-be25-29916f6e095e"),
     "etsy-shop":                ("Etsy",    "https://cleartrackapps.etsy.com"),
     # Not a store link. This one is for the Instagram bio, so reel traffic lands on
     # the try-it-yourself demo instead of the storefront, and shows up as its own
