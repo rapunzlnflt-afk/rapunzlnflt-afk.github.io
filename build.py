@@ -170,6 +170,7 @@ APPS = [
     ),
     dict(
         slug="bootstraps", key="bootstraps", name="Bootstraps",
+        img="./assets/bootstraps-icon.png",
         who="Knock out savings goals one stomped box at a time.",
         blurb="Pick a goal, and Bootstraps turns it into a grid of boxes. Each time you set money aside, you stomp boxes until the whole grid is filled. Plan it around your paychecks, label every deposit, record money you had to take out, and print the grid for the fridge. It stays on your phone, with no bank login.",
         points=["Savings goals as grids you fill in box by box", "Paycheck plans that show what to set aside each payday", "Labels for every deposit and withdrawal, plus a printable grid"],
@@ -304,7 +305,7 @@ def card(a, i):
     plabel, purl = a["primary"]
     return f'''    <article class="card" id="{a['slug']}" style="--accent: var(--accent-{a['key']}); --accent-soft: var(--accent-{a['key']}-soft);">
       <header class="card-head">
-        <span class="card-icon">{icon(a['key'])}</span>
+        <span class="card-icon{' card-icon-img' if a.get('img') else ''}">{icon(a['key']) if not a.get('img') else f'<img src="{a["img"]}" width="44" height="44" alt="" decoding="async">'}</span>
         <div>
           <h3 class="card-title">{title}</h3>
           <p class="card-tag">{a['tag']}</p>
