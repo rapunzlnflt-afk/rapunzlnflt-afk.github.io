@@ -81,7 +81,7 @@ ICONS = {
     "medical": '<path d="M8 4.5H6.5A1.5 1.5 0 0 0 5 6v13a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 19V6a1.5 1.5 0 0 0-1.5-1.5H16"/><rect x="8" y="2.8" width="8" height="3.4" rx="1.2"/><path d="M12 10.5v5M9.5 13h5"/>',
     "budget": '<path d="M4 18V7M9 18v-6M14 18v-9M19 18V5"/><path d="M3 21h18"/>',
     "puzzlepig": '<path d="M5 11.5c0-3 3.1-5.5 7-5.5 1.4 0 2.7.3 3.8.8L18 5v3.2c.8.8 1.4 1.8 1.6 2.8H21v3h-1.6c-.4 1.3-1.3 2.4-2.4 3.1V20h-2.5v-1.3c-.8.2-1.6.3-2.5.3s-1.7-.1-2.5-.3V20H7v-2.4c-1.3-1.1-2-2.6-2-4.1Z"/><path d="M5 12H3.5"/><path d="M10.5 8.6h3"/><circle cx="16" cy="11" r=".6" fill="currentColor"/>',
-    "bootstraps": '<path d="M8 3h6v8.5l4.6 2.1c1.5.7 2.4 2 2.4 3.6V19H4v-4.5L5 11V3h3"/><path d="M4 21h17M8 3v4M14 6.5h-3M14 9h-3"/>',
+    "bootstraps": '<g transform="scale(.046875)" stroke-width="36"><rect x="28" y="30" width="236" height="78" rx="18"/><path d="M40 108V372"/><path d="M244 108V176c0 36 20 64 56 78 62 8 120 10 156 44 26 24 34 52 34 92"/><path d="M214 150h56M218 206l52-10M246 262l40-30"/><path d="M40 292h26a50 50 0 0 1 50 50v30"/><path d="M352 266c-22 34-28 78-24 124"/><path d="M28 372H170c30 0 36 18 66 18H470a26 26 0 0 1 26 26v22a26 26 0 0 1-26 26H186l-16-20H52a24 24 0 0 1-24-24Z"/></g>',
     "beauty": '<path d="M12 3.5c2.5 3 4.5 5.2 4.5 8a4.5 4.5 0 0 1-9 0c0-2.8 2-5 4.5-8Z"/><path d="M12 21v-3.5"/>',
 }
 
@@ -170,7 +170,6 @@ APPS = [
     ),
     dict(
         slug="bootstraps", key="bootstraps", name="Bootstraps",
-        img="./assets/bootstraps-icon.png",
         who="Knock out savings goals one stomped box at a time.",
         blurb="Pick a goal, and Bootstraps turns it into a grid of boxes. Each time you set money aside, you stomp boxes until the whole grid is filled. Plan it around your paychecks, label every deposit, record money you had to take out, and print the grid for the fridge. It stays on your phone, with no bank login.",
         points=["Savings goals as grids you fill in box by box", "Paycheck plans that show what to set aside each payday", "Labels for every deposit and withdrawal, plus a printable grid"],
