@@ -170,7 +170,7 @@ APPS = [
     ),
     dict(
         slug="bootstraps", key="bootstraps", name="Bootstraps",
-        who="Knock out savings goals one stomped box at a time.",
+        who="Stomp out savings goals one box at a time.",
         blurb="Pick a goal, and Bootstraps turns it into a grid of boxes. Each time you set money aside, you stomp boxes until the whole grid is filled. Plan it around your paychecks, label every deposit, record money you had to take out, and print the grid for the fridge. It stays on your phone, with no bank login.",
         points=["Savings goals as grids you fill in box by box", "Paycheck plans that show what to set aside each payday", "Labels for every deposit and withdrawal, plus a printable grid"],
         features=[
