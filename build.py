@@ -236,7 +236,7 @@ STEPS = [
     ("4", "Use it, even offline", "Your information stays on your device and works with no signal."),
 ]
 
-# Free printables: the three lead-in pages, shown as picture tiles.
+# Free printables: the four lead-in pages, shown as picture tiles.
 FREEBIES = [
     dict(href="./medication-tracker/", img="./medication-tracker/chart-preview.png",
          title="Medication tracker", copy="A weekly dose log for you, your kids or an aging parent."),
@@ -244,6 +244,8 @@ FREEBIES = [
          title="Pet medication chart", copy="Every dose for every pet, with times you can check off."),
     dict(href="./pet-sitter-instructions/", img="./pet-sitter-instructions/example-sheet.png",
          title="Pet sitter sheet", copy="Feeding, meds, vet numbers and house notes on one page."),
+    dict(href="./pet-sitter-intake-form/", img="./pet-sitter-intake-form/example-sheet.png",
+         title="Sitter intake form", copy="For pet sitters: a client form with your business name at the top."),
 ]
 
 # Shauna's own logo, processed by make_logo.py into a transparent PNG plus a
@@ -390,7 +392,7 @@ HTML = f'''<!DOCTYPE html>
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap">
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=zodiak@700&display=swap">
 <link rel="stylesheet" href="./base.css?v=20261014g">
-<link rel="stylesheet" href="./style.css?v=20261014g">
+<link rel="stylesheet" href="./style.css?v=20261105a">
 </head>
 <body>
 <a class="skip" href="#apps">Skip to the apps</a>

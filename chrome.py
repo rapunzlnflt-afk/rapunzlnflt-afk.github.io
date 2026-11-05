@@ -69,6 +69,7 @@ def footer(prefix, fine, extra=""):
         <a href="{p}medication-tracker/">Medication tracker</a>
         <a href="{p}pet-medication-chart/">Pet medication chart</a>
         <a href="{p}pet-sitter-instructions/">Pet sitter sheet</a>
+        <a href="{p}pet-sitter-intake-form/">Sitter intake form</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Follow</p>
