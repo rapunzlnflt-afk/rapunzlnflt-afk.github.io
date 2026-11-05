@@ -34,7 +34,8 @@ APPS = [
 
 TEMPLATE = """<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&f[]=zodiak@700&display=swap">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=zodiak@700&display=swap">
 <style>
   * {{ margin:0; box-sizing:border-box; }}
   body {{ width:1200px; height:630px; background:#f5f6f8; font-family:'General Sans',sans-serif;
