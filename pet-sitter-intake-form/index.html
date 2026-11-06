@@ -923,11 +923,23 @@
   if (sent[target.inboxId]) say(sentText(sent[target.inboxId]), 'ok');
 
   function val(k) { var f = form.querySelector('[data-k="' + k + '"]'); return f ? String(f.value || '').trim() : ''; }
+  // One browser can be used by more than one person (a sitter's tablet handed to several
+  // clients, a shared family computer). The clientId is kept per sitter inbox AND per owner
+  // name, so a different owner name gets its own clientId and does not update someone else.
+  // Old shape: { inboxId: id }. That id is handed to the first owner name that sends again,
+  // then removed, so existing clients keep updating the same card in the sitter's app.
+  function normName(v) { return String(v || '').trim().replace(/\s+/g, ' ').toLowerCase(); }
   function clientId() {
     var m = load(CID);
-    if (typeof m !== 'object' || Array.isArray(m)) m = {};
-    if (!m[target.inboxId]) { m[target.inboxId] = PI.b64u(crypto.getRandomValues(new Uint8Array(16))); store(CID, m); }
-    return m[target.inboxId];
+    if (typeof m !== 'object' || m === null || Array.isArray(m)) m = {};
+    var key = target.inboxId + '|' + normName(val('c-name'));
+    if (!m[key]) {
+      var old = m[target.inboxId];
+      m[key] = (typeof old === 'string' && old) ? old : PI.b64u(crypto.getRandomValues(new Uint8Array(16)));
+      delete m[target.inboxId];
+      store(CID, m);
+    }
+    return m[key];
   }
   async function buildPayload() {
     var out = [];
