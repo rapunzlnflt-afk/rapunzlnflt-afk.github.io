@@ -82,6 +82,7 @@
   .maker-url { display: block; margin: .3rem 0 .7rem; font-size: .95rem; font-weight: 600; color: var(--color-text); overflow-wrap: anywhere; }
   .maker-btns { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; align-items: center; }
   .maker-hint { margin-top: .8rem; font-size: .85rem; color: var(--color-text-muted); }
+  .maker-hint a { font-weight: 600; color: var(--accent-pawfolio); text-decoration: underline; text-underline-offset: 3px; }
 
   /* The form */
   .sheet { max-width: 46rem; margin: 1.5rem auto 0; background: var(--color-surface);
@@ -120,6 +121,26 @@
   .auth-text { margin: 0 0 .8rem; font-size: .95rem; }
   .sheet-tools { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.4rem; margin-top: 1rem; }
   .print-tip { margin-top: .6rem; font-size: .85rem; color: var(--color-text-muted); }
+
+  /* Send to a sitter (only with #s= in the link). */
+  .send-box { margin-top: .2rem; }
+  .send-privacy { flex: 0 0 100%; margin: -.2rem 0 .3rem; font-size: .9rem; color: var(--color-text-muted); }
+  @media (max-width: 559px) { .sheet-tools #send { flex: 1 1 100%; justify-content: center; } }
+  @media (min-width: 560px) { .send-privacy { order: 10; margin: -.1rem 0 0; } }
+  .send-msg { margin: .6rem 0 0; padding: .7rem .9rem; border-radius: var(--radius); font-size: .95rem; max-width: 52ch;
+    background: var(--color-surface-2); border: 1px solid var(--color-border); color: var(--color-text); }
+  .send-msg:empty { display: none; }
+  .send-msg.ok { background: var(--accent-pawfolio-soft); border-color: color-mix(in srgb, var(--accent-pawfolio) 35%, transparent); }
+  .send-msg.err { background: color-mix(in srgb, #b4533a 9%, var(--color-surface)); border-color: color-mix(in srgb, #b4533a 40%, transparent); }
+  .sf.need span { color: #a3452f; }
+  .sf.need input { border-bottom: 2px solid #a3452f; }
+  [data-theme='dark'] .sf.need span { color: #e59a85; }
+  [data-theme='dark'] .sf.need input { border-bottom-color: #e59a85; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .sf.need span { color: #e59a85; }
+    :root:not([data-theme='light']) .sf.need input { border-bottom-color: #e59a85; }
+  }
+  .btn[disabled] { opacity: .65; cursor: progress; }
 
   /* Medication rows: four across on wider screens, two by two on phones. */
   .meds { display: grid; gap: .2rem; }
@@ -258,7 +279,7 @@
       <p class="ps-eyebrow">New client form for</p>
       <h1 id="hc-name"></h1>
       <p class="ps-contact" id="hc-contact"></p>
-      <p class="ps-lede">Fill this in and add a photo of each pet. When you're done, tap
+      <p class="ps-lede" id="hc-lede">Fill this in and add a photo of each pet. When you're done, tap
         <strong>Print or save as PDF</strong> and send it to <span id="hc-name2"></span>.</p>
     </div>
   </section>
@@ -284,6 +305,8 @@
         </div>
         <p class="maker-hint">Text it to new clients, add it to your booking confirmation, or put it in your bio.
           The link holds only your business info. Your clients' answers stay on their own phones.</p>
+        <p class="maker-hint" id="mk-app">With a link made here, clients send the form back to you as a PDF. To get
+          forms in an app instead, turn on <a href="../pawfolio/">Sitter mode in Pawfolio</a>. It's free.</p>
       </div>
     </div>
   </section>
@@ -577,9 +600,14 @@
         </div>
 
         <div class="sheet-tools">
+          <button type="button" class="btn btn-primary" id="send" hidden>Send</button>
+          <p class="send-privacy ps-hide-print" id="send-privacy" hidden></p>
           <button type="button" class="btn btn-primary" id="print">Print or save as PDF</button>
           <a class="linkbtn" href="pet-sitter-intake-form-blank.pdf" download>Blank PDF</a>
           <button type="button" class="linkbtn" id="clear">Clear form</button>
+        </div>
+        <div class="send-box ps-hide-print" id="send-box" hidden>
+          <p class="send-msg" id="send-msg" role="status" aria-live="polite"></p>
         </div>
         <p class="print-tip">To save a PDF, choose Save as PDF in the print screen. On an iPhone, tap the Share
           button at the top of the print screen, then Save to Files, Messages or Mail.</p>
@@ -603,7 +631,7 @@
           <a class="ps-text-link" href="https://cleartrackapps.com/go/pawfolio-app/?src=intake-page">Open Pawfolio&nbsp;Free&nbsp;&rarr;</a>
         </div>
       </form>
-      <p class="ps-note ps-hide-print">What you type stays in this browser. Nothing is sent anywhere.</p>
+      <p class="ps-note ps-hide-print" id="ps-note">What you type stays in this browser. Nothing is sent anywhere.</p>
     </div>
   </section>
 
@@ -641,7 +669,7 @@
       <div class="faq-list">
       <details class="faq-item"><summary>Is this really free?<span class="chev" aria-hidden="true">&#9662;</span></summary><p>Yes. No signup, no account and no email for you or your clients.</p></details>
       <details class="faq-item"><summary>How do I give clients my link?<span class="chev" aria-hidden="true">&#9662;</span></summary><p>Make your link above, then text it, email it, add it to your booking confirmation or put it in your Instagram bio. Every client who opens it sees your business name at the top of the form.</p></details>
-      <details class="faq-item"><summary>Do my clients' answers come to me automatically?<span class="chev" aria-hidden="true">&#9662;</span></summary><p>No. Nothing is sent anywhere, which keeps door codes and alarm codes private. When your client is done, they tap Print or save as PDF and text or email the PDF to you.</p></details>
+      <details class="faq-item"><summary>Do my clients' answers come to me automatically?<span class="chev" aria-hidden="true">&#9662;</span></summary><p>Not with a link made on this page. Nothing is sent anywhere, which keeps door codes and alarm codes private. When your client is done, they tap Print or save as PDF and text or email the PDF to you. If you'd rather get forms in an app, turn on Sitter mode in Pawfolio. It's free, and its link adds a Send button. The form is encrypted on your client's phone, and only your phone can open it.</p></details>
       <details class="faq-item"><summary>Can clients add photos of their pets?<span class="chev" aria-hidden="true">&#9662;</span></summary><p>Yes. Each pet has an Add photo circle. The photo stays on the client's phone with the rest of the form and prints in that pet's section.</p></details>
       <details class="faq-item"><summary>What if a client would rather write it by hand?<span class="chev" aria-hidden="true">&#9662;</span></summary><p>Download the blank PDF. You can type your business name into it once, then print copies or send the file.</p></details>
       <details class="faq-item"><summary>How do clients save it as a PDF on an iPhone?<span class="chev" aria-hidden="true">&#9662;</span></summary><p>Tap Print or save as PDF, then tap the Share button at the top of the print screen and choose Save to Files, or send it straight to you in Messages or Mail.</p></details>
@@ -685,6 +713,7 @@
 </footer>
 
 <script src="../app.js?v=20261014g" defer></script>
+<script src="intake-crypto.js?v=1"></script>
 <script>
 (function () {
   var KEY = 'ct-sitter-intake-v1', BIZ = 'ct-sitter-intake-biz';
@@ -702,6 +731,11 @@
   function clip(s, n) { return (s || '').replace(/[\u0000-\u001f]/g, '').trim().slice(0, n); }
   var link = { b: clip(q.get('b'), 60), p: clip(q.get('p'), 30), e: clip(q.get('e'), 80) };
   var client = !!link.b;
+  // A Pawfolio Sitter mode link adds #s=<inboxId>.<publicKey>. It lives only in the
+  // fragment (browsers never send it to a server), and we read it once here.
+  var PI = window.PawfolioIntake;
+  var target = PI ? PI.parseSendTarget(location.hash) : null;
+  var sendName = link.b || 'your sitter';
 
   var bizIn = { b: document.getElementById('biz-name'), p: document.getElementById('biz-phone'), e: document.getElementById('biz-email') };
   function contactHref(v) {
@@ -724,13 +758,26 @@
     document.title = 'New client form for ' + link.b;
   }
 
+  if (target) {
+    document.addEventListener('click', function (ev) {
+      var a = ev.target.closest && ev.target.closest('a[href^="#"]');
+      if (!a || ev.defaultPrevented) return;
+      var id = a.getAttribute('href').slice(1), el = id && document.getElementById(id);
+      if (!el) return;
+      ev.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
+      el.focus({ preventScroll: true });
+    });
+  }
+
   // ---- Link maker (sitters). Also fills the form's header. ----
   var mk = { b: document.getElementById('mk-b'), p: document.getElementById('mk-p'), e: document.getElementById('mk-e') };
   var biz = load(BIZ);
   function linkFor(v) {
     function enc(x) { return encodeURIComponent(x).replace(/%20/g, '+').replace(/%40/g, '@').replace(/%28/g, '(').replace(/%29/g, ')').replace(/%2C/g, ','); }
     var u = 'b=' + enc(v.b); if (v.p) u += '&p=' + enc(v.p); if (v.e) u += '&e=' + enc(v.e);
-    return BASE + '?' + u;
+    return BASE + '?' + u + (target ? PI.sendFragment(target.inboxId, target.publicKey) : '');
   }
   function renderLink() {
     var v = { b: clip(mk.b.value, 60), p: clip(mk.p.value, 30), e: clip(mk.e.value, 80) };
@@ -846,6 +893,108 @@
   window.addEventListener('afterprint', function () {
     pets.forEach(function (p) { if (p.dataset.printHide) { delete p.dataset.printHide; p.hidden = false; } });
     photos.forEach(function (b) { delete b.dataset.printHide; });
+  });
+
+  // ---- Send to the sitter (only when the link has #s=). ----
+  // The answers are encrypted on this phone with the sitter's public key, and only
+  // that encrypted envelope is uploaded. Nothing else ever leaves the browser.
+  if (!target) return;
+  var CID = 'ct-sitter-intake-cid', SENT = 'ct-sitter-intake-sent';
+  var AUTH = "If my pet needs urgent care and I can't be reached, I authorize my pet sitter to take my pet to my vet or the nearest emergency vet and approve treatment up to the amount below. I agree to pay for that care.";
+  var sendBtn = document.getElementById('send'), msg = document.getElementById('send-msg');
+  var label = 'Send to ' + sendName;
+  sendBtn.textContent = label; sendBtn.hidden = false;
+  document.getElementById('print').className = 'btn btn-ghost';
+  document.getElementById('send-box').hidden = false;
+  document.getElementById('send-privacy').hidden = false;
+  document.getElementById('send-privacy').textContent = "Encrypted on your phone before it's sent. Only " +
+    (link.b ? link.b + "'s" : "your sitter's") + " phone can open it, and I can't read it.";
+  document.getElementById('ps-note').textContent = "What you type is saved in this browser. It's only sent when you tap " + label + ", and it's encrypted first.";
+  if (client) {
+    var lede = document.getElementById('hc-lede');
+    lede.textContent = "Fill this in and add a photo of each pet. When you're done, tap ";
+    var st = document.createElement('strong'); st.textContent = label; lede.appendChild(st);
+    lede.appendChild(document.createTextNode(' at the bottom. You can also print it or save a PDF.'));
+  }
+  function day(iso) { try { return new Date(iso).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' }); } catch (e) { return ''; } }
+  function say(text, kind) { msg.textContent = text; msg.className = 'send-msg' + (kind ? ' ' + kind : ''); }
+  function sentText(iso) { return 'Sent to ' + sendName + ' on ' + day(iso) + '. You can send it again if anything changes.'; }
+  var sent = load(SENT);
+  if (sent[target.inboxId]) say(sentText(sent[target.inboxId]), 'ok');
+
+  function val(k) { var f = form.querySelector('[data-k="' + k + '"]'); return f ? String(f.value || '').trim() : ''; }
+  function clientId() {
+    var m = load(CID);
+    if (typeof m !== 'object' || Array.isArray(m)) m = {};
+    if (!m[target.inboxId]) { m[target.inboxId] = PI.b64u(crypto.getRandomValues(new Uint8Array(16))); store(CID, m); }
+    return m[target.inboxId];
+  }
+  async function buildPayload() {
+    var out = [];
+    for (var n = 1; n <= pets.length; n++) {
+      var p = 'pet' + n, photo = data[p + '-photo'] || '';
+      if (!val(p + '-name') && !photo) continue;
+      var meds = [];
+      for (var m = 1; m <= 3; m++) {
+        var mk = p + '-med' + m + '-';
+        if (val(mk + 'name')) meds.push({ name: val(mk + 'name'), dose: val(mk + 'dose'), time: val(mk + 'time'), how: val(mk + 'how') });
+      }
+      if (photo) { try { photo = await PI.shrinkPhoto(photo, 720, 0.78); } catch (e) { photo = ''; } }
+      var pet = {};
+      ['name', 'kind', 'age', 'weight', 'sex', 'chip', 'desc', 'food', 'treats', 'health', 'walk', 'behave', 'notes']
+        .forEach(function (k) { pet[k] = val(p + '-' + k); });
+      pet.rabies = ''; pet.insurance = ''; pet.meds = meds; pet.photo = photo;
+      out.push(pet);
+    }
+    return {
+      kind: 'pawfolio-intake', v: 1, sentAt: new Date().toISOString(), source: 'web', clientId: clientId(),
+      sitter: { name: link.b || val('biz-name'), phone: link.p || val('biz-phone'), email: link.e || val('biz-email') },
+      client: { name: val('c-name'), phone: val('c-phone'), email: val('c-email'), address: val('c-address'), phone2: val('c-phone2') },
+      emergency: { name: val('e-name'), rel: val('e-rel'), phone: val('e-phone'), hasKey: val('e-key') },
+      vet: { name: val('v-name'), phone: val('v-phone'), address: val('v-address') },
+      emergencyVet: { name: val('ev-name'), phone: val('ev-phone'), address: val('ev-address') },
+      home: { entry: val('h-entry'), alarm: val('h-alarm'), wifi: val('h-wifi'), parking: val('h-park'), supplies: val('h-supplies'),
+        offLimits: val('h-off'), extra: val('h-extra'), notes: val('h-notes') },
+      authorization: { amount: val('a-amount'), signature: val('a-sign'), date: val('a-date'), text: AUTH },
+      pets: out
+    };
+  }
+  function mark(k, on) { var f = form.querySelector('[data-k="' + k + '"]'); if (f) f.closest('.sf').classList.toggle('need', on); return f; }
+  fields.forEach(function (f) { f.addEventListener('input', function () { var l = f.closest('.sf'); if (l) l.classList.remove('need'); }); });
+  function check() {
+    var miss = [], first = null;
+    function need(k, what) { var bad = !val(k), f = mark(k, bad); if (bad) { miss.push(what); first = first || f; } }
+    need('c-name', 'your name'); need('c-phone', 'your mobile phone');
+    var anyPet = false;
+    for (var n = 1; n <= pets.length; n++) if (val('pet' + n + '-name')) anyPet = true;
+    mark('pet1-name', !anyPet);
+    if (!anyPet) { miss.push("your pet's name"); first = first || form.querySelector('[data-k="pet1-name"]'); }
+    if (!miss.length) return true;
+    var list = miss.length === 1 ? miss[0] : miss.slice(0, -1).join(', ') + ' and ' + miss[miss.length - 1];
+    say('Please add ' + list + ' before sending.', 'err');
+    if (first) first.focus();
+    return false;
+  }
+  var busy = false;
+  sendBtn.addEventListener('click', async function () {
+    if (busy || !check()) return;
+    if (navigator.onLine === false) { say("You seem to be offline. Your answers are still here. Try again when you're connected.", 'err'); return; }
+    busy = true; sendBtn.disabled = true; sendBtn.textContent = 'Sending...'; say('Encrypting and sending...');
+    try {
+      await PI.submit(target, await buildPayload());
+      var now = new Date().toISOString();
+      sent[target.inboxId] = now; store(SENT, sent);
+      say(sentText(now), 'ok');
+    } catch (e) {
+      var code = (e && (e.code || e.message)) || '';
+      if (code === 'too_large' || (e && e.status === 413)) say('This form is too large to send with these photos. Try fewer or smaller photos, then send again.', 'err');
+      else if (code === 'not_found' || (e && e.status === 404)) say("This link isn't active anymore. Ask your sitter for a new one.", 'err');
+      else if (code === 'inbox_full' || (e && e.status === 429)) say("This sitter's inbox is full right now. Please let them know.", 'err');
+      else if (navigator.onLine === false || (e && e.name === 'TypeError')) say("You seem to be offline, so it wasn't sent. Your answers are still here. Try again when you're connected.", 'err');
+      else say("Something went wrong and it wasn't sent. Please try again, or print or save a PDF instead.", 'err');
+    } finally {
+      busy = false; sendBtn.disabled = false; sendBtn.textContent = label;
+    }
   });
 })();
 </script>
