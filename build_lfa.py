@@ -2,14 +2,14 @@
 """Generates /lfa/index.html, the landing page for the LFA show sponsorship.
 
 Listeners hear "cleartrackapps.com/lfa" on the show. They never type a code:
-both upgrade buttons open the Lemon Squeezy yearly checkout with the LFA
+every upgrade button opens the Lemon Squeezy yearly checkout with the LFA
 discount (25% off the first year) already applied.
 
 Affiliate credit: set AFF_CODE to Jeremy's Lemon Squeezy affiliate code (the
 part after ?aff= in his affiliate URL) and re-run. The page then
   1. adds ?aff=CODE to its own address before Lemon Squeezy's tracking script
      loads, so a visit to plain /lfa still counts for him, and
-  2. adds aff=CODE to both checkout links.
+  2. adds aff=CODE to every checkout link.
 With AFF_CODE empty the page still works; sales just aren't credited.
 
 The page is noindex and left out of the sitemap: it's for show listeners.
@@ -24,16 +24,19 @@ AFF_CODE = ""          # Jeremy's affiliate code, once he joins
 DISCOUNT = "LFA"
 
 MED_CHECKOUT = "https://cleartrackapps.lemonsqueezy.com/checkout/buy/ac094b3b-9ed8-4571-a7d7-a538aff71666"
+CARE_CHECKOUT = "https://cleartrackapps.lemonsqueezy.com/checkout/buy/4490df6c-fd66-4f99-86ab-a511ec51eb10?enabled=2315392"  # Care Yearly only
 PAW_CHECKOUT = "https://cleartrackapps.lemonsqueezy.com/checkout/buy/7c9c2303-cea0-4a31-9526-138981e4d0df"
 MED_FREE = "https://cleartrackapps.com/go/medrecords-app/?src=lfa"
 PAW_FREE = "https://cleartrackapps.com/pet-care-planner/?ref=lfa"
 
 PRICE_YEAR = "$29.99"
 PRICE_LFA = "$22.49"
+CARE_YEAR = "$49.99"
+CARE_LFA = "$37.49"
 
 
 def checkout(url):
-    q = f"?checkout[discount_code]={DISCOUNT}"
+    q = ("&" if "?" in url else "?") + f"checkout[discount_code]={DISCOUNT}"
     if AFF_CODE:
         q += f"&aff={AFF_CODE}"
     return url + q
@@ -47,7 +50,7 @@ CF_BEACON = (
 
 TITLE = "Welcome, LFA family \u2014 25% off MedRecords and Pawfolio"
 DESC = ("MedRecords and Pawfolio are free, with no ads. LFA listeners get 25% off the first year "
-        "of MedRecords Max or Pawfolio Complete, applied automatically.")
+        "of MedRecords Max, MedRecords Care or Pawfolio Complete, applied automatically.")
 
 PAGE = f'''<!DOCTYPE html>
 <html lang="en">
@@ -109,6 +112,8 @@ PAGE = f'''<!DOCTYPE html>
   .lf-was {{ text-decoration: line-through; color: var(--color-text-muted); }}
   .lf-note {{ font-size: var(--text-xs); color: var(--color-text-muted); margin-top: .2rem; }}
   .lf-btns {{ display: grid; gap: .6rem; margin-top: 1rem; }}
+  .lf-alt {{ border-top: 1px dashed var(--color-border); margin-top: 1.1rem; padding-top: 1rem; }}
+  .lf-alt-desc {{ font-size: var(--text-sm); color: var(--color-text-muted); margin-top: .2rem; }}
   .lf-btns .btn {{ width: 100%; justify-content: center; text-align: center; }}
   .lf-fine {{ max-width: 46rem; margin: 2rem auto 0; text-align: center;
     font-size: var(--text-xs); color: var(--color-text-muted); }}
@@ -160,6 +165,15 @@ PAGE = f'''<!DOCTYPE html>
               <div class="lf-btns">
                 <a class="btn btn-primary btn-lg js-buy" data-app="medrecords" href="{checkout(MED_CHECKOUT)}">Get 25% off MedRecords Max</a>
                 <a class="btn btn-ghost btn-lg js-free" data-app="medrecords" href="{MED_FREE}">Start MedRecords Free</a>
+              </div>
+              <div class="lf-alt">
+                <p class="lf-name" style="font-size:1rem">MedRecords Care, yearly</p>
+                <p class="lf-alt-desc">Everything in Max, plus a daily care log every caregiver fills in from their own phone: meals, PT and OT, bathing, mood and anything the patient declined.</p>
+                <div class="lf-price-row"><span class="lf-now">{CARE_LFA}</span><span class="lf-was">{CARE_YEAR}</span><span>first year</span></div>
+                <p class="lf-note">Then {CARE_YEAR} a year. Cancel any time.</p>
+                <div class="lf-btns">
+                  <a class="btn btn-primary btn-lg js-buy" data-app="medrecords-care" href="{checkout(CARE_CHECKOUT)}">Get 25% off MedRecords Care</a>
+                </div>
               </div>
             </div>
           </div>
