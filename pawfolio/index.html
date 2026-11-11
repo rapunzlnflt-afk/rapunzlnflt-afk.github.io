@@ -108,6 +108,27 @@
   .look-tag { display: block; margin-bottom: .2rem; font-size: .68rem; font-weight: 700; letter-spacing: .05em;
     text-transform: uppercase; color: var(--accent-pawfolio); vertical-align: .1em; }
 
+  /* For pet sitters (Sitter mode, Pawfolio Free) */
+  .sm-grid { display: grid; gap: 2.25rem; align-items: center; margin-top: 2rem; }
+  .sm-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.1rem; }
+  .sm-list li { padding-left: 1.6rem; position: relative; }
+  .sm-list li::before { content: "\2713"; position: absolute; left: 0; top: .05em;
+    color: var(--accent-pawfolio); font-weight: 700; }
+  .sm-list strong { display: block; font-weight: 600; }
+  .sm-list span { display: block; margin-top: .15rem; font-size: var(--text-sm); color: var(--color-text-muted); }
+  .sm-how { margin-top: 1.4rem; font-size: var(--text-sm); color: var(--color-text-muted); }
+  .sm-how a { color: var(--accent-pawfolio); font-weight: 600; }
+  .sm-shots { display: flex; gap: 1rem; justify-content: center; }
+  .sm-shot { flex: 1 1 0; max-width: 16rem; margin: 0; }
+  .sm-shot:nth-child(2) { margin-top: 2.5rem; }
+  .sm-frame { border-radius: 22px; overflow: hidden; border: 1px solid var(--color-border);
+    background: var(--color-surface); box-shadow: var(--shadow-md); }
+  .sm-frame img { width: 100%; height: auto; display: block; }
+  .sm-shot figcaption { margin-top: .5rem; font-size: var(--text-xs); color: var(--color-text-muted); text-align: center; }
+  .pf-sitter-link { display: inline-block; margin-top: 1rem; font-weight: 600; font-size: var(--text-sm);
+    color: var(--accent-pawfolio); text-decoration: none; }
+  .pf-sitter-link:hover { text-decoration: underline; }
+
   .pf-faq { max-width: 44rem; }
   .foot-verse { font-family: Zodiak, Georgia, serif; font-size: .9rem; font-style: italic;
     line-height: 1.5; color: var(--color-text-muted); }
@@ -116,6 +137,9 @@
   @media (min-width: 46rem) {
     .plans { grid-template-columns: 1fr 1fr; align-items: stretch; }
     .looks { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (min-width: 56rem) {
+    .sm-grid { grid-template-columns: 1fr 1.05fr; gap: 3rem; }
   }
   @media (min-width: 62rem) {
     .pf-hero-grid { grid-template-columns: 1.1fr 1fr; gap: 3rem; }
@@ -160,6 +184,7 @@
           <li>No ads</li>
           <li>Records stay on your phone</li>
         </ul>
+        <a class="pf-sitter-link" href="#sitters">Pet sitter or dog walker? See the free Sitter mode &darr;</a>
       </div>
       <div class="pf-shots">
         <figure class="pf-shot">
@@ -193,6 +218,7 @@
             <li>Pet-sitter sheet</li>
             <li>Notes and useful links</li>
             <li>Print, back up and export</li>
+            <li>Sitter mode for pet sitters</li>
           </ul>
           <a class="btn btn-ghost btn-lg js-free-cta" href="https://cleartrackapps.com/pet-care-planner/">Open Pawfolio Free</a>
         </div>
@@ -253,6 +279,43 @@
     </div>
   </section>
 
+  <section class="pf-sec" id="sitters" aria-labelledby="sitters-h">
+    <div class="wrap">
+      <p class="eyebrow">Pawfolio &mdash; for pet sitters and dog walkers</p>
+      <h2 class="pf-h2" id="sitters-h">Every client on one map. Free.</h2>
+      <p class="pf-sub">Turn on Sitter mode and Pawfolio becomes your client book. It's part of Pawfolio Free, with no card and no account.</p>
+      <div class="sm-grid">
+        <div>
+          <ul class="sm-list">
+            <li><strong>Your own intake form</strong><span>Send new clients one link with your business name at the top. They fill in their pets, vet, home and emergency details on their phone.</span></li>
+            <li><strong>Forms land in your inbox</strong><span>Tap Check for new forms and each client gets a card. Forms are encrypted on the client's phone before they're sent.</span></li>
+            <li><strong>Call, text or get directions</strong><span>Every client card has Call, Text and Directions at the top, plus their vet and emergency vet addresses.</span></li>
+            <li><strong>Every client on one map</strong><span>Tap Map to see a pin for each client. Tap a pin for the owner, the pets and the address.</span></li>
+            <li><strong>Plan the day's route</strong><span>Tap clients in the order you'll visit them, then open the whole trip in Apple Maps (up to 14 stops on iOS 18.4 or later) or Google Maps (up to 10).</span></li>
+          </ul>
+          <p class="sm-how">To turn it on, open Pawfolio, tap the menu and check <strong>I'm a pet sitter</strong>, then add your business name. Your Clients tab and sitter link are ready to use.</p>
+          <div class="pf-actions">
+            <a class="btn btn-primary btn-lg js-free-cta" href="https://cleartrackapps.com/pet-care-planner/">Open Pawfolio Free</a>
+            <a class="btn btn-ghost btn-lg" href="https://cleartrackapps.com/pet-care-planner-demo/">Try it in the demo</a>
+          </div>
+          <p class="sm-how">Rather get forms as a PDF? Use the <a href="../pet-sitter-intake-form/">free sitter intake form</a> instead.</p>
+        </div>
+        <div class="sm-shots">
+          <figure class="sm-shot">
+            <div class="sm-frame"><img src="sitter-clients.jpg" width="780" height="1032" loading="lazy" decoding="async"
+              alt="Pawfolio Clients tab in Sitter mode: five sample clients, each with pets, address and phone number, and a Check for new forms button."></div>
+            <figcaption>Your clients, with addresses</figcaption>
+          </figure>
+          <figure class="sm-shot">
+            <div class="sm-frame"><img src="sitter-map.jpg" width="780" height="1032" loading="lazy" decoding="async"
+              alt="Pawfolio Clients map of Granbury with five numbered client pins and a Plan a route panel showing Open in Google Maps (5 stops)."></div>
+            <figcaption>Tap clients in visit order</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="pf-sec pf-sec-alt" id="faq" aria-labelledby="faq-h">
     <div class="wrap pf-faq">
       <h2 class="pf-h2" id="faq-h">Questions</h2>
@@ -284,6 +347,10 @@
       <details class="faq-item">
         <summary>Can my pet sitter see the doses?</summary>
         <p>With Pawfolio Complete, yes. Send your sitter a link to the medications you choose. They check off each dose and get reminders on their own phone, and you see who gave it and when. The printable sitter sheet stays free.</p>
+      </details>
+      <details class="faq-item">
+        <summary>I'm a pet sitter. Is there anything for me?</summary>
+        <p>Yes, and it's free. Turn on Sitter mode in the menu to get your own client intake link, an inbox for client forms, Call, Text and Directions on every client, a map of all your clients, and route planning in Apple Maps or Google Maps. Client forms are encrypted on the client's phone before they're sent.</p>
       </details>
       <details class="faq-item">
         <summary>What happens if I cancel?</summary>
@@ -349,6 +416,14 @@
     window.addEventListener('load', function () {
       var t = document.getElementById('timeline');
       if (t) t.scrollIntoView({ block: 'center' });
+    });
+  }
+  // Sitter pins and stickers (?src=pin-sitters, ?src=sticker-sitters) promised the
+  // clients map: open on the For pet sitters section.
+  if (/(^|[?&])src=[a-z-]*sitters(&|$)/.test(location.search) && !location.hash) {
+    window.addEventListener('load', function () {
+      var t = document.getElementById('sitters');
+      if (t) t.scrollIntoView({ block: 'start' });
     });
   }
   function track(name, params) { if (typeof window.ctTrack === 'function') window.ctTrack(name, params || {}); }
