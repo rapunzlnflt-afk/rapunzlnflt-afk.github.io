@@ -56,7 +56,9 @@ GO_LINKS = {
     # The MedRecords Etsy listing is deactivated (Oct 2026). Old pins and
     # captions may still carry this link, so it lands on the MedRecords page.
     "medical-records-etsy":     ("MedRecords", "https://cleartrackapps.com/medrecords/?ref=etsy-legacy"),
-    "budget-tracker":           ("Etsy",    "https://www.etsy.com/listing/4489254039"),
+    # Budget Tracker: one-time $29.99 Lemon Squeezy product (Nov 2026). Replaces
+    # the Etsy listing; old pins using /go/budget-tracker/ now land on checkout.
+    "budget-tracker":           ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/1848a045-1796-469e-b94f-9794ce67aeb0"),
     "puzzle-pig":               ("secure checkout", "https://cleartrackapps.gumroad.com/l/puzzlepig?wanted=true&ref=site"),
     # The Puzzle Pig Etsy listing is no longer offered (Nov 2026). Old pins and
     # captions still use /go/puzzle-pig-etsy/, so send them to site checkout.
@@ -147,7 +149,7 @@ APPS = [
             "Bill tracker so nothing slips past a due date",
         ],
         price="$29.99", audience="Anyone budgeting",
-        primary=("Buy on Etsy \u2014 $29.99", go("budget-tracker")),
+        primary=("Buy now \u2014 $29.99", go("budget-tracker")),
         secondary=None,
         demo="https://cleartrackapps.com/budget-tracker-demo/",
         tag="Money",
