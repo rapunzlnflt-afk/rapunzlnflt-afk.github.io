@@ -423,6 +423,7 @@ section { scroll-margin-top: 92px; }
 .card-price { margin-top: var(--space-5); display: flex; align-items: baseline; gap: var(--space-2); }
 .price { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700; }
 .price-note { font-size: var(--text-xs); color: var(--color-text-muted); }
+.price-note .nowrap { white-space: nowrap; }
 .card-actions {
   margin-top: var(--space-4); display: grid; gap: var(--space-3);
 }
