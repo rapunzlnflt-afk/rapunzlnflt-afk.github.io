@@ -21,19 +21,9 @@ CF_BEACON = (
 # "Top pages" in the Cloudflare Web Analytics dashboard.
 # To change where a button goes, edit the destination here and re-run build.py.
 #
-# The three Gumroad links carry ?wanted=true. Without it, a buy button drops the
-# shopper on the Gumroad product page — a second listing that pitches the app all
-# over again in Gumroad's layout, after they already read the pitch here. With
-# it, Gumroad skips that page and opens the payment form directly, so the only
-# thing they see is a checkout. See https://gumroad.com/help/article/270
-#
-# Gumroad's overlay widget (gumroad.js) was tried instead and rejected: reading
-# its current bundle, an href containing wanted=true takes the plain-navigation
-# branch and the overlay never fires, and dropping wanted=true to get the
-# overlay renders the full Gumroad product page inside the modal — the same
-# duplicate listing, just in an iframe. It also injects markup into the buttons
-# and costs a third-party script on every pageview. The plain link below does
-# more with less.
+# Every paid app now checks out on Lemon Squeezy (Nov 2026), which opens the
+# payment form directly, so there is no second product listing to skip.
+# (The old Gumroad links carried ?wanted=true for that reason.)
 GO_LINKS = {
     # "pawfolio" is the Pawfolio Complete checkout (Lemon Squeezy subscription,
     # monthly or yearly). Launched Oct 2, 2026; replaced the one-time Gumroad product.
@@ -59,11 +49,15 @@ GO_LINKS = {
     # Budget Tracker: one-time $29.99 Lemon Squeezy product (Nov 2026). Replaces
     # the Etsy listing; old pins using /go/budget-tracker/ now land on checkout.
     "budget-tracker":           ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/1848a045-1796-469e-b94f-9794ce67aeb0"),
-    "puzzle-pig":               ("secure checkout", "https://cleartrackapps.gumroad.com/l/puzzlepig?wanted=true&ref=site"),
+    # Puzzle Pig: one-time $14.99 Lemon Squeezy product with license keys
+    # (5 devices), Nov 2026. Replaces the Gumroad product.
+    "puzzle-pig":               ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/36bed46c-39ae-42e7-ae4a-8b67824589f8"),
     # The Puzzle Pig Etsy listing is no longer offered (Nov 2026). Old pins and
     # captions still use /go/puzzle-pig-etsy/, so send them to site checkout.
-    "puzzle-pig-etsy":          ("secure checkout", "https://cleartrackapps.gumroad.com/l/puzzlepig?wanted=true&ref=etsy-legacy"),
-    "cosmetic-surgery-planner": ("Etsy",    "https://www.etsy.com/listing/4487732067"),
+    "puzzle-pig-etsy":          ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/36bed46c-39ae-42e7-ae4a-8b67824589f8"),
+    # Cosmetic Surgery Planner: one-time $36.99 Lemon Squeezy product with
+    # license keys (3 devices), Nov 2026. Replaces the Etsy listing.
+    "cosmetic-surgery-planner": ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/e232c3b3-cbca-4522-b41c-00c064ebc46b"),
     # Bootstraps: one-time $4.99 Lemon Squeezy product (Nov 2026).
     "bootstraps":               ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/44efa96d-0b90-42a8-be25-29916f6e095e"),
     "etsy-shop":                ("Etsy",    "https://cleartrackapps.etsy.com"),
@@ -203,7 +197,7 @@ APPS = [
             "Receipts and a private photo log across 12 sections",
         ],
         price="$36.99", audience="Planning a procedure",
-        primary=("Buy on Etsy \u2014 $36.99", go("cosmetic-surgery-planner")),
+        primary=("Buy now \u2014 $36.99", go("cosmetic-surgery-planner")),
         secondary=None,
         demo="https://cleartrackapps.com/beauty-planner-demo/",
         tag="Planning",
