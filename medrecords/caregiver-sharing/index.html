@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How caregiver dose sharing works — MedRecords</title>
+<meta name="description" content="See how MedRecords caregiver sharing works: pick the medications, text one link, and see each dose a caregiver gives.">
+<link rel="canonical" href="https://cleartrackapps.com/medrecords/caregiver-sharing/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CleartrackApps">
+<meta property="og:title" content="How MedRecords caregiver sharing works">
+<meta property="og:description" content="See how MedRecords caregiver sharing works: pick the medications, text one link, and see each dose a caregiver gives.">
+<meta property="og:url" content="https://cleartrackapps.com/medrecords/caregiver-sharing/">
+<meta property="og:image" content="https://cleartrackapps.com/assets/og-medrecords-caregiver-sharing.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Two phones: Carol’s lock screen shows Amoxicillin given by Dana at 8:03 AM, and Dana’s caregiver page shows Given 8:03 AM.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How MedRecords caregiver sharing works">
+<meta name="twitter:description" content="See how MedRecords caregiver sharing works: pick the medications, text one link, and see each dose a caregiver gives.">
+<meta name="twitter:image" content="https://cleartrackapps.com/assets/og-medrecords-caregiver-sharing.png">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="apple-touch-icon" href="../../assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --accent:#3b82f6; --accent-2:#1d4ed8; --ink:#2d3748; --muted:#718096; --line:#e2e8f0; --bg:#f3f5fa;
+    --late:#b42318; --phone-scale:1;
+    /* Page chrome (outside the phones) uses the Cleartrack scheme; the phones keep Pawfolio's own colors. */
+    --pg-text:#24272b; --pg-muted:#5d636c; --pg-line:#e2e4e8; --pg-line-strong:#d0d4db;
+    --sage:#2563eb; --sage-deep:#1d4ed8; --sage-grad:linear-gradient(135deg,#3b82f6,#2563eb 55%,#1d4ed8);
+    --cocoa:#1e3a8a; --cocoa-soft:#dbeafe;
+    --cloud:linear-gradient(160deg,#fafbfc 0%,#f5f6f8 40%,#eceff3 75%,#e6e9ee 100%);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; }
+  body{ font-family:'Karla',Arial,sans-serif; color:var(--ink); background:var(--cloud) fixed, #f5f6f8; min-height:100vh; }
+  .page{ max-width:1080px; margin:0 auto; padding:28px 20px 40px; }
+
+  /* ---------- top + caption ---------- */
+  .top{ display:flex; align-items:center; gap:12px; }
+  .top img{ width:40px; height:40px; border-radius:10px; box-shadow:0 2px 8px rgba(36,39,43,0.18); }
+  .top .brand{ font-family:'Montserrat',sans-serif; font-weight:800; font-size:18px; color:var(--pg-text); }
+  .top .badge{ margin-left:auto; font-family:'Montserrat',sans-serif; font-size:11px; font-weight:800; letter-spacing:0.08em; color:var(--cocoa); background:var(--cocoa-soft); border:1px solid rgba(107,91,80,0.25); padding:5px 10px; border-radius:999px; }
+  h1.title{ font-family:'Montserrat',sans-serif; font-weight:800; font-size:clamp(24px,3.4vw,36px); line-height:1.15; margin:18px 0 6px; color:var(--pg-text); letter-spacing:-0.01em; }
+  .lede{ margin:0; font-size:17px; color:var(--pg-muted); max-width:640px; }
+
+  .caption{ margin-top:22px; background:#fff; border:1px solid var(--pg-line); border-radius:16px; padding:16px 18px; box-shadow:0 6px 24px rgba(36,39,43,0.06); display:flex; gap:14px; align-items:flex-start; min-height:96px; }
+  .caption .num{ flex:0 0 auto; width:38px; height:38px; border-radius:50%; background:var(--sage-grad); color:#fff; display:grid; place-items:center; font-family:'Montserrat',sans-serif; font-weight:800; font-size:16px; }
+  .caption .who{ font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--cocoa); }
+  .caption h2{ margin:2px 0 2px; font-family:'Montserrat',sans-serif; font-size:19px; font-weight:800; color:var(--pg-text); line-height:1.25; }
+  .caption p{ margin:0; font-size:15.5px; color:var(--pg-muted); line-height:1.45; }
+  .caption .txt{ transition:opacity .25s ease; }
+  .caption .txt.fade{ opacity:0; }
+
+  /* ---------- stage ---------- */
+  .stage{ margin-top:22px; display:flex; justify-content:center; gap:56px; align-items:flex-start; }
+  .device{ display:flex; flex-direction:column; align-items:center; gap:12px; transition:opacity .4s ease, filter .4s ease, transform .4s ease; }
+  .device.dim{ opacity:0.42; filter:saturate(0.6); transform:scale(0.97); }
+  .label{ font-family:'Montserrat',sans-serif; font-weight:700; font-size:14px; color:#3c4148; display:flex; align-items:center; gap:8px; }
+  .label .dot{ width:9px; height:9px; border-radius:50%; background:var(--pg-line-strong); }
+  .device.active .label .dot{ background:#22c55e; box-shadow:0 0 0 4px rgba(34,197,94,0.18); }
+  .phone-wrap{ width:calc(375px * var(--phone-scale)); height:calc(780px * var(--phone-scale)); }
+  .phone{ width:375px; height:780px; border-radius:54px; background:#111; padding:12px; position:relative; transform:scale(var(--phone-scale)); transform-origin:top left; box-shadow:0 30px 60px rgba(36,39,43,0.22), inset 0 0 0 2px #2a2a2a; }
+  .glass{ width:100%; height:100%; border-radius:43px; overflow:hidden; position:relative; background:var(--bg); }
+  .island{ position:absolute; top:11px; left:50%; transform:translateX(-50%); width:112px; height:32px; background:#000; border-radius:20px; z-index:60; }
+  .sbar{ position:absolute; top:0; left:0; right:0; height:52px; display:flex; align-items:center; justify-content:space-between; padding:6px 30px 0 34px; z-index:55; font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-weight:700; font-size:15.5px; color:#fff; pointer-events:none; transition:color .3s; }
+  .sbar.dark{ color:#111; }
+  .sbar .ic{ display:flex; gap:6px; align-items:center; }
+  .sbar svg{ display:block; }
+  .screen{ position:absolute; inset:0; overflow:hidden; }
+  .scroller{ position:absolute; inset:0; overflow-y:auto; scrollbar-width:none; }
+  .scroller::-webkit-scrollbar{ display:none; }
+  .home-ind{ position:absolute; bottom:8px; left:50%; transform:translateX(-50%); width:130px; height:5px; border-radius:3px; background:rgba(0,0,0,0.75); z-index:58; }
+
+  /* finger */
+  .finger{ position:absolute; left:0; top:0; width:44px; height:44px; margin:-22px 0 0 -22px; border-radius:50%; background:rgba(255,255,255,0.35); border:2px solid rgba(255,255,255,0.95); box-shadow:0 4px 14px rgba(0,0,0,0.35), 0 0 0 1px rgba(0,0,0,0.12); z-index:80; opacity:0; pointer-events:none; transition:left .55s cubic-bezier(.3,.7,.3,1), top .55s cubic-bezier(.3,.7,.3,1), opacity .25s; }
+  .finger.on{ opacity:1; }
+  .finger.press{ animation:press .32s ease; }
+  @keyframes press{ 0%{ transform:scale(1);} 45%{ transform:scale(0.72); background:rgba(59,130,246,0.45);} 100%{ transform:scale(1);} }
+  .tapped{ animation:tapflash .35s ease; }
+  @keyframes tapflash{ 50%{ filter:brightness(0.9); transform:scale(0.98);} }
+
+  /* ---------- Pawfolio owner app (matches app styles) ---------- */
+  .o-app{ min-height:100%; background:var(--bg); padding-bottom:40px; }
+  .o-head{ position:sticky; top:0; z-index:5; height:112px; padding:56px 20px 0; background:linear-gradient(110deg,#3b82f6 0%,#1e40af 45%,#3b82f6 100%); display:flex; align-items:center; gap:16px; color:#fff; }
+  .o-head .menu{ width:22px; display:flex; flex-direction:column; gap:4px; }
+  .o-head .menu i{ height:3px; background:#fff; border-radius:2px; }
+  .o-head .nm{ font-family:'Montserrat',sans-serif; font-weight:700; font-size:21px; flex:1; }
+  .o-head img{ width:34px; height:34px; border-radius:8px; border:2px solid #fff; }
+  .o-body{ padding:18px 14px 0; }
+  .o-h1{ font-family:'Montserrat',sans-serif; font-weight:700; font-size:24px; margin:4px 2px 12px; color:var(--ink); }
+  .o-card{ background:#fff; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.06); border:1px solid var(--line); }
+  .o-bars > .bar{ padding:13px 14px; }
+  .o-bars > .bar + .bar{ border-top:1px solid var(--line); }
+  .o-bars .bar-h{ display:flex; align-items:center; gap:8px; font-family:'Montserrat',sans-serif; font-weight:700; font-size:14.5px; color:var(--ink); }
+  .o-bars .bar-h span:first-child{ flex:1; }
+  .o-bars .chev{ color:#64748b; font-size:18px; transition:transform .2s; }
+  .o-bars .chev.open{ transform:rotate(90deg); }
+  .share-body{ margin-top:10px; padding-top:6px; border-top:1px solid var(--line); }
+  .pf-share-row{ display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--line); }
+  .pf-share-row .n{ font-size:14px; font-weight:700; color:var(--ink); }
+  .pf-share-row .p{ font-size:12px; color:var(--muted); }
+  .sw{ flex:0 0 auto; width:40px; height:22px; border-radius:11px; position:relative; background:#d1d5db; transition:background .2s; }
+  .sw i{ position:absolute; top:3px; left:3px; width:16px; height:16px; border-radius:50%; background:#fff; transition:left .2s; }
+  .sw.on{ background:#3b82f6; } .sw.on i{ left:21px; }
+  .pf-share-btn{ display:block; width:100%; margin-top:8px; background:#3b82f6; color:#fff; border:none; border-radius:10px; padding:11px; font-family:'Karla',sans-serif; font-size:15px; font-weight:700; text-align:center; }
+  .pf-share-stop{ display:block; width:100%; margin-top:6px; color:#c53030; padding:8px; font-size:14px; font-weight:700; text-align:center; }
+  .xs{ font-size:12px; color:var(--muted); line-height:1.4; }
+  .o-sec{ font-family:'Montserrat',sans-serif; font-weight:700; font-size:15px; margin:18px 2px 8px; color:var(--ink); }
+  .med{ padding:14px; margin-bottom:12px; transition:box-shadow .4s, border-color .4s; }
+  .med .mn{ font-family:'Montserrat',sans-serif; font-weight:700; font-size:16px; color:var(--ink); }
+  .med .ms{ font-size:14.5px; color:var(--muted); margin-top:2px; }
+  .pf-dose-box{ margin-top:10px; padding:10px 12px; border-radius:10px; background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.18); }
+  .pf-dose-box .d{ font-size:14px; font-weight:700; color:var(--ink); margin:0; }
+  .pf-dose-btns{ display:flex; gap:8px; margin-top:8px; }
+  .pf-dose-btns span{ font-size:14px; font-weight:700; padding:8px 16px; border-radius:8px; min-height:38px; display:inline-flex; align-items:center; }
+  .pf-dose-given{ background:#3b82f6; color:#fff; border:1px solid #3b82f6; }
+  .pf-dose-skip{ background:#fff; color:#1f2937; border:1px solid #d1d5db; }
+  .pf-dose-early{ display:inline-block; margin-top:6px; font-size:14px; font-weight:700; color:#1d4ed8; text-decoration:underline; text-underline-offset:3px; }
+  .pf-last{ font-size:12.5px; color:var(--muted); margin:6px 0 0; }
+  .pf-dose-shared{ display:inline-block; margin-top:8px; font-size:12px; font-weight:700; color:#1d4ed8; background:rgba(59,130,246,0.10); border-radius:999px; padding:3px 10px; }
+  .details{ margin-top:10px; font-size:13.5px; font-weight:700; color:#3b82f6; }
+  .glow{ border-color:#3b82f6 !important; box-shadow:0 0 0 3px rgba(59,130,246,0.25), 0 8px 24px rgba(59,130,246,0.2) !important; }
+  .mark{ background:rgba(34,197,94,0.16); border-radius:6px; padding:1px 4px; margin:0 -4px; box-shadow:0 0 0 2px rgba(34,197,94,0.35); }
+
+  /* ---------- iOS share sheet + Messages (generic) ---------- */
+  .scrim{ position:absolute; inset:0; background:rgba(0,0,0,0); z-index:40; transition:background .3s; pointer-events:none; }
+  .scrim.on{ background:rgba(0,0,0,0.38); }
+  .sheet{ position:absolute; left:0; right:0; bottom:0; z-index:45; background:#f2f2f7; border-radius:14px 14px 0 0; transform:translateY(105%); transition:transform .38s cubic-bezier(.2,.8,.2,1); font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; padding:14px 16px 34px; }
+  .sheet.on{ transform:none; }
+  .sheet .lp{ display:flex; gap:10px; align-items:center; padding-bottom:12px; border-bottom:1px solid #d9d9de; }
+  .sheet .lp img{ width:44px; height:44px; border-radius:9px; }
+  .sheet .lp b{ display:block; font-size:15px; color:#111; }
+  .sheet .lp small{ font-size:13px; color:#8a8a8e; }
+  .apps{ display:flex; gap:18px; padding:16px 2px 6px; }
+  .app{ display:flex; flex-direction:column; align-items:center; gap:6px; font-size:11.5px; color:#333; width:58px; }
+  .app i{ width:56px; height:56px; border-radius:14px; display:grid; place-items:center; }
+  .acts{ margin-top:12px; background:#fff; border-radius:12px; }
+  .acts div{ padding:13px 14px; font-size:15.5px; color:#111; display:flex; justify-content:space-between; }
+  .acts div + div{ border-top:1px solid #e5e5ea; }
+
+  .msg{ position:absolute; inset:0; z-index:50; background:#fff; transform:translateY(102%); transition:transform .4s cubic-bezier(.2,.8,.2,1); font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; display:flex; flex-direction:column; }
+  .msg.on{ transform:none; }
+  .msg.full{ transform:none; transition:none; }
+  .msg .mh{ padding:58px 16px 10px; border-bottom:1px solid #e5e5ea; background:#f9f9fb; }
+  .msg .mh .row{ display:flex; justify-content:space-between; align-items:center; font-size:15px; }
+  .msg .mh .row b{ font-size:16px; }
+  .msg .to{ margin-top:10px; font-size:15px; color:#8a8a8e; }
+  .msg .to span{ color:#007aff; }
+  .msg .contact{ text-align:center; padding-top:52px; }
+  .msg .contact .av{ width:54px; height:54px; border-radius:50%; margin:0 auto 4px; background:linear-gradient(#a7acb9,#868b98); color:#fff; display:grid; place-items:center; font-size:22px; font-weight:600; }
+  .msg .contact b{ font-size:13px; font-weight:500; color:#111; }
+  .msg .thread{ flex:1; padding:14px 12px; display:flex; flex-direction:column; gap:6px; overflow:hidden; }
+  .msg .stamp{ text-align:center; font-size:11.5px; color:#8a8a8e; margin:6px 0 4px; }
+  .bub{ max-width:76%; padding:8px 13px; border-radius:18px; font-size:15.5px; line-height:1.3; }
+  .bub.out{ align-self:flex-end; background:#007aff; color:#fff; }
+  .bub.in{ align-self:flex-start; background:#e9e9eb; color:#111; }
+  .rich{ max-width:76%; border-radius:16px; overflow:hidden; background:#e9e9eb; }
+  .rich.out{ align-self:flex-end; }
+  .rich.in{ align-self:flex-start; }
+  .rich .art{ height:118px; display:grid; place-items:center; background:linear-gradient(135deg,#3b82f6,#1e40af); }
+  .rich .art img{ width:64px; height:64px; border-radius:14px; box-shadow:0 6px 16px rgba(0,0,0,0.25); }
+  .rich .meta{ padding:8px 12px 10px; }
+  .rich .meta b{ display:block; font-size:14px; color:#111; }
+  .rich .meta small{ font-size:12.5px; color:#8a8a8e; }
+  .pop{ animation:pop .35s cubic-bezier(.2,.9,.3,1.3); }
+  @keyframes pop{ from{ transform:scale(0.6); opacity:0; } to{ transform:none; opacity:1; } }
+  .compose{ border-top:1px solid #e5e5ea; padding:8px 10px 30px; display:flex; gap:8px; align-items:flex-end; }
+  .compose .field{ flex:1; border:1px solid #d1d1d6; border-radius:18px; padding:8px 12px; font-size:15px; min-height:36px; color:#111; }
+  .compose .field .rich{ max-width:100%; margin-bottom:6px; }
+  .compose .send{ width:32px; height:32px; border-radius:50%; background:#007aff; display:grid; place-items:center; flex:0 0 auto; margin-bottom:2px; }
+
+  /* ---------- Safari chrome + sitter dose page (doses.html styles) ---------- */
+  .safari{ position:absolute; inset:0; background:#f6f7fb; display:flex; flex-direction:column; }
+  .s-page{ flex:1; position:relative; overflow:hidden; }
+  .s-bar{ height:86px; padding:10px 14px 30px; background:rgba(246,246,248,0.96); border-top:1px solid #dcdce0; flex:0 0 auto; }
+  .s-bar .url{ height:44px; border-radius:12px; background:#fff; box-shadow:0 1px 4px rgba(0,0,0,0.12); display:flex; align-items:center; justify-content:center; gap:6px; font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; color:#111; }
+  .s-load{ position:absolute; top:0; left:0; height:3px; background:#007aff; width:0; transition:width .8s ease; z-index:5; }
+
+  .s-app{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:#1f2733; line-height:1.5; --late:#b42318; }
+  .s-app header{ background:linear-gradient(135deg,#3b82f6,#1d4ed8); color:#fff; padding:62px 20px 18px; border-radius:0 0 18px 18px; }
+  .s-app .brand{ font-size:13px; opacity:0.95; display:flex; align-items:center; gap:8px; }
+  .s-app .brand img{ border-radius:6px; width:22px; height:22px; }
+  .s-app header h1{ margin:8px 0 0; font-size:22px; font-weight:800; line-height:1.25; }
+  .s-app header .sub{ font-size:14px; opacity:0.92; margin-top:2px; }
+  .s-app .wrap{ padding:0 14px 30px; }
+  .s-app .card{ background:#fff; border:1px solid #e6e8ef; border-radius:14px; padding:15px; margin-top:14px; box-shadow:0 1px 2px rgba(16,24,40,0.04); transition:transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .4s, border-color .4s; }
+  .s-app h2{ margin:0; font-size:19px; font-weight:800; }
+  .s-app .pet{ font-size:15px; color:#64748b; margin-top:2px; }
+  .s-app .last{ margin-top:12px; padding-top:10px; border-top:1px solid #e6e8ef; font-size:14px; color:#64748b; }
+  .s-app .due{ margin-top:12px; font-size:16px; font-weight:800; transition:color .3s; }
+  .s-app .due.late{ color:var(--late); }
+  .s-app .btns{ display:flex; gap:8px; margin-top:10px; }
+  .s-app .primary{ flex:1; background:#3b82f6; color:#fff; border-radius:12px; padding:12px; font-size:16px; font-weight:800; text-align:center; }
+  .s-app .secondary{ flex:0 0 auto; background:#fff; color:#1f2733; border:1px solid #d1d5db; border-radius:12px; padding:12px 18px; font-size:15px; font-weight:700; }
+  .s-app .early{ display:inline-block; padding:6px 0 0; color:#1d4ed8; font-size:15px; font-weight:700; text-decoration:underline; text-underline-offset:3px; }
+  .s-app .chg{ display:inline-block; margin-top:8px; font-size:15px; font-weight:700; color:#1d4ed8; text-decoration:underline; text-underline-offset:3px; }
+  .s-app .muted{ color:#64748b; font-size:14px; }
+  .s-app label{ display:block; font-size:14px; font-weight:700; margin-top:12px; }
+  .s-app .inp{ font-size:17px; padding:11px 12px; border:1px solid #cbd5e1; border-radius:10px; margin-top:6px; min-height:48px; color:#1f2733; display:flex; align-items:center; }
+  .s-app .inp.ph{ color:#9aa3b2; }
+  .s-app .inp.focus{ border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,0.18); }
+  .caret{ display:inline-block; width:2px; height:20px; background:#3b82f6; margin-left:1px; animation:blink 1s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .s-app .block{ display:block; margin-top:12px; }
+  .s-app .undo{ display:flex; align-items:center; justify-content:space-between; gap:10px; background:#1f2937; color:#fff; border-radius:10px; padding:7px 7px 7px 14px; margin-bottom:12px; font-size:15px; font-weight:700; }
+  .s-app .undo span.b{ border:1px solid rgba(255,255,255,0.5); border-radius:8px; padding:5px 15px; font-size:15px; }
+  .s-app .foot{ text-align:center; margin-top:20px; }
+  .s-app .foot .lk{ color:#64748b; font-size:14px; font-weight:700; }
+  .s-app .small{ font-size:13px; }
+
+  /* ---------- notifications, lock screen, photo ---------- */
+  .notif{ position:absolute; left:10px; right:10px; top:-130px; z-index:70; background:rgba(245,245,247,0.94); backdrop-filter:blur(14px); border-radius:22px; padding:12px 14px; display:flex; gap:11px; box-shadow:0 10px 30px rgba(0,0,0,0.25); transition:top .45s cubic-bezier(.2,.9,.3,1.1); font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; }
+  .notif.on{ top:54px; }
+  .notif img{ width:38px; height:38px; border-radius:9px; flex:0 0 auto; }
+  .notif .t{ display:flex; justify-content:space-between; font-size:15px; color:#111; }
+  .notif .t b{ font-weight:700; }
+  .notif .t small{ color:#8a8a8e; font-size:13px; }
+  .notif .bd{ font-size:15px; color:#111; line-height:1.3; margin-top:1px; }
+  .lock{ position:absolute; inset:0; z-index:30; background:linear-gradient(160deg,#1e3a8a 0%,#2563eb 45%,#7dd3fc 100%); color:#fff; text-align:center; font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; transition:opacity .4s, transform .45s; }
+  .lock.gone{ opacity:0; transform:translateY(-40px); pointer-events:none; }
+  .lock .dt{ margin-top:86px; font-size:18px; font-weight:600; opacity:0.92; }
+  .lock .big{ font-size:92px; font-weight:700; line-height:1; letter-spacing:-2px; margin-top:4px; }
+  .lock .notif{ position:absolute; top:auto; bottom:-140px; transition:bottom .5s cubic-bezier(.2,.9,.3,1.1); text-align:left; }
+  .lock .notif.on{ bottom:120px; }
+  .photo{ position:absolute; inset:0; z-index:65; opacity:0; transition:opacity .5s; pointer-events:none; }
+  .photo.on{ opacity:1; }
+  .photo img{ width:100%; height:100%; object-fit:cover; }
+  .photo .chip{ position:absolute; left:16px; right:16px; bottom:40px; background:rgba(17,17,30,0.78); color:#fff; border-radius:16px; padding:12px 14px; font-size:15px; line-height:1.35; backdrop-filter:blur(8px); }
+  .photo .chip b{ font-family:'Montserrat',sans-serif; display:block; font-size:16px; margin-bottom:2px; }
+  .toast{ position:absolute; left:50%; bottom:110px; transform:translateX(-50%); background:#1f2937; color:#fff; padding:9px 14px; border-radius:10px; font-size:14px; font-weight:700; z-index:44; white-space:nowrap; animation:pop .3s ease; }
+
+  /* ---------- controls ---------- */
+  .controls{ margin-top:22px; display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center; }
+  .btn{ font-family:'Karla',sans-serif; font-weight:700; font-size:15px; border-radius:999px; padding:10px 18px; cursor:pointer; border:1px solid var(--pg-line-strong); background:#fff; color:var(--pg-text); }
+  .btn.pri{ background:var(--sage-grad); border-color:var(--sage); color:#fff; box-shadow:0 4px 12px rgba(79,107,99,0.22); }
+  .btn:focus-visible{ outline:3px solid rgba(94,124,115,0.45); outline-offset:2px; }
+  .dots{ display:flex; gap:6px; }
+  .dots i{ width:26px; height:6px; border-radius:3px; background:#dfe2e7; transition:background .3s; }
+  .dots i.done{ background:#93c5fd; } .dots i.cur{ background:var(--sage); }
+  .note{ margin:22px auto 0; text-align:center; font-size:13.5px; color:#6b717a; max-width:720px; }
+
+  .end{ position:absolute; inset:0; z-index:90; background:linear-gradient(150deg,#3b82f6,#1e40af); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px; opacity:0; pointer-events:none; transition:opacity .5s; border-radius:43px; }
+  .end.on{ opacity:1; }
+  .end img{ width:76px; height:76px; border-radius:18px; box-shadow:0 10px 30px rgba(0,0,0,0.25); }
+  .end h3{ font-family:'Montserrat',sans-serif; font-size:26px; font-weight:800; margin:18px 0 8px; line-height:1.2; }
+  .end p{ margin:0; font-size:16px; opacity:0.92; line-height:1.45; }
+  .end .url{ margin-top:22px; background:#fff; color:#1d4ed8; font-weight:800; border-radius:999px; padding:10px 18px; font-size:15px; }
+
+  /* Narrow screens and the vertical video: one phone at a time */
+  @media (min-width:1100px){
+    body:not(.reel) .page{ max-width:1280px; display:grid; grid-template-columns:minmax(300px,380px) 1fr; grid-template-rows:auto 1fr; gap:24px 44px; align-items:start; padding-top:32px; }
+    body:not(.reel) .side{ position:sticky; top:32px; }
+    body:not(.reel) .stage{ margin-top:0; gap:40px; }
+    body:not(.reel) .caption{ min-height:150px; }
+    body:not(.reel) .controls{ justify-content:flex-start; }
+    body:not(.reel) .note{ text-align:left; margin-left:0; }
+  }
+  @media (max-width:860px){
+    .stage{ gap:0; }
+    .device.dim{ display:none; }
+  }
+  body.reel{ zoom:2; background:var(--cloud); }
+  body.reel .page{ width:540px; height:960px; padding:26px 22px 0; overflow:hidden; }
+  body.reel .lede, body.reel .controls, body.reel .note{ display:none; }
+  body.reel h1.title{ font-size:24px; margin:12px 0 0; }
+  body.reel .caption{ margin-top:14px; height:142px; }
+  body.reel .stage{ margin-top:14px; gap:0; }
+  /* Reel: both phones side by side, the idle one dimmed, so viewers see each hand-off. */
+  body.reel .page{ padding:26px 14px 0; }
+  body.reel .page > *:not(.stage){ margin-left:8px; margin-right:8px; }
+  body.reel .stage{ margin-top:58px; gap:14px; }
+  body.reel .device{ transform:none !important; }
+  body.reel .device.dim{ display:flex; opacity:0.5; filter:saturate(0.55); }
+  body.reel{ --phone-scale:0.664; }
+  .cta{ margin-top:20px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center; }
+  .cta a.btn{ text-decoration:none; display:inline-block; }
+  .cta .vid{ flex-basis:100%; text-align:center; font-weight:700; color:var(--sage-deep); font-size:15px; }
+  .cta .back{ font-weight:700; color:var(--sage-deep); font-size:15px; margin-left:6px; }
+  @media (min-width:1100px){
+    body:not(.reel) .side{ grid-column:1; grid-row:1; position:static; }
+    body:not(.reel) .stage{ grid-column:2; grid-row:1 / span 2; }
+    body:not(.reel) .cta{ grid-column:1; grid-row:2; justify-content:flex-start; margin-top:0; align-self:start; }
+    body:not(.reel) .cta .vid{ text-align:left; }
+  }
+  body.reel .cta{ display:none; }
+
+  /* ---------- MedRecords owner app (matches the app's Medications page) ---------- */
+  .m-app{ min-height:100%; background:#f3f5fa; padding-bottom:40px; font-family:'Karla',Arial,sans-serif; color:#1f2a44; }
+  .m-head{ position:sticky; top:0; z-index:5; height:112px; padding:56px 18px 0; background:linear-gradient(110deg,#38bdf8 0%,#3b82f6 45%,#1d4ed8 100%); display:flex; align-items:center; gap:16px; color:#fff; }
+  .m-head .menu{ width:22px; display:flex; flex-direction:column; gap:4px; }
+  .m-head .menu i{ height:3px; background:#fff; border-radius:2px; }
+  .m-head .nm{ font-family:'Montserrat',sans-serif; font-weight:700; font-size:21px; flex:1; }
+  .m-head img{ width:34px; height:34px; border-radius:8px; border:2px solid #fff; }
+  .m-body{ padding:16px 14px 0; }
+  .m-back{ font-size:14.5px; font-weight:600; color:#1f2a44; display:flex; align-items:center; gap:8px; }
+  .m-h1{ font-family:'Montserrat',sans-serif; font-weight:700; font-size:26px; margin:16px 2px 4px; color:#1f2a44; }
+  .m-sub{ font-size:14px; color:#475569; margin:0 2px 12px; }
+  .m-btns{ display:flex; gap:8px; margin-bottom:14px; }
+  .m-btns span{ font-size:13.5px; font-weight:600; border-radius:8px; padding:9px 12px; display:inline-flex; align-items:center; gap:6px; }
+  .m-btns .pr{ border:1px solid #1f2a44; color:#1f2a44; background:#fff; }
+  .m-btns .ad{ background:linear-gradient(110deg,#38bdf8,#1d4ed8); color:#fff; }
+  .m-card{ background:#fff; border-radius:14px; box-shadow:0 2px 10px rgba(15,23,42,0.05); border:1px solid #e3e7ef; transition:box-shadow .4s, border-color .4s; }
+  .m-med{ padding:14px 14px 10px; margin-bottom:12px; }
+  .m-med .top{ display:flex; align-items:center; }
+  .m-med .mn{ flex:1; font-family:'Montserrat',sans-serif; font-weight:700; font-size:17px; color:#1f2a44; }
+  .m-med .dots3{ color:#1f2a44; font-weight:800; letter-spacing:1px; }
+  .m-med .row{ display:flex; justify-content:space-between; gap:10px; margin-top:8px; font-size:14px; color:#1f2a44; }
+  .m-med .hist{ color:#3b82f6; font-weight:600; white-space:nowrap; }
+  .m-med .why{ font-size:12.5px; color:#475569; margin-top:4px; }
+  .m-dose{ display:flex; align-items:center; gap:6px; font-size:12.5px; margin-top:6px; color:#64748b; }
+  .m-dose.due{ color:#3b82f6; font-weight:700; }
+  .m-dose .rel{ font-weight:400; }
+  .m-cg{ display:flex; align-items:center; gap:6px; font-size:12.5px; color:#64748b; margin-top:4px; }
+  .m-acts{ display:flex; align-items:center; gap:6px; margin-top:8px; padding-top:8px; border-top:1px solid #edf0f5; transition:opacity .3s; }
+  .m-acts.rest{ opacity:0.4; }
+  .m-acts .bell{ width:40px; height:40px; border-radius:8px; background:#eef1f6; display:grid; place-items:center; }
+  .m-acts .took{ height:40px; border:1px solid #1f2a44; border-radius:8px; padding:0 12px; display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:600; color:#1f2a44; }
+  .m-acts .skip{ font-size:14px; font-weight:600; color:#475569; padding:0 8px; }
+  .m-sec{ font-size:12px; font-weight:700; letter-spacing:0.08em; color:#64748b; margin:18px 4px 8px; }
+  .m-share-h{ display:flex; align-items:center; gap:12px; padding:13px 14px; }
+  .m-share-h .t{ flex:1; min-width:0; }
+  .m-share-h b{ display:block; font-size:14.5px; font-weight:700; color:#1f2a44; line-height:1.2; }
+  .m-share-h small{ display:block; font-size:12px; color:#64748b; margin-top:3px; line-height:1.35; }
+  .m-badge{ font-size:10px; font-weight:600; background:#eef1f6; color:#1f2a44; border-radius:6px; padding:3px 7px; }
+  .m-chev{ color:#64748b; font-size:13px; transition:transform .2s; display:inline-block; }
+  .m-chev.open{ transform:rotate(180deg); }
+  .m-share-b{ padding:0 14px 14px; }
+  .m-share-b .xs{ font-size:12.5px; color:#64748b; line-height:1.4; margin:0; }
+  .m-lbl{ font-size:13.5px; font-weight:600; color:#1f2a44; margin:12px 0 6px; }
+  .m-inp{ height:40px; border:1px solid #d5dbe5; border-radius:8px; padding:0 12px; display:flex; align-items:center; font-size:14.5px; color:#1f2a44; background:#fff; }
+  .m-inp.ph{ color:#94a3b8; }
+  .m-inp.focus{ border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,0.18); }
+  .m-row{ border:1px solid #e3e7ef; border-radius:10px; padding:10px 11px; margin-bottom:8px; }
+  .m-row .rt{ display:flex; align-items:center; gap:10px; }
+  .m-row .n{ font-size:13.5px; font-weight:600; color:#1f2a44; }
+  .m-row .p{ font-size:12px; color:#64748b; margin-top:1px; display:flex; align-items:center; gap:5px; }
+  .m-row .p b{ color:#1f2a44; font-weight:700; }
+  .m-row .av{ width:14px; height:14px; border-radius:50%; display:inline-block; }
+  .m-row .ms{ margin-top:8px; }
+  .m-row .ms .l{ font-size:12px; color:#64748b; }
+  .m-sel{ margin-top:4px; height:36px; border:1px solid #d5dbe5; border-radius:8px; padding:0 10px; display:flex; align-items:center; justify-content:space-between; font-size:13.5px; color:#1f2a44; }
+  .m-sw{ flex:0 0 auto; width:40px; height:22px; border-radius:11px; position:relative; background:#d1d5db; transition:background .2s; }
+  .m-sw i{ position:absolute; top:3px; left:3px; width:16px; height:16px; border-radius:50%; background:#fff; transition:left .2s; box-shadow:0 1px 2px rgba(0,0,0,0.2); }
+  .m-sw.on{ background:#3b82f6; } .m-sw.on i{ left:21px; }
+  .m-make{ display:flex; align-items:center; justify-content:center; gap:8px; height:40px; border-radius:8px; background:#3b82f6; color:#fff; font-size:14px; font-weight:600; }
+  .m-links{ display:flex; flex-wrap:wrap; gap:6px; }
+  .m-links span{ height:36px; border:1px solid #d5dbe5; border-radius:8px; padding:0 10px; display:inline-flex; align-items:center; font-size:13px; font-weight:600; color:#1f2a44; }
+  .m-links span.stop{ border-color:transparent; color:#dc2626; }
+  .m-glow{ border-color:#3b82f6 !important; box-shadow:0 0 0 3px rgba(59,130,246,0.25), 0 8px 24px rgba(59,130,246,0.2) !important; }
+  /* caregiver.html overrides */
+  .s-app header{ background:linear-gradient(135deg,#3b82f6 0%,#1e40af 100%); }
+  .s-app .primary{ background:#1d4ed8; }
+  .s-app .early{ color:#1e40af; }
+  .s-app .chg{ color:#1d4ed8; }
+  .s-app .missednote{ margin-top:12px; padding:9px 12px; border-radius:10px; background:#f1f4f8; border:1px solid #dfe4ec; color:#334155; font-size:14px; line-height:1.4; }
+  .s-app .inp.focus{ border-color:#1d4ed8; box-shadow:0 0 0 3px rgba(29,78,216,0.18); }
+  .caret{ background:#1d4ed8; }
+  .photo img{ object-position:66% 50%; }
+  .glow{ border-color:#1d4ed8 !important; box-shadow:0 0 0 3px rgba(29,78,216,0.22), 0 8px 24px rgba(29,78,216,0.18) !important; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="side">
+  <div class="top">
+    <img src="./icon-192.png" alt="MedRecords">
+    <span class="brand">MedRecords</span>
+    <span class="badge">MEDRECORDS MAX</span>
+  </div>
+  <h1 class="title">Share doses with a caregiver</h1>
+  <p class="lede">Pick the medications, text one link, and see each dose your caregiver gives. Watch it play from both phones.</p>
+
+  <div class="caption" aria-live="polite">
+    <div class="num" id="capNum">1</div>
+    <div class="txt" id="capTxt">
+      <div class="who" id="capWho">Carol · family</div>
+      <h2 id="capTitle">Open Medications, then “Share doses with a caregiver”</h2>
+      <p id="capText">Carol keeps Mom’s medications in MedRecords. Today Dana is helping Mom while Carol is at work.</p>
+    </div>
+  </div>
+  <div class="controls">
+    <button class="btn pri" id="btnPlay" type="button">Pause</button>
+    <button class="btn" id="btnRestart" type="button">Restart</button>
+    <div class="dots" id="dots" aria-hidden="true"></div>
+  </div>
+  <p class="note">An illustration of how caregiver dose sharing works in MedRecords. Names, medications and times are examples, and the photo is illustrative. Caregiver sharing is part of MedRecords Max; MedRecords itself is free, with no ads.</p>
+  </div>
+
+  <div class="stage">
+    <div class="device active" id="devOwner">
+      <div class="label"><span class="dot"></span>Carol’s phone · family</div>
+      <div class="phone-wrap"><div class="phone" id="phOwner">
+        <div class="glass">
+          <div class="island"></div>
+          <div class="sbar" id="sbOwner"><span class="tm">7:15</span><span class="ic">
+            <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx="1" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="1" fill="currentColor"/></svg>
+            <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity="0.5"/><rect x="2" y="2" width="17" height="8" rx="2" fill="currentColor"/><rect x="24" y="4" width="1.6" height="4" rx="0.8" fill="currentColor" opacity="0.5"/></svg></span></div>
+          <div class="screen" id="scOwner"></div>
+          <div class="home-ind"></div>
+          <div class="finger" id="fgOwner"></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="device dim" id="devSitter">
+      <div class="label"><span class="dot"></span>Dana’s phone · caregiver</div>
+      <div class="phone-wrap"><div class="phone" id="phSitter">
+        <div class="glass">
+          <div class="island"></div>
+          <div class="sbar dark" id="sbSitter"><span class="tm">7:20</span><span class="ic">
+            <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx="1" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="1" fill="currentColor"/></svg>
+            <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity="0.5"/><rect x="2" y="2" width="14" height="8" rx="2" fill="currentColor"/><rect x="24" y="4" width="1.6" height="4" rx="0.8" fill="currentColor" opacity="0.5"/></svg></span></div>
+          <div class="screen" id="scSitter"></div>
+          <div class="home-ind"></div>
+          <div class="finger" id="fgSitter"></div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <a class="btn pri" href="https://cleartrackapps.com/go/medrecords-app/">Open MedRecords Free</a>
+    <a class="btn" href="https://cleartrackapps.com/go/medrecords-max/">Get MedRecords Max</a>
+    <a class="back" href="../">More about MedRecords</a>
+    <a class="vid" href="medrecords-caregiver-dose-sharing.mp4">Watch it as a video (MP4, 1 min)</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reel = /[?&]reel=1/.test(location.search);
+  if(reel) document.body.classList.add('reel');
+  function fit(){
+    if(reel) return;
+    var st = document.querySelector('.stage'); if(!st) return;
+    var top = st.getBoundingClientRect().top + window.scrollY;
+    var avail = window.innerHeight - top - 40 - 26;
+    var narrow = window.innerWidth < 860;
+    var sc = narrow ? Math.min(1, (window.innerWidth - 40) / 375) : Math.max(0.62, Math.min(1, avail / 780));
+    document.documentElement.style.setProperty('--phone-scale', sc.toFixed(3));
+  }
+  fit(); window.addEventListener('resize', fit);
+  var ICON = './icon-192.png';
+  var paused = false;
+  var TOTAL = 9;
+
+  function $(id){ return document.getElementById(id); }
+  function sleep(ms){
+    return new Promise(function(res){
+      var left = ms;
+      (function tick(){ if(left <= 0) return res(); setTimeout(function(){ if(!paused) left -= 50; tick(); }, 50); })();
+    });
+  }
+  var dots = $('dots');
+  for(var i = 0; i < TOTAL; i++) dots.appendChild(document.createElement('i'));
+  async function caption(n, who, title, text){
+    var box = $('capTxt'); box.classList.add('fade');
+    await sleep(220);
+    $('capNum').textContent = n; $('capWho').textContent = who; $('capTitle').textContent = title; $('capText').textContent = text || '';
+    box.classList.remove('fade');
+    Array.prototype.forEach.call(dots.children, function(d, k){ d.className = k < n - 1 ? 'done' : k === n - 1 ? 'cur' : ''; });
+  }
+  function focus(who){
+    var o = who === 'owner';
+    $('devOwner').className = 'device ' + (o ? 'active' : 'dim');
+    $('devSitter').className = 'device ' + (o ? 'dim' : 'active');
+  }
+  function setTime(who, t){ $(who === 'owner' ? 'sbOwner' : 'sbSitter').querySelector('.tm').textContent = t; }
+  function sbDark(who, dark){ $(who === 'owner' ? 'sbOwner' : 'sbSitter').classList.toggle('dark', !!dark); }
+  function phoneOf(who){ return $(who === 'owner' ? 'phOwner' : 'phSitter'); }
+  async function tap(who, el, opts){
+    opts = opts || {};
+    var ph = phoneOf(who), glass = ph.querySelector('.glass'), f = $(who === 'owner' ? 'fgOwner' : 'fgSitter');
+    var g = glass.getBoundingClientRect(), r = el.getBoundingClientRect();
+    var scale = g.width / glass.offsetWidth;
+    var x = (r.left + r.width * (opts.fx || 0.5) - g.left) / scale, y = (r.top + r.height * (opts.fy || 0.5) - g.top) / scale;
+    if(!f.classList.contains('on')){
+      f.style.transition = 'none'; f.style.left = (x + 40) + 'px'; f.style.top = (y + 90) + 'px';
+      void f.offsetWidth; f.style.transition = ''; f.classList.add('on');
+      await sleep(60);
+    }
+    f.style.left = x + 'px'; f.style.top = y + 'px';
+    await sleep(650);
+    f.classList.remove('press'); void f.offsetWidth; f.classList.add('press');
+    el.classList.remove('tapped'); void el.offsetWidth; el.classList.add('tapped');
+    await sleep(opts.after == null ? 380 : opts.after);
+  }
+  function hideFinger(who){ $(who === 'owner' ? 'fgOwner' : 'fgSitter').classList.remove('on'); }
+  function scrollToEl(scroller, el, offset){
+    var top = el.offsetTop - (offset || 70);
+    var p = el.offsetParent; while(p && p !== scroller){ top += p.offsetTop; p = p.offsetParent; }
+    scroller.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
+
+  // Icons (lucide shapes used by the app)
+  var I_CLOCK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>';
+  var I_USERS = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
+  var I_USERS_L = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
+  var I_BELL = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1f2a44" stroke-width="2" stroke-linecap="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M4 2C2.8 3.7 2 5.7 2 8M22 8c0-2.3-.8-4.3-2-6"/></svg>';
+  var I_CHECK = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>';
+  var I_SHARE = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>';
+
+  // =====================================================================
+  // OWNER — MedRecords Medications page (labels from the app's code)
+  // =====================================================================
+  var O = { open:false, name:'', typing:false, sw:{ amox:false, lis:false, met:false }, missed:false, link:false, phase:'morning', glow:false };
+  function sw(on, id){ return '<span class="m-sw' + (on ? ' on' : '') + '" id="sw-' + id + '"><i></i></span>'; }
+  function shareRow(key, med, person, color){
+    var on = O.sw[key];
+    var ms = on ? '<div class="ms"><div class="l">If a dose is missed</div><div class="m-sel" id="sel-' + key + '"><span>' + (key === 'amox' && O.missed ? 'Give it when remembered' : 'No instruction') + '</span><span style="color:#64748b">⌄</span></div><div class="l" style="margin-top:4px;">Shown to your caregiver when a dose is late or missed.</div></div>' : '';
+    return '<div class="m-row"><div class="rt"><div style="flex:1;min-width:0;"><div class="n">' + med + '</div><div class="p"><span class="av" style="background:' + color + '"></span>for <b>' + person + '</b></div></div>' + sw(on, key) + '</div>' + ms + '</div>';
+  }
+  function shareBody(){
+    var nameVal = O.name ? O.name + (O.typing ? '<span class="caret"></span>' : '') : (O.typing ? '<span class="caret"></span>' : 'Shown to caregivers, e.g. Carol');
+    var any = O.sw.amox || O.sw.lis || O.sw.met, link;
+    if(!O.link){
+      link = '<div class="m-make" id="oCreate" style="' + (any && O.name ? '' : 'opacity:.5') + '">' + I_SHARE + ' Make a link and send it</div>' +
+        (any && O.name ? '' : '<p class="xs" style="margin-top:6px;">Add your first name and switch on at least one medication to make a link.</p>');
+    } else {
+      link = '<div class="m-links"><span>Send the link again</span><span>New link</span><span class="stop">Stop sharing</span></div>' +
+        '<div class="m-lbl">Caregivers</div><p class="xs" id="oCgList">No one has opened the link yet.</p>';
+    }
+    return '<div class="m-share-b"><p class="xs">Caregivers see only the medications you switch on below: the reminder name, who it’s for, and dose times. Nothing else in your records is shared.</p>' +
+      '<div class="m-lbl">Your first name</div><div class="m-inp' + (O.typing ? ' focus' : (O.name ? '' : ' ph')) + '" id="oName">' + nameVal + '</div>' +
+      '<div class="m-lbl">Medications to share</div>' +
+      shareRow('amox', 'Amoxicillin', 'Mom', '#ec4899') + shareRow('lis', 'Lisinopril', 'Mom', '#ec4899') + shareRow('met', 'Metformin', 'Dad', '#22c55e') +
+      '<div class="m-lbl">Caregiver link</div>' + link + '</div>';
+  }
+  function medCard(key){
+    var after = O.phase === 'after';
+    if(key === 'amox'){
+      var dose = after
+        ? '<div class="m-dose">' + I_CLOCK + '<span>Next dose 2:00 PM <span class="rel">(in 6 hours)</span></span></div>' +
+          '<div class="m-cg" id="oCg">' + I_USERS + '<span class="' + (O.glow ? 'mark' : '') + '">Given by Dana, 8:03 AM</span></div>'
+        : '<div class="m-dose">' + I_CLOCK + '<span>Next dose 8:00 AM <span class="rel">(in 45 minutes)</span></span></div>';
+      return '<div class="m-card m-med' + (O.glow ? ' m-glow' : '') + '" id="oAmox"><div class="top"><div class="mn">Amoxicillin</div><span class="dots3">···</span></div>' +
+        '<div class="row"><span>500 mg · Capsule · 3 times daily</span><span class="hist">History ›</span></div><div class="why">Sinus infection</div>' + dose +
+        '<div class="m-acts' + (after ? ' rest' : '') + '"><span class="bell">' + I_BELL + '</span><span class="took">' + I_CHECK + ' I took it</span><span class="skip">Skip</span></div></div>';
+    }
+    return '<div class="m-card m-med" id="oLis"><div class="top"><div class="mn">Lisinopril</div><span class="dots3">···</span></div>' +
+      '<div class="row"><span>10 mg · Tablet · Daily</span><span class="hist">History ›</span></div><div class="why">Blood pressure</div>' +
+      '<div class="m-dose">' + I_CLOCK + '<span>Next dose 9:00 PM <span class="rel">(in ' + (after ? '13' : '14') + ' hours)</span></span></div>' +
+      '<div class="m-acts rest"><span class="bell">' + I_BELL + '</span><span class="took">' + I_CHECK + ' I took it</span><span class="skip">Skip</span></div></div>';
+  }
+  function ownerApp(){
+    return '<div class="m-app"><div class="m-head"><div class="menu"><i></i><i></i><i></i></div><div class="nm">MedRecords</div><img src="' + ICON + '" alt=""></div>' +
+      '<div class="m-body"><div class="m-back">← Back to Dashboard</div><h1 class="m-h1">Medications</h1><p class="m-sub">Track prescriptions, supplements, and daily doses</p>' +
+      '<div class="m-btns"><span class="pr">Print</span><span class="ad">+ Add Medication</span></div>' +
+      medCard('amox') + medCard('lis') +
+      '<div class="m-sec">MORE TOOLS</div>' +
+      '<div class="m-card" id="oShareCard"><div class="m-share-h" id="oShareBar">' + I_USERS_L + '<div class="t"><b>Share doses with a caregiver</b><small>They tap Given or Skip on their phone, and you see who gave each dose.</small></div><span class="m-badge">Max</span><span class="m-chev' + (O.open ? ' open' : '') + '">⌄</span></div>' + (O.open ? shareBody() : '') + '</div>' +
+      '</div></div>';
+  }
+  var oScreen = $('scOwner');
+  oScreen.innerHTML = '<div class="scroller" id="oScroll"></div><div class="scrim" id="oScrim"></div><div class="sheet" id="oSheet"></div><div class="msg" id="oMsg"></div>';
+  function renderOwner(){ var s = $('oScroll'), st = s.scrollTop; s.innerHTML = ownerApp(); s.scrollTop = st; }
+  renderOwner();
+
+  // =====================================================================
+  // CAREGIVER — Messages, then caregiver.html in Safari
+  // =====================================================================
+  var sScreen = $('scSitter');
+  var S = { joined:false, name:'', typing:false, late:false, given:false };
+  function richLink(dir, id){
+    return '<div class="rich ' + dir + '"' + (id ? ' id="' + id + '"' : '') + '><div class="art"><img src="' + ICON + '" alt=""></div><div class="meta"><b>Medication doses — MedRecords</b><small>cleartrackapps.com</small></div></div>';
+  }
+  var LINK_TEXT = 'Carol shared medication doses with you. Open this on your phone to see when each dose is due and mark it given:';
+
+  function cgHeader(title, sub){
+    return '<header><div class="brand"><img src="' + ICON + '" alt=""><span>MedRecords &bull; Medication doses</span></div><h1>' + title + '</h1>' + (sub ? '<div class="sub">' + sub + '</div>' : '') + '</header>';
+  }
+  function joinPage(){
+    var v = S.name ? S.name + '<span class="caret"></span>' : (S.typing ? '<span class="caret"></span>' : '');
+    return '<div class="s-app">' + cgHeader('Medication doses', 'Someone shared medication doses with you') +
+      '<div class="wrap"><div class="card"><p class="muted" style="margin:0;">You’ll see what’s due and can record each dose. Your name shows next to doses you record.</p>' +
+      '<label>Your first name</label><div class="inp' + (S.name || S.typing ? ' focus' : ' ph') + '" id="sName">' + v + '</div>' +
+      '<div class="primary block" id="sJoin">Continue</div></div></div></div>';
+  }
+  function amoxCard(){
+    var undo = S.given ? '<div class="undo"><span>Given 8:03 AM</span><span class="b">Undo</span></div>' : '';
+    var mid;
+    if(S.given){
+      mid = '<div class="due">Next dose: <span style="white-space:nowrap">today at 2:00 PM</span></div><span class="early">Give early</span>' +
+            '<div class="last">Last given today at 8:03 AM</div><span class="chg">Change time given</span>';
+    } else {
+      mid = (S.late ? '<div class="missednote"><strong>If missed:</strong> Give it as soon as you remember.</div><div class="due late" id="sDue">Due now · <span style="white-space:nowrap">8:00 AM</span></div>' : '<div class="due" id="sDue">Next dose: <span style="white-space:nowrap">today at 8:00 AM</span></div>') +
+            '<div class="btns"><div class="primary" id="sGiven">✓ Given</div><div class="secondary">Skip</div></div>' +
+            '<div class="last">Last given yesterday at 8:06 PM</div>';
+    }
+    return '<div class="card" data-k="amox" id="sAmox">' + undo + '<h2>Amoxicillin</h2><div class="pet">for Mom · 8:00 AM, 2:00 PM, 8:00 PM</div>' + mid + '</div>';
+  }
+  function lisCard(){
+    return '<div class="card" data-k="lis"><h2>Lisinopril</h2><div class="pet">for Mom · 9:00 PM</div><div class="due">Next dose: <span style="white-space:nowrap">today at 9:00 PM</span></div><span class="early">Give early</span><div class="last">Last given yesterday at 9:02 PM</div></div>';
+  }
+  function dosePage(){
+    // Sorted by next due (caregiver.html): Amoxicillin stays ahead of Lisinopril (9 PM).
+    var cards = amoxCard() + lisCard();
+    return '<div class="s-app">' + cgHeader('Doses for Mom', 'Shared by Carol') + '<div class="wrap">' + cards +
+      '<div class="card"><p style="margin:0;font-weight:800;">Get a reminder when a dose is due</p><p class="muted" style="margin:6px 0 0;">On iPhone, add this page to your Home Screen first: tap the Share button, then <strong>Add to Home Screen</strong>. Open it from there and turn reminders on.</p></div>' +
+      '<div class="foot"><span class="lk">Stop getting these doses</span><p class="muted small" style="margin:6px 0 0;">Shared from <strong>MedRecords</strong> by CleartrackApps. You see only the doses shared with you.</p></div></div></div>';
+  }
+  function renderSitterPage(flip){
+    var page = $('sPage'); if(!page) return;
+    var before = {};
+    if(flip) page.querySelectorAll('[data-k]').forEach(function(c){ before[c.getAttribute('data-k')] = c.getBoundingClientRect().top; });
+    page.innerHTML = S.joined ? dosePage() : joinPage();
+    if(flip){
+      var g = phoneOf('sitter').querySelector('.glass'); var scale = g.getBoundingClientRect().width / g.offsetWidth;
+      page.querySelectorAll('[data-k]').forEach(function(c){
+        var k = c.getAttribute('data-k'); if(before[k] == null) return;
+        var d = (before[k] - c.getBoundingClientRect().top) / scale;
+        c.style.transition = 'none'; c.style.transform = 'translateY(' + d + 'px)';
+        void c.offsetWidth; c.style.transition = ''; c.style.transform = '';
+      });
+    }
+  }
+  var MSG_ICON = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 40 40%22%3E%3Crect width=%2240%22 height=%2240%22 rx=%229%22 fill=%22%2334c759%22/%3E%3Cpath d=%22M20 10c-6.6 0-12 4.3-12 9.6 0 3 1.8 5.7 4.6 7.5L12 31l4.8-2.5c1 .2 2.1.3 3.2.3 6.6 0 12-4.3 12-9.6S26.6 10 20 10z%22 fill=%22white%22/%3E%3C/svg%3E';
+  function sitterMessages(){
+    sScreen.innerHTML =
+      '<div class="msg full" id="sMsg"><div class="mh" style="padding-top:52px;"><div class="row"><span style="color:#007aff;font-size:22px;">‹</span><span></span><span style="width:20px"></span></div>' +
+      '<div class="contact" style="padding-top:0;"><div class="av">C</div><b>Carol ›</b></div></div>' +
+      '<div class="thread" id="sThread"><div class="stamp">Today 7:12 AM</div><div class="bub in">Morning! Mom’s meds are in MedRecords. Sending you the link so you can see what’s due today.</div></div>' +
+      '<div class="compose"><div class="field" style="color:#b0b0b5;">iMessage</div></div></div>' +
+      '<div class="notif" id="sNotif"><img src="' + MSG_ICON + '" alt=""><div style="flex:1;min-width:0;"><div class="t"><b>Carol</b><small>now</small></div><div class="bd">Carol shared medication doses with you…</div></div></div>';
+  }
+  function appNotif(id, title, body){
+    return '<div class="notif" id="' + id + '"><img src="' + ICON + '" alt=""><div style="flex:1;min-width:0;"><div class="t"><b>' + title + '</b><small>now</small></div><div class="bd">' + body + '</div></div></div>';
+  }
+
+  sitterMessages();
+
+  async function run(){
+    // 1 — open sharing
+    focus('owner');
+    await caption(1, 'Carol · family', 'Open Medications, then “Share doses with a caregiver”', 'Carol keeps Mom’s medications in MedRecords. Today Dana is helping Mom while Carol is at work.');
+    await sleep(1500);
+    scrollToEl($('oScroll'), $('oShareCard'), 150);
+    await sleep(900);
+    await tap('owner', $('oShareBar'));
+    O.open = true; renderOwner();
+    await sleep(500);
+    scrollToEl($('oScroll'), $('oShareCard'), 70);
+    await sleep(900);
+
+    // 2 — name + switches
+    await caption(2, 'Carol · family', 'Add her name and switch on Mom’s medications', 'Only switched-on medications are shared. Dad’s Metformin stays off, and nothing else in Carol’s records is shared.');
+    await sleep(700);
+    await tap('owner', $('oName'));
+    O.typing = true; renderOwner();
+    var nm = 'Carol';
+    for(var c = 1; c <= nm.length; c++){ O.name = nm.slice(0, c); renderOwner(); await sleep(150); }
+    O.typing = false; renderOwner();
+    await sleep(300);
+    await tap('owner', $('sw-amox')); O.sw.amox = true; renderOwner(); await sleep(500);
+    await tap('owner', $('sel-amox')); O.missed = true; renderOwner(); await sleep(600);
+    await tap('owner', $('sw-lis')); O.sw.lis = true; renderOwner(); await sleep(400);
+    scrollToEl($('oScroll'), $('oCreate'), 330);
+    await sleep(1100);
+
+    // 3 — make link and text it
+    await caption(3, 'Carol · family', 'Make a link and send it to Dana', 'One link covers every medication switched on. It opens the phone’s share menu, so Carol can text it.');
+    await sleep(900);
+    await tap('owner', $('oCreate'));
+    O.link = true; renderOwner();
+    $('oScrim').classList.add('on');
+    var sh = $('oSheet');
+    sh.innerHTML = '<div class="lp"><img src="' + ICON + '" alt=""><div><b>Medication doses</b><small>cleartrackapps.com</small></div></div>' +
+      '<div class="apps"><div class="app" id="oMsgApp"><i style="background:#34c759"><svg width="30" height="30" viewBox="0 0 40 40"><path d="M20 8c-7.2 0-13 4.7-13 10.5 0 3.3 1.9 6.2 5 8.2L11 32l5.3-2.7c1.2.2 2.4.4 3.7.4 7.2 0 13-4.7 13-10.5S27.2 8 20 8z" fill="#fff"/></svg></i>Messages</div>' +
+      '<div class="app"><i style="background:#1a8cff"><svg width="30" height="22" viewBox="0 0 30 22"><rect x="1" y="1" width="28" height="20" rx="3" fill="#fff"/><path d="M2 3l13 9 13-9" stroke="#1a8cff" stroke-width="2" fill="none"/></svg></i>Mail</div>' +
+      '<div class="app"><i style="background:#fff;border:1px solid #ddd"><svg width="24" height="24" viewBox="0 0 24 24"><rect x="7" y="7" width="13" height="13" rx="2" fill="none" stroke="#555" stroke-width="2"/><rect x="3" y="3" width="13" height="13" rx="2" fill="#fff" stroke="#555" stroke-width="2"/></svg></i>Copy</div>' +
+      '<div class="app"><i style="background:#e5e5ea"><svg width="24" height="6" viewBox="0 0 24 6"><circle cx="3" cy="3" r="2.5" fill="#555"/><circle cx="12" cy="3" r="2.5" fill="#555"/><circle cx="21" cy="3" r="2.5" fill="#555"/></svg></i>More</div></div>' +
+      '<div class="acts"><div>Copy <span style="color:#8a8a8e">⧉</span></div><div>Add to Reading List <span style="color:#8a8a8e">∞</span></div></div>';
+    await sleep(200); sh.classList.add('on');
+    await sleep(1100);
+    await tap('owner', $('oMsgApp').querySelector('i'));
+    var m = $('oMsg');
+    m.innerHTML = '<div class="mh"><div class="row"><span style="color:#007aff">Cancel</span><b>New iMessage</b><span style="width:46px"></span></div><div class="to">To: <span>Dana</span></div></div>' +
+      '<div class="thread" id="oThread"></div>' +
+      '<div class="compose"><div class="field" id="oField">' + richLink('in') + LINK_TEXT + '</div><div class="send" id="oSendBtn"><svg width="14" height="16" viewBox="0 0 14 16"><path d="M7 15V2M1.5 7.5L7 2l5.5 5.5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>';
+    sh.classList.remove('on'); m.classList.add('on'); sbDark('owner', true);
+    await sleep(1500);
+    await tap('owner', $('oSendBtn'));
+    $('oField').innerHTML = '<span style="color:#b0b0b5">iMessage</span>';
+    $('oThread').innerHTML = '<div class="bub out pop">' + LINK_TEXT + '</div>' + richLink('out pop');
+    await sleep(500);
+    $('oThread').insertAdjacentHTML('beforeend', '<div style="align-self:flex-end;font-size:11.5px;color:#8a8a8e;margin-right:4px;">Delivered</div>');
+    await sleep(1200);
+    m.classList.remove('on'); $('oScrim').classList.remove('on'); sbDark('owner', false);
+    hideFinger('owner');
+    await sleep(800);
+
+    // 4 — caregiver gets the text
+    focus('sitter');
+    await caption(4, 'Dana · caregiver', 'Dana gets the text and taps the link', 'No app to download and no account. The link opens Mom’s dose page in her phone’s browser.');
+    await sleep(700);
+    $('sNotif').classList.add('on');
+    await sleep(1600);
+    $('sNotif').classList.remove('on');
+    var th = $('sThread');
+    th.insertAdjacentHTML('beforeend', '<div class="bub in pop">' + LINK_TEXT + '</div>' + richLink('in pop', 'sRich'));
+    await sleep(1400);
+    await tap('sitter', $('sRich'));
+    sScreen.innerHTML = '<div class="safari"><div class="s-page" id="sPageWrap"><div class="s-load" id="sLoad"></div><div class="scroller" id="sPage"></div></div><div class="s-bar"><div class="url"><svg width="11" height="13" viewBox="0 0 11 13"><rect x="1" y="5.5" width="9" height="7" rx="1.5" fill="#111"/><path d="M3 5.5V4a2.5 2.5 0 015 0v1.5" stroke="#111" stroke-width="1.5" fill="none"/></svg>cleartrackapps.com</div></div></div>';
+    sbDark('sitter', false);
+    renderSitterPage();
+    requestAnimationFrame(function(){ $('sLoad').style.width = '100%'; });
+    setTimeout(function(){ var l = $('sLoad'); if(l) l.style.opacity = '0'; }, 900);
+    await sleep(1200);
+
+    // 5 — first name
+    await caption(5, 'Dana · caregiver', 'Dana types her first name', 'Her name shows next to every dose she records, so Carol always knows who gave it.');
+    await sleep(900);
+    await tap('sitter', $('sName'));
+    S.typing = true; renderSitterPage();
+    var dn = 'Dana';
+    for(var k = 1; k <= dn.length; k++){ S.name = dn.slice(0, k); renderSitterPage(); await sleep(190); }
+    await sleep(500);
+    await tap('sitter', $('sJoin'));
+    S.joined = true; renderSitterPage();
+    await sleep(700);
+
+    // 6 — sees medicine and time
+    await caption(6, 'Dana · caregiver', 'She sees what Mom takes and when', 'Each card shows the medication, who it’s for and the next dose time. The dose due soonest is on top.');
+    $('sAmox').classList.add('glow');
+    await sleep(3600);
+    $('sAmox').classList.remove('glow');
+
+    // 7 — gives the dose
+    setTime('sitter', '8:01');
+    S.late = true; renderSitterPage();
+    await caption(7, 'Dana · caregiver', 'At 8:00, the Amoxicillin is due now', 'Carol’s missed-dose instruction shows on the card. Dana gives Mom her capsule.');
+    await sleep(1800);
+    hideFinger('sitter');
+    var ph = document.createElement('div'); ph.className = 'photo';
+    ph.innerHTML = '<img src="./give-dose.jpg" alt="A caregiver hands an older woman a capsule and a glass of water"><div class="chip"><b>8:03 AM</b>Mom takes her Amoxicillin with a glass of water.</div>';
+    sScreen.appendChild(ph);
+    await sleep(60); ph.classList.add('on');
+    await sleep(3200);
+    ph.classList.remove('on'); setTime('sitter', '8:03');
+    await sleep(600); ph.remove();
+
+    // 8 — taps Given
+    await caption(8, 'Dana · caregiver', 'Dana taps “✓ Given”', 'The dose is recorded with her name. Undo stays available for 5 minutes in case she tapped by mistake.');
+    await sleep(900);
+    await tap('sitter', $('sGiven'));
+    S.given = true; renderSitterPage(true);
+    await sleep(2600);
+    hideFinger('sitter');
+    await sleep(700);
+
+    // 9 — owner sees it
+    focus('owner');
+    setTime('owner', '8:09');
+    O.phase = 'after'; O.open = false; renderOwner(); $('oScroll').scrollTop = 0;
+    var lock = document.createElement('div'); lock.className = 'lock';
+    lock.innerHTML = '<div class="dt">Monday, November 16</div><div class="big">8:09</div>' +
+      appNotif('oNotif', 'Amoxicillin given (Mom)', 'Given by Dana at 8:03 AM');
+    oScreen.appendChild(lock);
+    sbDark('owner', false);
+    await caption(9, 'Carol · at work', 'Carol sees that Dana gave Mom’s dose', 'The notice waits until Dana’s 5-minute Undo window has passed. The medication card shows who gave it and when.');
+    await sleep(900);
+    $('oNotif').classList.add('on');
+    await sleep(2600);
+    await tap('owner', $('oNotif'));
+    lock.classList.add('gone');
+    await sleep(500); lock.remove();
+    O.glow = true; renderOwner();
+    await sleep(400);
+    scrollToEl($('oScroll'), $('oAmox'), 130);
+    await sleep(900);
+    hideFinger('owner');
+    await sleep(4200);
+
+    var end = document.createElement('div'); end.className = 'end';
+    end.innerHTML = '<img src="' + ICON + '" alt=""><h3>Every dose, shared with the people helping</h3><p>MedRecords is free, with no ads.<br>Caregiver sharing comes with MedRecords Max.</p><div class="url">cleartrackapps.com/medrecords</div>';
+    phoneOf('owner').querySelector('.glass').appendChild(end);
+    await sleep(60); end.classList.add('on');
+    window.__done = true;
+    $('btnPlay').textContent = 'Play again';
+    done = true;
+  }
+
+  var done = false;
+  $('btnPlay').onclick = function(){
+    if(done){ location.reload(); return; }
+    paused = !paused; this.textContent = paused ? 'Play' : 'Pause';
+  };
+  $('btnRestart').onclick = function(){ location.reload(); };
+  window.addEventListener('load', function(){ setTimeout(run, reel ? 600 : 900); });
+})();
+</script>
+<script src="../../meta-pixel.js" defer></script>
+<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5673e14274004df9a11f87d759a6b624"}'></script>
+</body>
+</html>
