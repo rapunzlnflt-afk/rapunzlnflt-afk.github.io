@@ -270,9 +270,13 @@
   body.reel h1.title{ font-size:24px; margin:12px 0 0; }
   body.reel .caption{ margin-top:14px; height:142px; }
   body.reel .stage{ margin-top:14px; gap:0; }
-  body.reel .device.dim{ display:none; }
+  /* Reel: both phones side by side, the idle one dimmed, so viewers see each hand-off. */
+  body.reel .page{ padding:26px 14px 0; }
+  body.reel .page > *:not(.stage){ margin-left:8px; margin-right:8px; }
+  body.reel .stage{ margin-top:58px; gap:14px; }
   body.reel .device{ transform:none !important; }
-  body.reel{ --phone-scale:0.8; }
+  body.reel .device.dim{ display:flex; opacity:0.5; filter:saturate(0.55); }
+  body.reel{ --phone-scale:0.664; }
   .cta{ margin-top:20px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center; }
   .cta a.btn{ text-decoration:none; display:inline-block; }
   .cta .vid{ flex-basis:100%; text-align:center; font-weight:700; color:var(--sage-deep); font-size:15px; }
