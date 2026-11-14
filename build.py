@@ -60,7 +60,9 @@ GO_LINKS = {
     "cosmetic-surgery-planner": ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/e232c3b3-cbca-4522-b41c-00c064ebc46b"),
     # Bootstraps: one-time $4.99 Lemon Squeezy product (Nov 2026).
     "bootstraps":               ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/44efa96d-0b90-42a8-be25-29916f6e095e"),
-    "etsy-shop":                ("Etsy",    "https://cleartrackapps.etsy.com"),
+    # The Etsy shop has no active listings (all deactivated Nov 2026). Old pins
+    # and posts still use /go/etsy-shop/, so send them to the apps on the site.
+    "etsy-shop":                ("the CleartrackApps store", "https://cleartrackapps.com/?ref=etsy-legacy#apps"),
     # Not a store link. This one is for the Instagram bio, so reel traffic lands on
     # the try-it-yourself demo instead of the storefront, and shows up as its own
     # row in Cloudflare separately from people who arrive via /pawfolio/.
