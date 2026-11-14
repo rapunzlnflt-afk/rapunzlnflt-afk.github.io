@@ -49,7 +49,7 @@ GO_LINKS = {
     # Budget Tracker: one-time $29.99 Lemon Squeezy product (Nov 2026). Replaces
     # the Etsy listing; old pins using /go/budget-tracker/ now land on checkout.
     "budget-tracker":           ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/1848a045-1796-469e-b94f-9794ce67aeb0"),
-    # Puzzle Pig: one-time $14.99 Lemon Squeezy product with license keys
+    # Puzzle Pig: one-time $19.99 Lemon Squeezy product with license keys
     # (5 devices), Nov 2026. Replaces the Gumroad product.
     "puzzle-pig":               ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/36bed46c-39ae-42e7-ae4a-8b67824589f8"),
     # The Puzzle Pig Etsy listing is no longer offered (Nov 2026). Old pins and
@@ -162,8 +162,8 @@ APPS = [
             "PIN-protected parent dashboard",
             "Parent and child phone sync",
         ],
-        price="$14.99", audience="Parents of kids",
-        primary=("Buy now \u2014 $14.99", go("puzzle-pig")),
+        price="$19.99", audience="Parents of kids",
+        primary=("Buy now \u2014 $19.99", go("puzzle-pig")),
         secondary=("Get the full version", go("puzzle-pig")),
         demo="https://cleartrackapps.com/puzzle-pig-demo/",
         tag="Kids &amp; chores",
