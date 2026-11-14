@@ -58,7 +58,9 @@ GO_LINKS = {
     "medical-records-etsy":     ("MedRecords", "https://cleartrackapps.com/medrecords/?ref=etsy-legacy"),
     "budget-tracker":           ("Etsy",    "https://www.etsy.com/listing/4489254039"),
     "puzzle-pig":               ("secure checkout", "https://cleartrackapps.gumroad.com/l/puzzlepig?wanted=true&ref=site"),
-    "puzzle-pig-etsy":          ("Etsy",    "https://www.etsy.com/listing/4490566794"),
+    # The Puzzle Pig Etsy listing is no longer offered (Nov 2026). Old pins and
+    # captions still use /go/puzzle-pig-etsy/, so send them to site checkout.
+    "puzzle-pig-etsy":          ("secure checkout", "https://cleartrackapps.gumroad.com/l/puzzlepig?wanted=true&ref=etsy-legacy"),
     "cosmetic-surgery-planner": ("Etsy",    "https://www.etsy.com/listing/4487732067"),
     # Bootstraps: one-time $4.99 Lemon Squeezy product (Nov 2026).
     "bootstraps":               ("secure checkout", "https://cleartrackapps.lemonsqueezy.com/checkout/buy/44efa96d-0b90-42a8-be25-29916f6e095e"),
