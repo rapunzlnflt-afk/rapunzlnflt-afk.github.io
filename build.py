@@ -164,7 +164,7 @@ APPS = [
         ],
         price="$14.99", audience="Parents of kids",
         primary=("Buy now \u2014 $14.99", go("puzzle-pig")),
-        secondary=("Prefer Etsy? Buy there instead", go("puzzle-pig-etsy")),
+        secondary=("Get the full version", go("puzzle-pig")),
         demo="https://cleartrackapps.com/puzzle-pig-demo/",
         tag="Kids &amp; chores",
     ),
@@ -302,7 +302,7 @@ def card(a, i):
     if a["secondary"]:
         label, url = a["secondary"]
         sec = (f'\n      <p class="card-alt"><a href="{url}" target="_blank" rel="noopener noreferrer">'
-               f'{label}<span class="sr-only"> ({a["name"]} on Etsy)</span></a></p>')
+               f'{label}<span class="sr-only"> ({a["name"]}{" on Etsy" if "etsy" in url else ""})</span></a></p>')
     plabel, purl = a["primary"]
     return f'''    <article class="card" id="{a['slug']}" style="--accent: var(--accent-{a['key']}); --accent-soft: var(--accent-{a['key']}-soft);">
       <header class="card-head">
