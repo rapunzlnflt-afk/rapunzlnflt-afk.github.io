@@ -363,6 +363,7 @@ PAGE = f'''<!DOCTYPE html>
             <li>They tap Given on their phone. No app or account needed.</li>
             <li>You see who gave each dose, and when.</li>
           </ol>
+          <a class="pf-watch" href="caregiver-sharing/"><span class="pf-play" aria-hidden="true"></span>Watch the full walkthrough (1 min)</a>
         </div>
       </div>
     </div>
