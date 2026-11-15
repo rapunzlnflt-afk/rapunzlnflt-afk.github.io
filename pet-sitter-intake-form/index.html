@@ -1001,6 +1001,7 @@
       var code = (e && (e.code || e.message)) || '';
       if (code === 'too_large' || (e && e.status === 413)) say('This form is too large to send with these photos. Try fewer or smaller photos, then send again.', 'err');
       else if (code === 'not_found' || (e && e.status === 404)) say("This link isn't active anymore. Ask your sitter for a new one.", 'err');
+      else if (code === 'rate_limited') say("Too many tries in a short time, so it wasn't sent. Your answers are still here. Wait a few minutes, then send again.", 'err');
       else if (code === 'inbox_full' || (e && e.status === 429)) say("This sitter's inbox is full right now. Please let them know.", 'err');
       else if (navigator.onLine === false || (e && e.name === 'TypeError')) say("You seem to be offline, so it wasn't sent. Your answers are still here. Try again when you're connected.", 'err');
       else say("Something went wrong and it wasn't sent. Please try again, or print or save a PDF instead.", 'err');
