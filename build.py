@@ -67,6 +67,11 @@ GO_LINKS = {
     # the try-it-yourself demo instead of the storefront, and shows up as its own
     # row in Cloudflare separately from people who arrive via /pawfolio/.
     "pawfolio-demo":            ("the Pawfolio demo", "https://cleartrackapps.com/pet-care-planner-demo/?ref=reel"),
+    # Pinterest pin links (Nov 2026). Each pin opens the app's demo, and each
+    # slug shows up as its own row in Cloudflare.
+    "bootstraps-demo":          ("the Bootstraps demo", "https://cleartrackapps.com/bootstraps-demo/?ref=pinterest"),
+    "puzzle-pig-demo":          ("the Puzzle Pig demo", "https://cleartrackapps.com/puzzle-pig-demo/?ref=pinterest"),
+    "cosmetic-surgery-planner-demo": ("the Cosmetic Surgery Planner demo", "https://cleartrackapps.com/beauty-planner-demo/?ref=pinterest"),
 }
 
 
