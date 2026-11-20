@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Puzzle Pig works — chores, savings and goals</title>
+<meta name="description" content="See how Puzzle Pig works: your child taps I Did It!, you approve the chore, and the money lands in their jar while their goal picture is revealed.">
+<link rel="canonical" href="https://cleartrackapps.com/puzzle-pig/how-it-works/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CleartrackApps">
+<meta property="og:title" content="How Puzzle Pig works">
+<meta property="og:description" content="Your child taps I Did It!, you approve, and the money lands in their jar while their goal picture is revealed.">
+<meta property="og:url" content="https://cleartrackapps.com/puzzle-pig/how-it-works/">
+<meta property="og:image" content="https://cleartrackapps.com/assets/og-puzzle-pig-how-it-works.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Two phones: Sophie taps I Did It! and a parent approves the chore in Puzzle Pig.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How Puzzle Pig works">
+<meta name="twitter:image" content="https://cleartrackapps.com/assets/og-puzzle-pig-how-it-works.png">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="apple-touch-icon" href="../../assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#3a3f33; --bg:#FBF6EE;
+    --late:#b45309; --phone-scale:1;
+    /* Page chrome (outside the phones) uses the Cleartrack scheme; the phones keep Pawfolio's own colors. */
+    --pg-text:#33402a; --pg-muted:#5f6656; --pg-line:#e6e0d4; --pg-line-strong:#d6cfbf;
+    --sage:#80A561; --sage-deep:#4F6839; --sage-grad:linear-gradient(135deg,#96BA74,#8AAF69 50%,#80A561);
+    --cocoa:#C4606D; --cocoa-soft:#F8E6E6;
+    --cloud:linear-gradient(165deg,#FBF6EE 0%,#F5F0E4 45%,#E9F0DF 100%);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; }
+  body{ font-family:'Nunito',Arial,sans-serif; color:var(--ink); background:var(--cloud) fixed, #f5f6f8; min-height:100vh; }
+  .page{ max-width:1080px; margin:0 auto; padding:28px 20px 40px; }
+
+  /* ---------- top + caption ---------- */
+  .top{ display:flex; align-items:center; gap:12px; }
+  .top img{ width:40px; height:40px; border-radius:10px; box-shadow:0 2px 8px rgba(36,39,43,0.18); }
+  .top .brand{ font-family:'Fraunces',Georgia,serif; font-weight:800; font-size:18px; color:var(--pg-text); }
+  .top .badge{ margin-left:auto; font-family:'Fraunces',Georgia,serif; font-size:11px; font-weight:800; letter-spacing:0.08em; color:var(--cocoa); background:var(--cocoa-soft); border:1px solid rgba(196,96,109,0.3); padding:5px 10px; border-radius:999px; }
+  h1.title{ font-family:'Fraunces',Georgia,serif; font-weight:800; font-size:clamp(24px,3.4vw,36px); line-height:1.15; margin:18px 0 6px; color:var(--pg-text); letter-spacing:-0.01em; }
+  .lede{ margin:0; font-size:17px; color:var(--pg-muted); max-width:640px; }
+
+  .caption{ margin-top:22px; background:#fff; border:1px solid var(--pg-line); border-radius:16px; padding:16px 18px; box-shadow:0 6px 24px rgba(36,39,43,0.06); display:flex; gap:14px; align-items:flex-start; min-height:96px; }
+  .caption .num{ flex:0 0 auto; width:38px; height:38px; border-radius:50%; background:var(--sage-grad); color:#fff; display:grid; place-items:center; font-family:'Fraunces',Georgia,serif; font-weight:800; font-size:16px; }
+  .caption .who{ font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--cocoa); }
+  .caption h2{ margin:2px 0 2px; font-family:'Fraunces',Georgia,serif; font-size:19px; font-weight:800; color:var(--pg-text); line-height:1.25; }
+  .caption p{ margin:0; font-size:15.5px; color:var(--pg-muted); line-height:1.45; }
+  .caption .txt{ transition:opacity .25s ease; }
+  .caption .txt.fade{ opacity:0; }
+
+  /* ---------- stage ---------- */
+  .stage{ position:relative; margin-top:22px; display:flex; justify-content:center; gap:56px; align-items:flex-start; }
+  .device{ display:flex; flex-direction:column; align-items:center; gap:12px; transition:opacity .4s ease, filter .4s ease, transform .4s ease; }
+  .device.dim{ opacity:0.4; filter:saturate(0.55); }
+  .device{ position:relative; }
+  .label{ font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:14px; color:#3c4148; display:flex; align-items:center; gap:8px; }
+  .label .dot{ width:9px; height:9px; border-radius:50%; background:var(--pg-line-strong); }
+  .device.active .label .dot{ background:#80A561; box-shadow:0 0 0 4px rgba(128,165,97,0.22); }
+  .phone-wrap{ width:calc(375px * var(--phone-scale)); height:calc(780px * var(--phone-scale)); }
+  .phone{ width:375px; height:780px; border-radius:54px; background:#111; padding:12px; position:relative; transform:scale(var(--phone-scale)); transform-origin:top left; box-shadow:0 30px 60px rgba(36,39,43,0.22), inset 0 0 0 2px #2a2a2a; }
+  .glass{ width:100%; height:100%; border-radius:43px; overflow:hidden; position:relative; background:var(--bg); }
+  .island{ position:absolute; top:11px; left:50%; transform:translateX(-50%); width:112px; height:32px; background:#000; border-radius:20px; z-index:60; }
+  .sbar{ position:absolute; top:0; left:0; right:0; height:52px; display:flex; align-items:center; justify-content:space-between; padding:6px 30px 0 34px; z-index:55; font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-weight:700; font-size:15.5px; color:#fff; pointer-events:none; transition:color .3s; }
+  .sbar.dark{ color:#111; }
+  .sbar .ic{ display:flex; gap:6px; align-items:center; }
+  .sbar svg{ display:block; }
+  .screen{ position:absolute; inset:0; overflow:hidden; }
+  .scroller{ position:absolute; inset:0; overflow-y:auto; scrollbar-width:none; }
+  .scroller::-webkit-scrollbar{ display:none; }
+  .home-ind{ position:absolute; bottom:8px; left:50%; transform:translateX(-50%); width:130px; height:5px; border-radius:3px; background:rgba(0,0,0,0.75); z-index:58; }
+
+  /* finger */
+  .finger{ position:absolute; left:0; top:0; width:44px; height:44px; margin:-22px 0 0 -22px; border-radius:50%; background:rgba(255,255,255,0.35); border:2px solid rgba(255,255,255,0.95); box-shadow:0 4px 14px rgba(0,0,0,0.35), 0 0 0 1px rgba(0,0,0,0.12); z-index:80; opacity:0; pointer-events:none; transition:left .55s cubic-bezier(.3,.7,.3,1), top .55s cubic-bezier(.3,.7,.3,1), opacity .25s; }
+  .finger.on{ opacity:1; }
+  .finger.press{ animation:press .32s ease; }
+  @keyframes press{ 0%{ transform:scale(1);} 45%{ transform:scale(0.72); background:rgba(196,96,109,0.45);} 100%{ transform:scale(1);} }
+  .tapped{ animation:tapflash .35s ease; }
+  @keyframes tapflash{ 50%{ filter:brightness(0.9); transform:scale(0.98);} }
+
+  /* ---------- controls ---------- */
+  .controls{ margin-top:22px; display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center; }
+  .btn{ font-family:'Nunito',sans-serif; font-weight:700; font-size:15px; border-radius:999px; padding:10px 18px; cursor:pointer; border:1px solid var(--pg-line-strong); background:#fff; color:var(--pg-text); }
+  .btn.pri{ background:var(--sage-grad); border-color:var(--sage); color:#fff; box-shadow:0 4px 12px rgba(79,104,57,0.25); }
+  .btn:focus-visible{ outline:3px solid rgba(128,165,97,0.45); outline-offset:2px; }
+  .dots{ display:flex; gap:6px; }
+  .dots i{ width:14px; height:6px; border-radius:3px; background:#dfe2e7; transition:background .3s; }
+  .dots i.done{ background:#bfd3ac; } .dots i.cur{ background:var(--sage); }
+  .note{ margin:22px auto 0; text-align:center; font-size:13.5px; color:#6b717a; max-width:720px; }
+
+  /* Narrow screens and the vertical video: one phone at a time */
+  @media (min-width:1100px){
+    body:not(.reel) .page{ max-width:1280px; display:grid; grid-template-columns:minmax(300px,380px) 1fr; grid-template-rows:auto 1fr; gap:24px 44px; align-items:start; padding-top:32px; }
+    body:not(.reel) .side{ position:sticky; top:32px; }
+    body:not(.reel) .stage{ margin-top:0; gap:40px; }
+    body:not(.reel) .caption{ min-height:150px; }
+    body:not(.reel) .controls{ justify-content:flex-start; }
+    body:not(.reel) .note{ text-align:left; margin-left:0; }
+  }
+  @media (max-width:860px){
+    .stage{ gap:0; }
+    .device.dim{ display:none; }
+  }
+  body.reel{ zoom:2; background:var(--cloud); --phone-scale:0.664; }
+  body.reel .page{ width:540px; height:960px; padding:110px 16px 0; overflow:hidden; display:flex; flex-direction:column; }
+  body.reel .lede, body.reel .controls, body.reel .note, body.reel .caption{ display:none; }
+  body.reel h1.title{ font-size:28px; margin:16px 0 0; }
+  body.reel .stage{ margin-top:30px; gap:8px; }
+  body.reel .label{ font-size:13px; }
+  body.reel .reelfoot{ display:flex; }
+  .cta{ margin-top:20px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center; }
+  .cta a.btn{ text-decoration:none; display:inline-block; }
+  .cta .vid{ flex-basis:100%; text-align:center; font-weight:700; color:var(--sage-deep); font-size:15px; }
+  .cta .back{ font-weight:700; color:var(--sage-deep); font-size:15px; margin-left:6px; }
+  @media (min-width:1100px){
+    body:not(.reel) .side{ grid-column:1; grid-row:1; position:static; }
+    body:not(.reel) .stage{ grid-column:2; grid-row:1 / span 2; }
+    body:not(.reel) .cta{ grid-column:1; grid-row:2; justify-content:flex-start; margin-top:0; align-self:start; }
+    body:not(.reel) .cta .vid{ text-align:left; }
+  }
+  body.reel .cta{ display:none; }
+  /* callouts beside the phones */
+  .callout{ position:absolute; z-index:120; background:#fff; border:2px solid #C4606D; border-radius:16px; padding:11px 13px 12px; box-shadow:0 12px 30px rgba(60,50,40,0.18); opacity:0; transition:opacity .3s ease, top .45s cubic-bezier(.3,.7,.3,1), left .45s cubic-bezier(.3,.7,.3,1); pointer-events:none; }
+  .callout.on{ opacity:1; }
+  .callout .cn{ display:inline-grid; place-items:center; width:24px; height:24px; border-radius:50%; background:var(--sage-grad); color:#fff; font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:13px; margin-right:6px; vertical-align:middle; }
+  .callout .cw{ font-size:10.5px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#C4606D; vertical-align:middle; }
+  .callout .ct{ font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:16px; line-height:1.22; color:var(--pg-text); margin-top:6px; }
+  .callout .cx{ font-size:13px; line-height:1.4; color:var(--pg-muted); margin-top:4px; }
+  .arrows{ position:absolute; left:0; top:0; width:100%; height:100%; overflow:visible; z-index:119; pointer-events:none; opacity:0; transition:opacity .3s; }
+  .arrows.on{ opacity:1; }
+  .tgt{ position:absolute; z-index:118; width:18px; height:18px; margin:-9px 0 0 -9px; border-radius:50%; background:rgba(196,96,109,0.25); box-shadow:0 0 0 2px #C4606D; opacity:0; pointer-events:none; transition:opacity .3s, left .45s, top .45s; }
+  .tgt.on{ opacity:1; animation:tp 1.4s ease-in-out infinite; }
+  @keyframes tp{ 50%{ box-shadow:0 0 0 6px rgba(196,96,109,0.35); } }
+  .reelfoot{ display:none; margin-top:44px; justify-content:center; gap:10px; align-items:center; font-weight:800; font-size:15px; color:var(--sage-deep); }
+  .reelfoot span{ background:#C4606D; color:#fff; border-radius:999px; padding:8px 16px; }
+  .end{ border-radius:28px; }
+  @media (min-width:861px){ body:not(.reel) .caption{ display:none; } }
+  @media (max-width:860px){ .callout, .arrows, .tgt{ display:none !important; } }
+
+  .scr{ position:absolute; left:0; right:0; top:44px; width:100%; display:block; transition:opacity .35s ease; }
+  .scr.hid{ opacity:0; }
+  .sfill{ position:absolute; left:0; right:0; top:0; height:60px; transition:background .3s; }
+  .ring{ position:absolute; z-index:50; border-radius:14px; box-shadow:0 0 0 3px #C4606D, 0 0 0 9px rgba(196,96,109,0.18); opacity:0; transition:opacity .3s; pointer-events:none; }
+  .ring.on{ opacity:1; }
+  .end{ position:absolute; inset:0; z-index:90; background:linear-gradient(160deg,#96BA74,#8AAF69 50%,#80A561); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px; opacity:0; pointer-events:none; transition:opacity .5s; border-radius:43px; }
+  .end.on{ opacity:1; }
+  .end img{ width:96px; height:96px; border-radius:22px; border:3px solid #FBF6EE; box-shadow:0 10px 30px rgba(40,60,25,0.3); }
+  .end h3{ font-family:'Fraunces',Georgia,serif; font-size:28px; font-weight:700; margin:18px 0 8px; line-height:1.2; color:#fff; text-shadow:0 2px 8px rgba(40,60,25,0.25); }
+  .end p{ margin:0; font-size:16.5px; line-height:1.45; font-weight:600; }
+  .end .url{ margin-top:22px; background:#FBF6EE; color:#4F6839; font-weight:800; border-radius:999px; padding:10px 18px; font-size:15px; }
+  .btn.rose{ background:#C4606D; border-color:#C4606D; color:#fff; box-shadow:0 4px 12px rgba(196,96,109,0.25); }
+  h1.title{ font-weight:700; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="side">
+  <div class="top">
+    <img src="./icon-256.png" alt="Puzzle Pig">
+    <span class="brand">Puzzle Pig</span>
+    <span class="badge">HOW IT WORKS</span>
+  </div>
+  <h1 class="title">Chores become savings they can see</h1>
+  <p class="lede">Your child taps “I Did It!”, you approve it, and the money lands in their jar while their goal picture is revealed. Watch it play from both phones.</p>
+
+  <div class="caption" aria-live="polite">
+    <div class="num" id="capNum">1</div>
+    <div class="txt" id="capTxt">
+      <div class="who" id="capWho">Sophie · kid’s phone</div>
+      <h2 id="capTitle">Sophie checks today’s chores</h2>
+      <p id="capText">Her Save, Spend and Give jars show what she has so far.</p>
+    </div>
+  </div>
+  <div class="controls">
+    <button class="btn pri" id="btnPlay" type="button">Pause</button>
+    <button class="btn" id="btnRestart" type="button">Restart</button>
+    <div class="dots" id="dots" aria-hidden="true"></div>
+  </div>
+  <p class="note">An illustration recorded from the Puzzle Pig demo with its sample family. Sophie, her chores and her goal are examples. Setup (adding your child, chores and goals) isn’t shown.</p>
+  </div>
+
+  <div class="stage" id="stage">
+    <svg class="arrows" id="arw"><defs><marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#C4606D"/></marker></defs><path id="arP" d="" fill="none" stroke="#C4606D" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/></svg>
+    <div class="tgt" id="tgt"></div>
+    <div class="callout" id="co"><span class="cn" id="coN">1</span><span class="cw" id="coW"></span><div class="ct" id="coT"></div><div class="cx" id="coX"></div></div>
+    <div class="device active" id="devKid">
+      <div class="label"><span class="dot"></span>Sophie’s phone · kid</div>
+      <div class="phone-wrap"><div class="phone" id="phKid">
+        <div class="glass">
+          <div class="sfill" id="fillKid"></div>
+          <img class="scr" id="kA" alt=""><img class="scr hid" id="kB" alt="">
+          <div class="island"></div>
+          <div class="sbar" id="sbKid"><span class="tm">4:05</span><span class="ic">
+            <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx="1" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="1" fill="currentColor"/></svg>
+            <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity="0.5"/><rect x="2" y="2" width="17" height="8" rx="2" fill="currentColor"/><rect x="24" y="4" width="1.6" height="4" rx="0.8" fill="currentColor" opacity="0.5"/></svg></span></div>
+          <div class="ring" id="ringKid"></div>
+          <div class="home-ind"></div>
+          <div class="finger" id="fgKid"></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="device dim" id="devPar">
+      <div class="label"><span class="dot"></span>Mom or Dad’s phone · parent</div>
+      <div class="phone-wrap"><div class="phone" id="phPar">
+        <div class="glass">
+          <div class="sfill" id="fillPar"></div>
+          <img class="scr" id="pA" alt=""><img class="scr hid" id="pB" alt="">
+          <div class="island"></div>
+          <div class="sbar dark" id="sbPar"><span class="tm">4:06</span><span class="ic">
+            <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx="1" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="1" fill="currentColor"/></svg>
+            <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity="0.5"/><rect x="2" y="2" width="17" height="8" rx="2" fill="currentColor"/><rect x="24" y="4" width="1.6" height="4" rx="0.8" fill="currentColor" opacity="0.5"/></svg></span></div>
+          <div class="ring" id="ringPar"></div>
+          <div class="home-ind"></div>
+          <div class="finger" id="fgPar"></div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <a class="btn rose" href="https://cleartrackapps.com/puzzle-pig-demo/">Try the free demo</a>
+    <a class="btn" href="https://cleartrackapps.com/go/puzzle-pig/">Buy Puzzle Pig — $19.99</a>
+    <a class="back" href="../../#puzzle-pig">More about Puzzle Pig</a>
+    <a class="vid" href="puzzle-pig-how-it-works.mp4">Watch it as a video (MP4, 1 min)</a>
+  </div>
+  <div class="reelfoot"><span>Try the free demo</span>cleartrackapps.com</div>
+</div>
+
+<script>
+(function(){
+  var reel = /[?&]reel=1/.test(location.search);
+  if(reel) document.body.classList.add('reel');
+  function fit(){
+    if(reel) return;
+    var st = document.querySelector('.stage'); if(!st) return;
+    var top = st.getBoundingClientRect().top + window.scrollY;
+    var avail = window.innerHeight - top - 40 - 26;
+    var narrow = window.innerWidth < 860;
+    var sc = narrow ? Math.min(1, (window.innerWidth - 40) / 375) : Math.max(0.62, Math.min(1, avail / 780));
+    document.documentElement.style.setProperty('--phone-scale', sc.toFixed(3));
+  }
+  fit(); window.addEventListener('resize', fit);
+  var COLS = {"k01_home": "#84a964", "k03_waiting": "#84a964", "k04_dep_00": "#495c37", "k04_dep_01": "#495c37", "k04_dep_02": "#495c37", "k04_dep_03": "#495c37", "k04_dep_04": "#495c37", "k04_dep_05": "#495c37", "k04_dep_06": "#495c37", "k04_dep_07": "#495c37", "k04_dep_08": "#495c37", "k04_dep_09": "#495c37", "k04_dep_10": "#495c37", "k04_dep_11": "#495c37", "k04_dep_12": "#495c37", "k04_dep_13": "#495c37", "k04_dep_14": "#495c37", "k04_dep_15": "#495c37", "k04_dep_16": "#495c37", "k04_dep_17": "#495c37", "k04_dep_18": "#495c37", "k04_dep_19": "#495c37", "k04_dep_20": "#495c37", "k04_dep_21": "#81a763", "k04_dep_22": "#84a964", "k04_dep_23": "#84a964", "k04_dep_24": "#84a964", "k04_dep_25": "#84a964", "k04_dep_26": "#84a964", "k04_dep_27": "#84a964", "k04_dep_28": "#84a964", "k04_dep_29": "#84a964", "k06_home_after": "#84a964", "k07_goalcard": "#f9f4ec", "k08_goal": "#faf5ed", "k09_form": "#faf5ed", "k10_amount": "#faf5ed", "k11_note": "#faf5ed", "k12_cel_00": "#faf5ed", "k12_cel_01": "#faf5ed", "k12_cel_02": "#faf5ed", "k12_cel_03": "#6b795a", "k12_cel_04": "#3f532e", "k12_cel_05": "#3f532e", "k12_cel_06": "#3f532e", "k12_cel_07": "#3f532e", "k12_cel_08": "#3f532e", "k12_cel_09": "#3f532e", "k12_cel_10": "#3f532e", "k12_cel_11": "#3f532e", "k12_cel_12": "#3f532e", "k12_cel_13": "#3f532e", "k12_cel_14": "#3f532e", "k12_cel_15": "#3f532e", "k12_cel_16": "#3f532e", "k12_cel_17": "#3f532e", "k12_cel_18": "#3f532e", "k12_cel_19": "#3f532e", "k12_cel_20": "#3f532e", "k12_cel_21": "#3f532e", "k12_cel_22": "#3f532e", "k12_cel_23": "#3f532e", "k12_cel_24": "#3f532e", "k12_cel_25": "#3f532e", "k13_cel_end": "#3f532e", "k14_full": "#faf5ed", "p01_pending": "#fbf6ee", "p02_list": "#fbf6ee", "p03_approved": "#fbf6ee", "p04_end": "#fbf6ee"};
+  var TOP = 44, K = 351/390;
+  var SLOW = parseFloat((location.search.match(/[?&]slow=([\d.]+)/) || [0, 1])[1]);
+  var paused = false, TOTAL = 15;
+  function $(id){ return document.getElementById(id); }
+  function sleep(ms){ return new Promise(function(res){ var left = ms * SLOW; (function tick(){ if(left <= 0) return res(); setTimeout(function(){ if(!paused) left -= 25; tick(); }, 25); })(); }); }
+  function src(n){ return 's/' + n + '.jpg'; }
+  // preload
+  var cache = {};
+  Object.keys(COLS).forEach(function(n){ var i = new Image(); i.src = src(n); cache[n] = i; });
+  function lum(h){ var r = parseInt(h.substr(1,2),16), g = parseInt(h.substr(3,2),16), b = parseInt(h.substr(5,2),16); return 0.299*r + 0.587*g + 0.114*b; }
+  var cur = { kid:'A', par:'A' };
+  function ids(who){ return who === 'kid' ? { p:'k', fill:'fillKid', sb:'sbKid', ring:'ringKid', fg:'fgKid', ph:'phKid' } : { p:'p', fill:'fillPar', sb:'sbPar', ring:'ringPar', fg:'fgPar', ph:'phPar' }; }
+  function setStatus(who, n){ var d = ids(who), c = COLS[n] || '#FBF6EE'; $(d.fill).style.background = c; $(d.sb).classList.toggle('dark', lum(c) > 150); }
+  // show: crossfade (fade=true) or instant flip
+  function show(who, n, fade){
+    var d = ids(who);
+    if(!fade){ var im = $(d.p + cur[who]); im.src = src(n); setStatus(who, n); return; }
+    var nxt = cur[who] === 'A' ? 'B' : 'A', a = $(d.p + cur[who]), b = $(d.p + nxt);
+    b.src = src(n); b.classList.remove('hid'); a.classList.add('hid');
+    a.style.zIndex = 1; b.style.zIndex = 2; cur[who] = nxt; setStatus(who, n);
+  }
+  async function burst(who, prefix, count, ms){
+    // put the current image on top, flip frames on the active layer
+    var d = ids(who), im = $(d.p + cur[who]);
+    for(var i = 0; i < count; i++){ var n = prefix + (i < 10 ? '0' : '') + i; im.src = src(n); setStatus(who, n); await sleep(ms); }
+  }
+  var dots = $('dots');
+  for(var i = 0; i < TOTAL; i++) dots.appendChild(document.createElement('i'));
+  async function caption(n, who, title, text){
+    var box = $('capTxt'); box.classList.add('fade'); $('co').classList.remove('on'); $('arw').classList.remove('on'); $('tgt').classList.remove('on'); await sleep(260);
+    $('capNum').textContent = n; $('capWho').textContent = who; $('capTitle').textContent = title; $('capText').textContent = text || '';
+    box.classList.remove('fade');
+    $('coN').textContent = n; $('coW').textContent = who.split(' · ')[0]; $('coT').textContent = title; $('coX').textContent = text || '';
+    Array.prototype.forEach.call(dots.children, function(d, k){ d.className = k < n - 1 ? 'done' : k === n - 1 ? 'cur' : ''; });
+  }
+  function focus(who){ var k = who === 'kid'; $('devKid').className = 'device ' + (k ? 'active' : 'dim'); $('devPar').className = 'device ' + (k ? 'dim' : 'active'); }
+  function pt(xy){ return [xy[0] * K, xy[1] * K + TOP]; }
+  async function tap(who, xy, after){
+    var d = ids(who), f = $(d.fg), p = pt(xy);
+    if(!f.classList.contains('on')){
+      f.style.transition = 'none'; f.style.left = (p[0] + 40) + 'px'; f.style.top = (p[1] + 90) + 'px';
+      void f.offsetWidth; f.style.transition = ''; f.classList.add('on'); await sleep(60);
+    }
+    f.style.left = p[0] + 'px'; f.style.top = p[1] + 'px';
+    await sleep(650);
+    f.classList.remove('press'); void f.offsetWidth; f.classList.add('press');
+    await sleep(after == null ? 380 : after);
+    $('co').classList.remove('on'); $('arw').classList.remove('on'); $('tgt').classList.remove('on');
+  }
+  function hideFinger(who){ $(ids(who).fg).classList.remove('on'); }
+  // ring highlight around a region given in 390-wide CSS px: [x, y, w, h]
+  function ring(who, r){ var el = $(ids(who).ring); if(!r){ el.classList.remove('on'); return; }
+    el.style.left = (r[0]*K) + 'px'; el.style.top = (r[1]*K + TOP) + 'px'; el.style.width = (r[2]*K) + 'px'; el.style.height = (r[3]*K) + 'px'; el.classList.add('on'); }
+
+  // ---------- callout + arrow ----------
+  var AIM = null;
+  function offIn(el, anc){ var x = 0, y = 0; while(el && el !== anc){ x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return [x, y]; }
+  function sc(){ return parseFloat(getComputedStyle($('phKid').parentNode).getPropertyValue('--phone-scale')) || 1; }
+  function geo(who){
+    var st = $('stage'), w = $(ids(who).ph).parentNode, o = offIn(w, st), k = sc();
+    return { x:o[0], y:o[1], w:w.offsetWidth, h:w.offsetHeight, k:k };
+  }
+  function place(){
+    if(!AIM) return;
+    var a = geo(AIM.who), other = geo(AIM.who === 'kid' ? 'par' : 'kid'), k = a.k;
+    var p = pt(AIM.xy), tx = a.x + (12 + p[0]) * k, ty = a.y + (12 + p[1]) * k;
+    var co = $('co'), cw = Math.min(other.w - 4, 300); co.style.width = cw + 'px';
+    var left = AIM.who === 'kid' ? other.x : other.x + other.w - cw;
+    var h = co.offsetHeight, top = Math.max(a.y + 40 * k, Math.min(ty - h / 2, a.y + a.h - h - 40 * k));
+    co.style.left = left + 'px'; co.style.top = top + 'px';
+    var t = $('tgt'); t.style.left = tx + 'px'; t.style.top = ty + 'px';
+    AIM.tx = tx; AIM.ty = ty;
+  }
+  function drawArrow(){
+    if(AIM && AIM.tx != null){
+      var co = $('co'), cx = co.offsetLeft, cy = co.offsetTop + Math.min(co.offsetHeight / 2, 40), sx;
+      sx = AIM.who === 'kid' ? cx : cx + co.offsetWidth;
+      var ex = AIM.tx + (AIM.who === 'kid' ? 14 : -14), ey = AIM.ty;
+      var mx = (sx + ex) / 2, my = Math.min(cy, ey) - 26;
+      $('arP').setAttribute('d', 'M' + sx + ' ' + cy + ' Q' + mx + ' ' + my + ' ' + ex + ' ' + ey);
+    }
+    requestAnimationFrame(drawArrow);
+  }
+  requestAnimationFrame(drawArrow);
+  function aim(who, xy){ AIM = { who:who, xy:xy }; place(); $('co').classList.add('on'); $('arw').classList.add('on'); $('tgt').classList.add('on'); }
+  window.addEventListener('resize', function(){ place(); });
+
+  show('kid', 'k01_home'); show('par', 'p01_pending');
+
+  // one instruction + arrow per moment
+  async function say(n, who, title, text, xy, hold){
+    await caption(n, who === 'kid' ? 'Sophie · kid’s phone' : 'Mom or Dad · parent’s phone', title, text);
+    aim(who, xy);
+    await sleep(hold == null ? 1500 : hold);
+  }
+  async function run(){
+    focus('kid');
+    await say(1, 'kid', 'Sophie checks her jars', 'Save, Spend and Give show what she has so far.', [195, 372], 3000);
+    await say(2, 'kid', 'She taps “I Did It!” on Homework', 'She finished it, so she lets her parent know.', [322, 689], 1700);
+    await tap('kid', [322, 689], 250);
+    show('kid', 'k03_waiting');
+    hideFinger('kid');
+    await say(3, 'kid', 'Homework now says Waiting', 'It stays that way until a parent approves it.', [322, 689], 2600);
+
+    focus('par');
+    await say(4, 'par', 'The parent sees “2 pending”', 'Chores Sophie marks done wait here for a yes or no.', [205, 147], 400);
+    ring('par', [10, 114, 370, 88]);
+    await sleep(2600);
+    ring('par', null);
+    await say(5, 'par', 'Tap Sophie’s card', 'Her pending chores open up.', [195, 152], 1300);
+    await tap('par', [195, 152], 250);
+    show('par', 'p02_list', true);
+    await sleep(600);
+    await say(6, 'par', 'Tap Approve on Homework', 'That pays Sophie $1. Reject sends it back.', [322, 233], 1600);
+    await tap('par', [322, 233], 250);
+    hideFinger('par');
+    show('par', 'p03_approved', true);
+    await sleep(1200);
+
+    focus('kid');
+    await say(7, 'kid', 'Sophie’s phone celebrates', '+$1 lands in her Save jar and more of her goal picture shows.', [195, 255], 200);
+    await burst('kid', 'k04_dep_', 30, 105);
+    show('kid', 'k06_home_after', true);
+    await sleep(400);
+    await say(8, 'kid', 'Her Save jar is now $19', 'The jars update right away.', [70, 372], 400);
+    ring('kid', [10, 300, 370, 146]);
+    await sleep(2600);
+    ring('kid', null);
+
+    show('kid', 'k07_goalcard', true);
+    await sleep(500);
+    await say(9, 'kid', 'She taps her New Skateboard goal', 'Every dollar saved uncovers more of the picture.', [207, 674], 1800);
+    await tap('kid', [207, 674], 250);
+    hideFinger('kid');
+    show('kid', 'k08_goal', true);
+    await sleep(400);
+    await say(10, 'kid', 'Her picture is 38% revealed', '$19 saved, $31 to go.', [345, 458], 2600);
+
+    await say(11, 'kid', 'She taps Log Savings', 'Money from anywhere counts, not just chores.', [195, 611], 1600);
+    await tap('kid', [195, 611], 250);
+    show('kid', 'k09_form', true);
+    await sleep(400);
+    await say(12, 'kid', 'She types $31', 'Birthday money from Grandma.', [195, 228], 1300);
+    await tap('kid', [195, 228], 200);
+    show('kid', 'k10_amount');
+    await sleep(700);
+    await say(13, 'kid', 'She adds a note', 'The app shows how much of the picture this will reveal.', [195, 441], 1300);
+    await tap('kid', [195, 441], 200);
+    show('kid', 'k11_note');
+    await sleep(2000);
+    await say(14, 'kid', 'She taps Add to My Savings', '', [195, 659], 1300);
+    await tap('kid', [195, 659], 200);
+    hideFinger('kid');
+
+    await say(15, 'kid', 'She did it!', 'Goal complete, and the whole picture is revealed.', [195, 430], 0);
+    await burst('kid', 'k12_cel_', 26, 105);
+    show('kid', 'k13_cel_end');
+    await sleep(1200);
+    $('co').classList.remove('on'); $('arw').classList.remove('on'); $('tgt').classList.remove('on');
+    await tap('kid', [195, 632], 250);
+    show('kid', 'k14_full', true);
+    hideFinger('kid');
+    await sleep(3000);
+
+    $('co').classList.remove('on'); $('arw').classList.remove('on'); $('tgt').classList.remove('on');
+    var end = document.createElement('div'); end.className = 'end';
+    end.innerHTML = '<img src="./icon-256.png" alt=""><h3>Chores become savings<br>they can see</h3><p>Puzzle Pig · $19.99 one-time<br>Try the free demo first.</p><div class="url">cleartrackapps.com</div>';
+    var st = $('stage'), g1 = geo('kid'), g2 = geo('par');
+    if(window.innerWidth <= 860 && !reel){ $('phKid').querySelector('.glass').appendChild(end); end.style.borderRadius = '43px'; }
+    else { end.style.left = g1.x + 'px'; end.style.top = g1.y + 'px'; end.style.width = (g2.x + g2.w - g1.x) + 'px'; end.style.height = g1.h + 'px'; end.style.right = 'auto'; end.style.bottom = 'auto'; st.appendChild(end); }
+    await sleep(60); end.classList.add('on');
+    window.__done = true; $('btnPlay').textContent = 'Play again'; done = true;
+  }
+  var done = false;
+  $('btnPlay').onclick = function(){ if(done){ location.reload(); return; } paused = !paused; this.textContent = paused ? 'Play' : 'Pause'; };
+  $('btnRestart').onclick = function(){ location.reload(); };
+  window.addEventListener('load', function(){ setTimeout(run, reel ? 600 : 900); });
+})();
+</script>
+<script src="../../meta-pixel.js" defer></script>
+<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5673e14274004df9a11f87d759a6b624"}'></script>
+</body>
+</html>
