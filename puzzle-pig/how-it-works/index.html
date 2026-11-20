@@ -55,9 +55,10 @@
   .caption .txt.fade{ opacity:0; }
 
   /* ---------- stage ---------- */
-  .stage{ margin-top:22px; display:flex; justify-content:center; gap:56px; align-items:flex-start; }
+  .stage{ position:relative; margin-top:22px; display:flex; justify-content:center; gap:56px; align-items:flex-start; }
   .device{ display:flex; flex-direction:column; align-items:center; gap:12px; transition:opacity .4s ease, filter .4s ease, transform .4s ease; }
-  .device.dim{ opacity:0.42; filter:saturate(0.6); transform:scale(0.97); }
+  .device.dim{ opacity:0.4; filter:saturate(0.55); }
+  .device{ position:relative; }
   .label{ font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:14px; color:#3c4148; display:flex; align-items:center; gap:8px; }
   .label .dot{ width:9px; height:9px; border-radius:50%; background:var(--pg-line-strong); }
   .device.active .label .dot{ background:#80A561; box-shadow:0 0 0 4px rgba(128,165,97,0.22); }
@@ -88,7 +89,7 @@
   .btn.pri{ background:var(--sage-grad); border-color:var(--sage); color:#fff; box-shadow:0 4px 12px rgba(79,104,57,0.25); }
   .btn:focus-visible{ outline:3px solid rgba(128,165,97,0.45); outline-offset:2px; }
   .dots{ display:flex; gap:6px; }
-  .dots i{ width:26px; height:6px; border-radius:3px; background:#dfe2e7; transition:background .3s; }
+  .dots i{ width:14px; height:6px; border-radius:3px; background:#dfe2e7; transition:background .3s; }
   .dots i.done{ background:#bfd3ac; } .dots i.cur{ background:var(--sage); }
   .note{ margin:22px auto 0; text-align:center; font-size:13.5px; color:#6b717a; max-width:720px; }
 
@@ -105,15 +106,13 @@
     .stage{ gap:0; }
     .device.dim{ display:none; }
   }
-  body.reel{ zoom:2; background:var(--cloud); }
-  body.reel .page{ width:540px; height:960px; padding:26px 22px 0; overflow:hidden; }
-  body.reel .lede, body.reel .controls, body.reel .note{ display:none; }
-  body.reel h1.title{ font-size:24px; margin:12px 0 0; }
-  body.reel .caption{ margin-top:14px; height:142px; }
-  body.reel .stage{ margin-top:14px; gap:0; }
-  body.reel .device.dim{ display:none; }
-  body.reel .device{ transform:none !important; }
-  body.reel{ --phone-scale:0.8; }
+  body.reel{ zoom:2; background:var(--cloud); --phone-scale:0.664; }
+  body.reel .page{ width:540px; height:960px; padding:110px 16px 0; overflow:hidden; display:flex; flex-direction:column; }
+  body.reel .lede, body.reel .controls, body.reel .note, body.reel .caption{ display:none; }
+  body.reel h1.title{ font-size:28px; margin:16px 0 0; }
+  body.reel .stage{ margin-top:30px; gap:8px; }
+  body.reel .label{ font-size:13px; }
+  body.reel .reelfoot{ display:flex; }
   .cta{ margin-top:20px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center; }
   .cta a.btn{ text-decoration:none; display:inline-block; }
   .cta .vid{ flex-basis:100%; text-align:center; font-weight:700; color:var(--sage-deep); font-size:15px; }
@@ -125,6 +124,23 @@
     body:not(.reel) .cta .vid{ text-align:left; }
   }
   body.reel .cta{ display:none; }
+  /* callouts beside the phones */
+  .callout{ position:absolute; z-index:120; background:#fff; border:2px solid #C4606D; border-radius:16px; padding:11px 13px 12px; box-shadow:0 12px 30px rgba(60,50,40,0.18); opacity:0; transition:opacity .3s ease, top .45s cubic-bezier(.3,.7,.3,1), left .45s cubic-bezier(.3,.7,.3,1); pointer-events:none; }
+  .callout.on{ opacity:1; }
+  .callout .cn{ display:inline-grid; place-items:center; width:24px; height:24px; border-radius:50%; background:var(--sage-grad); color:#fff; font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:13px; margin-right:6px; vertical-align:middle; }
+  .callout .cw{ font-size:10.5px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#C4606D; vertical-align:middle; }
+  .callout .ct{ font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:16px; line-height:1.22; color:var(--pg-text); margin-top:6px; }
+  .callout .cx{ font-size:13px; line-height:1.4; color:var(--pg-muted); margin-top:4px; }
+  .arrows{ position:absolute; left:0; top:0; width:100%; height:100%; overflow:visible; z-index:119; pointer-events:none; opacity:0; transition:opacity .3s; }
+  .arrows.on{ opacity:1; }
+  .tgt{ position:absolute; z-index:118; width:18px; height:18px; margin:-9px 0 0 -9px; border-radius:50%; background:rgba(196,96,109,0.25); box-shadow:0 0 0 2px #C4606D; opacity:0; pointer-events:none; transition:opacity .3s, left .45s, top .45s; }
+  .tgt.on{ opacity:1; animation:tp 1.4s ease-in-out infinite; }
+  @keyframes tp{ 50%{ box-shadow:0 0 0 6px rgba(196,96,109,0.35); } }
+  .reelfoot{ display:none; margin-top:44px; justify-content:center; gap:10px; align-items:center; font-weight:800; font-size:15px; color:var(--sage-deep); }
+  .reelfoot span{ background:#C4606D; color:#fff; border-radius:999px; padding:8px 16px; }
+  .end{ border-radius:28px; }
+  @media (min-width:861px){ body:not(.reel) .caption{ display:none; } }
+  @media (max-width:860px){ .callout, .arrows, .tgt{ display:none !important; } }
 
   .scr{ position:absolute; left:0; right:0; top:44px; width:100%; display:block; transition:opacity .35s ease; }
   .scr.hid{ opacity:0; }
@@ -168,7 +184,10 @@
   <p class="note">An illustration recorded from the Puzzle Pig demo with its sample family. Sophie, her chores and her goal are examples. Setup (adding your child, chores and goals) isn’t shown.</p>
   </div>
 
-  <div class="stage">
+  <div class="stage" id="stage">
+    <svg class="arrows" id="arw"><defs><marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#C4606D"/></marker></defs><path id="arP" d="" fill="none" stroke="#C4606D" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/></svg>
+    <div class="tgt" id="tgt"></div>
+    <div class="callout" id="co"><span class="cn" id="coN">1</span><span class="cw" id="coW"></span><div class="ct" id="coT"></div><div class="cx" id="coX"></div></div>
     <div class="device active" id="devKid">
       <div class="label"><span class="dot"></span>Sophie’s phone · kid</div>
       <div class="phone-wrap"><div class="phone" id="phKid">
@@ -210,6 +229,7 @@
     <a class="back" href="../../#puzzle-pig">More about Puzzle Pig</a>
     <a class="vid" href="puzzle-pig-how-it-works.mp4">Watch it as a video (MP4, 1 min)</a>
   </div>
+  <div class="reelfoot"><span>Try the free demo</span>cleartrackapps.com</div>
 </div>
 
 <script>
@@ -229,7 +249,7 @@
   var COLS = {"k01_home": "#84a964", "k03_waiting": "#84a964", "k04_dep_00": "#495c37", "k04_dep_01": "#495c37", "k04_dep_02": "#495c37", "k04_dep_03": "#495c37", "k04_dep_04": "#495c37", "k04_dep_05": "#495c37", "k04_dep_06": "#495c37", "k04_dep_07": "#495c37", "k04_dep_08": "#495c37", "k04_dep_09": "#495c37", "k04_dep_10": "#495c37", "k04_dep_11": "#495c37", "k04_dep_12": "#495c37", "k04_dep_13": "#495c37", "k04_dep_14": "#495c37", "k04_dep_15": "#495c37", "k04_dep_16": "#495c37", "k04_dep_17": "#495c37", "k04_dep_18": "#495c37", "k04_dep_19": "#495c37", "k04_dep_20": "#495c37", "k04_dep_21": "#81a763", "k04_dep_22": "#84a964", "k04_dep_23": "#84a964", "k04_dep_24": "#84a964", "k04_dep_25": "#84a964", "k04_dep_26": "#84a964", "k04_dep_27": "#84a964", "k04_dep_28": "#84a964", "k04_dep_29": "#84a964", "k06_home_after": "#84a964", "k07_goalcard": "#f9f4ec", "k08_goal": "#faf5ed", "k09_form": "#faf5ed", "k10_amount": "#faf5ed", "k11_note": "#faf5ed", "k12_cel_00": "#faf5ed", "k12_cel_01": "#faf5ed", "k12_cel_02": "#faf5ed", "k12_cel_03": "#6b795a", "k12_cel_04": "#3f532e", "k12_cel_05": "#3f532e", "k12_cel_06": "#3f532e", "k12_cel_07": "#3f532e", "k12_cel_08": "#3f532e", "k12_cel_09": "#3f532e", "k12_cel_10": "#3f532e", "k12_cel_11": "#3f532e", "k12_cel_12": "#3f532e", "k12_cel_13": "#3f532e", "k12_cel_14": "#3f532e", "k12_cel_15": "#3f532e", "k12_cel_16": "#3f532e", "k12_cel_17": "#3f532e", "k12_cel_18": "#3f532e", "k12_cel_19": "#3f532e", "k12_cel_20": "#3f532e", "k12_cel_21": "#3f532e", "k12_cel_22": "#3f532e", "k12_cel_23": "#3f532e", "k12_cel_24": "#3f532e", "k12_cel_25": "#3f532e", "k13_cel_end": "#3f532e", "k14_full": "#faf5ed", "p01_pending": "#fbf6ee", "p02_list": "#fbf6ee", "p03_approved": "#fbf6ee", "p04_end": "#fbf6ee"};
   var TOP = 44, K = 351/390;
   var SLOW = parseFloat((location.search.match(/[?&]slow=([\d.]+)/) || [0, 1])[1]);
-  var paused = false, TOTAL = 9;
+  var paused = false, TOTAL = 15;
   function $(id){ return document.getElementById(id); }
   function sleep(ms){ return new Promise(function(res){ var left = ms * SLOW; (function tick(){ if(left <= 0) return res(); setTimeout(function(){ if(!paused) left -= 25; tick(); }, 25); })(); }); }
   function src(n){ return 's/' + n + '.jpg'; }
@@ -256,9 +276,10 @@
   var dots = $('dots');
   for(var i = 0; i < TOTAL; i++) dots.appendChild(document.createElement('i'));
   async function caption(n, who, title, text){
-    var box = $('capTxt'); box.classList.add('fade'); await sleep(220);
+    var box = $('capTxt'); box.classList.add('fade'); $('co').classList.remove('on'); $('arw').classList.remove('on'); $('tgt').classList.remove('on'); await sleep(260);
     $('capNum').textContent = n; $('capWho').textContent = who; $('capTitle').textContent = title; $('capText').textContent = text || '';
     box.classList.remove('fade');
+    $('coN').textContent = n; $('coW').textContent = who.split(' · ')[0]; $('coT').textContent = title; $('coX').textContent = text || '';
     Array.prototype.forEach.call(dots.children, function(d, k){ d.className = k < n - 1 ? 'done' : k === n - 1 ? 'cur' : ''; });
   }
   function focus(who){ var k = who === 'kid'; $('devKid').className = 'device ' + (k ? 'active' : 'dim'); $('devPar').className = 'device ' + (k ? 'dim' : 'active'); }
@@ -273,87 +294,129 @@
     await sleep(650);
     f.classList.remove('press'); void f.offsetWidth; f.classList.add('press');
     await sleep(after == null ? 380 : after);
+    $('co').classList.remove('on'); $('arw').classList.remove('on'); $('tgt').classList.remove('on');
   }
   function hideFinger(who){ $(ids(who).fg).classList.remove('on'); }
   // ring highlight around a region given in 390-wide CSS px: [x, y, w, h]
   function ring(who, r){ var el = $(ids(who).ring); if(!r){ el.classList.remove('on'); return; }
     el.style.left = (r[0]*K) + 'px'; el.style.top = (r[1]*K + TOP) + 'px'; el.style.width = (r[2]*K) + 'px'; el.style.height = (r[3]*K) + 'px'; el.classList.add('on'); }
 
+  // ---------- callout + arrow ----------
+  var AIM = null;
+  function offIn(el, anc){ var x = 0, y = 0; while(el && el !== anc){ x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return [x, y]; }
+  function sc(){ return parseFloat(getComputedStyle($('phKid').parentNode).getPropertyValue('--phone-scale')) || 1; }
+  function geo(who){
+    var st = $('stage'), w = $(ids(who).ph).parentNode, o = offIn(w, st), k = sc();
+    return { x:o[0], y:o[1], w:w.offsetWidth, h:w.offsetHeight, k:k };
+  }
+  function place(){
+    if(!AIM) return;
+    var a = geo(AIM.who), other = geo(AIM.who === 'kid' ? 'par' : 'kid'), k = a.k;
+    var p = pt(AIM.xy), tx = a.x + (12 + p[0]) * k, ty = a.y + (12 + p[1]) * k;
+    var co = $('co'), cw = Math.min(other.w - 4, 300); co.style.width = cw + 'px';
+    var left = AIM.who === 'kid' ? other.x : other.x + other.w - cw;
+    var h = co.offsetHeight, top = Math.max(a.y + 40 * k, Math.min(ty - h / 2, a.y + a.h - h - 40 * k));
+    co.style.left = left + 'px'; co.style.top = top + 'px';
+    var t = $('tgt'); t.style.left = tx + 'px'; t.style.top = ty + 'px';
+    AIM.tx = tx; AIM.ty = ty;
+  }
+  function drawArrow(){
+    if(AIM && AIM.tx != null){
+      var co = $('co'), cx = co.offsetLeft, cy = co.offsetTop + Math.min(co.offsetHeight / 2, 40), sx;
+      sx = AIM.who === 'kid' ? cx : cx + co.offsetWidth;
+      var ex = AIM.tx + (AIM.who === 'kid' ? 14 : -14), ey = AIM.ty;
+      var mx = (sx + ex) / 2, my = Math.min(cy, ey) - 26;
+      $('arP').setAttribute('d', 'M' + sx + ' ' + cy + ' Q' + mx + ' ' + my + ' ' + ex + ' ' + ey);
+    }
+    requestAnimationFrame(drawArrow);
+  }
+  requestAnimationFrame(drawArrow);
+  function aim(who, xy){ AIM = { who:who, xy:xy }; place(); $('co').classList.add('on'); $('arw').classList.add('on'); $('tgt').classList.add('on'); }
+  window.addEventListener('resize', function(){ place(); });
+
   show('kid', 'k01_home'); show('par', 'p01_pending');
 
+  // one instruction + arrow per moment
+  async function say(n, who, title, text, xy, hold){
+    await caption(n, who === 'kid' ? 'Sophie · kid’s phone' : 'Mom or Dad · parent’s phone', title, text);
+    aim(who, xy);
+    await sleep(hold == null ? 1500 : hold);
+  }
   async function run(){
     focus('kid');
-    await caption(1, 'Sophie · kid’s phone', 'Sophie checks today’s chores', 'Her Save, Spend and Give jars show what she has so far, and each chore shows what it pays.');
-    await sleep(3200);
-
-    await caption(2, 'Sophie · kid’s phone', 'She finishes her homework and taps “I Did It!”', 'The chore switches to Waiting until a parent approves it.');
-    await sleep(1000);
+    await say(1, 'kid', 'Sophie checks her jars', 'Save, Spend and Give show what she has so far.', [195, 372], 3000);
+    await say(2, 'kid', 'She taps “I Did It!” on Homework', 'She finished it, so she lets her parent know.', [322, 689], 1700);
     await tap('kid', [322, 689], 250);
     show('kid', 'k03_waiting');
-    await sleep(2600);
     hideFinger('kid');
+    await say(3, 'kid', 'Homework now says Waiting', 'It stays that way until a parent approves it.', [322, 689], 2600);
 
     focus('par');
-    await caption(3, 'Mom or Dad · parent’s phone', 'The parent sees “2 pending” on Sophie’s card', 'Every chore Sophie marks done waits here for a quick yes or no.');
-    await sleep(900);
+    await say(4, 'par', 'The parent sees “2 pending”', 'Chores Sophie marks done wait here for a yes or no.', [205, 147], 400);
     ring('par', [10, 114, 370, 88]);
     await sleep(2600);
     ring('par', null);
-
-    await caption(4, 'Mom or Dad · parent’s phone', 'Open Sophie’s card and tap Approve', 'Approving Homework pays her $1. Reject sends a chore back to try again.');
-    await sleep(800);
+    await say(5, 'par', 'Tap Sophie’s card', 'Her pending chores open up.', [195, 152], 1300);
     await tap('par', [195, 152], 250);
     show('par', 'p02_list', true);
-    await sleep(1600);
+    await sleep(600);
+    await say(6, 'par', 'Tap Approve on Homework', 'That pays Sophie $1. Reject sends it back.', [322, 233], 1600);
     await tap('par', [322, 233], 250);
     hideFinger('par');
     show('par', 'p03_approved', true);
-    await sleep(1400);
+    await sleep(1200);
 
     focus('kid');
-    await caption(5, 'Sophie · kid’s phone', 'Sophie’s phone celebrates', '+$1 lands in her Save jar, and more of her goal picture is revealed.');
-    await sleep(400);
+    await say(7, 'kid', 'Sophie’s phone celebrates', '+$1 lands in her Save jar and more of her goal picture shows.', [195, 255], 200);
     await burst('kid', 'k04_dep_', 30, 105);
     show('kid', 'k06_home_after', true);
-    await sleep(500);
-
-    await caption(6, 'Sophie · kid’s phone', 'Her Save jar is now $19 and Homework is Done', 'The jars update right away, so she can see her money grow.');
+    await sleep(400);
+    await say(8, 'kid', 'Her Save jar is now $19', 'The jars update right away.', [70, 372], 400);
     ring('kid', [10, 300, 370, 146]);
-    await sleep(3000);
+    await sleep(2600);
     ring('kid', null);
 
-    await caption(7, 'Sophie · kid’s phone', 'She opens her New Skateboard goal', 'Every dollar she saves uncovers more of the picture. She’s at 38%.');
     show('kid', 'k07_goalcard', true);
-    await sleep(1300);
+    await sleep(500);
+    await say(9, 'kid', 'She taps her New Skateboard goal', 'Every dollar saved uncovers more of the picture.', [207, 674], 1800);
     await tap('kid', [207, 674], 250);
+    hideFinger('kid');
     show('kid', 'k08_goal', true);
-    await sleep(2800);
+    await sleep(400);
+    await say(10, 'kid', 'Her picture is 38% revealed', '$19 saved, $31 to go.', [345, 458], 2600);
 
-    await caption(8, 'Sophie · kid’s phone', 'She logs $31 of birthday money from Grandma', 'Savings from anywhere count, and the app shows how much of the picture it will reveal.');
+    await say(11, 'kid', 'She taps Log Savings', 'Money from anywhere counts, not just chores.', [195, 611], 1600);
     await tap('kid', [195, 611], 250);
     show('kid', 'k09_form', true);
-    await sleep(1100);
+    await sleep(400);
+    await say(12, 'kid', 'She types $31', 'Birthday money from Grandma.', [195, 228], 1300);
     await tap('kid', [195, 228], 200);
     show('kid', 'k10_amount');
-    await sleep(900);
+    await sleep(700);
+    await say(13, 'kid', 'She adds a note', 'The app shows how much of the picture this will reveal.', [195, 441], 1300);
     await tap('kid', [195, 441], 200);
     show('kid', 'k11_note');
-    await sleep(2600);
+    await sleep(2000);
+    await say(14, 'kid', 'She taps Add to My Savings', '', [195, 659], 1300);
     await tap('kid', [195, 659], 200);
     hideFinger('kid');
 
-    await caption(9, 'Sophie · kid’s phone', 'She did it!', 'The goal is complete and the whole skateboard picture is revealed.');
+    await say(15, 'kid', 'She did it!', 'Goal complete, and the whole picture is revealed.', [195, 430], 0);
     await burst('kid', 'k12_cel_', 26, 105);
     show('kid', 'k13_cel_end');
-    await sleep(1600);
+    await sleep(1200);
+    $('co').classList.remove('on'); $('arw').classList.remove('on'); $('tgt').classList.remove('on');
     await tap('kid', [195, 632], 250);
     show('kid', 'k14_full', true);
     hideFinger('kid');
-    await sleep(3600);
+    await sleep(3000);
 
+    $('co').classList.remove('on'); $('arw').classList.remove('on'); $('tgt').classList.remove('on');
     var end = document.createElement('div'); end.className = 'end';
-    end.innerHTML = '<img src="./icon-256.png" alt=""><h3>Chores become savings they can see</h3><p>Puzzle Pig · $19.99 one-time<br>Try the free demo first.</p><div class="url">cleartrackapps.com</div>';
-    $('phKid').querySelector('.glass').appendChild(end);
+    end.innerHTML = '<img src="./icon-256.png" alt=""><h3>Chores become savings<br>they can see</h3><p>Puzzle Pig · $19.99 one-time<br>Try the free demo first.</p><div class="url">cleartrackapps.com</div>';
+    var st = $('stage'), g1 = geo('kid'), g2 = geo('par');
+    if(window.innerWidth <= 860 && !reel){ $('phKid').querySelector('.glass').appendChild(end); end.style.borderRadius = '43px'; }
+    else { end.style.left = g1.x + 'px'; end.style.top = g1.y + 'px'; end.style.width = (g2.x + g2.w - g1.x) + 'px'; end.style.height = g1.h + 'px'; end.style.right = 'auto'; end.style.bottom = 'auto'; st.appendChild(end); }
     await sleep(60); end.classList.add('on');
     window.__done = true; $('btnPlay').textContent = 'Play again'; done = true;
   }
