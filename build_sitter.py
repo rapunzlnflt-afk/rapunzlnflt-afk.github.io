@@ -19,11 +19,7 @@ APP = "https://cleartrackapps.com/go/pawfolio-app/?src=sitter-page"
 DEMO = "https://cleartrackapps.com/go/pawfolio-demo/?src=sitter-page"
 TEXT_LINK = "https://cleartrackapps.com/go/pawfolio-app/?src=sitter-text"
 
-CF_BEACON = (
-    '<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->\n'
-    '<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
-    'data-cf-beacon=\'{"token": "5673e14274004df9a11f87d759a6b624"}\'></script>'
-)
+from ct_beacon import CF_BEACON
 
 TITLE = "Free Printable Pet Sitter Instructions Sheet | Pawfolio"
 DESC = ("A free pet sitter instructions sheet you can fill in and print: your contact info, "

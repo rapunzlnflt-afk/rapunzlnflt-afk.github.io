@@ -26,11 +26,7 @@ APP = "https://cleartrackapps.com/pet-care-planner/"   # the free app itself
 PRICE_YEAR = "$29.99"
 PRICE_MONTH = "$4.99"
 
-CF_BEACON = (
-    '<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->\n'
-    '<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
-    'data-cf-beacon=\'{"token": "5673e14274004df9a11f87d759a6b624"}\'></script>'
-)
+from ct_beacon import CF_BEACON
 
 TITLE = "Pawfolio — your pet's whole life, on your phone"
 DESC = ("Vet visits, medications, vaccination dates, weight and receipts for every pet you have — "

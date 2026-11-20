@@ -400,7 +400,7 @@
 </footer>
 
 <script src="./app.js?v=20261014g" defer></script>
-<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5673e14274004df9a11f87d759a6b624"}'></script>
+<!-- Cloudflare Web Analytics (skipped on devices opted out at /dont-count-me/) -->
+<script>(function(){try{if(localStorage.getItem("ct_notrack")==="1")return}catch(e){}var s=document.createElement("script");s.defer=true;s.id="cf-beacon";s.src="https://static.cloudflareinsights.com/beacon.min.js";s.setAttribute("data-cf-beacon",'{"token": "5673e14274004df9a11f87d759a6b624"}');(document.body||document.head).appendChild(s)})();</script>
 </body>
 </html>
