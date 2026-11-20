@@ -31,11 +31,7 @@ APP = "https://cleartrackapps.com/go/pawfolio-app/?src=intake-page"
 DEMO = "https://cleartrackapps.com/go/pawfolio-demo/?src=intake-page"
 PDF = "pet-sitter-intake-form-blank.pdf"
 
-CF_BEACON = (
-    '<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->\n'
-    '<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
-    'data-cf-beacon=\'{"token": "5673e14274004df9a11f87d759a6b624"}\'></script>'
-)
+from ct_beacon import CF_BEACON
 
 TITLE = "Free Pet Sitter Client Intake Form, With Your Business Name | Pawfolio"
 DESC = ("A free new-client intake form for pet sitters. Get a link with your business name "

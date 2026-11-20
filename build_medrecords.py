@@ -25,11 +25,7 @@ PRICE_MONTH = "$4.99"
 CARE_YEAR = "$49.99"
 CARE_MONTH = "$7.99"
 
-CF_BEACON = (
-    '<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->\n'
-    '<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
-    'data-cf-beacon=\'{"token": "5673e14274004df9a11f87d759a6b624"}\'></script>'
-)
+from ct_beacon import CF_BEACON
 
 TITLE = "MedRecords \u2014 your family's medications and doctor visits, on your phone"
 DESC = ("Medications, dose reminders, doctors, appointments and insurance cards for up to six family members, "

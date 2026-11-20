@@ -7,11 +7,7 @@ ROOT = pathlib.Path(__file__).parent
 OUT = ROOT / "index.html"
 GO_DIR = ROOT / "go"
 
-CF_BEACON = (
-    '<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->\n'
-    '<script defer id="cf-beacon" src="https://static.cloudflareinsights.com/beacon.min.js" '
-    'data-cf-beacon=\'{"token": "5673e14274004df9a11f87d759a6b624"}\'></script>'
-)
+from ct_beacon import CF_BEACON
 
 # --- Outbound click tracking -------------------------------------------------
 # Every store link on the site points at /go/<slug>/ instead of straight at
@@ -482,8 +478,7 @@ HTML = f'''<!DOCTYPE html>
 <footer class="site-foot"></footer>
 
 <script src="./app.js?v=20261014g" defer></script>
-<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{{"token": "5673e14274004df9a11f87d759a6b624"}}'></script>
+{CF_BEACON}
 </body>
 </html>
 '''
@@ -554,6 +549,9 @@ GO_TEMPLATE = '''<!doctype html>
       beacon.addEventListener("load", function () {{ setTimeout(go, 350); }});
       // If the beacon is blocked or fails, don't make the buyer wait.
       beacon.addEventListener("error", go);
+    }} else {{
+      // Opted-out device (see /dont-count-me/): nothing to wait for.
+      go();
     }}
     // Safety net so nobody is ever stranded on this page.
     setTimeout(go, 2200);

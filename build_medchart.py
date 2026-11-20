@@ -17,11 +17,7 @@ APP = "https://cleartrackapps.com/go/pawfolio-app/?src=medchart-page"
 DEMO = "https://cleartrackapps.com/go/pawfolio-demo/?src=medchart-page"
 TIP_LINK = "https://cleartrackapps.com/go/pawfolio-app/?src=medchart-tip"
 
-CF_BEACON = (
-    '<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->\n'
-    '<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
-    'data-cf-beacon=\'{"token": "5673e14274004df9a11f87d759a6b624"}\'></script>'
-)
+from ct_beacon import CF_BEACON
 
 TITLE = "Free Printable Pet Medication Chart (Weekly Dose Log) | Pawfolio"
 DESC = ("Make a free weekly pet medication chart for dogs and cats. Pick medicines given every "

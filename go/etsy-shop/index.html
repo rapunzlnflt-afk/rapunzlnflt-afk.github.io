@@ -35,8 +35,8 @@
     <p role="status">Taking you to the CleartrackApps store…</p>
     <p class="fine">Not moving? <a href="https://cleartrackapps.com/?ref=etsy-legacy#apps">Continue to the CleartrackApps store</a></p>
   </div>
-<!-- Cloudflare Web Analytics: privacy-first, no cookies, no consent banner needed -->
-<script defer id="cf-beacon" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5673e14274004df9a11f87d759a6b624"}'></script>
+<!-- Cloudflare Web Analytics (skipped on devices opted out at /dont-count-me/) -->
+<script>(function(){try{if(localStorage.getItem("ct_notrack")==="1")return}catch(e){}var s=document.createElement("script");s.defer=true;s.id="cf-beacon";s.src="https://static.cloudflareinsights.com/beacon.min.js";s.setAttribute("data-cf-beacon",'{"token": "5673e14274004df9a11f87d759a6b624"}');(document.body||document.head).appendChild(s)})();</script>
 <script>
   (function () {
     var target = "https://cleartrackapps.com/?ref=etsy-legacy#apps";
@@ -48,6 +48,9 @@
       beacon.addEventListener("load", function () { setTimeout(go, 350); });
       // If the beacon is blocked or fails, don't make the buyer wait.
       beacon.addEventListener("error", go);
+    } else {
+      // Opted-out device (see /dont-count-me/): nothing to wait for.
+      go();
     }
     // Safety net so nobody is ever stranded on this page.
     setTimeout(go, 2200);
