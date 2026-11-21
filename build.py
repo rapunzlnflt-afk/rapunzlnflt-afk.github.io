@@ -71,6 +71,9 @@ GO_LINKS = {
     # Pet Sitter Sheet Generator footer link and printed QR (Nov 2026). Its own
     # slug so visits from the generator show up as a separate Cloudflare row.
     "pawfolio-sitter-generator": ("Pawfolio", "https://cleartrackapps.com/pawfolio/?src=sitter-generator"),
+    # Pinterest pin for the Pet Sitter Sheet Generator (Nov 2026). Pinterest rejects
+    # the pplx.app address directly, so the pin links here and gets its own row.
+    "sitter-sheet-pin": ("the Pet Sitter Sheet Generator", "https://pawfolio-sitter-sheet.pplx.app/"),
 }
 
 
