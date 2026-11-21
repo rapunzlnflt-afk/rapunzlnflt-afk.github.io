@@ -74,6 +74,9 @@ GO_LINKS = {
     # Pinterest pin for the Pet Sitter Sheet Generator (Nov 2026). Pinterest rejects
     # the pplx.app address directly, so the pin links here and gets its own row.
     "sitter-sheet-pin": ("the Pet Sitter Sheet Generator", "https://pawfolio-sitter-sheet.pplx.app/"),
+    # Link from the Pet Sitter Instructions page to the generator (Nov 2026), so
+    # visits from that page show up as their own Cloudflare row.
+    "sitter-sheet-instructions": ("the Pet Sitter Sheet Generator", "https://pawfolio-sitter-sheet.pplx.app/?src=sitter-instructions"),
 }
 
 
