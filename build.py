@@ -68,6 +68,9 @@ GO_LINKS = {
     "bootstraps-demo":          ("the Bootstraps demo", "https://cleartrackapps.com/bootstraps-demo/?ref=pinterest"),
     "puzzle-pig-demo":          ("the Puzzle Pig demo", "https://cleartrackapps.com/puzzle-pig-demo/?ref=pinterest"),
     "cosmetic-surgery-planner-demo": ("the Cosmetic Surgery Planner demo", "https://cleartrackapps.com/beauty-planner-demo/?ref=pinterest"),
+    # Pet Sitter Sheet Generator footer link and printed QR (Nov 2026). Its own
+    # slug so visits from the generator show up as a separate Cloudflare row.
+    "pawfolio-sitter-generator": ("Pawfolio", "https://cleartrackapps.com/pawfolio/?src=sitter-generator"),
 }
 
 
