@@ -90,8 +90,9 @@ FAQ = [
      "year. Your license key arrives by email. Open MedRecords, tap Get MedRecords Max in the menu, and "
      "paste the key. One key works on up to 3 devices."),
     ("I have MedRecords Max. How do I switch to Care?",
-     "Open My Orders at Lemon Squeezy, choose your MedRecords subscription, tap Update and pick a Care "
-     "option. Lemon Squeezy charges the difference, and you keep the same key."),
+     "Open the manage-subscription link in your MedRecords Max receipt email and pick a Care option. "
+     "You pay only the difference, and you keep the same key. Can't find the email? Email "
+     "cleartrackapps@gmail.com and we'll switch it for you."),
     ("What happens if I cancel?",
      "Your records stay. Medical Records, vitals and visit notes stay visible, printable and exportable. "
      "You just can't add new ones until you subscribe again, and caregiver sharing and the shared care "
@@ -341,7 +342,7 @@ PAGE = f'''<!DOCTYPE html>
 {care_list()}
           </ul>
           <a class="btn btn-primary btn-lg js-care-cta" href="{BUY_CARE}">Get MedRecords Care</a>
-          <p class="plan-fine">One key works on 3 devices. Have Max? Switch to Care from My Orders and keep your key.</p>
+          <p class="plan-fine">One key works on 3 devices. Have Max? Switch to Care from your receipt email and keep your key.</p>
         </div>
       </div>
     </div>
