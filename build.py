@@ -369,9 +369,7 @@ qr_tiles = "\n".join(
           <a class="qr-link" href="{a['demo']}">Open the demo</a>
         </li>''' for a in APPS)
 
-DESC = ("Simple, private life-admin apps for your phone from CleartrackApps \u2014 pet records, family medical "
-        "records, budgeting, kids' chores and savings, and procedure planning. Work offline, no app store, "
-        "no accounts. Pawfolio and MedRecords are free; the others are pay-once.")
+DESC = ("Private phone apps for pet records, family medications, budgets and kids' chores. Pawfolio and MedRecords are free to use, with optional paid upgrades.")
 
 HTML = f'''<!DOCTYPE html>
 <html lang="en">
@@ -379,7 +377,7 @@ HTML = f'''<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="OoYXKcYYsrCzi990k06u1eoWpMxFOF3ZSRk2TqRvpII">
-<title>CleartrackApps \u2014 Simple offline apps for real life admin</title>
+<title>CleartrackApps \u2013 Offline Apps for Pet &amp; Family Records</title>
 <meta name="description" content="{DESC}">
 <meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#15181e" media="(prefers-color-scheme: dark)">

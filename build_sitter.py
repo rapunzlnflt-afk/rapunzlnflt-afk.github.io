@@ -21,10 +21,8 @@ TEXT_LINK = "https://cleartrackapps.com/go/pawfolio-app/?src=sitter-text"
 
 from ct_beacon import CF_BEACON
 
-TITLE = "Free Printable Pet Sitter Instructions Sheet | Pawfolio"
-DESC = ("A free pet sitter instructions sheet you can fill in and print: your contact info, "
-        "emergency contacts, vet and emergency vet, plus each pet's photo, microchip number, "
-        "feeding, walks and medications. Blank PDF too. No signup.")
+TITLE = "Free Pet Sitter Instructions PDF – Fillable &amp; Printable"
+DESC = ("Fill in and print free pet sitter instructions: your contacts, vet, emergency vet, and each pet's photo, feeding, walks and meds. Or print it blank. No signup.")
 
 CHECKLIST = [
     ("How to reach you", "Your phone and email, and the dates you'll be away."),
