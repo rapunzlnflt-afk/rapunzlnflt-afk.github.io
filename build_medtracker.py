@@ -35,10 +35,8 @@ TIP_LINK = "https://cleartrackapps.com/go/medrecords-app/?src=medtracker-tip"
 
 from ct_beacon import CF_BEACON
 
-TITLE = "Free Printable Medication Tracker (Weekly Medication Log) | MedRecords"
-DESC = ("Make a free weekly medication tracker for yourself, a child or an aging parent. Pick medicines "
-        "taken every 24, 12, 8, 6 or 4 hours, add the times, and print. Or download the ready-made PDF or "
-        "spreadsheet. No signup.")
+TITLE = "Free Printable Medication Tracker – Weekly Dose Log PDF"
+DESC = ("Print a free weekly medication log for you, a child or an aging parent. Log due and taken times for meds every 4 to 24 hours. PDF, fillable PDF or spreadsheet.")
 
 DOWNLOADS = [
     ("medication-tracker.pdf", "Printable PDF", "Print it and keep it by the pill bottles. Write in pen."),
