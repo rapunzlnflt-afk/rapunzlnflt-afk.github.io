@@ -19,10 +19,8 @@ TIP_LINK = "https://cleartrackapps.com/go/pawfolio-app/?src=medchart-tip"
 
 from ct_beacon import CF_BEACON
 
-TITLE = "Free Printable Pet Medication Chart (Weekly Dose Log) | Pawfolio"
-DESC = ("Make a free weekly pet medication chart for dogs and cats. Pick medicines given every "
-        "24, 12, 8, 6 or 4 hours, add the times, and print. Or download the ready-made PDF or "
-        "spreadsheet. No signup.")
+TITLE = "Free Pet Medication Chart – Printable Dog & Cat Dose Log"
+DESC = ("Print a free weekly medication chart for your dog or cat. Log due and given times for meds every 4 to 24 hours. PDF, fillable PDF or spreadsheet. No signup.")
 
 DOWNLOADS = [
     ("pet-medication-chart.pdf", "Printable PDF", "Print it and keep it by the pill bottles. Write in pen."),
